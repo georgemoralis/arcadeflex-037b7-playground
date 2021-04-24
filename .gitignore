@@ -21,3 +21,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/release_files/hi/*
+/release_files/nvram/*
+/emulator/temp.txt
+/emulator/arcadeflex.cfg
