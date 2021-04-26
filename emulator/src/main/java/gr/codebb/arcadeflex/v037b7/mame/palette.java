@@ -26,6 +26,7 @@ import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.FILE;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fopen;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fprintf;
+import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_modify_pen;
 
 public class palette {
@@ -987,7 +988,7 @@ public class palette {
             if (rec_need > rec_avail) {
                 if (palettelog != null) {
                     fprintf(palettelog, "Need %d new pens; %d available. I'll reuse some pens.\n", rec_need, rec_avail);
-                    System.out.println(String.format("Need %d new pens; %d available. I'll reuse some pens.\n", rec_need, rec_avail));
+                    System.out.print(String.format("Need %d new pens; %d available. I'll reuse some pens.\n", rec_need, rec_avail));
                 }
                 rec_reuse_pens = 1;
                 build_rgb_to_pen();
@@ -1132,87 +1133,73 @@ public class palette {
                 }
             }
         }
-        throw new UnsupportedOperationException("Unsupported");
-        /*TODO*///
-        /*TODO*///	if (ran_out > 1)
-        /*TODO*///	{
-        /*TODO*///#ifdef MAME_DEBUG
-        /*TODO*///		char buf[80];
-        /*TODO*///
-        /*TODO*///		sprintf(buf,"Error: Palette overflow -%d",ran_out-1);
-        /*TODO*///		usrintf_showmessage(buf);
-        /*TODO*///#endif
-        /*TODO*///logerror("Error: no way to shrink the palette to 256 colors, left out %d colors.\n",ran_out-1);
-        /*TODO*///#if 0
-        /*TODO*///logerror("color list:\n");
-        /*TODO*///for (color = 0;color < Machine->drv->total_colors;color++)
-        /*TODO*///{
-        /*TODO*///	int r,g,b;
-        /*TODO*///	r = game_palette[3*color + 0];
-        /*TODO*///	g = game_palette[3*color + 1];
-        /*TODO*///	b = game_palette[3*color + 2];
-        /*TODO*///	if (palette_used_colors[color] & PALETTE_COLOR_VISIBLE)
-        /*TODO*///		logerror("%02x %02x %02x\n",r,g,b);
-        /*TODO*///}
-        /*TODO*///#endif
-        /*TODO*///	}
-        /*TODO*///
-        /*TODO*///	/* Reclaim unused pens; we do this AFTER allocating the new ones, to avoid */
-        /*TODO*///	/* using the same pen for two different colors in two consecutive frames, */
-        /*TODO*///	/* which might cause flicker. */
-        /*TODO*///	for (color = 0;color < Machine->drv->total_colors;color++)
-        /*TODO*///	{
-        /*TODO*///		if (!(palette_used_colors[color] & PALETTE_COLOR_VISIBLE))
-        /*TODO*///		{
-        /*TODO*///			if (old_used_colors[color] & PALETTE_COLOR_VISIBLE)
-        /*TODO*///				pen_usage_count[palette_map[color]]--;
-        /*TODO*///			old_used_colors[color] = palette_used_colors[color];
-        /*TODO*///		}
-        /*TODO*///	}
-        /*TODO*///
-        /*TODO*///#ifdef PEDANTIC
-        /*TODO*///	/* invalidate unused pens to make bugs in color allocation evident. */
-        /*TODO*///	for (i = 0;i < DYNAMIC_MAX_PENS;i++)
-        /*TODO*///	{
-        /*TODO*///		if (pen_usage_count[i] == 0)
-        /*TODO*///		{
-        /*TODO*///			int r,g,b;
-        /*TODO*///			r = rand() & 0xff;
-        /*TODO*///			g = rand() & 0xff;
-        /*TODO*///			b = rand() & 0xff;
-        /*TODO*///			shrinked_palette[3*i + 0] = r;
-        /*TODO*///			shrinked_palette[3*i + 1] = g;
-        /*TODO*///			shrinked_palette[3*i + 2] = b;
-        /*TODO*///			osd_modify_pen(shrinked_pens[i],r,g,b);
-        /*TODO*///		}
-        /*TODO*///	}
-        /*TODO*///#endif
-        /*TODO*///
-        /*TODO*///	if (did_remap)
-        /*TODO*///	{
-        /*TODO*///		/* rebuild the color lookup table */
-        /*TODO*///		for (i = 0;i < Machine->drv->color_table_len;i++)
-        /*TODO*///			Machine->remapped_colortable[i] = Machine->pens[Machine->game_colortable[i]];
-        /*TODO*///	}
-        /*TODO*///
-        /*TODO*///	if (need_refresh)
-        /*TODO*///	{
-        /*TODO*///#if VERBOSE
-        /*TODO*///		int used;
-        /*TODO*///
-        /*TODO*///		used = 0;
-        /*TODO*///		for (i = 0;i < DYNAMIC_MAX_PENS;i++)
-        /*TODO*///		{
-        /*TODO*///			if (pen_usage_count[i] > 0)
-        /*TODO*///				used++;
-        /*TODO*///		}
-        /*TODO*///		logerror("Did a palette remap, need a full screen redraw (%d pens used).\n",used);
-        /*TODO*///#endif
-        /*TODO*///
-        /*TODO*///		return just_remapped;
-        /*TODO*///	}
-        /*TODO*///else 
-        /*TODO*///return null;
+
+        if (rec_ran_out > 1) {
+            throw new UnsupportedOperationException("Unsupported");
+            /*TODO*///logerror("Error: no way to shrink the palette to 256 colors, left out %d colors.\n",ran_out-1);
+            /*TODO*///#if 0
+            /*TODO*///logerror("color list:\n");
+            /*TODO*///for (color = 0;color < Machine->drv->total_colors;color++)
+            /*TODO*///{
+            /*TODO*///	int r,g,b;
+            /*TODO*///	r = game_palette[3*color + 0];
+            /*TODO*///	g = game_palette[3*color + 1];
+            /*TODO*///	b = game_palette[3*color + 2];
+            /*TODO*///	if (palette_used_colors[color] & PALETTE_COLOR_VISIBLE)
+            /*TODO*///		logerror("%02x %02x %02x\n",r,g,b);
+            /*TODO*///}
+            /*TODO*///#endif
+        }
+
+        /* Reclaim unused pens; we do this AFTER allocating the new ones, to avoid */
+ /* using the same pen for two different colors in two consecutive frames, */
+ /* which might cause flicker. */
+        for (rec_color = 0; rec_color < Machine.drv.total_colors; rec_color++) {
+            if ((palette_used_colors.read(rec_color) & PALETTE_COLOR_VISIBLE) == 0) {
+                if ((old_used_colors.read(rec_color) & PALETTE_COLOR_VISIBLE) != 0) {
+                    pen_usage_count[palette_map[rec_color]]--;
+                }
+                old_used_colors.write(rec_color, palette_used_colors.read(rec_color));
+            }
+        }
+        /* invalidate unused pens to make bugs in color allocation evident. */
+        for (i = 0; i < DYNAMIC_MAX_PENS; i++) {
+            if (pen_usage_count[i] == 0) {
+                int r, g, b;
+                r = rand() & 0xff;
+                g = rand() & 0xff;
+                b = rand() & 0xff;
+                shrinked_palette[3 * i + 0] = (char) (r & 0xFF);
+                shrinked_palette[3 * i + 1] = (char) (g & 0xFF);
+                shrinked_palette[3 * i + 2] = (char) (b & 0xFF);
+                osd_modify_pen(shrinked_pens[i], r, g, b);
+            }
+        }
+        if (rec_did_remap != 0) {
+            /* rebuild the color lookup table */
+            for (i = 0; i < Machine.drv.color_table_len; i++) {
+                Machine.remapped_colortable.write(i, Machine.pens[Machine.game_colortable[i]]);
+            }
+        }
+
+        if (rec_need_refresh != 0) {
+            int used;
+
+            used = 0;
+            for (i = 0; i < DYNAMIC_MAX_PENS; i++) {
+                if (pen_usage_count[i] > 0) {
+                    used++;
+                }
+            }
+            if (palettelog != null) {
+                fprintf(palettelog, "Did a palette remap, need a full screen redraw (%d pens used).\n", used);
+                System.out.print(String.format("Did a palette remap, need a full screen redraw (%d pens used).\n", used));
+            }
+
+            return just_remapped;
+        } else {
+            return null;
+        }
     }
     /*TODO*///
 /*TODO*///
