@@ -4,11 +4,14 @@
 package gr.codebb.arcadeflex.v037b7.mame;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.PALETTE_COLOR_NEEDS_REMAP;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.RESERVED_PENS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.TRANSPARENT_PEN;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.build_rgb_to_pen;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.compress_palette;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.game_palette;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.just_remapped;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.new_palette;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.old_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_dirty;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_map;
@@ -878,97 +881,80 @@ public class palette {
         for (rec_color = 0; rec_color < Machine.drv.total_colors; rec_color++) {
             if (palette_dirty.read(rec_color) != 0) {
                 int r, g, b, pen;
-                throw new UnsupportedOperationException("Unsupported");
-                /*TODO*///			pen = palette_map[rec_color];
-                /*TODO*///			r = new_palette[3*rec_color + 0];
-                /*TODO*///			g = new_palette[3*rec_color + 1];
-                /*TODO*///			b = new_palette[3*rec_color + 2];
-                /*TODO*///
-                /*TODO*///			/* if the color maps to an exclusive pen, just change it */
-                /*TODO*///			if (pen_usage_count[pen] == 1)
-                /*TODO*///			{
-                /*TODO*///				palette_dirty[rec_color] = 0;
-                /*TODO*///				game_palette[3*rec_color + 0] = r;
-                /*TODO*///				game_palette[3*rec_color + 1] = g;
-                /*TODO*///				game_palette[3*rec_color + 2] = b;
-                /*TODO*///
-                /*TODO*///				shrinked_palette[3*pen + 0] = r;
-                /*TODO*///				shrinked_palette[3*pen + 1] = g;
-                /*TODO*///				shrinked_palette[3*pen + 2] = b;
-                /*TODO*///				osd_modify_pen(Machine->pens[rec_color],r,g,b);
-                /*TODO*///			}
-                /*TODO*///			else
-                /*TODO*///			{
-                /*TODO*///				if (pen < RESERVED_PENS)
-                /*TODO*///				{
-                /*TODO*///					/* the color uses a reserved pen, the only thing we can do is remap it */
-                /*TODO*///					for (i = color;i < Machine->drv->total_colors;i++)
-                /*TODO*///					{
-                /*TODO*///						if (palette_dirty[i] != 0 && palette_map[i] == pen)
-                /*TODO*///						{
-                /*TODO*///							palette_dirty[i] = 0;
-                /*TODO*///							game_palette[3*i + 0] = new_palette[3*i + 0];
-                /*TODO*///							game_palette[3*i + 1] = new_palette[3*i + 1];
-                /*TODO*///							game_palette[3*i + 2] = new_palette[3*i + 2];
-                /*TODO*///							old_used_colors[i] |= PALETTE_COLOR_NEEDS_REMAP;
-                /*TODO*///						}
-                /*TODO*///					}
-                /*TODO*///				}
-                /*TODO*///				else
-                /*TODO*///				{
-                /*TODO*///					/* the pen is shared with other colors, let's see if all of them */
-                /*TODO*///					/* have been changed to the same value */
-                /*TODO*///					for (i = 0;i < Machine->drv->total_colors;i++)
-                /*TODO*///					{
-                /*TODO*///						if ((old_used_colors[i] & PALETTE_COLOR_VISIBLE) &&
-                /*TODO*///								palette_map[i] == pen)
-                /*TODO*///						{
-                /*TODO*///							if (palette_dirty[i] == 0 ||
-                /*TODO*///									new_palette[3*i + 0] != r ||
-                /*TODO*///									new_palette[3*i + 1] != g ||
-                /*TODO*///									new_palette[3*i + 2] != b)
-                /*TODO*///								break;
-                /*TODO*///						}
-                /*TODO*///					}
-                /*TODO*///
-                /*TODO*///					if (i == Machine->drv->total_colors)
-                /*TODO*///					{
-                /*TODO*///						/* all colors sharing this pen still are the same, so we */
-                /*TODO*///						/* just change the palette. */
-                /*TODO*///						shrinked_palette[3*pen + 0] = r;
-                /*TODO*///						shrinked_palette[3*pen + 1] = g;
-                /*TODO*///						shrinked_palette[3*pen + 2] = b;
-                /*TODO*///						osd_modify_pen(Machine->pens[color],r,g,b);
-                /*TODO*///
-                /*TODO*///						for (i = color;i < Machine->drv->total_colors;i++)
-                /*TODO*///						{
-                /*TODO*///							if (palette_dirty[i] != 0 && palette_map[i] == pen)
-                /*TODO*///							{
-                /*TODO*///								palette_dirty[i] = 0;
-                /*TODO*///								game_palette[3*i + 0] = r;
-                /*TODO*///								game_palette[3*i + 1] = g;
-                /*TODO*///								game_palette[3*i + 2] = b;
-                /*TODO*///							}
-                /*TODO*///						}
-                /*TODO*///					}
-                /*TODO*///					else
-                /*TODO*///					{
-                /*TODO*///						/* the colors sharing this pen now are different, we'll */
-                /*TODO*///						/* have to remap them. */
-                /*TODO*///						for (i = color;i < Machine->drv->total_colors;i++)
-                /*TODO*///						{
-                /*TODO*///							if (palette_dirty[i] != 0 && palette_map[i] == pen)
-                /*TODO*///							{
-                /*TODO*///								palette_dirty[i] = 0;
-                /*TODO*///								game_palette[3*i + 0] = new_palette[3*i + 0];
-                /*TODO*///								game_palette[3*i + 1] = new_palette[3*i + 1];
-                /*TODO*///								game_palette[3*i + 2] = new_palette[3*i + 2];
-                /*TODO*///								old_used_colors[i] |= PALETTE_COLOR_NEEDS_REMAP;
-                /*TODO*///							}
-                /*TODO*///						}
-                /*TODO*///					}
-                /*TODO*///				}
-                /*TODO*///			}
+                pen = palette_map[rec_color];
+                r = new_palette.read(3 * rec_color + 0);
+                g = new_palette.read(3 * rec_color + 1);
+                b = new_palette.read(3 * rec_color + 2);
+
+                /* if the color maps to an exclusive pen, just change it */
+                if (pen_usage_count[pen] == 1) {
+                    palette_dirty.write(rec_color, 0);
+                    game_palette[3 * rec_color + 0] = (char) (r & 0xFF);
+                    game_palette[3 * rec_color + 1] = (char) (g & 0xFF);
+                    game_palette[3 * rec_color + 2] = (char) (b & 0xFF);
+
+                    shrinked_palette[3 * pen + 0] = (char) (r & 0xFF);
+                    shrinked_palette[3 * pen + 1] = (char) (g & 0xFF);
+                    shrinked_palette[3 * pen + 2] = (char) (b & 0xFF);
+                    osd_modify_pen(Machine.pens[rec_color], r, g, b);
+                } else {
+                    if (pen < RESERVED_PENS) {
+                        /* the color uses a reserved pen, the only thing we can do is remap it */
+                        for (i = rec_color; i < Machine.drv.total_colors; i++) {
+                            if (palette_dirty.read(i) != 0 && palette_map[i] == pen) {
+                                palette_dirty.write(i, 0);
+                                game_palette[3 * i + 0] = new_palette.read(3 * i + 0);
+                                game_palette[3 * i + 1] = new_palette.read(3 * i + 1);
+                                game_palette[3 * i + 2] = new_palette.read(3 * i + 2);
+                                old_used_colors.write(i, old_used_colors.read(i) | PALETTE_COLOR_NEEDS_REMAP);
+                            }
+                        }
+                    } else {
+                        /* the pen is shared with other colors, let's see if all of them */
+ /* have been changed to the same value */
+                        for (i = 0; i < Machine.drv.total_colors; i++) {
+                            if ((old_used_colors.read(i) & PALETTE_COLOR_VISIBLE) != 0
+                                    && palette_map[i] == pen) {
+                                if (palette_dirty.read(i) == 0
+                                        || new_palette.read(3 * i + 0) != r
+                                        || new_palette.read(3 * i + 1) != g
+                                        || new_palette.read(3 * i + 2) != b) {
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (i == Machine.drv.total_colors) {
+                            /* all colors sharing this pen still are the same, so we */
+ /* just change the palette. */
+                            shrinked_palette[3 * pen + 0] = (char) (r & 0xFF);
+                            shrinked_palette[3 * pen + 1] = (char) (g & 0xFF);
+                            shrinked_palette[3 * pen + 2] = (char) (b & 0xFF);
+                            osd_modify_pen(Machine.pens[rec_color], r, g, b);
+
+                            for (i = rec_color; i < Machine.drv.total_colors; i++) {
+                                if (palette_dirty.read(i) != 0 && palette_map[i] == pen) {
+                                    palette_dirty.write(i, 0);
+                                    game_palette[3 * i + 0] = (char) (r & 0xFF);
+                                    game_palette[3 * i + 1] = (char) (g & 0xFF);
+                                    game_palette[3 * i + 2] = (char) (b & 0xFF);
+                                }
+                            }
+                        } else {
+                            /* the colors sharing this pen now are different, we'll */
+ /* have to remap them. */
+                            for (i = rec_color; i < Machine.drv.total_colors; i++) {
+                                if (palette_dirty.read(i) != 0 && palette_map[i] == pen) {
+                                    palette_dirty.write(i, 0);
+                                    game_palette[3 * i + 0] = new_palette.read(3 * i + 0);
+                                    game_palette[3 * i + 1] = new_palette.read(3 * i + 1);
+                                    game_palette[3 * i + 2] = new_palette.read(3 * i + 2);
+                                    old_used_colors.write(i, old_used_colors.read(i) | PALETTE_COLOR_NEEDS_REMAP);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         rec_need = 0;
@@ -1003,9 +989,8 @@ public class palette {
                     && palette_used_colors.read(rec_color) != old_used_colors.read(rec_color)) {
                 int r, g, b;
                 if ((old_used_colors.read(rec_color) & PALETTE_COLOR_VISIBLE) != 0) {
-                    throw new UnsupportedOperationException("Unsupported");
-                    /*TODO*///				pen_usage_count[palette_map[color]]--;
-                    /*TODO*///				old_used_colors[color] &= ~PALETTE_COLOR_VISIBLE;
+                    pen_usage_count[palette_map[rec_color]]--;
+                    old_used_colors.write(rec_color, old_used_colors.read(rec_color) & ~PALETTE_COLOR_VISIBLE);
                 }
 
                 r = game_palette[3 * rec_color + 0];
@@ -1014,22 +999,19 @@ public class palette {
 
                 if ((palette_used_colors.read(rec_color) & PALETTE_COLOR_TRANSPARENT_FLAG) != 0) {
                     if (palette_map[rec_color] != TRANSPARENT_PEN) {
-                        throw new UnsupportedOperationException("Unsupported");
-                        /*TODO*///					/* use the fixed transparent black for this */
-                        /*TODO*///					did_remap = 1;
-                        /*TODO*///					if (old_used_colors[color] & palette_used_colors[color] & PALETTE_COLOR_CACHED)
-                        /*TODO*///					{
-                        /*TODO*///						/* the color was and still is cached, we'll have to redraw everything */
-                        /*TODO*///						need_refresh = 1;
-                        /*TODO*///						just_remapped[color] = 1;
-                        /*TODO*///					}
-                        /*TODO*///
-                        /*TODO*///					palette_map[color] = TRANSPARENT_PEN;
+                        /* use the fixed transparent black for this */
+                        rec_did_remap = 1;
+                        if (((old_used_colors.read(rec_color) & palette_used_colors.read(rec_color) & PALETTE_COLOR_CACHED)) != 0) {
+                            /* the color was and still is cached, we'll have to redraw everything */
+                            rec_need_refresh = 1;
+                            just_remapped.write(rec_color, 1);
+                        }
+
+                        palette_map[rec_color] = TRANSPARENT_PEN;
                     }
-                    throw new UnsupportedOperationException("Unsupported");
-                    /*TODO*///				pen_usage_count[palette_map[color]]++;
-                    /*TODO*///				Machine->pens[color] = shrinked_pens[palette_map[color]];
-                    /*TODO*///				old_used_colors[color] = palette_used_colors[color];
+                    pen_usage_count[palette_map[rec_color]]++;
+                    Machine.pens[rec_color] = shrinked_pens[palette_map[rec_color]];
+                    old_used_colors.write(rec_color, palette_used_colors.read(rec_color));
                 } else {
                     if (rec_reuse_pens != 0) {
                         i = rgb6_to_pen[r >> 2][g >> 2][b >> 2];
@@ -1056,52 +1038,9 @@ public class palette {
                         if (pen_usage_count[palette_map[rec_color]] == 0) {
                             pen_usage_count[palette_map[rec_color]]++;
                         } else /* allocate a new pen */ {
-                            throw new UnsupportedOperationException("Unsupported");
-                            /*TODO*///retry:
-                            /*TODO*///						while (first_free_pen < DYNAMIC_MAX_PENS && pen_usage_count[first_free_pen] > 0)
-                            /*TODO*///							first_free_pen++;
-                            /*TODO*///
-                            /*TODO*///						if (first_free_pen < DYNAMIC_MAX_PENS)
-                            /*TODO*///						{
-                            /*TODO*///							did_remap = 1;
-                            /*TODO*///							if (old_used_colors[color] & palette_used_colors[color] & PALETTE_COLOR_CACHED)
-                            /*TODO*///							{
-                            /*TODO*///								/* the color was and still is cached, we'll have to redraw everything */
-                            /*TODO*///								need_refresh = 1;
-                            /*TODO*///								just_remapped[color] = 1;
-                            /*TODO*///							}
-                            /*TODO*///
-                            /*TODO*///							palette_map[color] = first_free_pen;
-                            /*TODO*///							pen_usage_count[palette_map[color]]++;
-                            /*TODO*///							Machine->pens[color] = shrinked_pens[palette_map[color]];
-                            /*TODO*///						}
-                            /*TODO*///						else
-                            /*TODO*///						{
-                            /*TODO*///							/* Ran out of pens! Let's see what we can do. */
-                            /*TODO*///
-                            /*TODO*///							if (ran_out == 0)
-                            /*TODO*///							{
-                            /*TODO*///								ran_out++;
-                            /*TODO*///
-                            /*TODO*///								/* from now on, try to reuse already allocated pens */
-                            /*TODO*///								reuse_pens = 1;
-                            /*TODO*///								if (compress_palette() > 0)
-                            /*TODO*///								{
-                            /*TODO*///									did_remap = 1;
-                            /*TODO*///									need_refresh = 1;	/* we'll have to redraw everything */
-                            /*TODO*///
-                            /*TODO*///									first_free_pen = RESERVED_PENS;
-                            /*TODO*///									goto retry;
-                            /*TODO*///								}
-                            /*TODO*///							}
-                            /*TODO*///
-                            /*TODO*///							ran_out++;
-                            /*TODO*///
-                            /*TODO*///							/* we failed, but go on with the loop, there might */
-                            /*TODO*///							/* be some transparent pens to remap */
-                            /*TODO*///
-                            /*TODO*///							continue;
-                            /*TODO*///						}
+                            if (rec_retry() == 1) {
+                                continue;
+                            }
                         }
 
                         {
@@ -1135,20 +1074,22 @@ public class palette {
         }
 
         if (rec_ran_out > 1) {
-            throw new UnsupportedOperationException("Unsupported");
-            /*TODO*///logerror("Error: no way to shrink the palette to 256 colors, left out %d colors.\n",ran_out-1);
-            /*TODO*///#if 0
-            /*TODO*///logerror("color list:\n");
-            /*TODO*///for (color = 0;color < Machine->drv->total_colors;color++)
-            /*TODO*///{
-            /*TODO*///	int r,g,b;
-            /*TODO*///	r = game_palette[3*color + 0];
-            /*TODO*///	g = game_palette[3*color + 1];
-            /*TODO*///	b = game_palette[3*color + 2];
-            /*TODO*///	if (palette_used_colors[color] & PALETTE_COLOR_VISIBLE)
-            /*TODO*///		logerror("%02x %02x %02x\n",r,g,b);
-            /*TODO*///}
-            /*TODO*///#endif
+            if (palettelog != null) {
+                fprintf(palettelog, "Error: no way to shrink the palette to 256 colors, left out %d colors.\n", rec_ran_out - 1);
+                System.out.print(String.format("Error: no way to shrink the palette to 256 colors, left out %d colors.\n", rec_ran_out - 1));
+            }
+            if (palettelog != null) {
+                fprintf(palettelog, "color list:\n");
+                for (rec_color = 0; rec_color < Machine.drv.total_colors; rec_color++) {
+                    int r, g, b;
+                    r = game_palette[3 * rec_color + 0];
+                    g = game_palette[3 * rec_color + 1];
+                    b = game_palette[3 * rec_color + 2];
+                    if (((palette_used_colors.read(rec_color) & PALETTE_COLOR_VISIBLE)) != 0) {
+                        fprintf(palettelog, "%02x %02x %02x\n", r, g, b);
+                    }
+                }
+            }
         }
 
         /* Reclaim unused pens; we do this AFTER allocating the new ones, to avoid */
@@ -1200,6 +1141,49 @@ public class palette {
         } else {
             return null;
         }
+    }
+
+    public static int rec_retry() {
+        while (rec_first_free_pen < DYNAMIC_MAX_PENS && pen_usage_count[rec_first_free_pen] > 0) {
+            rec_first_free_pen++;
+        }
+
+        if (rec_first_free_pen < DYNAMIC_MAX_PENS) {
+            rec_did_remap = 1;
+            if (((old_used_colors.read(rec_color) & palette_used_colors.read(rec_color) & PALETTE_COLOR_CACHED)) != 0) {
+                /* the color was and still is cached, we'll have to redraw everything */
+                rec_need_refresh = 1;
+                just_remapped.write(rec_color, 1);
+            }
+
+            palette_map[rec_color] = (char) rec_first_free_pen;
+            pen_usage_count[palette_map[rec_color]]++;
+            Machine.pens[rec_color] = shrinked_pens[palette_map[rec_color]];
+        } else {
+            /* Ran out of pens! Let's see what we can do. */
+
+            if (rec_ran_out == 0) {
+                rec_ran_out++;
+
+                /* from now on, try to reuse already allocated pens */
+                rec_reuse_pens = 1;
+                if (compress_palette() > 0) {
+                    rec_did_remap = 1;
+                    rec_need_refresh = 1;
+                    /* we'll have to redraw everything */
+
+                    rec_first_free_pen = RESERVED_PENS;
+                    return rec_retry();
+                }
+            }
+
+            rec_ran_out++;
+
+            /* we failed, but go on with the loop, there might */
+ /* be some transparent pens to remap */
+            return 1;//continue
+        }
+        return 0;
     }
     /*TODO*///
 /*TODO*///
