@@ -3,6 +3,10 @@
  */
 package gr.codebb.arcadeflex.v037b7.mame;
 
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL0;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL1;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL2;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL3;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.common_drawgfxzoom;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.GfxElement;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
@@ -10,6 +14,8 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
+import gr.codebb.arcadeflex.common.SubArrays.UShortArray;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_X;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_Y;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_SWAP_XY;
@@ -3060,7 +3066,94 @@ public class drawgfx {
 /*TODO*///	}
 /*TODO*///})
 /*TODO*///
-/*TODO*///DECLARE(blockmove_8toN_transmask_pri,(
+    public static void blockmove_8toN_transmask_pri8(
+            UBytePtr srcdata, int srcwidth, int srcheight, int srcmodulo,
+            UBytePtr dstdata, int dstmodulo,
+            UShortArray paldata, int transmask, UBytePtr pridata, int/*UINT32*/ pmask) {
+        int end;
+        IntPtr sd4;
+
+        pmask |= (1 << 31);
+
+        srcmodulo -= srcwidth;
+        dstmodulo -= srcwidth;
+
+        while (srcheight != 0) {
+            end = dstdata.offset + srcwidth;
+            while ((srcdata.offset & 3) != 0 && dstdata.offset < end)//while (((long)srcdata & 3) && dstdata < end)	/* longword align */
+            {
+                int col;
+                col = srcdata.readinc();
+                if (((1 << col) & transmask) == 0) {
+                    if (((1 << pridata.read()) & pmask) == 0) {
+                        dstdata.write(paldata.read(col));
+                    }
+                    pridata.write(31);
+                }
+                dstdata.inc();
+                pridata.inc();
+            }
+            sd4 = new IntPtr(srcdata);
+            while (dstdata.offset <= end - 4) {
+                int col;
+                int col4;
+
+                col4 = sd4.read(0);
+                col = (col4 >> 0) & 0xff;
+                if (((1 << col) & transmask) == 0) {
+                    if (((1 << pridata.read(BL0)) & pmask) == 0) {
+                        dstdata.write(BL0, paldata.read(col));
+                    }
+                    pridata.write(BL0, 31);
+                }
+                col = (col4 >> 8) & 0xff;
+                if (((1 << col) & transmask) == 0) {
+                    if (((1 << pridata.read(BL1)) & pmask) == 0) {
+                        dstdata.write(BL1, paldata.read(col));
+                    }
+                    pridata.write(BL1, 31);
+                }
+                col = (col4 >> 16) & 0xff;
+                if (((1 << col) & transmask) == 0) {
+                    if (((1 << pridata.read(BL2)) & pmask) == 0) {
+                        dstdata.write(BL2, paldata.read(col));
+                    }
+                    pridata.write(BL2, 31);
+                }
+                col = (col4 >> 24) & 0xff;
+                if (((1 << col) & transmask) == 0) {
+                    if (((1 << pridata.read(BL3)) & pmask) == 0) {
+                        dstdata.write(BL3, paldata.read(col));
+                    }
+                    pridata.write(BL3, 31);
+                }
+                sd4.base += 4;
+                dstdata.inc(4);
+                pridata.inc(4);
+            }
+            srcdata.set(sd4.readCA(), sd4.getBase());//srcdata = (unsigned char *)sd4;
+            while (dstdata.offset < end) {
+                int col;
+
+                col = srcdata.readinc();
+                if (((1 << col) & transmask) == 0) {
+                    if (((1 << pridata.read()) & pmask) == 0) {
+                        dstdata.write(paldata.read(col));
+                    }
+                    pridata.write(31);
+                }
+                dstdata.inc();
+                pridata.inc();
+            }
+
+            srcdata.inc(srcmodulo);
+            dstdata.inc(dstmodulo);
+            pridata.inc(dstmodulo);
+            srcheight--;
+        }
+    }
+
+    /*TODO*///DECLARE(blockmove_8toN_transmask_pri,(
 /*TODO*///		const UINT8 *srcdata,int srcwidth,int srcheight,int srcmodulo,
 /*TODO*///		DATA_TYPE *dstdata,int dstmodulo,
 /*TODO*///		const UINT16 *paldata,int transmask,UINT8 *pridata,UINT32 pmask),
