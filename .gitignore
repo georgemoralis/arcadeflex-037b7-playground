@@ -25,3 +25,4 @@ hs_err_pid*
 /release_files/nvram/*
 /emulator/temp.txt
 /emulator/arcadeflex.cfg
+/emulator/target/*

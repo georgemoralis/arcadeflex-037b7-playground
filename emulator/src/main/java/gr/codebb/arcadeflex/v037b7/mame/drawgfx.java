@@ -6,8 +6,13 @@ package gr.codebb.arcadeflex.v037b7.mame;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.common_drawgfxzoom;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.GfxElement;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;
+import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
+import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_X;
+import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_Y;
+import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_SWAP_XY;
 
 public class drawgfx {
 
@@ -4317,6 +4322,310 @@ public class drawgfx {
 /*TODO*///	}
 /*TODO*///})
 /*TODO*///
+        public static void copyrozbitmap_core8(osd_bitmap bitmap, osd_bitmap srcbitmap,
+            long u32_startx, long u32_starty, int incxx, int incxy, int incyx, int incyy, int wraparound,
+            rectangle clip, int transparency, int transparent_color,/*UINT32*/ int priority) {
+        long u32_cx;
+        long u32_cy;
+        int x;
+        int sx;
+        int sy;
+        int ex;
+        int ey;
+        int xmask = srcbitmap.width - 1;
+        int ymask = srcbitmap.height - 1;
+        int widthshifted = srcbitmap.width << 16;
+        int heightshifted = srcbitmap.height << 16;
+        UBytePtr dest;
+
+        if (clip != null) {
+            u32_startx = (u32_startx + clip.min_x * incxx + clip.min_y * incyx) & 0xFFFFFFFFL;
+            u32_starty = (u32_starty + clip.min_x * incxy + clip.min_y * incyy) & 0xFFFFFFFFL;
+
+            sx = clip.min_x;
+            sy = clip.min_y;
+            ex = clip.max_x;
+            ey = clip.max_y;
+        } else {
+            sx = 0;
+            sy = 0;
+            ex = bitmap.width - 1;
+            ey = bitmap.height - 1;
+        }
+
+        if ((Machine.orientation & ORIENTATION_SWAP_XY) != 0) {
+            int t;
+
+            t = (int) u32_startx;
+            u32_startx = u32_starty;
+            u32_starty = t & 0xFFFFFFFFL;
+            t = sx;
+            sx = sy;
+            sy = t;
+            t = ex;
+            ex = ey;
+            ey = t;
+            t = incxx;
+            incxx = incyy;
+            incyy = t;
+            t = incxy;
+            incxy = incyx;
+            incyx = t;
+        }
+
+        if ((Machine.orientation & ORIENTATION_FLIP_X) != 0) {
+            int w = ex - sx;
+
+            incxy = -incxy;
+            incyx = -incyx;
+            u32_startx = (widthshifted - u32_startx - 1) & 0xFFFFFFFFL;
+            u32_startx = (u32_startx - incxx * w) & 0xFFFFFFFFL;
+            u32_starty = (u32_starty - incxy * w) & 0xFFFFFFFFL;
+
+            w = sx;
+            sx = bitmap.width - 1 - ex;
+            ex = bitmap.width - 1 - w;
+        }
+
+        if ((Machine.orientation & ORIENTATION_FLIP_Y) != 0) {
+            int h = ey - sy;
+
+            incxy = -incxy;
+            incyx = -incyx;
+            u32_starty = (heightshifted - u32_starty - 1) & 0xFFFFFFFFL;
+            u32_startx = (u32_startx - incyx * h) & 0xFFFFFFFFL;
+            u32_starty = (u32_starty - incyy * h) & 0xFFFFFFFFL;
+
+            h = sy;
+            sy = bitmap.height - 1 - ey;
+            ey = bitmap.height - 1 - h;
+        }
+        if (incxy == 0 && incyx == 0 && wraparound == 0) {
+            /* optimized loop for the not rotated case */
+
+            if (incxx == 0x10000) {
+                throw new UnsupportedOperationException("Unsupported");
+                /*TODO*///			/* optimized loop for the not zoomed case */
+/*TODO*///
+/*TODO*///			/* startx is unsigned */
+/*TODO*///			startx = ((INT32)startx) >> 16;
+/*TODO*///
+/*TODO*///			if (startx >= srcbitmap.width)
+/*TODO*///			{
+/*TODO*///				sx += -startx;
+/*TODO*///				startx = 0;
+/*TODO*///			}
+/*TODO*///
+/*TODO*///			if (sx <= ex)
+/*TODO*///			{
+/*TODO*///				while (sy <= ey)
+/*TODO*///				{
+/*TODO*///					if (starty < heightshifted)
+/*TODO*///					{
+/*TODO*///						x = sx;
+/*TODO*///						cx = startx;
+/*TODO*///						cy = starty >> 16;
+/*TODO*///						dest = ((DATA_TYPE *)bitmap.line[sy]) + sx;
+/*TODO*///						if (priority)
+/*TODO*///						{
+/*TODO*///							UINT8 *pri = &priority_bitmap.line[sy][sx];
+/*TODO*///							DATA_TYPE *src = (DATA_TYPE *)srcbitmap.line[cy];
+/*TODO*///
+/*TODO*///							while (x <= ex && cx < srcbitmap.width)
+/*TODO*///							{
+/*TODO*///								int c = src[cx];
+/*TODO*///
+/*TODO*///								if (c != transparent_color)
+/*TODO*///								{
+/*TODO*///									*dest = c;
+/*TODO*///									*pri |= priority;
+/*TODO*///								}
+/*TODO*///
+/*TODO*///								cx++;
+/*TODO*///								x++;
+/*TODO*///								dest++;
+/*TODO*///								pri++;
+/*TODO*///							}
+/*TODO*///						}
+/*TODO*///						else
+/*TODO*///						{
+/*TODO*///							DATA_TYPE *src = (DATA_TYPE *)srcbitmap.line[cy];
+/*TODO*///
+/*TODO*///							while (x <= ex && cx < srcbitmap.width)
+/*TODO*///							{
+/*TODO*///								int c = src[cx];
+/*TODO*///
+/*TODO*///								if (c != transparent_color)
+/*TODO*///									*dest = c;
+/*TODO*///
+/*TODO*///								cx++;
+/*TODO*///								x++;
+/*TODO*///								dest++;
+/*TODO*///							}
+/*TODO*///						}
+/*TODO*///					}
+/*TODO*///					starty += incyy;
+/*TODO*///					sy++;
+/*TODO*///				}
+/*TODO*///			}
+            } else {
+                while (u32_startx >= widthshifted && sx <= ex) {
+                    u32_startx = (u32_startx + incxx) & 0xFFFFFFFFL;
+                    sx++;
+                }
+
+                if (sx <= ex) {
+                    while (sy <= ey) {
+                        if (u32_starty < heightshifted) {
+                            x = sx;
+                            u32_cx = u32_startx & 0xFFFFFFFFL;
+                            u32_cy = (u32_starty >>> 16) & 0xFFFFFFFFL;
+                            dest = new UBytePtr(bitmap.line[sy], sx);
+                            if (priority != 0) {
+                                UBytePtr pri = new UBytePtr(priority_bitmap.line[sy], sx);
+                                UBytePtr src = new UBytePtr(srcbitmap.line[(int) u32_cy]);
+                                while (x <= ex && u32_cx < widthshifted) {
+                                    int c = src.read((int) ((u32_cx >>> 16) & 0xFFFFFFFFL));
+
+                                    if (c != transparent_color) {
+                                        dest.write(c);
+                                        pri.write(pri.read() | priority);
+                                    }
+                                    u32_cx = (u32_cx + incxx) & 0xFFFFFFFFL;
+                                    x++;
+                                    dest.inc();
+                                    pri.inc();
+                                }
+                            } else {
+                                UBytePtr src = new UBytePtr(srcbitmap.line[(int) u32_cy]);
+
+                                while (x <= ex && u32_cx < widthshifted) {
+                                    int c = src.read((int) ((u32_cx >>> 16) & 0xFFFFFFFFL));
+
+                                    if (c != transparent_color) {
+                                        dest.write(c);
+                                    }
+
+                                    u32_cx = (u32_cx + incxx) & 0xFFFFFFFFL;
+                                    x++;
+                                    dest.inc();
+                                }
+                            }
+                        }
+                        u32_starty = (u32_starty + incyy) & 0xFFFFFFFFL;
+                        sy++;
+                    }
+                }
+            }
+        } else {
+            throw new UnsupportedOperationException("Unsupported");
+            /*TODO*///		if (wraparound)
+/*TODO*///		{
+/*TODO*///			/* plot with wraparound */
+/*TODO*///			while (sy <= ey)
+/*TODO*///			{
+/*TODO*///				x = sx;
+/*TODO*///				cx = startx;
+/*TODO*///				cy = starty;
+/*TODO*///				dest = ((DATA_TYPE *)bitmap.line[sy]) + sx;
+/*TODO*///				if (priority)
+/*TODO*///				{
+/*TODO*///					UINT8 *pri = &priority_bitmap.line[sy][sx];
+/*TODO*///
+/*TODO*///					while (x <= ex)
+/*TODO*///					{
+/*TODO*///						int c = ((DATA_TYPE *)srcbitmap.line[(cy >> 16) & xmask])[(cx >> 16) & ymask];
+/*TODO*///
+/*TODO*///						if (c != transparent_color)
+/*TODO*///						{
+/*TODO*///							*dest = c;
+/*TODO*///							*pri |= priority;
+/*TODO*///						}
+/*TODO*///
+/*TODO*///						cx += incxx;
+/*TODO*///						cy += incxy;
+/*TODO*///						x++;
+/*TODO*///						dest++;
+/*TODO*///						pri++;
+/*TODO*///					}
+/*TODO*///				}
+/*TODO*///				else
+/*TODO*///				{
+/*TODO*///					while (x <= ex)
+/*TODO*///					{
+/*TODO*///						int c = ((DATA_TYPE *)srcbitmap.line[(cy >> 16) & xmask])[(cx >> 16) & ymask];
+/*TODO*///
+/*TODO*///						if (c != transparent_color)
+/*TODO*///							*dest = c;
+/*TODO*///
+/*TODO*///						cx += incxx;
+/*TODO*///						cy += incxy;
+/*TODO*///						x++;
+/*TODO*///						dest++;
+/*TODO*///					}
+/*TODO*///				}
+/*TODO*///				startx += incyx;
+/*TODO*///				starty += incyy;
+/*TODO*///				sy++;
+/*TODO*///			}
+/*TODO*///		}
+/*TODO*///		else
+/*TODO*///		{
+/*TODO*///			while (sy <= ey)
+/*TODO*///			{
+/*TODO*///				x = sx;
+/*TODO*///				cx = startx;
+/*TODO*///				cy = starty;
+/*TODO*///				dest = ((DATA_TYPE *)bitmap.line[sy]) + sx;
+/*TODO*///				if (priority)
+/*TODO*///				{
+/*TODO*///					UINT8 *pri = &priority_bitmap.line[sy][sx];
+/*TODO*///
+/*TODO*///					while (x <= ex)
+/*TODO*///					{
+/*TODO*///						if (cx < widthshifted && cy < heightshifted)
+/*TODO*///						{
+/*TODO*///							int c = ((DATA_TYPE *)srcbitmap.line[cy >> 16])[cx >> 16];
+/*TODO*///
+/*TODO*///							if (c != transparent_color)
+/*TODO*///							{
+/*TODO*///								*dest = c;
+/*TODO*///								*pri |= priority;
+/*TODO*///							}
+/*TODO*///						}
+/*TODO*///
+/*TODO*///						cx += incxx;
+/*TODO*///						cy += incxy;
+/*TODO*///						x++;
+/*TODO*///						dest++;
+/*TODO*///						pri++;
+/*TODO*///					}
+/*TODO*///				}
+/*TODO*///				else
+/*TODO*///				{
+/*TODO*///					while (x <= ex)
+/*TODO*///					{
+/*TODO*///						if (cx < widthshifted && cy < heightshifted)
+/*TODO*///						{
+/*TODO*///							int c = ((DATA_TYPE *)srcbitmap.line[cy >> 16])[cx >> 16];
+/*TODO*///
+/*TODO*///							if (c != transparent_color)
+/*TODO*///								*dest = c;
+/*TODO*///						}
+/*TODO*///
+/*TODO*///						cx += incxx;
+/*TODO*///						cy += incxy;
+/*TODO*///						x++;
+/*TODO*///						dest++;
+/*TODO*///					}
+/*TODO*///				}
+/*TODO*///				startx += incyx;
+/*TODO*///				starty += incyy;
+/*TODO*///				sy++;
+/*TODO*///			}
+/*TODO*///		}
+        }
+    }
 /*TODO*///DECLARE(copyrozbitmap_core,(struct osd_bitmap *bitmap,struct osd_bitmap *srcbitmap,
 /*TODO*///		UINT32 startx,UINT32 starty,int incxx,int incxy,int incyx,int incyy,int wraparound,
 /*TODO*///		const struct rectangle *clip,int transparency,int transparent_color,UINT32 priority),
