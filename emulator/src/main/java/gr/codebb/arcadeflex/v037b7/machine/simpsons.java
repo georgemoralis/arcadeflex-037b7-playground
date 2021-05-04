@@ -5,15 +5,17 @@
  */
 package gr.codebb.arcadeflex.v037b7.machine;
 
+//machine imports
+import static gr.codebb.arcadeflex.v037b7.machine.eeprom.*;
+import static gr.codebb.arcadeflex.v037b7.machine.eepromH.*;
+//sound imports
+import static gr.codebb.arcadeflex.v037b7.sound.k053260.*;
+//vidhrdw imports
+import static gr.codebb.arcadeflex.v037b7.vidhrdw.simpsons.*;
+import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.*;
+
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_init;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_load;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_read_bit;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_save;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_set_clock_line;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_set_cs_line;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.eeprom.EEPROM_write_bit;
-import gr.codebb.arcadeflex.WIP.v037b7.machine.eepromH.EEPROM_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU2;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
@@ -25,7 +27,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.readinputport;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.cpu_setbank;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_set_RMRD_line;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.simpsons.*;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.coin_counter_w;
@@ -35,9 +36,8 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.InitMachinePtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.nvramPtr;
-import static gr.codebb.arcadeflex.v037b7.sound.k053260.K053260_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053246_set_OBJCHA_line;
+
 
 public class simpsons {
 
