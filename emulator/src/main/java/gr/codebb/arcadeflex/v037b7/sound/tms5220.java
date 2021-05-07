@@ -1,123 +1,115 @@
 /*
  * ported to v0.37b7
-*/
+ */
 package gr.codebb.arcadeflex.v037b7.sound;
 
+import gr.codebb.arcadeflex.WIP.v037b7.sound._5220intfH.IrqPtr;
+import gr.codebb.arcadeflex.common.PtrLib;
+import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
+import static gr.codebb.arcadeflex.common.libc.cstring.memset;
+import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;
+
 public class tms5220 {
-/*TODO*////* these contain data that describes the 128-bit data FIFO */
-/*TODO*///#define FIFO_SIZE 16
-/*TODO*///static UINT8 fifo[FIFO_SIZE];
-/*TODO*///static UINT8 fifo_head;
-/*TODO*///static UINT8 fifo_tail;
-/*TODO*///static UINT8 fifo_count;
-/*TODO*///static UINT8 bits_taken;
-/*TODO*///
-/*TODO*///
-/*TODO*////* these contain global status bits */
-/*TODO*///static UINT8 speak_external;
-/*TODO*///static UINT8 speak_delay_frames;
-/*TODO*///static UINT8 talk_status;
-/*TODO*///static UINT8 buffer_low;
-/*TODO*///static UINT8 buffer_empty;
-/*TODO*///static UINT8 irq_pin;
-/*TODO*///
-/*TODO*///static void (*irq_func)(int state);
-/*TODO*///
-/*TODO*///
-/*TODO*////* these contain data describing the current and previous voice frames */
-/*TODO*///static UINT16 old_energy;
-/*TODO*///static UINT16 old_pitch;
-/*TODO*///static int old_k[10];
-/*TODO*///
-/*TODO*///static UINT16 new_energy;
-/*TODO*///static UINT16 new_pitch;
-/*TODO*///static int new_k[10];
-/*TODO*///
-/*TODO*///
-/*TODO*////* these are all used to contain the current state of the sound generation */
-/*TODO*///static UINT16 current_energy;
-/*TODO*///static UINT16 current_pitch;
-/*TODO*///static int current_k[10];
-/*TODO*///
-/*TODO*///static UINT16 target_energy;
-/*TODO*///static UINT16 target_pitch;
-/*TODO*///static int target_k[10];
-/*TODO*///
-/*TODO*///static UINT8 interp_count;       /* number of interp periods (0-7) */
-/*TODO*///static UINT8 sample_count;       /* sample number within interp (0-24) */
-/*TODO*///static int pitch_count;
-/*TODO*///
-/*TODO*///static int u[11];
-/*TODO*///static int x[10];
-/*TODO*///
-/*TODO*///static INT8 randbit;
-/*TODO*///
-/*TODO*///
-/*TODO*////* Static function prototypes */
-/*TODO*///static void process_command(void);
-/*TODO*///static int extract_bits(int count);
-/*TODO*///static int parse_frame(int removeit);
-/*TODO*///static void check_buffer_low(void);
-/*TODO*///static void set_interrupt_state(int state);
-/*TODO*///
-/*TODO*///
-/*TODO*///#define DEBUG_5220	0
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_reset -- resets the TMS5220
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///void tms5220_reset(void)
-/*TODO*///{
-/*TODO*///    /* initialize the FIFO */
-/*TODO*///    memset(fifo, 0, sizeof(fifo));
-/*TODO*///    fifo_head = fifo_tail = fifo_count = bits_taken = 0;
-/*TODO*///
-/*TODO*///    /* initialize the chip state */
-/*TODO*///    speak_external = speak_delay_frames = talk_status = irq_pin = 0;
-/*TODO*///	buffer_empty = buffer_low = 1;
-/*TODO*///
-/*TODO*///    /* initialize the energy/pitch/k states */
-/*TODO*///    old_energy = new_energy = current_energy = target_energy = 0;
-/*TODO*///    old_pitch = new_pitch = current_pitch = target_pitch = 0;
-/*TODO*///    memset(old_k, 0, sizeof(old_k));
-/*TODO*///    memset(new_k, 0, sizeof(new_k));
-/*TODO*///    memset(current_k, 0, sizeof(current_k));
-/*TODO*///    memset(target_k, 0, sizeof(target_k));
-/*TODO*///
-/*TODO*///    /* initialize the sample generators */
-/*TODO*///    interp_count = sample_count = pitch_count = 0;
-/*TODO*///    randbit = 0;
-/*TODO*///    memset(u, 0, sizeof(u));
-/*TODO*///    memset(x, 0, sizeof(x));
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_reset -- reset the TMS5220
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///void tms5220_set_irq(void (*func)(int))
-/*TODO*///{
-/*TODO*///    irq_func = func;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_data_write -- handle a write to the TMS5220
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///void tms5220_data_write(int data)
-/*TODO*///{
-/*TODO*///    /* add this byte to the FIFO */
+
+    /* these contain data that describes the 128-bit data FIFO */
+    static final int FIFO_SIZE = 16;
+    static /*UINT8*/ int[] u8_fifo = new int[FIFO_SIZE];
+    static int/*UINT8*/ u8_fifo_head;
+    static int/*UINT8*/ u8_fifo_tail;
+    static int/*UINT8*/ u8_fifo_count;
+    static int/*UINT8*/ u8_bits_taken;
+
+
+    /* these contain global status bits */
+    static int/*UINT8*/ u8_speak_external;
+    static int/*UINT8*/ u8_speak_delay_frames;
+    static int/*UINT8*/ u8_talk_status;
+    static int/*UINT8*/ u8_buffer_low;
+    static int/*UINT8*/ u8_buffer_empty;
+    static int/*UINT8*/ u8_irq_pin;
+
+    static IrqPtr irq_func;
+
+
+    /* these contain data describing the current and previous voice frames */
+    static int/*UINT16*/ u16_old_energy;
+    static int/*UINT16*/ u16_old_pitch;
+    static int[] old_k = new int[10];
+
+    static int/*UINT16*/ u16_new_energy;
+    static int/*UINT16*/ u16_new_pitch;
+    static int[] new_k = new int[10];
+
+
+    /* these are all used to contain the current state of the sound generation */
+    static int/*UINT16*/ u16_current_energy;
+    static int/*UINT16*/ u16_current_pitch;
+    static int[] current_k = new int[10];
+
+    static int/*UINT16*/ u16_target_energy;
+    static int/*UINT16*/ u16_target_pitch;
+    static int[] target_k = new int[10];
+
+    static int/*UINT8*/ u8_interp_count;/* number of interp periods (0-7) */
+    static int/*UINT8*/ u8_sample_count;/* sample number within interp (0-24) */
+    static int pitch_count;
+
+    static int[] u = new int[11];
+    static int[] x = new int[10];
+
+    static byte randbit;
+
+    /*TODO*///#define DEBUG_5220	0
+    /**
+     * ********************************************************************************************
+     *
+     * tms5220_reset -- resets the TMS5220
+     *
+     **********************************************************************************************
+     */
+    public static void tms5220_reset() {
+        /* initialize the FIFO */
+        memset(u8_fifo, 0, sizeof(u8_fifo));
+        u8_fifo_head = u8_fifo_tail = u8_fifo_count = u8_bits_taken = 0;
+
+        /* initialize the chip state */
+        u8_speak_external = u8_speak_delay_frames = u8_talk_status = u8_irq_pin = 0;
+        u8_buffer_empty = u8_buffer_low = 1;
+
+        /* initialize the energy/pitch/k states */
+        u16_old_energy = u16_new_energy = u16_current_energy = u16_target_energy = 0;
+        u16_old_pitch = u16_new_pitch = u16_current_pitch = u16_target_pitch = 0;
+        memset(old_k, 0, sizeof(old_k));
+        memset(new_k, 0, sizeof(new_k));
+        memset(current_k, 0, sizeof(current_k));
+        memset(target_k, 0, sizeof(target_k));
+
+        /* initialize the sample generators */
+        u8_interp_count = u8_sample_count = pitch_count = 0;
+        randbit = 0;
+        memset(u, 0, sizeof(u));
+        memset(x, 0, sizeof(x));
+    }
+
+    /**
+     * ********************************************************************************************
+     * tms5220_reset -- reset the TMS5220
+     * *********************************************************************************************
+     */
+    public static void tms5220_set_irq(IrqPtr func) {
+        irq_func = func;
+    }
+
+    /**
+     * ********************************************************************************************
+     *
+     * tms5220_data_write -- handle a write to the TMS5220
+     *
+     **********************************************************************************************
+     */
+    public static void tms5220_data_write(int data) {
+        System.out.println("data_write " + data);
+        /*TODO*///    /* add this byte to the FIFO */
 /*TODO*///    if (fifo_count < FIFO_SIZE)
 /*TODO*///    {
 /*TODO*///        fifo[fifo_tail] = data;
@@ -137,8 +129,9 @@ public class tms5220 {
 /*TODO*///
 /*TODO*///    /* update the buffer low state */
 /*TODO*///    check_buffer_low();
-/*TODO*///}
-/*TODO*///
+    }
+
+    /*TODO*///
 /*TODO*///
 /*TODO*////**********************************************************************************************
 /*TODO*///
@@ -162,54 +155,46 @@ public class tms5220 {
 /*TODO*///                Speak External command execution is terminated.
 /*TODO*///
 /*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///int tms5220_status_read(void)
-/*TODO*///{
-/*TODO*///    /* clear the interrupt pin */
-/*TODO*///    set_interrupt_state(0);
-/*TODO*///
-/*TODO*///    if (DEBUG_5220) logerror("Status read: TS=%d BL=%d BE=%d\n", talk_status, buffer_low, buffer_empty);
-/*TODO*///
-/*TODO*///    return (talk_status << 7) | (buffer_low << 6) | (buffer_empty << 5);
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_ready_read -- returns the ready state of the TMS5220
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///int tms5220_ready_read(void)
-/*TODO*///{
-/*TODO*///    return (fifo_count < FIFO_SIZE-1);
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_int_read -- returns the interrupt state of the TMS5220
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///int tms5220_int_read(void)
-/*TODO*///{
-/*TODO*///    return irq_pin;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_process -- fill the buffer with a specific number of samples
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///void tms5220_process(INT16 *buffer, unsigned int size)
-/*TODO*///{
-/*TODO*///    int buf_count=0;
+    public static int tms5220_status_read() {
+        /* clear the interrupt pin */
+        set_interrupt_state(0);
+
+        /*TODO*///    if (DEBUG_5220) logerror("Status read: TS=%d BL=%d BE=%d\n", talk_status, buffer_low, buffer_empty);
+        return (u8_talk_status << 7) | (u8_buffer_low << 6) | (u8_buffer_empty << 5);
+    }
+
+    /**
+     * ********************************************************************************************
+     *
+     * tms5220_ready_read -- returns the ready state of the TMS5220
+     *
+     **********************************************************************************************
+     */
+    public static int tms5220_ready_read() {
+        return (u8_fifo_count < FIFO_SIZE - 1) ? 1 : 0;
+    }
+
+    /**
+     * ********************************************************************************************
+     *
+     * tms5220_int_read -- returns the interrupt state of the TMS5220
+     *
+     **********************************************************************************************
+     */
+    public static int tms5220_int_read() {
+        return u8_irq_pin & 0xFF;
+    }
+
+    /**
+     * ********************************************************************************************
+     *
+     * tms5220_process -- fill the buffer with a specific number of samples
+     *
+     **********************************************************************************************
+     */
+    public static void tms5220_process(ShortPtr buffer, /*unsigned*/ int size) {
+        System.out.println("tms_process " + size);
+        /*TODO*///    int buf_count=0;
 /*TODO*///    int i, interp_period;
 /*TODO*///
 /*TODO*///tryagain:
@@ -410,8 +395,9 @@ public class tms5220 {
 /*TODO*///        buf_count++;
 /*TODO*///        size--;
 /*TODO*///    }
-/*TODO*///}
-/*TODO*///
+    }
+
+    /*TODO*///
 /*TODO*///
 /*TODO*///
 /*TODO*////**********************************************************************************************
@@ -659,18 +645,18 @@ public class tms5220 {
 /*TODO*///}
 /*TODO*///
 /*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     set_interrupt_state -- generate an interrupt
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///static void set_interrupt_state(int state)
-/*TODO*///{
-/*TODO*///    if (irq_func && state != irq_pin)
-/*TODO*///    	irq_func(state);
-/*TODO*///    irq_pin = state;
-/*TODO*///}
-/*TODO*///    
+    /**
+     * ********************************************************************************************
+     *
+     * set_interrupt_state -- generate an interrupt
+     *
+     **********************************************************************************************
+     */
+    static void set_interrupt_state(int state) {
+        if (irq_func != null && state != u8_irq_pin) {
+            irq_func.handler(state);
+        }
+        u8_irq_pin = state & 0xFF;
+    }
+
 }
