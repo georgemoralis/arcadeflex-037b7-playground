@@ -8,6 +8,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.sound.tms5220r.*;
 import gr.codebb.arcadeflex.common.PtrLib;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
+import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;
 
 public class tms5220 {
@@ -193,7 +194,7 @@ public class tms5220 {
     static int p_interp_period;
     static int p_size;
 
-    public static int tryagain() {
+    public static int tryagain(ShortPtr buffer) {
         while (u8_speak_external == 0 && u8_fifo_count > 0) {
             process_command();
         }
@@ -212,7 +213,153 @@ public class tms5220 {
             u8_talk_status = 1;
             u8_buffer_empty = 0;
         }
-        throw new UnsupportedOperationException("Unsupported");
+        /* apply some delay before we actually consume data; Victory requires this */
+        if (u8_speak_delay_frames != 0) {
+            if (p_size <= u8_speak_delay_frames) {
+                u8_speak_delay_frames = (u8_speak_delay_frames - p_size) & 0xFF;
+                p_size = 0;
+            } else {
+                p_size -= u8_speak_delay_frames;
+                u8_speak_delay_frames = 0;
+            }
+        }
+
+        /* loop until the buffer is full or we've stopped speaking */
+        while ((p_size > 0) && u8_speak_external != 0) {
+            int current_val;
+
+            /* if we're ready for a new frame */
+            if ((u8_interp_count == 0) && (u8_sample_count == 0)) {
+                /* Parse a new frame */
+                if (parse_frame(1) == 0) {
+                    break;
+                }
+
+                /* Set old target as new start of frame */
+                u16_current_energy = u16_old_energy;
+                u16_current_pitch = u16_old_pitch;
+                for (int i = 0; i < 10; i++) {
+                    current_k[i] = old_k[i];
+                }
+
+                /* is this a zero energy frame? */
+                if (u16_current_energy == 0) {
+                    /*printf("processing frame: zero energy\n");*/
+                    u16_target_energy = 0;
+                    u16_target_pitch = u16_current_pitch;
+                    for (int i = 0; i < 10; i++) {
+                        target_k[i] = current_k[i];
+                    }
+                } /* is this a stop frame? */ else if (u16_current_energy == (energytable[15] >> 6)) {
+                    /*printf("processing frame: stop frame\n");*/
+                    u16_current_energy = energytable[0] >> 6;
+                    u16_target_energy = u16_current_energy;
+                    u8_speak_external = u8_talk_status = 0;
+                    u8_interp_count = u8_sample_count = pitch_count = 0;
+
+                    /* generate an interrupt if necessary */
+                    set_interrupt_state(1);
+
+                    /* try to fetch commands again */
+                    return tryagain(buffer);//goto tryagain;
+                } else {
+                    /* is this the ramp down frame? */
+                    if (u16_new_energy == (energytable[15] >> 6)) {
+                        /*printf("processing frame: ramp down\n");*/
+                        u16_target_energy = 0;
+                        u16_target_pitch = u16_current_pitch;
+                        for (int i = 0; i < 10; i++) {
+                            target_k[i] = current_k[i];
+                        }
+                    } /* Reset the step size */ else {
+                        /*printf("processing frame: Normal\n");*/
+ /*printf("*** Energy = %d\n",current_energy);*/
+ /*printf("proc: %d %d\n",last_fbuf_head,fbuf_head);*/
+
+                        u16_target_energy = u16_new_energy;
+                        u16_target_pitch = u16_new_pitch;
+
+                        for (int i = 0; i < 4; i++) {
+                            target_k[i] = new_k[i];
+                        }
+                        if (u16_current_pitch == 0) {
+                            for (int i = 4; i < 10; i++) {
+                                target_k[i] = current_k[i] = 0;
+                            }
+                        } else {
+                            for (int i = 4; i < 10; i++) {
+                                target_k[i] = new_k[i];
+                            }
+                        }
+                    }
+                }
+            } else if (u8_interp_count == 0) {
+                /* Update values based on step values */
+ /*printf("\n");*/
+
+                p_interp_period = u8_sample_count / 25;
+                u16_current_energy = (u16_current_energy + (u16_target_energy - u16_current_energy) / interp_coeff[p_interp_period]) & 0xFFFF;
+                if (u16_old_pitch != 0) {
+                    u16_current_pitch = (u16_current_pitch + (u16_target_pitch - u16_current_pitch) / interp_coeff[p_interp_period]) & 0xFFFF;
+                }
+
+                /*printf("*** Energy = %d\n",current_energy);*/
+                for (int i = 0; i < 10; i++) {
+                    current_k[i] += (target_k[i] - current_k[i]) / interp_coeff[p_interp_period];
+                }
+            }
+
+            if (u16_old_energy == 0) {
+                /* generate silent samples here */
+                current_val = 0x00;
+            } else if (u16_old_pitch == 0) {
+                /* generate unvoiced samples here */
+                randbit = (byte) ((rand() % 2) * 2 - 1);
+                current_val = (randbit * u16_current_energy) / 4;
+            } else {
+                /* generate voiced samples here */
+                if (pitch_count < sizeof(chirptable)) {
+                    current_val = (chirptable[pitch_count] * u16_current_energy) / 256;
+                } else {
+                    current_val = 0x00;
+                }
+            }
+
+            /* Lattice filter here */
+            u[10] = current_val;
+
+            for (int i = 9; i >= 0; i--) {
+                u[i] = u[i + 1] - ((current_k[i] * x[i]) / 32768);
+            }
+            for (int i = 9; i >= 1; i--) {
+                x[i] = x[i - 1] + ((current_k[i - 1] * u[i - 1]) / 32768);
+            }
+
+            x[0] = u[0];
+
+            /* clipping, just like the chip */
+            if (u[0] > 511) {
+                buffer.write(p_buf_count, (short) (127 << 8));
+            } else if (u[0] < -512) {
+                buffer.write(p_buf_count, (short) (-128 << 8));
+            } else {
+                buffer.write(p_buf_count, (short) (u[0] << 6));
+            }
+
+            /* Update all counts */
+            p_size--;
+            u8_sample_count = ((u8_sample_count + 1) % 200) & 0xFF;
+
+            if (u16_current_pitch != 0) {
+                pitch_count = (pitch_count + 1) % u16_current_pitch;
+            } else {
+                pitch_count = 0;
+            }
+
+            u8_interp_count = ((u8_interp_count + 1) % 25) & 0xFF;
+            p_buf_count++;
+        }
+        return 0;
     }
 
     public static void tms5220_process(ShortPtr buffer, /*unsigned*/ int size) {
@@ -221,13 +368,18 @@ public class tms5220 {
         p_size = size;
         /*TODO*///    int i;
 
-        int result = tryagain();
+        int result = tryagain(buffer);
         if (result == 1) {
-            while (size > 0) {
+            while (p_size > 0) {
                 buffer.write(p_buf_count, (short) 0x00);
                 p_buf_count++;
-                size--;
+                p_size--;
             }
+        }
+        while (p_size > 0) {
+            buffer.write(p_buf_count, (short) 0x00);
+            p_buf_count++;
+            p_size--;
         }
         /*TODO*///
 /*TODO*///tryagain:
