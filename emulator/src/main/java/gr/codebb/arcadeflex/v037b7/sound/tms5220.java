@@ -59,7 +59,7 @@ public class tms5220 {
 
     static byte randbit;
 
-    /*TODO*///#define DEBUG_5220	0
+    //#define DEBUG_5220	0
     /**
      * ********************************************************************************************
      *
@@ -108,58 +108,54 @@ public class tms5220 {
      **********************************************************************************************
      */
     public static void tms5220_data_write(int data) {
-        System.out.println("data_write " + data);
-        /*TODO*///    /* add this byte to the FIFO */
-/*TODO*///    if (fifo_count < FIFO_SIZE)
-/*TODO*///    {
-/*TODO*///        fifo[fifo_tail] = data;
-/*TODO*///        fifo_tail = (fifo_tail + 1) % FIFO_SIZE;
-/*TODO*///        fifo_count++;
-/*TODO*///
-/*TODO*///		/* if we were speaking, then we're no longer empty */
-/*TODO*///		if (speak_external)
-/*TODO*///			buffer_empty = 0;
-/*TODO*///
-/*TODO*///        if (DEBUG_5220) logerror("Added byte to FIFO (size=%2d)\n", fifo_count);
-/*TODO*///    }
-/*TODO*///    else
-/*TODO*///    {
-/*TODO*///        if (DEBUG_5220) logerror("Ran out of room in the FIFO!\n");
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* update the buffer low state */
-/*TODO*///    check_buffer_low();
+        /* add this byte to the FIFO */
+        if (u8_fifo_count < FIFO_SIZE) {
+            u8_fifo[u8_fifo_tail] = data & 0xFF;
+            u8_fifo_tail = ((u8_fifo_tail + 1) % FIFO_SIZE) & 0xFF;
+            u8_fifo_count = (u8_fifo_count + 1) & 0xFF;
+
+            /* if we were speaking, then we're no longer empty */
+            if (u8_speak_external != 0) {
+                u8_buffer_empty = 0;
+            }
+            //if (DEBUG_5220) logerror("Added byte to FIFO (size=%2d)\n", fifo_count);
+        } else {
+            //if (DEBUG_5220) logerror("Ran out of room in the FIFO!\n");
+        }
+
+        /* update the buffer low state */
+        check_buffer_low();
     }
 
-    /*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     tms5220_status_read -- read status from the TMS5220
-/*TODO*///
-/*TODO*///	  From the data sheet:
-/*TODO*///        bit 0 = TS - Talk Status is active (high) when the VSP is processing speech data.
-/*TODO*///                Talk Status goes active at the initiation of a Speak command or after nine
-/*TODO*///                bytes of data are loaded into the FIFO following a Speak External command. It
-/*TODO*///                goes inactive (low) when the stop code (Energy=1111) is processed, or
-/*TODO*///                immediately by a buffer empty condition or a reset command.
-/*TODO*///        bit 1 = BL - Buffer Low is active (high) when the FIFO buffer is more than half empty.
-/*TODO*///                Buffer Low is set when the "Last-In" byte is shifted down past the half-full
-/*TODO*///                boundary of the stack. Buffer Low is cleared when data is loaded to the stack
-/*TODO*///                so that the "Last-In" byte lies above the half-full boundary and becomes the
-/*TODO*///                ninth data byte of the stack.
-/*TODO*///        bit 2 = BE - Buffer Empty is active (high) when the FIFO buffer has run out of data
-/*TODO*///                while executing a Speak External command. Buffer Empty is set when the last bit
-/*TODO*///                of the "Last-In" byte is shifted out to the Synthesis Section. This causes
-/*TODO*///                Talk Status to be cleared. Speed is terminated at some abnormal point and the
-/*TODO*///                Speak External command execution is terminated.
-/*TODO*///
-/*TODO*///***********************************************************************************************/
+    /**
+     * ********************************************************************************************
+     *
+     * tms5220_status_read -- read status from the TMS5220
+     *
+     * From the data sheet: bit 0 = TS - Talk Status is active (high) when the
+     * VSP is processing speech data. Talk Status goes active at the initiation
+     * of a Speak command or after nine bytes of data are loaded into the FIFO
+     * following a Speak External command. It goes inactive (low) when the stop
+     * code (Energy=1111) is processed, or immediately by a buffer empty
+     * condition or a reset command. bit 1 = BL - Buffer Low is active (high)
+     * when the FIFO buffer is more than half empty. Buffer Low is set when the
+     * "Last-In" byte is shifted down past the half-full boundary of the stack.
+     * Buffer Low is cleared when data is loaded to the stack so that the
+     * "Last-In" byte lies above the half-full boundary and becomes the ninth
+     * data byte of the stack. bit 2 = BE - Buffer Empty is active (high) when
+     * the FIFO buffer has run out of data while executing a Speak External
+     * command. Buffer Empty is set when the last bit of the "Last-In" byte is
+     * shifted out to the Synthesis Section. This causes Talk Status to be
+     * cleared. Speed is terminated at some abnormal point and the Speak
+     * External command execution is terminated.
+     *
+     **********************************************************************************************
+     */
     public static int tms5220_status_read() {
         /* clear the interrupt pin */
         set_interrupt_state(0);
 
-        /*TODO*///    if (DEBUG_5220) logerror("Status read: TS=%d BL=%d BE=%d\n", talk_status, buffer_low, buffer_empty);
+        //if (DEBUG_5220) logerror("Status read: TS=%d BL=%d BE=%d\n", talk_status, buffer_low, buffer_empty);
         return (u8_talk_status << 7) | (u8_buffer_low << 6) | (u8_buffer_empty << 5);
     }
 
@@ -192,33 +188,52 @@ public class tms5220 {
      *
      **********************************************************************************************
      */
+    static int p_buf_count;
+    static int p_interp_period;
+    static int p_size;
+
+    public static int tryagain() {
+        while (u8_speak_external == 0 && u8_fifo_count > 0) {
+            process_command();
+        }
+        /* if we're empty and still not speaking, fill with nothingness */
+        if (u8_speak_external == 0) {
+            return 1;
+        }
+        /* if we're to speak, but haven't started, wait for the 9th byte */
+        if (u8_talk_status == 0) {
+            if (u8_fifo_count < 9) {
+                return 1;
+            }
+
+            /* parse but don't remove the first frame, and set the status to 1 */
+            parse_frame(0);
+            u8_talk_status = 1;
+            u8_buffer_empty = 0;
+        }
+        throw new UnsupportedOperationException("Unsupported");
+    }
+
     public static void tms5220_process(ShortPtr buffer, /*unsigned*/ int size) {
-        System.out.println("tms_process " + size);
-        /*TODO*///    int buf_count=0;
-/*TODO*///    int i, interp_period;
-/*TODO*///
+        p_buf_count = 0;
+        p_interp_period = 0;
+        p_size = size;
+        /*TODO*///    int i;
+
+        int result = tryagain();
+        if (result == 1) {
+            while (size > 0) {
+                buffer.write(p_buf_count, (short) 0x00);
+                p_buf_count++;
+                size--;
+            }
+        }
+        /*TODO*///
 /*TODO*///tryagain:
 /*TODO*///
-/*TODO*///    /* if we're not speaking, parse commands */
-/*TODO*///    while (!speak_external && fifo_count > 0)
-/*TODO*///        process_command();
 /*TODO*///
-/*TODO*///    /* if we're empty and still not speaking, fill with nothingness */
-/*TODO*///    if (!speak_external)
-/*TODO*///        goto empty;
-/*TODO*///
-/*TODO*///    /* if we're to speak, but haven't started, wait for the 9th byte */
-/*TODO*///    if (!talk_status)
-/*TODO*///    {
-/*TODO*///        if (fifo_count < 9)
-/*TODO*///           goto empty;
-/*TODO*///
-/*TODO*///        /* parse but don't remove the first frame, and set the status to 1 */
-/*TODO*///        parse_frame(0);
-/*TODO*///        talk_status = 1;
-/*TODO*///        buffer_empty = 0;
-/*TODO*///    }
-/*TODO*///
+
+        /*TODO*///
 /*TODO*///    /* apply some delay before we actually consume data; Victory requires this */
 /*TODO*///    if (speak_delay_frames)
 /*TODO*///    {
@@ -399,51 +414,48 @@ public class tms5220 {
 
     /*TODO*///
 /*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     process_command -- extract a byte from the FIFO and interpret it as a command
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///static void process_command(void)
-/*TODO*///{
-/*TODO*///    unsigned char cmd;
-/*TODO*///
-/*TODO*///    /* if there are stray bits, ignore them */
-/*TODO*///    if (bits_taken)
-/*TODO*///    {
-/*TODO*///        bits_taken = 0;
-/*TODO*///        fifo_count--;
-/*TODO*///        fifo_head = (fifo_head + 1) % FIFO_SIZE;
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* grab a full byte from the FIFO */
-/*TODO*///    if (fifo_count > 0)
-/*TODO*///    {
-/*TODO*///        cmd = fifo[fifo_head] & 0x70;
-/*TODO*///        fifo_count--;
-/*TODO*///        fifo_head = (fifo_head + 1) % FIFO_SIZE;
-/*TODO*///
-/*TODO*///        /* only real command we handle now is speak external */
-/*TODO*///        if (cmd == 0x60)
-/*TODO*///        {
-/*TODO*///            speak_external = 1;
-/*TODO*///            speak_delay_frames = 10;
-/*TODO*///
-/*TODO*///            /* according to the datasheet, this will cause an interrupt due to a BE condition */
-/*TODO*///            if (!buffer_empty)
-/*TODO*///            {
-/*TODO*///                buffer_empty = 1;
-/*TODO*///                set_interrupt_state(1);
-/*TODO*///            }
-/*TODO*///        }
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* update the buffer low state */
-/*TODO*///    check_buffer_low();
-/*TODO*///}
-/*TODO*///
+    /**
+     * ********************************************************************************************
+     *
+     * process_command -- extract a byte from the FIFO and interpret it as a
+     * command
+     *
+     **********************************************************************************************
+     */
+    static void process_command() {
+        int/*unsigned char*/ cmd;
+
+        /* if there are stray bits, ignore them */
+        if (u8_bits_taken != 0) {
+            u8_bits_taken = 0;
+            u8_fifo_count = (u8_fifo_count - 1) & 0xFF;
+            u8_fifo_head = ((u8_fifo_head + 1) % FIFO_SIZE) & 0xFF;
+        }
+
+        /* grab a full byte from the FIFO */
+        if (u8_fifo_count > 0) {
+            cmd = u8_fifo[u8_fifo_head] & 0x70;
+            u8_fifo_count = (u8_fifo_count - 1) & 0xFF;
+            u8_fifo_head = ((u8_fifo_head + 1) % FIFO_SIZE) & 0xFF;
+
+            /* only real command we handle now is speak external */
+            if (cmd == 0x60) {
+                u8_speak_external = 1;
+                u8_speak_delay_frames = 10;
+
+                /* according to the datasheet, this will cause an interrupt due to a BE condition */
+                if (u8_buffer_empty == 0) {
+                    u8_buffer_empty = 1;
+                    set_interrupt_state(1);
+                }
+            }
+        }
+
+        /* update the buffer low state */
+        check_buffer_low();
+    }
+
+    /*TODO*///
 /*TODO*///
 /*TODO*///
 /*TODO*////**********************************************************************************************
@@ -478,9 +490,9 @@ public class tms5220 {
 /*TODO*///
 /*TODO*///***********************************************************************************************/
 /*TODO*///
-/*TODO*///static int parse_frame(int removeit)
-/*TODO*///{
-/*TODO*///    int old_head, old_taken, old_count;
+    static int parse_frame(int removeit) {
+        throw new UnsupportedOperationException("Unsupported");
+        /*TODO*///    int old_head, old_taken, old_count;
 /*TODO*///    int bits, indx, i, rep_flag;
 /*TODO*///
 /*TODO*///    /* remember previous frame */
@@ -612,8 +624,9 @@ public class tms5220 {
 /*TODO*///    /* generate an interrupt if necessary */
 /*TODO*///    set_interrupt_state(1);
 /*TODO*///    return 0;
-/*TODO*///}
-/*TODO*///
+    }
+
+    /*TODO*///
 /*TODO*///
 /*TODO*///
 /*TODO*////**********************************************************************************************
@@ -621,30 +634,23 @@ public class tms5220 {
 /*TODO*///     check_buffer_low -- check to see if the buffer low flag should be on or off
 /*TODO*///
 /*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///static void check_buffer_low(void)
-/*TODO*///{
-/*TODO*///    /* did we just become low? */
-/*TODO*///    if (fifo_count <= 8)
-/*TODO*///    {
-/*TODO*///        /* generate an interrupt if necessary */
-/*TODO*///        if (!buffer_low)
-/*TODO*///            set_interrupt_state(1);
-/*TODO*///        buffer_low = 1;
-/*TODO*///
-/*TODO*///        if (DEBUG_5220) logerror("Buffer low set\n");
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* did we just become full? */
-/*TODO*///    else
-/*TODO*///    {
-/*TODO*///        buffer_low = 0;
-/*TODO*///
-/*TODO*///        if (DEBUG_5220) logerror("Buffer low cleared\n");
-/*TODO*///    }
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+    static void check_buffer_low() {
+        /* did we just become low? */
+        if (u8_fifo_count <= 8) {
+            /* generate an interrupt if necessary */
+            if (u8_buffer_low == 0) {
+                set_interrupt_state(1);
+            }
+            u8_buffer_low = 1;
+
+            //if (DEBUG_5220) logerror("Buffer low set\n");
+        } /* did we just become full? */ else {
+            u8_buffer_low = 0;
+
+            //if (DEBUG_5220) logerror("Buffer low cleared\n");
+        }
+    }
+
     /**
      * ********************************************************************************************
      *
