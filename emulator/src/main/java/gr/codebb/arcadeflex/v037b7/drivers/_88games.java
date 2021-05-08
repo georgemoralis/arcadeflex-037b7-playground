@@ -3,6 +3,10 @@
  * ported to v0.36
  */ 
 package gr.codebb.arcadeflex.v037b7.drivers;
+
+//sound imports
+import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
+import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
 //vidhrdw imports
 import static gr.codebb.arcadeflex.v037b7.vidhrdw._88games.*;
 
@@ -71,11 +75,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xBBBBBGGGGGRRRRR_swap_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_data_port_0_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_register_port_0_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_status_port_0_r;
-import gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM2151interface;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM3012_VOL;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.upd7759.UPD7759_message_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.upd7759.UPD7759_reset_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.upd7759.UPD7759_start_w;

@@ -4,6 +4,11 @@
  */
 package gr.codebb.arcadeflex.v037b7.drivers;
 
+//sound imports
+import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
+import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
+
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_FIRQ;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_IRQ;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU1;
@@ -69,11 +74,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MWA_ROM;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MemoryReadAddress;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MemoryWriteAddress;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.cpu_setbank;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_data_port_0_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_register_port_0_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_status_port_0_r;
-import gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM2151interface;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM3012_VOL;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_is_IRQ_enabled;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_w;

@@ -1,23 +1,17 @@
 /*
+ * ported to v0.37b7
  * ported to v0.37b5
  *
  */
-package gr.codebb.arcadeflex.WIP.v037b7.sound;
+package gr.codebb.arcadeflex.v037b7.sound;
 
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151Init;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151ReadStatus;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151ResetChip;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151SetIrqHandler;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151SetPortWriteHandler;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151Shutdown;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151UpdateOne;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.YM2151WriteReg;
+import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.*;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_init_multi;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.MAX_2151;
-import gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM2151interface;
+import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.MAX_2151;
+import gr.codebb.arcadeflex.v037b7.sound._2151intfH.YM2151interface;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;

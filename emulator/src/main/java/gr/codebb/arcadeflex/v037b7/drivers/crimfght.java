@@ -4,6 +4,9 @@
  */
 package gr.codebb.arcadeflex.v037b7.drivers;
 
+//sound imports
+import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
+import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
 //vihdrdw imports
 import static gr.codebb.arcadeflex.v037b7.vidhrdw.crimfght.*;
 
@@ -37,11 +40,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.cpu_setbank;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_data_port_0_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_register_port_0_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intf.YM2151_status_port_0_r;
-import gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM2151interface;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound._2151intfH.YM3012_VOL;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_bankswitch;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_read_port_0_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_set_volume;
