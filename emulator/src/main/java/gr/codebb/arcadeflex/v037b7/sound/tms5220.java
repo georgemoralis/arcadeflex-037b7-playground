@@ -3,9 +3,11 @@
  */
 package gr.codebb.arcadeflex.v037b7.sound;
 
-import gr.codebb.arcadeflex.WIP.v037b7.sound._5220intfH.IrqPtr;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.tms5220r.*;
-import gr.codebb.arcadeflex.common.PtrLib;
+//sound imports
+import static gr.codebb.arcadeflex.v037b7.sound._5220intfH.*;
+import static gr.codebb.arcadeflex.v037b7.sound.tms5220r.*;
+
+//to be organized
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
