@@ -4,6 +4,7 @@
 package gr.codebb.arcadeflex.v037b7.sound;
 
 import gr.codebb.arcadeflex.WIP.v037b7.sound._5220intfH.IrqPtr;
+import static gr.codebb.arcadeflex.WIP.v037b7.sound.tms5220r.*;
 import gr.codebb.arcadeflex.common.PtrLib;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
@@ -455,185 +456,261 @@ public class tms5220 {
         check_buffer_low();
     }
 
-    /*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     extract_bits -- extract a specific number of bits from the FIFO
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-/*TODO*///static int extract_bits(int count)
-/*TODO*///{
-/*TODO*///    int val = 0;
-/*TODO*///
-/*TODO*///    while (count--)
-/*TODO*///    {
-/*TODO*///        val = (val << 1) | ((fifo[fifo_head] >> bits_taken) & 1);
-/*TODO*///        bits_taken++;
-/*TODO*///        if (bits_taken >= 8)
-/*TODO*///        {
-/*TODO*///            fifo_count--;
-/*TODO*///            fifo_head = (fifo_head + 1) % FIFO_SIZE;
-/*TODO*///            bits_taken = 0;
-/*TODO*///        }
-/*TODO*///    }
-/*TODO*///    return val;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     parse_frame -- parse a new frame's worth of data; returns 0 if not enough bits in buffer
-/*TODO*///
-/*TODO*///***********************************************************************************************/
-/*TODO*///
-    static int parse_frame(int removeit) {
-        throw new UnsupportedOperationException("Unsupported");
-        /*TODO*///    int old_head, old_taken, old_count;
-/*TODO*///    int bits, indx, i, rep_flag;
-/*TODO*///
-/*TODO*///    /* remember previous frame */
-/*TODO*///    old_energy = new_energy;
-/*TODO*///    old_pitch = new_pitch;
-/*TODO*///    for (i = 0; i < 10; i++)
-/*TODO*///        old_k[i] = new_k[i];
-/*TODO*///
-/*TODO*///    /* clear out the new frame */
-/*TODO*///    new_energy = 0;
-/*TODO*///    new_pitch = 0;
-/*TODO*///    for (i = 0; i < 10; i++)
-/*TODO*///        new_k[i] = 0;
-/*TODO*///
-/*TODO*///    /* if the previous frame was a stop frame, don't do anything */
-/*TODO*///    if (old_energy == (energytable[15] >> 6))
-/*TODO*///        return 1;
-/*TODO*///
-/*TODO*///    /* remember the original FIFO counts, in case we don't have enough bits */
-/*TODO*///    old_count = fifo_count;
-/*TODO*///    old_head = fifo_head;
-/*TODO*///    old_taken = bits_taken;
-/*TODO*///
-/*TODO*///    /* count the total number of bits available */
-/*TODO*///    bits = fifo_count * 8 - bits_taken;
-/*TODO*///
-/*TODO*///    /* attempt to extract the energy index */
-/*TODO*///    bits -= 4;
-/*TODO*///    if (bits < 0)
-/*TODO*///        goto ranout;
-/*TODO*///    indx = extract_bits(4);
-/*TODO*///    new_energy = energytable[indx] >> 6;
-/*TODO*///
-/*TODO*///	/* if the index is 0 or 15, we're done */
-/*TODO*///	if (indx == 0 || indx == 15)
-/*TODO*///	{
-/*TODO*///		if (DEBUG_5220) logerror("  (4-bit energy=%d frame)\n",new_energy);
-/*TODO*///
-/*TODO*///		/* clear fifo if stop frame encountered */
-/*TODO*///		if (indx == 15)
-/*TODO*///		{
-/*TODO*///			fifo_head = fifo_tail = fifo_count = bits_taken = 0;
-/*TODO*///			removeit = 1;
-/*TODO*///		}
-/*TODO*///		goto done;
-/*TODO*///	}
-/*TODO*///
-/*TODO*///    /* attempt to extract the repeat flag */
-/*TODO*///    bits -= 1;
-/*TODO*///    if (bits < 0)
-/*TODO*///        goto ranout;
-/*TODO*///    rep_flag = extract_bits(1);
-/*TODO*///
-/*TODO*///    /* attempt to extract the pitch */
-/*TODO*///    bits -= 6;
-/*TODO*///    if (bits < 0)
-/*TODO*///        goto ranout;
-/*TODO*///    indx = extract_bits(6);
-/*TODO*///    new_pitch = pitchtable[indx] / 256;
-/*TODO*///
-/*TODO*///    /* if this is a repeat frame, just copy the k's */
-/*TODO*///    if (rep_flag)
-/*TODO*///    {
-/*TODO*///        for (i = 0; i < 10; i++)
-/*TODO*///            new_k[i] = old_k[i];
-/*TODO*///
-/*TODO*///        if (DEBUG_5220) logerror("  (11-bit energy=%d pitch=%d rep=%d frame)\n", new_energy, new_pitch, rep_flag);
-/*TODO*///        goto done;
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* if the pitch index was zero, we need 4 k's */
-/*TODO*///    if (indx == 0)
-/*TODO*///    {
-/*TODO*///        /* attempt to extract 4 K's */
-/*TODO*///        bits -= 18;
-/*TODO*///        if (bits < 0)
-/*TODO*///            goto ranout;
-/*TODO*///        new_k[0] = k1table[extract_bits(5)];
-/*TODO*///        new_k[1] = k2table[extract_bits(5)];
-/*TODO*///        new_k[2] = k3table[extract_bits(4)];
-/*TODO*///        new_k[3] = k4table[extract_bits(4)];
-/*TODO*///
-/*TODO*///        if (DEBUG_5220) logerror("  (29-bit energy=%d pitch=%d rep=%d 4K frame)\n", new_energy, new_pitch, rep_flag);
-/*TODO*///        goto done;
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* else we need 10 K's */
-/*TODO*///    bits -= 39;
-/*TODO*///    if (bits < 0)
-/*TODO*///        goto ranout;
-/*TODO*///    new_k[0] = k1table[extract_bits(5)];
-/*TODO*///    new_k[1] = k2table[extract_bits(5)];
-/*TODO*///    new_k[2] = k3table[extract_bits(4)];
-/*TODO*///    new_k[3] = k4table[extract_bits(4)];
-/*TODO*///    new_k[4] = k5table[extract_bits(4)];
-/*TODO*///    new_k[5] = k6table[extract_bits(4)];
-/*TODO*///    new_k[6] = k7table[extract_bits(4)];
-/*TODO*///    new_k[7] = k8table[extract_bits(3)];
-/*TODO*///    new_k[8] = k9table[extract_bits(3)];
-/*TODO*///    new_k[9] = k10table[extract_bits(3)];
-/*TODO*///
-/*TODO*///    if (DEBUG_5220) logerror("  (50-bit energy=%d pitch=%d rep=%d 10K frame)\n", new_energy, new_pitch, rep_flag);
-/*TODO*///
-/*TODO*///done:
-/*TODO*///
-/*TODO*///    if (DEBUG_5220) logerror("Parsed a frame successfully - %d bits remaining\n", bits);
-/*TODO*///
-/*TODO*///    /* if we're not to remove this one, restore the FIFO */
-/*TODO*///    if (!removeit)
-/*TODO*///    {
-/*TODO*///        fifo_count = old_count;
-/*TODO*///        fifo_head = old_head;
-/*TODO*///        bits_taken = old_taken;
-/*TODO*///    }
-/*TODO*///
-/*TODO*///    /* update the buffer_low status */
-/*TODO*///    check_buffer_low();
-/*TODO*///    return 1;
-/*TODO*///
-/*TODO*///ranout:
-/*TODO*///
-/*TODO*///    if (DEBUG_5220) logerror("Ran out of bits on a parse!\n");
-/*TODO*///
-/*TODO*///    /* this is an error condition; mark the buffer empty and turn off speaking */
-/*TODO*///    buffer_empty = 1;
-/*TODO*///    talk_status = speak_external = 0;
-/*TODO*///    fifo_count = fifo_head = fifo_tail = 0;
-/*TODO*///
-/*TODO*///    /* generate an interrupt if necessary */
-/*TODO*///    set_interrupt_state(1);
-/*TODO*///    return 0;
+    /**
+     * ********************************************************************************************
+     *
+     * extract_bits -- extract a specific number of bits from the FIFO
+     *
+     **********************************************************************************************
+     */
+    static int extract_bits(int count) {
+        int val = 0;
+
+        while (count-- != 0) {
+            val = (val << 1) | ((u8_fifo[u8_fifo_head] >> u8_bits_taken) & 1);
+            u8_bits_taken = (u8_bits_taken + 1) & 0xFF;
+            if (u8_bits_taken >= 8) {
+                u8_fifo_count = (u8_fifo_count - 1) & 0xFF;
+                u8_fifo_head = ((u8_fifo_head + 1) % FIFO_SIZE) & 0xFF;
+                u8_bits_taken = 0;
+            }
+        }
+        return val;
     }
 
-    /*TODO*///
-/*TODO*///
-/*TODO*///
-/*TODO*////**********************************************************************************************
-/*TODO*///
-/*TODO*///     check_buffer_low -- check to see if the buffer low flag should be on or off
-/*TODO*///
-/*TODO*///***********************************************************************************************/
+    /**
+     * ********************************************************************************************
+     *
+     * parse_frame -- parse a new frame's worth of data; returns 0 if not enough
+     * bits in buffer
+     *
+     **********************************************************************************************
+     */
+    static int parse_frame(int removeit) {
+        int old_head, old_taken, old_count;
+        int bits, indx, i, rep_flag;
+
+        /* remember previous frame */
+        u16_old_energy = u16_new_energy;
+        u16_old_pitch = u16_new_pitch;
+        for (i = 0; i < 10; i++) {
+            old_k[i] = new_k[i];
+        }
+
+        /* clear out the new frame */
+        u16_new_energy = 0;
+        u16_new_pitch = 0;
+        for (i = 0; i < 10; i++) {
+            new_k[i] = 0;
+        }
+
+        /* if the previous frame was a stop frame, don't do anything */
+        if (u16_old_energy == (energytable[15] >> 6)) {
+            return 1;
+        }
+
+        /* remember the original FIFO counts, in case we don't have enough bits */
+        old_count = u8_fifo_count;
+        old_head = u8_fifo_head;
+        old_taken = u8_bits_taken;
+
+        /* count the total number of bits available */
+        bits = u8_fifo_count * 8 - u8_bits_taken;
+
+        /* attempt to extract the energy index */
+        bits -= 4;
+        if (bits < 0) {
+            //goto ranout;
+            //if (DEBUG_5220) logerror("Ran out of bits on a parse!\n");
+
+            /* this is an error condition; mark the buffer empty and turn off speaking */
+            u8_buffer_empty = 1;
+            u8_talk_status = u8_speak_external = 0;
+            u8_fifo_count = u8_fifo_head = u8_fifo_tail = 0;
+
+            /* generate an interrupt if necessary */
+            set_interrupt_state(1);
+            return 0;
+        }
+        indx = extract_bits(4);
+        u16_new_energy = energytable[indx] >> 6;
+
+        /* if the index is 0 or 15, we're done */
+        if (indx == 0 || indx == 15) {
+            //if (DEBUG_5220) logerror("  (4-bit energy=%d frame)\n",new_energy);
+
+            /* clear fifo if stop frame encountered */
+            if (indx == 15) {
+                u8_fifo_head = u8_fifo_tail = u8_fifo_count = u8_bits_taken = 0;
+                removeit = 1;
+            }
+            {
+                //goto done;
+                //if (DEBUG_5220) logerror("Parsed a frame successfully - %d bits remaining\n", bits);
+
+                /* if we're not to remove this one, restore the FIFO */
+                if (removeit == 0) {
+                    u8_fifo_count = old_count & 0xFF;
+                    u8_fifo_head = old_head & 0xFF;
+                    u8_bits_taken = old_taken & 0xFF;
+                }
+
+                /* update the buffer_low status */
+                check_buffer_low();
+                return 1;
+            }
+        }
+
+        /* attempt to extract the repeat flag */
+        bits -= 1;
+        if (bits < 0) {
+            //goto ranout;
+            //if (DEBUG_5220) logerror("Ran out of bits on a parse!\n");
+
+            /* this is an error condition; mark the buffer empty and turn off speaking */
+            u8_buffer_empty = 1;
+            u8_talk_status = u8_speak_external = 0;
+            u8_fifo_count = u8_fifo_head = u8_fifo_tail = 0;
+
+            /* generate an interrupt if necessary */
+            set_interrupt_state(1);
+            return 0;
+        }
+        rep_flag = extract_bits(1);
+
+        /* attempt to extract the pitch */
+        bits -= 6;
+        if (bits < 0) {
+            //goto ranout;
+            //if (DEBUG_5220) logerror("Ran out of bits on a parse!\n");
+
+            /* this is an error condition; mark the buffer empty and turn off speaking */
+            u8_buffer_empty = 1;
+            u8_talk_status = u8_speak_external = 0;
+            u8_fifo_count = u8_fifo_head = u8_fifo_tail = 0;
+
+            /* generate an interrupt if necessary */
+            set_interrupt_state(1);
+            return 0;
+        }
+        indx = extract_bits(6);
+        u16_new_pitch = pitchtable[indx] / 256;
+
+        /* if this is a repeat frame, just copy the k's */
+        if (rep_flag != 0) {
+            for (i = 0; i < 10; i++) {
+                new_k[i] = old_k[i];
+            }
+
+            //if (DEBUG_5220) logerror("  (11-bit energy=%d pitch=%d rep=%d frame)\n", new_energy, new_pitch, rep_flag);
+            //goto done;
+            {
+                //if (DEBUG_5220) logerror("Parsed a frame successfully - %d bits remaining\n", bits);
+
+                /* if we're not to remove this one, restore the FIFO */
+                if (removeit == 0) {
+                    u8_fifo_count = old_count & 0xFF;
+                    u8_fifo_head = old_head & 0xFF;
+                    u8_bits_taken = old_taken & 0xFF;
+                }
+
+                /* update the buffer_low status */
+                check_buffer_low();
+                return 1;
+            }
+        }
+
+        /* if the pitch index was zero, we need 4 k's */
+        if (indx == 0) {
+            /* attempt to extract 4 K's */
+            bits -= 18;
+            if (bits < 0) {
+                //goto ranout;
+                //if (DEBUG_5220) logerror("Ran out of bits on a parse!\n");
+
+                /* this is an error condition; mark the buffer empty and turn off speaking */
+                u8_buffer_empty = 1;
+                u8_talk_status = u8_speak_external = 0;
+                u8_fifo_count = u8_fifo_head = u8_fifo_tail = 0;
+
+                /* generate an interrupt if necessary */
+                set_interrupt_state(1);
+                return 0;
+            }
+            new_k[0] = k1table[extract_bits(5)];
+            new_k[1] = k2table[extract_bits(5)];
+            new_k[2] = k3table[extract_bits(4)];
+            new_k[3] = k4table[extract_bits(4)];
+
+            //if (DEBUG_5220) logerror("  (29-bit energy=%d pitch=%d rep=%d 4K frame)\n", new_energy, new_pitch, rep_flag);
+            //goto done;
+            {
+                //if (DEBUG_5220) logerror("Parsed a frame successfully - %d bits remaining\n", bits);
+
+                /* if we're not to remove this one, restore the FIFO */
+                if (removeit == 0) {
+                    u8_fifo_count = old_count & 0xFF;
+                    u8_fifo_head = old_head & 0xFF;
+                    u8_bits_taken = old_taken & 0xFF;
+                }
+
+                /* update the buffer_low status */
+                check_buffer_low();
+                return 1;
+            }
+        }
+
+        /* else we need 10 K's */
+        bits -= 39;
+        if (bits < 0) {
+            //goto ranout;
+            //if (DEBUG_5220) logerror("Ran out of bits on a parse!\n");
+
+            /* this is an error condition; mark the buffer empty and turn off speaking */
+            u8_buffer_empty = 1;
+            u8_talk_status = u8_speak_external = 0;
+            u8_fifo_count = u8_fifo_head = u8_fifo_tail = 0;
+
+            /* generate an interrupt if necessary */
+            set_interrupt_state(1);
+            return 0;
+        }
+        new_k[0] = k1table[extract_bits(5)];
+        new_k[1] = k2table[extract_bits(5)];
+        new_k[2] = k3table[extract_bits(4)];
+        new_k[3] = k4table[extract_bits(4)];
+        new_k[4] = k5table[extract_bits(4)];
+        new_k[5] = k6table[extract_bits(4)];
+        new_k[6] = k7table[extract_bits(4)];
+        new_k[7] = k8table[extract_bits(3)];
+        new_k[8] = k9table[extract_bits(3)];
+        new_k[9] = k10table[extract_bits(3)];
+
+        //if (DEBUG_5220) logerror("  (50-bit energy=%d pitch=%d rep=%d 10K frame)\n", new_energy, new_pitch, rep_flag);
+        {//done
+            //if (DEBUG_5220) logerror("Parsed a frame successfully - %d bits remaining\n", bits);
+
+            /* if we're not to remove this one, restore the FIFO */
+            if (removeit == 0) {
+                u8_fifo_count = old_count & 0xFF;
+                u8_fifo_head = old_head & 0xFF;
+                u8_bits_taken = old_taken & 0xFF;
+            }
+
+            /* update the buffer_low status */
+            check_buffer_low();
+            return 1;
+        }
+    }
+
+    /**
+     * ********************************************************************************************
+     *
+     * check_buffer_low -- check to see if the buffer low flag should be on or
+     * off
+     *
+     **********************************************************************************************
+     */
     static void check_buffer_low() {
         /* did we just become low? */
         if (u8_fifo_count <= 8) {
