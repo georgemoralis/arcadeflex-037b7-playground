@@ -4,7 +4,7 @@
  */
 package arcadeflex.v037b7.sound;
 
-import static gr.codebb.arcadeflex.v058.sound.tms5110H.*;
+import static arcadeflex.v058.sound.tms5110H.*;
 
 public class _5110intfH {
 

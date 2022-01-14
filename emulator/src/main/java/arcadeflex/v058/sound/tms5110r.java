@@ -3,7 +3,7 @@
  * ported to v0.37b7
  *
  */
-package gr.codebb.arcadeflex.v058.sound;
+package arcadeflex.v058.sound;
 
 public class tms5110r {
 

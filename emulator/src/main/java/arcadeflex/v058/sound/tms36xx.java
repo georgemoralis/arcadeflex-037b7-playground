@@ -2,8 +2,11 @@
  * ported to 0.58
  * ported to 0.37b7
  */
-package gr.codebb.arcadeflex.v058.sound;
+package arcadeflex.v058.sound;
 
+//sound imports
+import static arcadeflex.v058.sound.tms36xxH.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
@@ -13,7 +16,6 @@ import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_TMS36XX;
-import static gr.codebb.arcadeflex.v058.sound.tms36xxH.*;
 
 public class tms36xx extends snd_interface {
 

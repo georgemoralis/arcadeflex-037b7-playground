@@ -2,8 +2,11 @@
  * ported to 0.58
  * ported to 0.37b5
  */
-package gr.codebb.arcadeflex.v058.sound;
+package arcadeflex.v058.sound;
 
+//sound imports
+import static arcadeflex.v058.sound.vlm5030H.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
@@ -22,7 +25,7 @@ import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_VLM5030;
-import gr.codebb.arcadeflex.v058.sound.vlm5030H.VLM5030interface;
+
 
 public class vlm5030 extends snd_interface {
 

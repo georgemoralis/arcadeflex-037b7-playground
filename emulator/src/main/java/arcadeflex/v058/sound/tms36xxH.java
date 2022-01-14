@@ -2,7 +2,7 @@
  * ported to 0.58
  * ported to 0.37b7
  */
-package gr.codebb.arcadeflex.v058.sound;
+package arcadeflex.v058.sound;
 
 public class tms36xxH {
 

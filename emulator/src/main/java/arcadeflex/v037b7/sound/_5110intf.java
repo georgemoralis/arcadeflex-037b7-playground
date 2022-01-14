@@ -11,7 +11,7 @@ import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.v058.sound.tms5110.*;
+import static arcadeflex.v058.sound.tms5110.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;

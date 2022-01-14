@@ -3,15 +3,17 @@
  * ported to v0.37b7
  *
  */
-package gr.codebb.arcadeflex.v058.sound;
+package arcadeflex.v058.sound;
 
+//sound imports
+import static arcadeflex.v058.sound.tms5110H.*;
+import static arcadeflex.v058.sound.tms5110r.*;
+//to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdlib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.v058.sound.tms5110H.*;
-import static gr.codebb.arcadeflex.v058.sound.tms5110r.*;
 
 public class tms5110 {
 
