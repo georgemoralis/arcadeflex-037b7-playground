@@ -6,6 +6,7 @@ package arcadeflex.v037b7.drivers;
 
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -87,8 +88,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
 
 public class surpratk {
 

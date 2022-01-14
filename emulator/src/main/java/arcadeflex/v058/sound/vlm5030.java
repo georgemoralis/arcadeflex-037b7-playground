@@ -23,8 +23,8 @@ import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_init;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_VLM5030;
+import arcadeflex.v037b7.mame.sndintrfH.MachineSound;
+import static arcadeflex.v037b7.mame.sndintrfH.SOUND_VLM5030;
 
 
 public class vlm5030 extends snd_interface {

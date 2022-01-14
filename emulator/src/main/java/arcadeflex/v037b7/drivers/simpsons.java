@@ -7,8 +7,8 @@ package arcadeflex.v037b7.drivers;
 //machine imports
 import static arcadeflex.v037b7.machine.simpsons.*;
 //mame imports
-//mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 //sound imports
@@ -103,9 +103,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.InterruptPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_K053260;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
 
 public class simpsons {
 

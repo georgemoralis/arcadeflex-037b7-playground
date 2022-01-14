@@ -17,7 +17,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmH.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sndintf;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 
 public class _2203intf extends snd_interface {
 

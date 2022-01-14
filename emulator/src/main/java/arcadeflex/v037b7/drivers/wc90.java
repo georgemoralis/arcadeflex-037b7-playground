@@ -6,6 +6,7 @@ package arcadeflex.v037b7.drivers;
 
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
@@ -24,7 +25,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.colorram;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.colorram_r;

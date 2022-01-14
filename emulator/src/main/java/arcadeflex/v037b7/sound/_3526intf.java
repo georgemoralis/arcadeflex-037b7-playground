@@ -6,12 +6,10 @@ package arcadeflex.v037b7.sound;
 
 //sound imports
 import static arcadeflex.v037b7.sound._3812intfH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
-
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH;
 
 public class _3526intf extends _3812intf {
 
@@ -21,17 +19,17 @@ public class _3526intf extends _3812intf {
     }
 
     @Override
-    public int chips_num(sndintrfH.MachineSound msound) {
+    public int chips_num(MachineSound msound) {
         return ((YM3526interface) msound.sound_interface).num;
     }
 
     @Override
-    public int chips_clock(sndintrfH.MachineSound msound) {
+    public int chips_clock(MachineSound msound) {
         return ((YM3526interface) msound.sound_interface).baseclock;
     }
 
     @Override
-    public int start(sndintrfH.MachineSound msound) {
+    public int start(MachineSound msound) {
         chiptype = OPL_TYPE_YM3526;
         return OPL_sh_start(msound);
     }

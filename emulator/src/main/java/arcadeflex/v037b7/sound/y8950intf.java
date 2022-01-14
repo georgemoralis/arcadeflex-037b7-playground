@@ -6,6 +6,7 @@ package arcadeflex.v037b7.sound;
 
 //mame imports
 import static arcadeflex.v056.mame.timer.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._3812intfH.*;
 //to be organized
@@ -19,8 +20,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmopl.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH;
 
 public class y8950intf extends snd_interface {
 
@@ -36,17 +35,17 @@ public class y8950intf extends snd_interface {
     }
 
     @Override
-    public int chips_num(sndintrfH.MachineSound msound) {
+    public int chips_num(MachineSound msound) {
         return ((Y8950interface) msound.sound_interface).num;
     }
 
     @Override
-    public int chips_clock(sndintrfH.MachineSound msound) {
+    public int chips_clock(MachineSound msound) {
         return ((Y8950interface) msound.sound_interface).baseclock;
     }
 
     @Override
-    public int start(sndintrfH.MachineSound msound) {
+    public int start(MachineSound msound) {
         chiptype = OPL_TYPE_Y8950;
         if (OPL_sh_start(msound) != 0) {
             return 1;
@@ -56,7 +55,7 @@ public class y8950intf extends snd_interface {
         return 0;
     }
 
-    public static int OPL_sh_start(sndintrfH.MachineSound msound) {
+    public static int OPL_sh_start(MachineSound msound) {
 
         int i;
         int rate = Machine.sample_rate;

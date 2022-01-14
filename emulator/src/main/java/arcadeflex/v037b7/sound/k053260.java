@@ -7,6 +7,7 @@ package arcadeflex.v037b7.sound;
 //mame imports
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260H.*;
 //to be organized
@@ -21,9 +22,6 @@ import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_K053260;
 
 public class k053260 extends snd_interface {
 
@@ -251,7 +249,7 @@ public class k053260 extends snd_interface {
     };
 
     @Override
-    public int start(sndintrfH.MachineSound msound) {
+    public int start(MachineSound msound) {
         String[] names = new String[2];
 
         int i;

@@ -9,6 +9,7 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v056.mame.timerH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
+import gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.burnPtr;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 
 public class timer {

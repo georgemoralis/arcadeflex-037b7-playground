@@ -14,7 +14,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static arcadeflex.v058.sound.tms5110.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 
 public class _5110intf extends snd_interface {
 

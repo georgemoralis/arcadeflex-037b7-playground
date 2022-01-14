@@ -5,6 +5,7 @@
 package arcadeflex.v037b7.drivers;
 
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
@@ -110,9 +111,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.nvramPtr;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_UPD7759;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
 
 public class _88games {
 

@@ -20,8 +20,8 @@ import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM3812;
+import static arcadeflex.v037b7.mame.sndintrfH.MachineSound;
+import static arcadeflex.v037b7.mame.sndintrfH.SOUND_YM3812;
 
 public class _3812intf extends snd_interface {
 

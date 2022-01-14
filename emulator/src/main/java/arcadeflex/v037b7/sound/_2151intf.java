@@ -17,8 +17,8 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
+import arcadeflex.v037b7.mame.sndintrfH.MachineSound;
+import static arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
 
 public class _2151intf extends snd_interface {
 
