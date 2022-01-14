@@ -2,10 +2,10 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
 //vihdrdw imports
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.blockhl.*;
+import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 
 //to organize
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;

@@ -2,12 +2,14 @@
  * ported to 0.37b7
  * ported to 0.36
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
-
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.konamiic.*;
+import static arcadeflex.v037b7.vidhrdw.surpratk.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_FIRQ_LINE;
@@ -94,16 +96,6 @@ import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_MODIFIES_PALETTE;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_TYPE_RASTER;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053244_r;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053244_w;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053245_r;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053245_w;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053251_w;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.surpratk.surpratk_vh_screenrefresh;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.surpratk.surpratk_vh_start;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.surpratk.surpratk_vh_stop;
-
-
 
 public class surpratk {
 

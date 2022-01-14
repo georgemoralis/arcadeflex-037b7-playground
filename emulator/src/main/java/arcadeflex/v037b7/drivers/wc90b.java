@@ -2,12 +2,15 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
+//drivers imports
+import static arcadeflex.v037b7.drivers.wc90.*;
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound._2203intf.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2203intfH.*;
-
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.wc90b.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.*;
@@ -33,8 +36,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_size;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_w;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.wc90b.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.wc90.*;
 
 public class wc90b {
 

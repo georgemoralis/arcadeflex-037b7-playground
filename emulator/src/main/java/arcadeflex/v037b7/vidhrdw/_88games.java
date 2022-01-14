@@ -2,7 +2,7 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.vidhrdw;
+package arcadeflex.v037b7.vidhrdw;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX2;

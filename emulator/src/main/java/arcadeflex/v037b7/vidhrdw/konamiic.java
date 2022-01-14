@@ -1,7 +1,7 @@
 /*
  * ported to v0.37b7
  */
-package gr.codebb.arcadeflex.v037b7.vidhrdw;
+package arcadeflex.v037b7.vidhrdw;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;

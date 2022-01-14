@@ -2,11 +2,13 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.machine;
+package arcadeflex.v037b7.machine;
 
+//mame imports
+import static arcadeflex.v037b7.machine.eepromH.*;
+//to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.strlen;
-import static gr.codebb.arcadeflex.v037b7.machine.eepromH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.memcpy;

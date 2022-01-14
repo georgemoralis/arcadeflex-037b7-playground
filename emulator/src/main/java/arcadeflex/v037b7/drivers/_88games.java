@@ -2,13 +2,13 @@
  * ported to v0.37b7
  * ported to v0.36
  */ 
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
 //vidhrdw imports
-import static gr.codebb.arcadeflex.v037b7.vidhrdw._88games.*;
+import static arcadeflex.v037b7.vidhrdw._88games.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;

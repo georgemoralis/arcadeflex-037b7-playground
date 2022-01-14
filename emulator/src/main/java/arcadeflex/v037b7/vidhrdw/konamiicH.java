@@ -1,7 +1,7 @@
 /*
  * ported to v0.37b7
  */
-package gr.codebb.arcadeflex.v037b7.vidhrdw;
+package arcadeflex.v037b7.vidhrdw;
 
 public class konamiicH {
 

@@ -2,8 +2,11 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.vidhrdw;
+package arcadeflex.v037b7.vidhrdw;
 
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.konamiic.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX2;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
@@ -28,8 +31,6 @@ import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhStartPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhStopPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhUpdatePtr;
-import gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.*;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 public class rollerg {
 

@@ -2,12 +2,16 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
+//machine imports
+import static arcadeflex.v037b7.machine.simpsons.*;
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
-
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.simpsons.*;
+import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_FIRQ;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_IRQ;
@@ -79,7 +83,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinterleave_2;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinterleave_4;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.simpsons.*;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.mame.inputH.KEYCODE_F2;
@@ -93,16 +96,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.InterruptPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_coin_counter_w;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_eeprom_r;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_eeprom_w;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_firq_enabled;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_init_machine;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_nvram_handler;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_sound_interrupt_r;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_sound_r;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_speedup1_r;
-import static gr.codebb.arcadeflex.v037b7.machine.simpsons.simpsons_speedup2_r;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_AUDIO_CPU;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_KONAMI;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_Z80;
@@ -120,10 +113,6 @@ import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
 import static gr.codebb.arcadeflex.v037b7.sound.k053260.K053260_r;
 import static gr.codebb.arcadeflex.v037b7.sound.k053260.K053260_w;
 import gr.codebb.arcadeflex.v037b7.sound.k053260H.K053260_interface;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053246_is_IRQ_enabled;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053246_r;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053246_w;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.K053251_w;
 import gr.codebb.arcadeflex.v056.mame.timer.timer_callback;
 import static gr.codebb.arcadeflex.v056.mame.timer.timer_set;
 import static gr.codebb.arcadeflex.v056.mame.timerH.TIME_IN_USEC;

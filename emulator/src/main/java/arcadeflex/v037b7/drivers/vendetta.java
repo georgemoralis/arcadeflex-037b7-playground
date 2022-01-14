@@ -2,15 +2,18 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
+//machine imports
+import static arcadeflex.v037b7.machine.eeprom.*;
+import static arcadeflex.v037b7.machine.eepromH.*;
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound.k053260.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
 //vidhrdw imports
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.*;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.vendetta.*;
+import static arcadeflex.v037b7.vidhrdw.konamiic.*;
+import static arcadeflex.v037b7.vidhrdw.vendetta.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
@@ -103,14 +106,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.nvramPtr;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_init;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_load;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_read_bit;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_save;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_set_clock_line;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_set_cs_line;
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.EEPROM_write_bit;
-import gr.codebb.arcadeflex.v037b7.machine.eepromH.EEPROM_interface;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_AUDIO_CPU;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_KONAMI;
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_Z80;

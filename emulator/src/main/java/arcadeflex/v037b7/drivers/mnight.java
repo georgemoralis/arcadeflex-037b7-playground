@@ -2,13 +2,13 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound._2203intf.*;
 import static gr.codebb.arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.mnight.*;
+import static arcadeflex.v037b7.vidhrdw.mnight.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;

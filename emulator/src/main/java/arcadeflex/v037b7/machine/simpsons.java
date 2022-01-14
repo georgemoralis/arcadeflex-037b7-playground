@@ -3,16 +3,16 @@
  * ported to v0.36
  * 
  */
-package gr.codebb.arcadeflex.v037b7.machine;
+package arcadeflex.v037b7.machine;
 
 //machine imports
-import static gr.codebb.arcadeflex.v037b7.machine.eeprom.*;
-import static gr.codebb.arcadeflex.v037b7.machine.eepromH.*;
+import static arcadeflex.v037b7.machine.eeprom.*;
+import static arcadeflex.v037b7.machine.eepromH.*;
 //sound imports
 import static gr.codebb.arcadeflex.v037b7.sound.k053260.*;
 //vidhrdw imports
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.simpsons.*;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.konamiic.*;
+import static arcadeflex.v037b7.vidhrdw.simpsons.*;
+import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
