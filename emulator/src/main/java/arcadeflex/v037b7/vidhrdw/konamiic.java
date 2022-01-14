@@ -5,6 +5,8 @@ package arcadeflex.v037b7.vidhrdw;
 
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.paletteH.*;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;
@@ -22,7 +24,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.COMBINE_WORD_MEM;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_transparent_pen;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.paletteH.PALETTE_COLOR_VISIBLE;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_mark_all_tiles_dirty;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.ALL_TILEMAPS;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K051316_ctrlram;

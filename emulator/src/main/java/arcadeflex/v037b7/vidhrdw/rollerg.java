@@ -6,6 +6,8 @@ package arcadeflex.v037b7.vidhrdw;
 
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.paletteH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 //to be organized
@@ -16,8 +18,6 @@ import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_init_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.paletteH.PALETTE_COLOR_TRANSPARENT;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.paletteH.PALETTE_COLOR_VISIBLE;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tile_info;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_mark_all_pixels_dirty;

@@ -6,6 +6,8 @@ package arcadeflex.v037b7.vidhrdw;
 
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.paletteH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.konamiicH.*;
@@ -15,7 +17,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.*;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.paletteH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.*;
