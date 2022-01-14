@@ -5,6 +5,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intfH.*;
 //to be organized
@@ -13,8 +15,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.*;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_init_multi;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
 import arcadeflex.v037b7.mame.sndintrfH.MachineSound;

@@ -4,15 +4,16 @@
  */
 package arcadeflex.v037b7.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //sound imports
 import static arcadeflex.v037b7.sound._5110intfH.*;
+import static arcadeflex.v058.sound.tms5110.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static arcadeflex.v058.sound.tms5110.*;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 

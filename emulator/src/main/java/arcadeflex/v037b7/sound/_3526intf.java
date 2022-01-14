@@ -4,12 +4,13 @@
  */
 package arcadeflex.v037b7.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //sound imports
 import static arcadeflex.v037b7.sound._3812intfH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 
 public class _3526intf extends _3812intf {
 

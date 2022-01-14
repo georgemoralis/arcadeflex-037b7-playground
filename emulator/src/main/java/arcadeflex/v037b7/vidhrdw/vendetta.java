@@ -5,6 +5,8 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.konamiicH.*;
@@ -15,7 +17,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.*;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
 
 public class vendetta {

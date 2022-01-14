@@ -4,8 +4,10 @@
  */
 package arcadeflex.v037b7.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//to be organized
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 
 public class _2151intfH {
 

@@ -3,6 +3,9 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.ASSERT_LINE;
@@ -35,8 +38,6 @@ import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.decodegfx;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
 
 public class konamiic {

@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
 import static arcadeflex.v037b7.machine.simpsons.*;
 //mame imports
@@ -97,12 +99,6 @@ import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER;
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_CENTER;
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_LEFT;
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_RIGHT;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.InitDriverPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.InputPortPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.InterruptPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
 
 public class simpsons {
 

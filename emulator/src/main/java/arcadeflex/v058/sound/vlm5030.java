@@ -4,6 +4,8 @@
  */
 package arcadeflex.v058.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //sound imports
 import static arcadeflex.v058.sound.vlm5030H.*;
 //to be organized
@@ -22,10 +24,8 @@ import static gr.codebb.arcadeflex.old.sound.mixer.mixer_allocate_channel;
 import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_init;
 import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static arcadeflex.v037b7.mame.sndintrfH.SOUND_VLM5030;
-
 
 public class vlm5030 extends snd_interface {
 

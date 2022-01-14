@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
@@ -17,7 +19,6 @@ import static arcadeflex.v037b7.vidhrdw.mnight.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.old.mame.common.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.*;

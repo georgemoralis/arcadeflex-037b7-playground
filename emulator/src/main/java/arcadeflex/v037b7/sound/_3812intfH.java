@@ -4,7 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 
 public class _3812intfH {
 

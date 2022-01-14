@@ -4,6 +4,8 @@
  */
 package arcadeflex.v058.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //sound imports
 import static arcadeflex.v058.sound.sn76496H.*;
 //to be organized
@@ -12,7 +14,6 @@ import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 
 public class sn76496 extends snd_interface {

@@ -3,8 +3,10 @@
 */
 package arcadeflex.v037b7.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.ay8910H.AY8910interface;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 
 public class _2203intfH {
 

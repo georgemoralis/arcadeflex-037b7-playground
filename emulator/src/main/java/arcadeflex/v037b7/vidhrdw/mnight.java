@@ -4,6 +4,9 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyscrollbitmap;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
@@ -12,7 +15,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.common.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.paletteH.*;
 

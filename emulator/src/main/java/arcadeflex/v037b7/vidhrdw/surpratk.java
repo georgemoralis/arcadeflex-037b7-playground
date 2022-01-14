@@ -5,6 +5,8 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.konamiicH.*;
@@ -27,9 +29,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_tilemap_u
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_vh_start;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_vh_stop;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhStartPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhStopPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhUpdatePtr;
 
 public class surpratk {
 

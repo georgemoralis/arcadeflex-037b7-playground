@@ -5,6 +5,8 @@
  */
 package arcadeflex.v037b7.machine;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
 import static arcadeflex.v037b7.machine.eeprom.*;
 import static arcadeflex.v037b7.machine.eepromH.*;
@@ -32,10 +34,10 @@ import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.coin_counter_w;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.InitMachinePtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.nvramPtr;
+import arcadeflex.v037b7.generic.funcPtr.InitMachinePtr;
+import arcadeflex.v037b7.generic.funcPtr.ReadHandlerPtr;
+import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
+import arcadeflex.v037b7.generic.funcPtr.nvramPtr;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 

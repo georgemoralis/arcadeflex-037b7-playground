@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v056.mame.timer.*;
 //sound imports
@@ -16,7 +18,6 @@ import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fm.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmH.*;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 

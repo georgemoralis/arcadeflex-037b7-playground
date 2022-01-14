@@ -4,13 +4,14 @@
  */
 package arcadeflex.v056.machine;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.set_led_status;
 import static gr.codebb.arcadeflex.old.mame.common.dispensed_tickets;
-import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 
 public class ticket {
 

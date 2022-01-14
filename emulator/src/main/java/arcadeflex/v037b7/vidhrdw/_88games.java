@@ -4,6 +4,9 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX2;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX3;
@@ -33,9 +36,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_tilemap_d
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_tilemap_update;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_vh_start;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_vh_stop;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhStartPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhStopPtr;
-import gr.codebb.arcadeflex.v037b7.common.fucPtr.VhUpdatePtr;
 
 public class _88games {
 
