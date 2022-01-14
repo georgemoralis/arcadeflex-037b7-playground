@@ -3,6 +3,9 @@
  */
 package arcadeflex.v037b7.mame;
 
+//mame imports
+import static arcadeflex.v037b7.mame.driverH.*;
+//to br organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL0;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL2;
@@ -16,9 +19,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import gr.codebb.arcadeflex.common.SubArrays.UShortArray;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_X;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_Y;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_SWAP_XY;
 
 public class drawgfx {
 

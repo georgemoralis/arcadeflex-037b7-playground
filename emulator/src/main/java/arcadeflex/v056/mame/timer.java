@@ -5,13 +5,11 @@
 package arcadeflex.v056.mame;
 
 //mame imports
+import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v056.mame.timerH.*;
 //to be organized
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-
-import gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.burnPtr;
 
 public class timer {
 

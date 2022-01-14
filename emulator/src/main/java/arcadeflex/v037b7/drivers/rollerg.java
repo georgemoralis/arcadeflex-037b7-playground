@@ -5,7 +5,7 @@
 package arcadeflex.v037b7.drivers;
 
 //mame imports
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.driverH.*;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;

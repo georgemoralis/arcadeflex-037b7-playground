@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//mame imports
+import static arcadeflex.v037b7.mame.driverH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 
@@ -48,17 +50,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.InterruptPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_AUDIO_CPU;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_KONAMI;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_Z80;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.DEFAULT_60HZ_VBLANK_DURATION;
-import gr.codebb.arcadeflex.v037b7.mame.driverH.GameDriver;
-import gr.codebb.arcadeflex.v037b7.mame.driverH.MachineCPU;
-import gr.codebb.arcadeflex.v037b7.mame.driverH.MachineDriver;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ROT0;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_MODIFIES_PALETTE;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_TYPE_RASTER;
-
 
 public class blockhl {
 

@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//mame imports
+import static arcadeflex.v037b7.mame.driverH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -85,15 +87,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.RomLoadPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteYmHandlerPtr;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.CPU_KONAMI;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.DEFAULT_60HZ_VBLANK_DURATION;
-import gr.codebb.arcadeflex.v037b7.mame.driverH.GameDriver;
-import gr.codebb.arcadeflex.v037b7.mame.driverH.MachineCPU;
-import gr.codebb.arcadeflex.v037b7.mame.driverH.MachineDriver;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ROT0;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.SOUND_SUPPORTS_STEREO;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_MODIFIES_PALETTE;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_TYPE_RASTER;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
 

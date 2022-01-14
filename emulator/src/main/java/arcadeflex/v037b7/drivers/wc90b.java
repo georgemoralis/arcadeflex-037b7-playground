@@ -6,6 +6,8 @@ package arcadeflex.v037b7.drivers;
 
 //drivers imports
 import static arcadeflex.v037b7.drivers.wc90.*;
+//mame imports
+import static arcadeflex.v037b7.mame.driverH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
@@ -13,7 +15,6 @@ import static arcadeflex.v037b7.sound._2203intfH.*;
 import static arcadeflex.v037b7.vidhrdw.wc90b.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.*;
 import static gr.codebb.arcadeflex.old.mame.common.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;

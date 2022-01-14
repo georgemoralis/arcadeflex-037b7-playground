@@ -39,9 +39,9 @@ import static gr.codebb.arcadeflex.old.mame.usrintrf.switch_true_orientation;
 import static gr.codebb.arcadeflex.old.mame.usrintrf.switch_ui_orientation;
 import static gr.codebb.arcadeflex.old.mame.usrintrf.trueorientation;
 import static gr.codebb.arcadeflex.old.mame.usrintrf.ui_text;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_X;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_Y;
-import static gr.codebb.arcadeflex.v037b7.mame.driverH.ORIENTATION_SWAP_XY;
+import static arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_X;
+import static arcadeflex.v037b7.mame.driverH.ORIENTATION_FLIP_Y;
+import static arcadeflex.v037b7.mame.driverH.ORIENTATION_SWAP_XY;
 
 public class usrintrf {
 
