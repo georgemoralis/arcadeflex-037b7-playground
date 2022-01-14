@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2608intfH.*;
 //to be organized
@@ -17,7 +19,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmH.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
-import static gr.codebb.arcadeflex.v056.mame.timer.*;
 
 public class _2608intf extends snd_interface {
 

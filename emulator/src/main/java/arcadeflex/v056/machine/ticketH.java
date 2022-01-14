@@ -2,7 +2,7 @@
  * ported to v0.56
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v056.machine;
+package arcadeflex.v056.machine;
 
 public class ticketH {
 

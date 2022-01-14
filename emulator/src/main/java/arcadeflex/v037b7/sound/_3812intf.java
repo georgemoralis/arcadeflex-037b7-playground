@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
 //sound imports
 import static arcadeflex.v037b7.sound._3812intfH.*;
 //to be organized
@@ -20,8 +22,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM3812;
-import static gr.codebb.arcadeflex.v056.mame.timer.*;
-import gr.codebb.arcadeflex.v037b7.mame.sndintrfH;
 
 public class _3812intf extends snd_interface {
 

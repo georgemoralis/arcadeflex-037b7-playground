@@ -2,13 +2,15 @@
  * ported to v0.56
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v056.machine;
+package arcadeflex.v056.machine;
 
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
+import static arcadeflex.v056.mame.timerH.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.set_led_status;
 import static gr.codebb.arcadeflex.old.mame.common.dispensed_tickets;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
-import static gr.codebb.arcadeflex.v056.mame.timer.*;
-import static gr.codebb.arcadeflex.v056.mame.timerH.*;
 
 public class ticket {
 

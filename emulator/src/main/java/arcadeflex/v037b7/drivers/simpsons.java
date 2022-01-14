@@ -6,9 +6,13 @@ package arcadeflex.v037b7.drivers;
 
 //machine imports
 import static arcadeflex.v037b7.machine.simpsons.*;
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
+import static arcadeflex.v056.mame.timerH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
+import static arcadeflex.v037b7.sound.k053260.*;
 import static arcadeflex.v037b7.sound.k053260H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.simpsons.*;
@@ -111,11 +115,6 @@ import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_TYPE_RASTER;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_K053260;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
-import static arcadeflex.v037b7.sound.k053260.K053260_r;
-import static arcadeflex.v037b7.sound.k053260.K053260_w;
-import gr.codebb.arcadeflex.v056.mame.timer.timer_callback;
-import static gr.codebb.arcadeflex.v056.mame.timer.timer_set;
-import static gr.codebb.arcadeflex.v056.mame.timerH.TIME_IN_USEC;
 
 public class simpsons {
 

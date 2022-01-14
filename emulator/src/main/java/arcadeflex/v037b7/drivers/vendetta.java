@@ -7,6 +7,9 @@ package arcadeflex.v037b7.drivers;
 //machine imports
 import static arcadeflex.v037b7.machine.eeprom.*;
 import static arcadeflex.v037b7.machine.eepromH.*;
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
+import static arcadeflex.v056.mame.timerH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260.*;
 import static arcadeflex.v037b7.sound._2151intf.*;
@@ -121,12 +124,7 @@ import static gr.codebb.arcadeflex.v037b7.mame.driverH.VIDEO_TYPE_RASTER;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_K053260;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
-import gr.codebb.arcadeflex.v056.mame.timer.timer_callback;
-import static gr.codebb.arcadeflex.v056.mame.timer.timer_set;
-import static gr.codebb.arcadeflex.v056.mame.timerH.TIME_IN_USEC;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-
-
 
 public class vendetta {
 

@@ -4,7 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
-import static gr.codebb.arcadeflex.v056.mame.timer.*;
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
 
 /**
  * *******************************************************

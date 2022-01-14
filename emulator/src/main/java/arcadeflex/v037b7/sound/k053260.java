@@ -4,6 +4,9 @@
  */
 package arcadeflex.v037b7.sound;
 
+//mame imports
+import static arcadeflex.v056.mame.timer.*;
+import static arcadeflex.v056.mame.timerH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260H.*;
 //to be organized
@@ -21,8 +24,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_K053260;
-import static gr.codebb.arcadeflex.v056.mame.timer.*;
-import static gr.codebb.arcadeflex.v056.mame.timerH.*;
 
 public class k053260 extends snd_interface {
 

@@ -2,12 +2,14 @@
  * ported to 0.56
  * ported to 0.37b7
  */
-package gr.codebb.arcadeflex.v056.mame;
+package arcadeflex.v056.mame;
 
+//mame imports
+import static arcadeflex.v056.mame.timerH.*;
+//to be organized
 import static gr.codebb.arcadeflex.v037b7.mame.driverH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.v056.mame.timerH.*;
 
 import gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.burnPtr;
 
