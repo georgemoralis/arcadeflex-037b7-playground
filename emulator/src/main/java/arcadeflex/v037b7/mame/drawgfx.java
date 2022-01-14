@@ -1,7 +1,7 @@
 /*
  * Ported to v0.37b7
  */
-package gr.codebb.arcadeflex.v037b7.mame;
+package arcadeflex.v037b7.mame;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL0;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL1;

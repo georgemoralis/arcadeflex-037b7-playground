@@ -37,7 +37,7 @@ import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.decodegfx;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.ReadHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
-import static gr.codebb.arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
+import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
 
 public class konamiic {
 
