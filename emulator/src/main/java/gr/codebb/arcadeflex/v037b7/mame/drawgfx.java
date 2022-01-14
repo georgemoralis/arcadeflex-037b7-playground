@@ -4591,7 +4591,7 @@ public class drawgfx {
                 /* optimized loop for the not zoomed case */
 
  /* startx is unsigned */
-                u32_startx = (((int) u32_startx) >>> 16) & 0xFFFFFFFFL;
+                u32_startx = (((int) u32_startx) >> 16);
 
                 if (u32_startx >= srcbitmap.width) {
                     sx += -u32_startx;
