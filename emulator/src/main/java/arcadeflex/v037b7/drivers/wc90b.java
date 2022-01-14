@@ -7,8 +7,8 @@ package arcadeflex.v037b7.drivers;
 //drivers imports
 import static arcadeflex.v037b7.drivers.wc90.*;
 //sound imports
-import static gr.codebb.arcadeflex.v037b7.sound._2203intf.*;
-import static gr.codebb.arcadeflex.v037b7.sound._2203intfH.*;
+import static arcadeflex.v037b7.sound._2203intf.*;
+import static arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.wc90b.*;
 //to be organized

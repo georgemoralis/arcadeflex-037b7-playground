@@ -2,7 +2,7 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.ay8910H.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;

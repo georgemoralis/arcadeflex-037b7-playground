@@ -2,8 +2,11 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
+//sound imports
+import static arcadeflex.v037b7.sound.k053260H.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
@@ -18,7 +21,6 @@ import gr.codebb.arcadeflex.v037b7.common.fucPtr.WriteHandlerPtr;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH;
 import gr.codebb.arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.SOUND_K053260;
-import gr.codebb.arcadeflex.v037b7.sound.k053260H.K053260_interface;
 import static gr.codebb.arcadeflex.v056.mame.timer.*;
 import static gr.codebb.arcadeflex.v056.mame.timerH.*;
 

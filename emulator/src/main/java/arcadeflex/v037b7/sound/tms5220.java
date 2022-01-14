@@ -1,11 +1,11 @@
 /*
  * ported to v0.37b7
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
 //sound imports
-import static gr.codebb.arcadeflex.v037b7.sound._5220intfH.*;
-import static gr.codebb.arcadeflex.v037b7.sound.tms5220r.*;
+import static arcadeflex.v037b7.sound._5220intfH.*;
+import static arcadeflex.v037b7.sound.tms5220r.*;
 
 //to be organized
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;

@@ -2,14 +2,16 @@
  * ported to v0.37b7
  *
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
+//sound imports
+import static arcadeflex.v037b7.sound._3812intfH.*;
+//to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.v037b7.sound._3812intfH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmopl.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
@@ -35,22 +37,22 @@ public class _3812intf extends snd_interface {
     }
 
     @Override
-    public int chips_num(sndintrfH.MachineSound msound) {
+    public int chips_num(MachineSound msound) {
         return ((YM3812interface) msound.sound_interface).num;
     }
 
     @Override
-    public int chips_clock(sndintrfH.MachineSound msound) {
+    public int chips_clock(MachineSound msound) {
         return ((YM3812interface) msound.sound_interface).baseclock;
     }
 
     @Override
-    public int start(sndintrfH.MachineSound msound) {
+    public int start(MachineSound msound) {
         chiptype = OPL_TYPE_YM3812;
         return OPL_sh_start(msound);
     }
 
-    public static int OPL_sh_start(sndintrfH.MachineSound msound) {
+    public static int OPL_sh_start(MachineSound msound) {
 
         int i;
         int rate = Machine.sample_rate;
@@ -157,6 +159,18 @@ public class _3812intf extends snd_interface {
     @Override
     public void reset() {
         //no functionality expected
+    }
+
+    public static void YM3812_sh_reset() {
+        int i;
+
+        for (i = 0xff; i <= 0; i--) {
+            YM3812_control_port_0_w.handler(0, i);
+            YM3812_write_port_0_w.handler(0, 0);
+        }
+        /* IRQ clear */
+        YM3812_control_port_0_w.handler(0, 4);
+        YM3812_write_port_0_w.handler(0, 0x80);
     }
 
     public static ReadHandlerPtr YM3812_read_port_0_r = new ReadHandlerPtr() {

@@ -5,8 +5,8 @@
 package arcadeflex.v037b7.drivers;
 
 //sound imports
-import static gr.codebb.arcadeflex.v037b7.sound._2151intf.*;
-import static gr.codebb.arcadeflex.v037b7.sound._2151intfH.*;
+import static arcadeflex.v037b7.sound._2151intf.*;
+import static arcadeflex.v037b7.sound._2151intfH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.crimfght.*;
 

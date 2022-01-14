@@ -9,7 +9,7 @@ package arcadeflex.v037b7.machine;
 import static arcadeflex.v037b7.machine.eeprom.*;
 import static arcadeflex.v037b7.machine.eepromH.*;
 //sound imports
-import static gr.codebb.arcadeflex.v037b7.sound.k053260.*;
+import static arcadeflex.v037b7.sound.k053260.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.simpsons.*;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;

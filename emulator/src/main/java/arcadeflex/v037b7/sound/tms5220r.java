@@ -2,7 +2,7 @@
  * ported to v0.37b7
  *
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
 public class tms5220r {
 

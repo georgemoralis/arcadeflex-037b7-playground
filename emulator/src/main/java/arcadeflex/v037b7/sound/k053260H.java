@@ -2,7 +2,7 @@
  * ported to v0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
 import static gr.codebb.arcadeflex.v056.mame.timer.*;
 

@@ -10,10 +10,10 @@ import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
 import static gr.codebb.arcadeflex.v056.mame.timer.*;
 import static gr.codebb.arcadeflex.v056.mame.timerH.*;
 //sound imports
-import static gr.codebb.arcadeflex.v037b7.sound._3812intf.*;
-import static gr.codebb.arcadeflex.v037b7.sound._3812intfH.*;
-import static gr.codebb.arcadeflex.v037b7.sound.k053260.*;
-import static gr.codebb.arcadeflex.v037b7.sound.k053260H.*;
+import static arcadeflex.v037b7.sound._3812intf.*;
+import static arcadeflex.v037b7.sound._3812intfH.*;
+import static arcadeflex.v037b7.sound.k053260.*;
+import static arcadeflex.v037b7.sound.k053260H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.rollerg.*;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;

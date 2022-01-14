@@ -2,19 +2,21 @@
  * ported to v0.37b7
  *
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
+//sound imports
+import static arcadeflex.v037b7.sound._5110intfH.*;
+//to be organized
+import static gr.codebb.arcadeflex.common.PtrLib.*;
+import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
+import static gr.codebb.arcadeflex.old.sound.streams.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
+import static gr.codebb.arcadeflex.v058.sound.tms5110.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
-import gr.codebb.arcadeflex.v037b7.sound._5220intfH.TMS5220interface;
-import static gr.codebb.arcadeflex.v037b7.sound.tms5220.*;
-import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
-import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
-import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.v037b7.mame.sndintrfH.*;
 
-public class _5220intf extends snd_interface {
+public class _5110intf extends snd_interface {
 
     public static final int MAX_SAMPLE_CHUNK = 10000;
     public static final int FRAC_BITS = 14;
@@ -23,43 +25,53 @@ public class _5220intf extends snd_interface {
 
 
     /* the state of the streamed output */
-    static TMS5220interface intf;
+    static TMS5110interface intf;
     static short last_sample, curr_sample;
     static /*UINT32*/ int source_step;
     static /*UINT32*/ int source_pos;
     static int stream;
 
-    public _5220intf() {
-        this.name = "TMS5220";
-        this.sound_num = SOUND_TMS5220;
+    public _5110intf() {
+        this.name = "TMS5110";
+        this.sound_num = SOUND_TMS5110;
     }
 
     @Override
     public int chips_num(MachineSound msound) {
-        return 0;
+        return 0;//no functionality expected
     }
 
     @Override
     public int chips_clock(MachineSound msound) {
-        return ((TMS5220interface) msound.sound_interface).baseclock;
+        return ((TMS5110interface) msound.sound_interface).baseclock;
     }
 
+    /**
+     * ****************************************************************************
+     * tms5110_sh_start -- allocate buffers and reset the 5110
+     * ****************************************************************************
+     */
     @Override
     public int start(MachineSound msound) {
-        intf = (TMS5220interface) msound.sound_interface;
+        intf = (TMS5110interface) msound.sound_interface;
 
-        /* reset the 5220 */
-        tms5220_reset();
-        tms5220_set_irq(intf.irq);
+        if (intf.M0_callback == null) {
+            logerror("\n file: 5110intf.c, tms5110_sh_start(), line 53:\n  Missing _mandatory_ 'M0_callback' function pointer in the TMS5110 interface\n  This function is used by TMS5110 to call for a single bits\n  needed to generate the speech\n  Aborting startup...\n");
+            return 1;
+        }
+        tms5110_set_M0_callback(intf.M0_callback);
+
+        /* reset the 5110 */
+        tms5110_reset();
 
         /* set the initial frequency */
         stream = -1;
-        tms5220_set_frequency(intf.baseclock);
+        tms5110_set_frequency(intf.baseclock);
         source_pos = 0;
         last_sample = curr_sample = 0;
 
         /* initialize a stream */
-        stream = stream_init("TMS5220", intf.mixing_level, Machine.sample_rate, 0, tms5220_update);
+        stream = stream_init("TMS5110", intf.mixing_level, Machine.sample_rate, 0, tms5110_update);
         if (stream == -1) {
             return 1;
         }
@@ -84,60 +96,63 @@ public class _5220intf extends snd_interface {
     }
 
     /**
-     * ********************************************************************************************
-     * tms5220_data_w -- write data to the sound chip
-     * *********************************************************************************************
+     * ****************************************************************************
+     * tms5110_CTL_w -- write Control Command to the sound chip commands like
+     * Speech, Reset, etc., are loaded into the chip via the CTL pins
+     * ****************************************************************************
      */
-    public static WriteHandlerPtr tms5220_data_w = new WriteHandlerPtr() {
+    public static WriteHandlerPtr tms5110_CTL_w = new WriteHandlerPtr() {
         public void handler(int offset, int data) {
             /* bring up to date first */
             stream_update(stream, 0);
-            tms5220_data_write(data);
+            tms5110_CTL_set(data);
         }
     };
 
     /**
-     * ********************************************************************************************
-     * tms5220_status_r -- read status from the sound chip
-     * *********************************************************************************************
+     * ****************************************************************************
+     * tms5110_PDC_w -- write to PDC pin on the sound chip
+     * ****************************************************************************
      */
-    public static ReadHandlerPtr tms5220_status_r = new ReadHandlerPtr() {
+    public static WriteHandlerPtr tms5110_PDC_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            /* bring up to date first */
+            stream_update(stream, 0);
+            tms5110_PDC_set(data);
+        }
+    };
+
+    /**
+     * ****************************************************************************
+     * tms5110_status_r -- read status from the sound chip
+     * ****************************************************************************
+     */
+    public static ReadHandlerPtr tms5110_status_r = new ReadHandlerPtr() {
         public int handler(int offset) {
             /* bring up to date first */
-            stream_update(stream, -1);
-            return tms5220_status_read();
+            stream_update(stream, 0);
+            return tms5110_status_read();
         }
     };
 
     /**
-     * ********************************************************************************************
-     * tms5220_ready_r -- return the not ready status from the sound chip
-     * *********************************************************************************************
+     * ****************************************************************************
+     * tms5110_ready_r -- return the not ready status from the sound chip
+     * ****************************************************************************
      */
-    public static int tms5220_ready_r() {
+    public static int tms5110_ready_r() {
         /* bring up to date first */
-        stream_update(stream, -1);
-        return tms5220_ready_read();
+        stream_update(stream, 0);
+        return tms5110_ready_read();
     }
 
     /**
-     * ********************************************************************************************
-     * tms5220_int_r -- return the int status from the sound chip
-     * *********************************************************************************************
-     */
-    public static int tms5220_int_r() {
-        /* bring up to date first */
-        stream_update(stream, -1);
-        return tms5220_int_read();
-    }
-
-    /**
-     * ********************************************************************************************
-     * tms5220_update -- update the sound chip so that it is in sync with CPU
+     * ****************************************************************************
+     * tms5110_update -- update the sound chip so that it is in sync with CPU
      * execution
-     * *********************************************************************************************
+     * ****************************************************************************
      */
-    public static StreamInitPtr tms5220_update = new StreamInitPtr() {
+    public static StreamInitPtr tms5110_update = new StreamInitPtr() {
         public void handler(int ch, ShortPtr buffer, int length) {
             ShortPtr sample_data = new ShortPtr(MAX_SAMPLE_CHUNK);
             ShortPtr curr_data = new ShortPtr(sample_data);
@@ -146,7 +161,6 @@ public class _5220intf extends snd_interface {
             int final_pos;
             /*UINT32*/
             int new_samples;
-
 
             /* finish off the current sample */
             if (source_pos > 0) {
@@ -161,7 +175,7 @@ public class _5220intf extends snd_interface {
                 if (source_pos >= FRAC_ONE) {
                     source_pos -= FRAC_ONE;
                 } else {
-                    tms5220_process(sample_data, 0);
+                    tms5110_process(sample_data, 0);
                     return;
                 }
             }
@@ -174,7 +188,7 @@ public class _5220intf extends snd_interface {
             }
 
             /* generate them into our buffer */
-            tms5220_process(sample_data, new_samples);
+            tms5110_process(sample_data, new_samples);
             prev = curr;
             curr = curr_data.readinc();
 
@@ -183,7 +197,6 @@ public class _5220intf extends snd_interface {
                 /* interpolate */
                 while (length > 0 && source_pos < FRAC_ONE) {
                     buffer.writeinc((short) ((((int) prev * (FRAC_ONE - source_pos)) + ((int) curr * source_pos)) >> FRAC_BITS));
-
                     source_pos += source_step;
                     length--;
                 }
@@ -203,11 +216,11 @@ public class _5220intf extends snd_interface {
     };
 
     /**
-     * ********************************************************************************************
-     * tms5220_set_frequency -- adjusts the playback frequency
-     * *********************************************************************************************
+     * ****************************************************************************
+     * tms5110_set_frequency -- adjusts the playback frequency
+     * ****************************************************************************
      */
-    public static void tms5220_set_frequency(int frequency) {
+    public static void tms5110_set_frequency(int frequency) {
         /* skip if output frequency is zero */
         if (Machine.sample_rate == 0) {
             return;

@@ -2,15 +2,17 @@
  * ported to v0.37b7
  *
  */
-package gr.codebb.arcadeflex.v037b7.sound;
+package arcadeflex.v037b7.sound;
 
+//sound imports
+import static arcadeflex.v037b7.sound._3812intfH.*;
+//to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.*;
 import static gr.codebb.arcadeflex.old.mame.common.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.v037b7.sound._3812intfH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmopl.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
 import static gr.codebb.arcadeflex.v037b7.common.fucPtr.*;
