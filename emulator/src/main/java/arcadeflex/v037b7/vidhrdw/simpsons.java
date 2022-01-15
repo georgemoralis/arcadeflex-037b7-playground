@@ -8,11 +8,11 @@ package arcadeflex.v037b7.vidhrdw;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.paletteH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.konamiicH.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.*;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;

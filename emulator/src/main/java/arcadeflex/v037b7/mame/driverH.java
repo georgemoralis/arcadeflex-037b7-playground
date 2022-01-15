@@ -8,9 +8,9 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.CopyArray;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.GfxDecodeInfo;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.*;

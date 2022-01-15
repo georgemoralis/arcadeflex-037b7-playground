@@ -9,6 +9,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.input.*;
 import static arcadeflex.v037b7.mame.inputH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //java imports
 import java.util.HashMap;
 
@@ -19,7 +20,6 @@ import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 
 public class inptport {
 

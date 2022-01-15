@@ -10,6 +10,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
@@ -17,7 +18,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 //to organize
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;

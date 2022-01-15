@@ -11,6 +11,7 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -20,7 +21,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to organize
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_spinuntil_int;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;

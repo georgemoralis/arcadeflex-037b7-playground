@@ -6,9 +6,9 @@ package arcadeflex.v037b7.vidhrdw;
 
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.commonH.*;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX1;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX2;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_init_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;

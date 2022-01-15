@@ -12,6 +12,7 @@ import static arcadeflex.v037b7.machine.eeprom.*;
 import static arcadeflex.v037b7.machine.eepromH.*;
 //mame imports
 import static arcadeflex.v037b7.mame.inptport.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260.*;
 //vidhrdw imports
@@ -20,8 +21,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU1;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU2;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_spinuntil_int;

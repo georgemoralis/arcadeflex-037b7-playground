@@ -16,6 +16,7 @@ import static arcadeflex.v056.mame.timerH.*;
 import static arcadeflex.v037b7.mame.inputH.*;
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -27,15 +28,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_FIRQ;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_IRQ;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU1;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_CPU2;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX1;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_GFX2;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.REGION_SOUND1;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.ROM_CONTINUE;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.ROM_END;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.ROM_LOAD;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.ROM_REGION;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getiloops;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_set_nmi_line;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;

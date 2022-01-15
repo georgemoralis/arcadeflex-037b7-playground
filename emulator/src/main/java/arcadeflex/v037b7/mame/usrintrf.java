@@ -13,6 +13,7 @@ import static arcadeflex.v037b7.mame.paletteH.*;
 import static arcadeflex.v037b7.mame.datafile.*;
 import static arcadeflex.v037b7.mame.usrintrfH.*;
 import static arcadeflex.v037b7.mame.version.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
@@ -35,7 +36,6 @@ import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.update_video_and_audio;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mameH.MAX_GFX_ELEMENTS;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.COIN_COUNTERS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
