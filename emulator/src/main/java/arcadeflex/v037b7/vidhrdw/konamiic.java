@@ -40,6 +40,7 @@ import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.decodegfx;
 import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
+import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_RMRD_line;
 
 public class konamiic {
 
@@ -1140,13 +1141,12 @@ public class konamiic {
 /*TODO*///	}
 /*TODO*///}
 /*TODO*///
-/*TODO*///void K052109_set_RMRD_line(int state)
-/*TODO*///{
-/*TODO*///	K052109_RMRD_line = state;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///void K052109_tilemap_update(void)
+    public static void K052109_set_RMRD_line(int state) {
+        K052109_RMRD_line = state;
+    }
+
+
+    /*TODO*///void K052109_tilemap_update(void)
 /*TODO*///{
 /*TODO*///#if 0
 /*TODO*///{

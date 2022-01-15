@@ -16,6 +16,7 @@ import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.crimfght.*;
+import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to organize
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
@@ -54,7 +55,6 @@ import gr.codebb.arcadeflex.WIP.v037b7.sound.k007232H.K007232_interface;
 import gr.codebb.arcadeflex.WIP.v037b7.sound.k007232H.portwritehandlerPtr;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_051960_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_051960_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_set_RMRD_line;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinterleave_2;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.mame.common.coin_counter_w;
