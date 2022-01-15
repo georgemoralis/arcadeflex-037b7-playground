@@ -3,7 +3,17 @@
  */
 package arcadeflex.v037b7.mame;
 
-import static arcadeflex.v037b7.mame.datafile.load_driver_history;
+//mame imports
+import static arcadeflex.v037b7.mame.input.*;
+import static arcadeflex.v037b7.mame.inputH.*;
+import static arcadeflex.v037b7.mame.inptport.*;
+import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.paletteH.*;
+import static arcadeflex.v037b7.mame.datafile.*;
+import static arcadeflex.v037b7.mame.usrintrfH.*;
+import static arcadeflex.v037b7.mame.version.*;
+//to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
@@ -11,10 +21,6 @@ import static gr.codebb.arcadeflex.common.SubArrays.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cheat.DoCheat;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cheat.cheat_menu;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.driver.drivers;
-import static arcadeflex.v037b7.mame.driverH.*;
-import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_TRANSPARENT;
-import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_UNUSED;
-import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_USED;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.ui_text.ui_getstring;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.ui_textH.*;
@@ -26,20 +32,14 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cputype_name;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.machine_reset;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
-import static arcadeflex.v037b7.mame.input.*;
-import static arcadeflex.v037b7.mame.inputH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.update_video_and_audio;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mameH.MAX_GFX_ELEMENTS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.COIN_COUNTERS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
-import static arcadeflex.v037b7.mame.usrintrfH.*;
-import static arcadeflex.v037b7.mame.version.build_version;
 
 public class usrintrf {
 

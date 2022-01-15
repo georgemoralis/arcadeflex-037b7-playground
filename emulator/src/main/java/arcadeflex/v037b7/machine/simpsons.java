@@ -10,6 +10,8 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
 import static arcadeflex.v037b7.machine.eeprom.*;
 import static arcadeflex.v037b7.machine.eepromH.*;
+//mame imports
+import static arcadeflex.v037b7.mame.inptport.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260.*;
 //vidhrdw imports
@@ -25,7 +27,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_spinuntil_int;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.ASSERT_LINE;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.CLEAR_LINE;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.readinputport;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.cpu_setbank;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_set_RMRD_line;
@@ -34,10 +35,6 @@ import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.coin_counter_w;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
-import arcadeflex.v037b7.generic.funcPtr.InitMachinePtr;
-import arcadeflex.v037b7.generic.funcPtr.ReadHandlerPtr;
-import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
-import arcadeflex.v037b7.generic.funcPtr.nvramPtr;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 

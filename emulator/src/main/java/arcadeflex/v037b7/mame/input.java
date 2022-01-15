@@ -5,9 +5,9 @@ package arcadeflex.v037b7.mame;
 
 //mame imports
 import static arcadeflex.v037b7.mame.inputH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.input_port_type_seq;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.IPT_UI_CANCEL;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.__ipt_max;
+import static arcadeflex.v037b7.mame.inptport.*;
+import static arcadeflex.v037b7.mame.inptportH.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.common.libc.cstring.strlen;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.UCLOCKS_PER_SEC;

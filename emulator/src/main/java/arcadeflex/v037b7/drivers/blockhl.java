@@ -8,6 +8,8 @@ package arcadeflex.v037b7.drivers;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.inptport.*;
+import static arcadeflex.v037b7.mame.inptportH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 
@@ -22,8 +24,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.ASSERT_LINE;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.CLEAR_LINE;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptport.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_BANK1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_RAM;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_ROM;

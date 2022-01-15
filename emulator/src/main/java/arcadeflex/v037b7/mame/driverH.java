@@ -3,15 +3,17 @@
  */
 package arcadeflex.v037b7.mame;
 
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.CopyArray;
+//generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
+//to be organized
+import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.CopyArray;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.GfxDecodeInfo;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.InputPortTiny;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.inptportH.input_macro;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.*;
-import static arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 
 public class driverH {
 
