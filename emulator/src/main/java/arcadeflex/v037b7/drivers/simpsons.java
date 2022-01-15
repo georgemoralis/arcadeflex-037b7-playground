@@ -13,6 +13,7 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
+import static arcadeflex.v037b7.mame.inputH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -94,7 +95,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinte
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinterleave_4;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
-import static gr.codebb.arcadeflex.old.mame.inputH.KEYCODE_F2;
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER;
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_CENTER;
 import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_LEFT;

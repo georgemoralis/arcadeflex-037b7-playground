@@ -4,8 +4,10 @@
  */
 package arcadeflex.v037b7.machine;
 
-//mame imports
+//machine imports
 import static arcadeflex.v037b7.machine.eepromH.*;
+//mame imports
+import static arcadeflex.v037b7.mame.usrintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.strlen;
@@ -14,7 +16,6 @@ import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.memcpy;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.strncmp;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
-import static gr.codebb.arcadeflex.old.mame.usrintrf.*;
 
 public class eeprom {
 
