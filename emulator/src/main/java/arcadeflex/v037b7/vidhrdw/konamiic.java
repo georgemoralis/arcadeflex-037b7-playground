@@ -9,15 +9,13 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.paletteH.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
-
+import static arcadeflex.v037b7.mame.mameH.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyrozbitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.pdrawgfx;
-import static arcadeflex.v037b7.mame.drawgfxH.TRANSPARENCY_PEN;
-import static arcadeflex.v037b7.mame.drawgfxH.TRANSPARENCY_PENS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.mameH.MAX_GFX_ELEMENTS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.COMBINE_WORD_MEM;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_transparent_pen;
