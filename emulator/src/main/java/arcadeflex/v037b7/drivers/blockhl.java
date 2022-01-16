@@ -12,6 +12,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
@@ -23,7 +24,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_w;
-import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_BANK1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_RAM;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_ROM;

@@ -5,14 +5,13 @@ package arcadeflex.v037b7.mame;
 
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
 //to br organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL0;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL2;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL3;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.common_drawgfxzoom;
-import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.GfxElement;
-import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;

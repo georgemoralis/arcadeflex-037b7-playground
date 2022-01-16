@@ -15,6 +15,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._3812intf.*;
 import static arcadeflex.v037b7.sound._3812intfH.*;
@@ -33,7 +34,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_w;
-import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.rectangle;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_BANK1;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.MRA_RAM;
