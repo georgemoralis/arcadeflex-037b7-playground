@@ -10,14 +10,14 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v056.mame.timer.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2610intfH.*;
+import static arcadeflex.v037b7.sound.fm.*;
+import static arcadeflex.v037b7.sound.fmH.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.old.mame.common.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.fm.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 

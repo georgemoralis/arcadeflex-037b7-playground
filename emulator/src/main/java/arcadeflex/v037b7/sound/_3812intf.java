@@ -11,17 +11,16 @@ import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._3812intfH.*;
+import static arcadeflex.v037b7.sound.fmopl.*;
+import static arcadeflex.v037b7.sound.fmoplH.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmopl.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
-import static arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static arcadeflex.v037b7.mame.sndintrfH.SOUND_YM3812;
 
 public class _3812intf extends snd_interface {
 

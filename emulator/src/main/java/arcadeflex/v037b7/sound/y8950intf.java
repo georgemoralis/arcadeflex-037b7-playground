@@ -12,14 +12,14 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._3812intfH.*;
+import static arcadeflex.v037b7.sound.fmopl.*;
+import static arcadeflex.v037b7.sound.fmoplH.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.old.mame.common.*;
 import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmopl.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.fmoplH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 
 public class y8950intf extends snd_interface {

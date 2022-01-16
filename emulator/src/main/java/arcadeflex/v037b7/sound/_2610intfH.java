@@ -6,8 +6,8 @@ package arcadeflex.v037b7.sound;
 
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.ay8910H.*;
+//sound imports
+import static arcadeflex.v037b7.sound.ay8910H.*;
 
 public class _2610intfH {
 
