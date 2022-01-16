@@ -9,8 +9,8 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.paletteH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
 
-import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_init_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;

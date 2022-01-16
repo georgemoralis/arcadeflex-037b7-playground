@@ -8,12 +8,12 @@ package arcadeflex.v037b7.mame;
 import arcadeflex.v037b7.generic.hiscoreFileParser;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getactivecpu;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpuintf;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.memorycontextswap;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.OSD_FILETYPE_HIGHSCORE;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fclose;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fopen;

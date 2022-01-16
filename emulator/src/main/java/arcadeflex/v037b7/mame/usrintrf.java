@@ -18,6 +18,7 @@ import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.mameH.*;
 import static arcadeflex.v037b7.mame.ui_text.*;
 import static arcadeflex.v037b7.mame.ui_textH.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
@@ -26,7 +27,6 @@ import static gr.codebb.arcadeflex.common.SubArrays.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cheat.DoCheat;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cheat.cheat_menu;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.driver.drivers;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.old.arcadeflex.sound.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;

@@ -12,8 +12,8 @@ import static arcadeflex.v037b7.mame.commonH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.konamiicH.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
 //to be organized
-import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;

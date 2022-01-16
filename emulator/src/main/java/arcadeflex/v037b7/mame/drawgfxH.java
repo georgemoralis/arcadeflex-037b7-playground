@@ -3,9 +3,9 @@
  */
 package arcadeflex.v037b7.mame;
 
-
+//mame imports
+import static arcadeflex.v037b7.mame.osdependH.*;
 //java imports
-import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import gr.codebb.arcadeflex.common.SubArrays.UShortArray;
 import static gr.codebb.arcadeflex.common.Util.combineIntArrays;

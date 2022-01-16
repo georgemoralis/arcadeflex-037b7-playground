@@ -2,8 +2,8 @@ package arcadeflex.v037b7.generic;
 
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
 //to be organize
-import gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.osd_bitmap;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 
 public class funcPtr {
