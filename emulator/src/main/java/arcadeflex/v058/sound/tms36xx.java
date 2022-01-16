@@ -4,18 +4,18 @@
  */
 package arcadeflex.v058.sound;
 
+//mame imports
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v058.sound.tms36xxH.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.old.sound.streams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static arcadeflex.v037b7.mame.sndintrfH.MachineSound;
-import static arcadeflex.v037b7.mame.sndintrfH.SOUND_TMS36XX;
 
 public class tms36xx extends snd_interface {
 

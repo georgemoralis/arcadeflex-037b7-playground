@@ -12,12 +12,11 @@ import static arcadeflex.v037b7.sound.ymdeltatH.*;
 import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2608intf.*;
 import static arcadeflex.v037b7.sound._2610intf.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import gr.codebb.arcadeflex.common.SubArrays.IntSubArray;
-import gr.codebb.arcadeflex.old.sound.streams.StreamInitMultiPtr;
-import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
 
 public class fm {
 

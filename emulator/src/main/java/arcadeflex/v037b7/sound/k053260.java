@@ -12,6 +12,7 @@ import static arcadeflex.v056.mame.timerH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260H.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
@@ -21,7 +22,6 @@ import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
-import static gr.codebb.arcadeflex.old.sound.streams.*;
 
 public class k053260 extends snd_interface {
 

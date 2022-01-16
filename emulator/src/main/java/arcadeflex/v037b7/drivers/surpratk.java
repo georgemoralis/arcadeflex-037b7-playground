@@ -17,6 +17,7 @@ import static arcadeflex.v037b7.mame.drawgfxH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
+import static arcadeflex.v037b7.sound.mixerH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.surpratk.*;
@@ -45,8 +46,6 @@ import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.coin_counter_w;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
-import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_LEFT;
-import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_PAN_RIGHT;
 
 public class surpratk {
 

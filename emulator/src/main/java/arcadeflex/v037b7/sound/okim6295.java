@@ -12,6 +12,7 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.okim6295H.*;
 import static arcadeflex.v037b7.sound.adpcmH.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
@@ -21,9 +22,6 @@ import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.memory_region;
-import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_init;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 
 public class okim6295 extends snd_interface {
 

@@ -6,6 +6,8 @@ package arcadeflex.v037b7.sound;
 
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+//sound imports
+import static arcadeflex.v037b7.sound.mixerH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
@@ -22,7 +24,6 @@ import static gr.codebb.arcadeflex.old.sound.mixer.mixer_set_name;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_set_sample_frequency;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_set_volume;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_stop_sample;
-import static gr.codebb.arcadeflex.old.sound.mixerH.MIXER_MAX_CHANNELS;
 
 public class samples extends snd_interface {
 

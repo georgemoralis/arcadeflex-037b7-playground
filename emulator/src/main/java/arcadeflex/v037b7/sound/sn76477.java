@@ -11,6 +11,7 @@ import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.sn76477H.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
@@ -18,9 +19,6 @@ import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.common.libc.expressions.sizeof;
-import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_init;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 
 public class sn76477 extends snd_interface {
 

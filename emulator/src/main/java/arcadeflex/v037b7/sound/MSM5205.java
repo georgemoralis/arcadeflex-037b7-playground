@@ -10,8 +10,9 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
-//platform imports
+//sound imports
 import static arcadeflex.v037b7.sound.MSM5205H.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
@@ -19,9 +20,6 @@ import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_set_volume;
-import gr.codebb.arcadeflex.old.sound.streams.StreamInitPtr;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_init;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 
 public class MSM5205 extends snd_interface {
 

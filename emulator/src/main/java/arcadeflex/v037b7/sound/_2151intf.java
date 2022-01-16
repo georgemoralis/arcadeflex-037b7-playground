@@ -9,11 +9,10 @@ package arcadeflex.v037b7.sound;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intfH.*;
+import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.ym2151.*;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_init_multi;
-import static gr.codebb.arcadeflex.old.sound.streams.stream_update;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
