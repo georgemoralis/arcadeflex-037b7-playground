@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.generic;
 
+//mame imports
+import static arcadeflex.v037b7.mame.hiscore.*;
 //java imports
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,8 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
-import gr.codebb.arcadeflex.WIP.v037b7.mame.hiscore.mem_range;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.hiscore.state;
 
 public class hiscoreFileParser {
 
