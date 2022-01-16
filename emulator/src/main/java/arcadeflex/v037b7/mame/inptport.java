@@ -10,11 +10,11 @@ import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.input.*;
 import static arcadeflex.v037b7.mame.inputH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrfH.*;
 //java imports
 import java.util.HashMap;
 
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.osdependH.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.common.*;

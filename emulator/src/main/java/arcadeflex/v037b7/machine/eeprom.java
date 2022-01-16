@@ -8,10 +8,10 @@ package arcadeflex.v037b7.machine;
 import static arcadeflex.v037b7.machine.eepromH.*;
 //mame imports
 import static arcadeflex.v037b7.mame.usrintrf.*;
+import static arcadeflex.v037b7.mame.cpuintrfH.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.strlen;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.memcpy;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.strncmp;

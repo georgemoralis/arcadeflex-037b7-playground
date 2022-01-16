@@ -7,11 +7,10 @@ package arcadeflex.v037b7.vidhrdw;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.paletteH.*;
+import static arcadeflex.v037b7.mame.cpuintrfH.*;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.ASSERT_LINE;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrfH.CLEAR_LINE;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyrozbitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.pdrawgfx;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfxH.GfxElement;
