@@ -11,13 +11,13 @@ import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.mameH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyrozbitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.pdrawgfx;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.COMBINE_WORD_MEM;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_transparent_pen;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_mark_all_tiles_dirty;

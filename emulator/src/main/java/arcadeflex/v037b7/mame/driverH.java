@@ -10,10 +10,9 @@ import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.CopyArray;
-import static arcadeflex.v037b7.mame.drawgfxH.GfxDecodeInfo;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.memoryH.*;
 
 public class driverH {
 
