@@ -4,6 +4,8 @@
  */ 
 package arcadeflex.v037b7.drivers;
 
+//cpu imports
+import static arcadeflex.v037b7.cpu.z80.z80H.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -35,7 +37,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_size;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_w;
-import static gr.codebb.arcadeflex.v037b7.cpu.z80.z80H.Z80_NMI_INT;
 
 public class wc90
 {
