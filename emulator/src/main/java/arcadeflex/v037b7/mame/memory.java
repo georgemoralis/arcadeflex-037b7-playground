@@ -8,6 +8,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
@@ -21,8 +22,6 @@ import gr.codebb.arcadeflex.old.arcadeflex.libc_old.FILE;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fclose;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.printf;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 //java imports
 import java.util.Arrays;

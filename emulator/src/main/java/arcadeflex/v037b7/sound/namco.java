@@ -8,6 +8,7 @@ package arcadeflex.v037b7.sound;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.common.*;
 //sound imports
 import static arcadeflex.v037b7.sound.namcoH.*;
 import static arcadeflex.v037b7.sound.streams.*;
@@ -17,7 +18,6 @@ import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
 
 public class namco extends snd_interface {

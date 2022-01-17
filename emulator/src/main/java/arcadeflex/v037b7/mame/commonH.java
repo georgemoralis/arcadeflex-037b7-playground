@@ -4,7 +4,7 @@
 package arcadeflex.v037b7.mame;
 
 //mame imports
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.common.flip_screen_x;
+import static arcadeflex.v037b7.mame.common.*;
 //java imports
 import java.util.ArrayList;
 

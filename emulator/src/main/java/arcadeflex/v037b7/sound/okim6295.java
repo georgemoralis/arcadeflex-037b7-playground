@@ -9,6 +9,7 @@ package arcadeflex.v037b7.sound;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.common.*;
 //sound imports
 import static arcadeflex.v037b7.sound.okim6295H.*;
 import static arcadeflex.v037b7.sound.adpcmH.*;
@@ -21,7 +22,6 @@ import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region;
 
 public class okim6295 extends snd_interface {
 

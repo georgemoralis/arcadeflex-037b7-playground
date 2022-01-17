@@ -12,6 +12,7 @@ import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.mameH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.common.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getcurrentframe;
@@ -32,8 +33,6 @@ import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.decodegfx;
 import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_RMRD_line;

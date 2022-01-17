@@ -10,6 +10,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.common.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260H.*;
 import static arcadeflex.v037b7.sound.streams.*;
@@ -20,8 +21,6 @@ import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region;
-import static gr.codebb.arcadeflex.old.mame.common.memory_region_length;
 
 public class k053260 extends snd_interface {
 

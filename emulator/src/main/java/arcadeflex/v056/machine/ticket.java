@@ -9,9 +9,9 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
+import static arcadeflex.v037b7.mame.common.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.set_led_status;
-import static gr.codebb.arcadeflex.old.mame.common.dispensed_tickets;
 
 public class ticket {
 
