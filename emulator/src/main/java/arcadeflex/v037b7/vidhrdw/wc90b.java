@@ -11,14 +11,15 @@ import static arcadeflex.v037b7.mame.paletteH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.common.*;
-
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyscrollbitmap;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.*;
 
 public class wc90b {
 

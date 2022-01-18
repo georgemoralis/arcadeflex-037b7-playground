@@ -24,19 +24,11 @@ import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.wc90b.*;
+import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.colorram;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.colorram_r;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.colorram_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.spriteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.spriteram_size;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_r;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_size;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.generic.videoram_w;
 
 public class wc90b {
 
