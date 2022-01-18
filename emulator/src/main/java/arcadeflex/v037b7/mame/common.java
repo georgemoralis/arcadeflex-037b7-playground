@@ -6,6 +6,7 @@ package arcadeflex.v037b7.mame;
 
 //common imports
 import static arcadeflex.common.libc.cstdio.*;
+import static arcadeflex.common.util.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -38,8 +39,6 @@ import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_alloc_bitmap;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_free_bitmap;
-import static gr.codebb.arcadeflex.old2.arcadeflex.libc_v2.charArrayToInt;
-import static gr.codebb.arcadeflex.old2.arcadeflex.libc_v2.charArrayToLong;
 import static gr.codebb.arcadeflex.old2.arcadeflex.video.osd_set_visible_area;
 //platform imports
 

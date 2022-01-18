@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.util.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -11,8 +13,6 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
-//to be organized
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.CopyArray;
 
 public class driverH {
 

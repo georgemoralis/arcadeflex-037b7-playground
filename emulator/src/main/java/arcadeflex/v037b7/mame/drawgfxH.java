@@ -3,12 +3,13 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.util.*;
 //mame imports
 import static arcadeflex.v037b7.mame.osdependH.*;
 //java imports
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import gr.codebb.arcadeflex.common.SubArrays.UShortArray;
-import static gr.codebb.arcadeflex.common.Util.combineIntArrays;
 import java.util.Arrays;
 
 public class drawgfxH {
