@@ -7,12 +7,12 @@ package arcadeflex.v058.sound;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v058.sound.sn76496H.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;

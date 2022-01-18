@@ -6,15 +6,16 @@ package arcadeflex.v037b7.sound;
 
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._5220intfH.*;
 import static arcadeflex.v037b7.sound.tms5220.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
-import static arcadeflex.v037b7.mame.sndintrfH.*;
 
 public class _5220intf extends snd_interface {
 

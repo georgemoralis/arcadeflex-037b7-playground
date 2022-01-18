@@ -5,12 +5,12 @@
 package arcadeflex.v058.sound;
 
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v058.sound.tms36xxH.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;

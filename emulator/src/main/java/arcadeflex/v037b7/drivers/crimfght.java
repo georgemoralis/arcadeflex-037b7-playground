@@ -7,6 +7,7 @@ package arcadeflex.v037b7.drivers;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.inptport.*;
@@ -33,8 +34,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_r;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_bankswitch;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_read_port_0_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_set_volume;

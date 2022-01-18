@@ -4,11 +4,12 @@
  */
 package arcadeflex.v037b7.sound;
 
+//mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
 //sound imports
 import static arcadeflex.v037b7.sound.mixerH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_scalebufferpos;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_allocate_channel;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_allocate_channels;

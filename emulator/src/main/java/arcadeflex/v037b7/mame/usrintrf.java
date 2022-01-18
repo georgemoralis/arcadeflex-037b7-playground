@@ -21,6 +21,7 @@ import static arcadeflex.v037b7.mame.ui_text.*;
 import static arcadeflex.v037b7.mame.ui_textH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.cheat.*;
+import static arcadeflex.v037b7.mame.sndintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
@@ -38,7 +39,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.update_video_and_audio;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
 
 public class usrintrf {
 

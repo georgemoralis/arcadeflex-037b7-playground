@@ -8,6 +8,7 @@ package arcadeflex.v037b7.sound;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910H.*;
@@ -16,8 +17,6 @@ import static arcadeflex.v037b7.sound.streams.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.sound_name;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_set_volume;

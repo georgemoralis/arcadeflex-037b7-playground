@@ -6,12 +6,12 @@ package arcadeflex.v037b7.sound;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2413intfH.*;
 import static arcadeflex.v037b7.sound._3812intf.*;
 //to be organized
-import gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.snd_interface;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class ym2413 extends snd_interface {

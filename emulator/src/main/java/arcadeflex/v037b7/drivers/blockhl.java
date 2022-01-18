@@ -15,6 +15,7 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.sndintrf.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
@@ -27,8 +28,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_r;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.soundlatch_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_051960_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_051960_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_is_IRQ_enabled;

@@ -7,6 +7,8 @@ package arcadeflex.v037b7.sound;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v037b7.mame.sndintrf.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v037b7.mame.common.*;
 //sound imports
@@ -18,8 +20,6 @@ import static arcadeflex.v037b7.sound.streams.*;
 import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.sndintrf.*;
-import static arcadeflex.v037b7.mame.sndintrfH.*;
 
 public class _2608intf extends snd_interface {
 
