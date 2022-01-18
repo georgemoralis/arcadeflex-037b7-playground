@@ -4,7 +4,7 @@
 package arcadeflex.v037b7.mame;
 
 //mame imports
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_reg;
+import static arcadeflex.v037b7.mame.cpuintrf.cpu_get_reg;
 
 public class cpuintrfH {
 

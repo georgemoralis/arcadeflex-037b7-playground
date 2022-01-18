@@ -10,12 +10,12 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910H.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;

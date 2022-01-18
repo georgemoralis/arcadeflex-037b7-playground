@@ -16,6 +16,7 @@ import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
@@ -24,7 +25,6 @@ import static arcadeflex.v037b7.vidhrdw.mnight.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 

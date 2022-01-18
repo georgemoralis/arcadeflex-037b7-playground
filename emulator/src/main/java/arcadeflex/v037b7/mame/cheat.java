@@ -15,11 +15,10 @@ import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.ui_text.*;
 import static arcadeflex.v037b7.mame.ui_textH.*;
 import static arcadeflex.v037b7.mame.usrintrf.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //java imports
 import java.util.ArrayList;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_gettotalcpu;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpunum_address_mask;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 

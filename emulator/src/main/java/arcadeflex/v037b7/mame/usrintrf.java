@@ -22,6 +22,7 @@ import static arcadeflex.v037b7.mame.ui_textH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.cheat.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
@@ -31,8 +32,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.driver.drivers;
 import static gr.codebb.arcadeflex.old.arcadeflex.sound.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cputype_name;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.machine_reset;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;

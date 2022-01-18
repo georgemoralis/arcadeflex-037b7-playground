@@ -19,9 +19,9 @@ import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 
 public class z80 extends cpu_interface {
 

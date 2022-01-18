@@ -16,6 +16,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
@@ -27,7 +28,6 @@ import static arcadeflex.v037b7.vidhrdw.wc90b.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.PtrLib.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 public class wc90b {

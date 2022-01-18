@@ -10,11 +10,8 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_getactivecpu;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_gettotalcpu;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpuintf;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;

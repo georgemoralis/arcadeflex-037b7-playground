@@ -14,6 +14,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memory.*;
@@ -28,11 +29,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to organize
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_spinuntil_int;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.interrupt;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_bankswitch;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.K007232_read_port_0_r;

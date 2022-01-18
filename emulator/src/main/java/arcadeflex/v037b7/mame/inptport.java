@@ -11,6 +11,7 @@ import static arcadeflex.v037b7.mame.input.*;
 import static arcadeflex.v037b7.mame.inputH.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 //java imports
@@ -18,7 +19,6 @@ import java.util.HashMap;
 
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 
 public class inptport {

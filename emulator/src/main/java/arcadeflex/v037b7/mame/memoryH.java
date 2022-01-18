@@ -7,9 +7,8 @@ package arcadeflex.v037b7.mame;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.memory.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_set_op_base;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase16bew;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase20;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;

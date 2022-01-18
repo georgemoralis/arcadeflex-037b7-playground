@@ -15,6 +15,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
@@ -30,13 +31,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_cause_interrupt;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_get_pc;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.cpu_set_nmi_line;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.ignore_interrupt;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.interrupt;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_r;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.cpuintrf.watchdog_reset_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_r;
