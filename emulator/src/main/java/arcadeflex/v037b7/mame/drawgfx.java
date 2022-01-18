@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.subArrays.*;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
@@ -16,7 +18,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.common_drawgfxzoom;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
-import gr.codebb.arcadeflex.common.SubArrays.UShortArray;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 
 public class drawgfx {

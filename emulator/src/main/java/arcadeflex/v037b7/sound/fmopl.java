@@ -4,13 +4,13 @@
 package arcadeflex.v037b7.sound;
 
 //common imports
+import static arcadeflex.common.subArrays.*;
 //sound imports
 import static arcadeflex.v037b7.sound.fmoplH.*;
 import static arcadeflex.v037b7.sound.ymdeltat.*;
 import static arcadeflex.v037b7.sound.ymdeltatH.*;
 //to be organized
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
-import gr.codebb.arcadeflex.common.SubArrays.IntSubArray;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 
 public class fmopl {

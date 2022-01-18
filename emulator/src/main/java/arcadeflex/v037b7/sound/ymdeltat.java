@@ -3,11 +3,12 @@
  */
 package arcadeflex.v037b7.sound;
 
+//common imports
+import static arcadeflex.common.subArrays.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ymdeltatH.*;
 //to be organized
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
-import gr.codebb.arcadeflex.common.SubArrays.IntSubArray;
 
 public class ymdeltat {
 

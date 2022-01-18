@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//common imports
+import static arcadeflex.common.subArrays.*;
 //sound imports
 import static arcadeflex.v037b7.sound.fmH.*;
 import static arcadeflex.v037b7.sound.fmopl.*;
@@ -16,7 +18,6 @@ import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
-import gr.codebb.arcadeflex.common.SubArrays.IntSubArray;
 
 public class fm {
 

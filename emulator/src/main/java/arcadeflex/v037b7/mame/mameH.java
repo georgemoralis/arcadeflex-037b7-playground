@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.subArrays.*;
 //mame imports
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.driverH.*;
@@ -10,7 +12,6 @@ import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 //to be organized
-import gr.codebb.arcadeflex.common.SubArrays.UShortArray;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.FILE;
 
 public class mameH {
