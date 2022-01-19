@@ -5,6 +5,7 @@
 package arcadeflex.v037b7.mame;
 
 //common imports
+import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.libc.cstdio.*;
 import static arcadeflex.common.util.*;
 //generic imports
@@ -21,7 +22,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_set_flip;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.ALL_TILEMAPS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_FLIPX;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_FLIPY;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_display_loading_rom_message;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fclose;

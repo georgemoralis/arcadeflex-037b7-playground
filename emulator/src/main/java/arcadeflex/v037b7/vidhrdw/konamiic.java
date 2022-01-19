@@ -4,6 +4,7 @@
 package arcadeflex.v037b7.vidhrdw;
 
 //common imports
+import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
@@ -28,7 +29,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K051316_ctrlram;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K051316_offset;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K051316_tilemap;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K051316_wraparound;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;

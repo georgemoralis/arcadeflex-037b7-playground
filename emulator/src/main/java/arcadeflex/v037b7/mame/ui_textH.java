@@ -4,7 +4,7 @@
 package arcadeflex.v037b7.mame;
 
 //common imports
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
+import static arcadeflex.common.ptrLib.*;
 
 public class ui_textH {
 

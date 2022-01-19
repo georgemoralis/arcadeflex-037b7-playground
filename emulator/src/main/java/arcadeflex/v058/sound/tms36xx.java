@@ -4,6 +4,8 @@
  */
 package arcadeflex.v058.sound;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
@@ -11,7 +13,6 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v058.sound.tms36xxH.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
-import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;

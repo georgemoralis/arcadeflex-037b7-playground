@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -36,7 +38,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xBBBBBGGGGGRRRRR_swap_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.*;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class rollerg {

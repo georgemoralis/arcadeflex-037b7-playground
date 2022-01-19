@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //drivers imports
 import static arcadeflex.v037b7.drivers.wc90.*;
 //generic imports
@@ -27,7 +29,6 @@ import static arcadeflex.v037b7.sound._2203intfH.*;
 import static arcadeflex.v037b7.vidhrdw.wc90b.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
-import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 public class wc90b {

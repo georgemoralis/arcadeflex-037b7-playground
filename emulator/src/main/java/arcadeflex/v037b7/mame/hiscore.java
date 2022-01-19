@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import arcadeflex.v037b7.generic.hiscoreFileParser;
 //mame imports
@@ -13,7 +15,6 @@ import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fclose;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fopen;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fread;

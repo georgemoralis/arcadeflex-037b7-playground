@@ -4,6 +4,7 @@
 package arcadeflex.v037b7.mame;
 
 //common imports
+import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
 //mame imports
 import static arcadeflex.v037b7.mame.input.*;
@@ -28,7 +29,6 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
-import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.driver.drivers;
 import static gr.codebb.arcadeflex.old.arcadeflex.sound.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.*;

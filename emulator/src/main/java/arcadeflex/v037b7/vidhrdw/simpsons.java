@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -20,7 +22,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.*;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
 
 public class simpsons {

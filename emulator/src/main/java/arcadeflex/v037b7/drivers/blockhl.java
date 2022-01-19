@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -29,7 +31,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_051960_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_051960_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_is_IRQ_enabled;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinterleave_2;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class blockhl {

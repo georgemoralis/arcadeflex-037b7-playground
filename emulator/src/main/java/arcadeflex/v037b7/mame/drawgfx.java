@@ -4,6 +4,7 @@
 package arcadeflex.v037b7.mame;
 
 //common imports
+import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
@@ -17,7 +18,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.BL3;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.common_drawgfxzoom;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.priority_bitmap;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 
 public class drawgfx {
@@ -3131,7 +3131,7 @@ public class drawgfx {
                 dstdata.inc(4);
                 pridata.inc(4);
             }
-            srcdata.set(sd4.readCA(), sd4.getBase());//srcdata = (unsigned char *)sd4;
+            srcdata=new UBytePtr(sd4.readCA(), sd4.getBase());//srcdata = (unsigned char *)sd4;
             while (dstdata.offset < end) {
                 int col;
 
@@ -3313,7 +3313,7 @@ public class drawgfx {
                 dstdata.inc(4);
                 pridata.inc(4);
             }
-            srcdata.set(sd4.readCA(), sd4.getBase());//srcdata = (unsigned char *)sd4;
+            srcdata=new UBytePtr(sd4.readCA(), sd4.getBase());//srcdata = (unsigned char *)sd4;
             while (dstdata.offset < end) {
                 int col;
                 col = srcdata.read(3);

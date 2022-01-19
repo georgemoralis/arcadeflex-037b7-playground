@@ -4,11 +4,10 @@
 package arcadeflex.v037b7.sound;
 
 //common imports
+import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ymdeltatH.*;
-//to be organized
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 
 public class ymdeltat {
 

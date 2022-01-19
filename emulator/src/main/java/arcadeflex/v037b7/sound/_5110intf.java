@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -14,7 +16,6 @@ import static arcadeflex.v037b7.sound._5110intfH.*;
 import static arcadeflex.v058.sound.tms5110.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
-import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 

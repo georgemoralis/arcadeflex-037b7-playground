@@ -1,6 +1,7 @@
 package arcadeflex.common;
 
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
+//common imports
+import static arcadeflex.common.ptrLib.*;
 
 /**
  *

@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -13,7 +15,6 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.FILE;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fclose;

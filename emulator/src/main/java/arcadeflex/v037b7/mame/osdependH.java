@@ -3,7 +3,8 @@
  */
 package arcadeflex.v037b7.mame;
 
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
+//common imports
+import static arcadeflex.common.ptrLib.*;
 
 public class osdependH {
 

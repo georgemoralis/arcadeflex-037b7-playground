@@ -4,6 +4,7 @@
 package arcadeflex.v037b7.sound;
 
 //common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -15,8 +16,6 @@ import static arcadeflex.v037b7.sound.namcoH.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.*;
 

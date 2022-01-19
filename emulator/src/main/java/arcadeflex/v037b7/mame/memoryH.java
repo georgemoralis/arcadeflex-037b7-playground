@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -11,7 +13,6 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase16bew;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase20;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 
 public class memoryH {
 

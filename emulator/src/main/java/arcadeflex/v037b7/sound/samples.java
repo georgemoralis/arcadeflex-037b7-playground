@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.sound;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
@@ -12,8 +14,6 @@ import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.sound.mixerH.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import gr.codebb.arcadeflex.common.PtrLib.BytePtr;
-import gr.codebb.arcadeflex.common.PtrLib.ShortPtr;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_allocate_channels;

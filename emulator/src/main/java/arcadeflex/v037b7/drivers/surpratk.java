@@ -4,6 +4,8 @@
  */
 package arcadeflex.v037b7.drivers;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -32,7 +34,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_is_IRQ_en
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.konami_rom_deinterleave_2;
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class surpratk {

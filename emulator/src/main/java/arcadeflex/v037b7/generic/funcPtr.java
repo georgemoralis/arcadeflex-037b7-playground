@@ -1,10 +1,10 @@
 package arcadeflex.v037b7.generic;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
-//to be organize
-import gr.codebb.arcadeflex.common.PtrLib.UBytePtr;
 
 public class funcPtr {
 

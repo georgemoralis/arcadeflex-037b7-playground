@@ -4,13 +4,14 @@
  */
 package arcadeflex.v037b7.machine;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
 //machine imports
 import static arcadeflex.v037b7.machine.eepromH.*;
 //mame imports
 import static arcadeflex.v037b7.mame.usrintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 //to be organized
-import static gr.codebb.arcadeflex.common.PtrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.strlen;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.memcpy;
