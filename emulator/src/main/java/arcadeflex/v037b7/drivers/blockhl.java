@@ -19,6 +19,11 @@ import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
+//sound imports
+import static arcadeflex.v037b7.sound._2151intf.*;
+import static arcadeflex.v037b7.sound._2151intfH.*;
+import static arcadeflex.v037b7.sound.mixerH.*;
 //vihdrdw imports
 import static arcadeflex.v037b7.vidhrdw.blockhl.*;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
@@ -144,15 +149,15 @@ public class blockhl {
                 new MemoryReadAddress(0x0000, 0x7fff, MRA_ROM),
                 new MemoryReadAddress(0x8000, 0x87ff, MRA_RAM),
                 new MemoryReadAddress(0xa000, 0xa000, soundlatch_r),
-                /*TODO*///		new MemoryReadAddress( 0xc001, 0xc001, YM2151_status_port_0_r ),
+                new MemoryReadAddress(0xc001, 0xc001, YM2151_status_port_0_r),
                 new MemoryReadAddress(-1) /* end of table */};
 
     static MemoryWriteAddress sound_writemem[]
             = {
                 new MemoryWriteAddress(0x0000, 0x7fff, MWA_ROM),
                 new MemoryWriteAddress(0x8000, 0x87ff, MWA_RAM),
-                /*TODO*///		new MemoryWriteAddress( 0xc000, 0xc000, YM2151_register_port_0_w ),
-                /*TODO*///		new MemoryWriteAddress( 0xc001, 0xc001, YM2151_data_port_0_w ),
+                new MemoryWriteAddress(0xc000, 0xc000, YM2151_register_port_0_w),
+                new MemoryWriteAddress(0xc001, 0xc001, YM2151_data_port_0_w),
                 new MemoryWriteAddress(0xe00c, 0xe00d, MWA_NOP), /* leftover from missing 007232? */
                 new MemoryWriteAddress(-1) /* end of table */};
 
@@ -277,14 +282,13 @@ public class blockhl {
      *
      **************************************************************************
      */
-    /*TODO*///	static struct YM2151interface ym2151_interface =
-/*TODO*///	{
-/*TODO*///		1, /* 1 chip */
-/*TODO*///		3579545, /* 3.579545 MHz */
-/*TODO*///		{ YM3012_VOL(60,MIXER_PAN_LEFT,60,MIXER_PAN_RIGHT) },
-/*TODO*///		{ 0 },
-/*TODO*///		{ 0 }
-/*TODO*///	};
+    static YM2151interface ym2151_interface = new YM2151interface(
+            1, /* 1 chip */
+            3579545, /* 3.579545 MHz */
+            new int[]{YM3012_VOL(60, MIXER_PAN_LEFT, 60, MIXER_PAN_RIGHT)},
+            new WriteYmHandlerPtr[]{null},
+            new WriteHandlerPtr[]{null}
+    );
     static MachineDriver machine_driver_blockhl = new MachineDriver(
             /* basic machine hardware */
             new MachineCPU[]{
@@ -316,13 +320,12 @@ public class blockhl {
             blockhl_vh_screenrefresh,
             /* sound hardware */
             0, 0, 0, 0,
-            /*new MachineSound[] {
-			new MachineSound(
-				SOUND_YM2151,
-				ym2151_interface
-			)
-		}*/
-            null
+            new MachineSound[]{
+                new MachineSound(
+                        SOUND_YM2151,
+                        ym2151_interface
+                )
+            }
     );
 
     /**
