@@ -209,7 +209,7 @@ public class driver {
         driver_devilfsh, /* (c) 1982 Artic */
         driver_newsin7, /* (c) 1983 ATW USA, Inc. */
         driver_hotshock, /* (c) 1982 E.G. Felaco */
-        /*TODO*///	driver_hunchbks,	/* (c) 1983 Century */
+        driver_hunchbks, /* (c) 1983 Century */
         driver_scobra, /* GX316 (c) 1981 Konami */
         driver_scobras, /* GX316 (c) 1981 Stern */
         driver_scobrab, /* GX316 (c) 1981 Karateco (bootleg?) */
