@@ -102,6 +102,13 @@ import static arcadeflex.v037b7.drivers.scobra.*;
 import static arcadeflex.v037b7.drivers.mnight.*;
 import static arcadeflex.v037b7.drivers.wc90.*;
 import static arcadeflex.v037b7.drivers.wc90b.*;
+import static arcadeflex.v037b7.drivers.simpsons.*;
+import static arcadeflex.v037b7.drivers.vendetta.*;
+import static arcadeflex.v037b7.drivers.surpratk.*;
+import static arcadeflex.v037b7.drivers.rollerg.*;
+import static arcadeflex.v037b7.drivers.crimfght.*;
+import static arcadeflex.v037b7.drivers.blockhl.*;
+import static arcadeflex.v037b7.drivers._88games.*;
 
 public class driver {
 
@@ -2110,35 +2117,35 @@ public class driver {
         /*TODO*///	driver_devstor2 )	/* GX890 (c) 1988 */
         /*TODO*///	driver_devstor3 )	/* GX890 (c) 1988 */
         /*TODO*///	driver_garuka )	/* GX890 (c) 1988 (Japan) */
-        /*TODO*///	driver_88games )	/* GX861 (c) 1988 */
-        /*TODO*///	driver_konami88 )	/* GX861 (c) 1988 */
-        /*TODO*///	driver_hypsptsp )	/* GX861 (c) 1988 (Japan) */
+        driver_88games,/* GX861 (c) 1988 */
+        driver_konami88,/* GX861 (c) 1988 */
+        driver_hypsptsp,/* GX861 (c) 1988 (Japan) */
         /*TODO*///	driver_gbusters )	/* GX878 (c) 1988 */
         /*TODO*///	driver_crazycop )	/* GX878 (c) 1988 (Japan) */
-        /*TODO*///	driver_crimfght )	/* GX821 (c) 1989 (US) */
-        /*TODO*///	driver_crimfgt2 )	/* GX821 (c) 1989 (World) */
-        /*TODO*///	driver_crimfgtj )	/* GX821 (c) 1989 (Japan) */
+        driver_crimfght,/* GX821 (c) 1989 (US) */
+        driver_crimfgt2,/* GX821 (c) 1989 (World) */
+        driver_crimfgtj,/* GX821 (c) 1989 (Japan) */
         /*TODO*///	driver_spy )		/* GX857 (c) 1989 (US) */
         /*TODO*///	driver_bottom9 )	/* GX891 (c) 1989 */
         /*TODO*///	driver_bottom9n )	/* GX891 (c) 1989 */
-        /*TODO*///	driver_blockhl )	/* GX973 (c) 1989 */
-        /*TODO*///	driver_quarth )	/* GX973 (c) 1989 (Japan) */
+        driver_blockhl,/* GX973 (c) 1989 */
+        driver_quarth,/* GX973 (c) 1989 (Japan) */
         /*TODO*///	driver_aliens )	/* GX875 (c) 1990 (World) */
         /*TODO*///	driver_aliens2 )	/* GX875 (c) 1990 (World) */
         /*TODO*///	driver_aliensu )	/* GX875 (c) 1990 (US) */
         /*TODO*///	driver_aliensj )	/* GX875 (c) 1990 (Japan) */
-        /*TODO*///	driver_surpratk )	/* GX911 (c) 1990 (Japan) */
+        driver_surpratk,/* GX911 (c) 1990 (Japan) */
         /*TODO*///	driver_parodius )	/* GX955 (c) 1990 (Japan) */
-        /*TODO*///	driver_rollerg )	/* GX999 (c) 1991 (US) */
-        /*TODO*///	driver_rollergj )	/* GX999 (c) 1991 (Japan) */
+        driver_rollerg,/* GX999 (c) 1991 (US) */
+        driver_rollergj,/* GX999 (c) 1991 (Japan) */
         /*TODO*///	driver_xexex )		/* GX067 (c) 1991 (World) */
         /*TODO*///	driver_xexexj )	/* GX067 (c) 1991 (Japan) */
-        /*TODO*///	driver_simpsons )	/* GX072 (c) 1991 */
-        /*TODO*///	driver_simpsn2p )	/* GX072 (c) 1991 */
-        /*TODO*///	driver_simps2pj )	/* GX072 (c) 1991 (Japan) */
-        /*TODO*///	driver_vendetta )	/* GX081 (c) 1991 (Asia) */
-        /*TODO*///	driver_vendett2 )	/* GX081 (c) 1991 (Asia) */
-        /*TODO*///	driver_vendettj )	/* GX081 (c) 1991 (Japan) */
+        driver_simpsons,/* GX072 (c) 1991 */
+        driver_simpsn2p,/* GX072 (c) 1991 */
+        driver_simps2pj,/* GX072 (c) 1991 (Japan) */
+        driver_vendetta,/* GX081 (c) 1991 (Asia) */
+        driver_vendett2,/* GX081 (c) 1991 (Asia) */
+        driver_vendettj,/* GX081 (c) 1991 (Japan) */
         /*TODO*///	driver_wecleman )	/* GX602 (c) 1986 */
         /*TODO*///	driver_hotchase )	/* GX763 (c) 1988 */
         /*TODO*///TESTdriver_chqflag )	/* GX717 (c) 1988 */
