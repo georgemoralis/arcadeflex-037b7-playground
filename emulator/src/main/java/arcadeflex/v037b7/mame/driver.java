@@ -109,6 +109,7 @@ import static arcadeflex.v037b7.drivers.rollerg.*;
 import static arcadeflex.v037b7.drivers.crimfght.*;
 import static arcadeflex.v037b7.drivers.blockhl.*;
 import static arcadeflex.v037b7.drivers._88games.*;
+import static arcadeflex.v037b7.drivers.taito_l.*;
 
 public class driver {
 
@@ -985,23 +986,21 @@ public class driver {
         driver_tnzsb,/* bootleg but Taito Corporation Japan (World) (new logo) */
         driver_tnzs2,/* B53?(c) 1988 Taito Corporation Japan (World) (old logo) */
         driver_insectx,/* B97 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///
-        /*TODO*///	/* Taito L-System games */
-        /*TODO*///	driver_raimais )	/* B36 (c) 1988 Taito Corporation (Japan) */
-        /*TODO*///	driver_kurikint )	/* B42 (c) 1988 Taito Corporation Japan (World) */
-        /*TODO*///	driver_kurikina )	/* B42 (c) 1988 Taito Corporation Japan (World) */
-        /*TODO*///	driver_fhawk )		/* B70 (c) 1988 Taito Corporation (Japan) */
-        /*TODO*///	driver_plotting )	/* B96 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///	driver_champwr )	/* C01 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///	driver_champwru )	/* C01 (c) 1989 Taito America Corporation (US) */
-        /*TODO*///	driver_champwrj )	/* C01 (c) 1989 Taito Corporation (Japan) */
-        /*TODO*///	driver_puzznic )	/* C20 (c) 1989 Taito Corporation (Japan) */
-        /*TODO*///	driver_horshoes )	/* C47 (c) 1990 Taito America Corporation (US) */
-        /*TODO*///	driver_palamed )	/* C63 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_cachat )	/* ??? (c) 1993 Taito Corporation (Japan) */
-        /*TODO*///	driver_plgirls )	/* (c) 1992 Hot-B. */
-        /*TODO*///	driver_plgirls2 )	/* (c) 1993 Hot-B. */
-        /*TODO*///
+        /* Taito L-System games */
+        driver_raimais, /* B36 (c) 1988 Taito Corporation (Japan) */
+        driver_kurikint, /* B42 (c) 1988 Taito Corporation Japan (World) */
+        driver_kurikina, /* B42 (c) 1988 Taito Corporation Japan (World) */
+        driver_fhawk, /* B70 (c) 1988 Taito Corporation (Japan) */
+        driver_plotting, /* B96 (c) 1989 Taito Corporation Japan (World) */
+        driver_champwr, /* C01 (c) 1989 Taito Corporation Japan (World) */
+        driver_champwru, /* C01 (c) 1989 Taito America Corporation (US) */
+        driver_champwrj, /* C01 (c) 1989 Taito Corporation (Japan) */
+        driver_puzznic, /* C20 (c) 1989 Taito Corporation (Japan) */
+        driver_horshoes, /* C47 (c) 1990 Taito America Corporation (US) */
+        driver_palamed, /* C63 (c) 1990 Taito Corporation (Japan) */
+        driver_cachat, /* ??? (c) 1993 Taito Corporation (Japan) */
+        driver_plgirls, /* (c) 1992 Hot-B. */
+        driver_plgirls2, /* (c) 1993 Hot-B. */
         /*TODO*///	/* Taito B-System games */
         /*TODO*///	driver_masterw )	/* B72 (c) 1989 Taito Corporation Japan (World) */
         /*TODO*///	driver_nastar )	/* B81 (c) 1988 Taito Corporation Japan (World) */
