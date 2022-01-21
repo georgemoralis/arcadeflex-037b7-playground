@@ -111,6 +111,7 @@ import static arcadeflex.v037b7.drivers.blockhl.*;
 import static arcadeflex.v037b7.drivers._88games.*;
 import static arcadeflex.v037b7.drivers.taito_l.*;
 import static arcadeflex.v037b7.drivers.taitosj.*;
+import static arcadeflex.v037b7.drivers.lkage.*;
 
 public class driver {
 
@@ -921,10 +922,10 @@ public class driver {
         /* other Taito games */
         driver_bking2,/* AD6 (c) 1983 Taito Corporation */
         driver_gsword,/* (c) 1984 Taito Corporation */
-        /*TODO*///	driver_lkage )		/* A54 (c) 1984 Taito Corporation */
-        /*TODO*///	driver_lkageb )	/* bootleg */
-        /*TODO*///	driver_lkageb2 )	/* bootleg */
-        /*TODO*///	driver_lkageb3 )	/* bootleg */
+        driver_lkage, /* A54 (c) 1984 Taito Corporation */
+        driver_lkageb, /* bootleg */
+        driver_lkageb2, /* bootleg */
+        driver_lkageb3, /* bootleg */
         driver_retofinv,/* A37 (c) 1985 Taito Corporation */
         driver_retofin1,/* bootleg */
         driver_retofin2,/* bootleg */
