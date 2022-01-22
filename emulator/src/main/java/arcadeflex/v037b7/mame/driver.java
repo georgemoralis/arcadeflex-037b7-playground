@@ -115,6 +115,9 @@ import static arcadeflex.v037b7.drivers.lkage.*;
 import static arcadeflex.v037b7.drivers.mexico86.*;
 import static arcadeflex.v037b7.drivers.hal21.*;
 import static arcadeflex.v037b7.drivers.snk.*;
+import static arcadeflex.v037b7.drivers.buggychl.*;
+import static arcadeflex.v037b7.drivers.lsasquad.*;
+import static arcadeflex.v037b7.drivers.bublbobl.*;
 
 public class driver {
 
@@ -936,22 +939,22 @@ public class driver {
         /*TODO*///	driver_tsamura2 )	/* A35 (c) 1985 Taito */
         /*TODO*///	driver_nunchaku )	/* ??? (c) 1985 Taito */
         /*TODO*///	driver_yamagchi )	/* A38 (c) 1985 Taito */
-        /*TODO*///	driver_buggychl )	/* A22 (c) 1984 Taito Corporation */
-        /*TODO*///	driver_buggycht )	/* A22 (c) 1984 Taito Corporation + Tefri license */
+        driver_buggychl, /* A22 (c) 1984 Taito Corporation */
+        driver_buggycht, /* A22 (c) 1984 Taito Corporation + Tefri license */
         /*TODO*///TESTdriver_flstory )	/* A45 (c) 1985 Taito Corporation */
         /*TODO*///TESTdriver_flstoryj )	/* A45 (c) 1985 Taito Corporation (Japan) */
         /*TODO*///TESTdriver_onna34ro )	/* A52 */
         /*TODO*///	driver_gladiatr )	/* ??? (c) 1986 Taito America Corporation (US) */
         /*TODO*///	driver_ogonsiro )	/* ??? (c) 1986 Taito Corporation (Japan) */
-        /*TODO*///	driver_lsasquad )	/* A64 (c) 1986 Taito Corporation / Taito America (dip switch) */
-        /*TODO*///	driver_storming )	/* A64 (c) 1986 Taito Corporation */
-        /*TODO*///	driver_tokio )		/* A71 1986 */
-        /*TODO*///	driver_tokiob )	/* bootleg */
-        /*TODO*///	driver_bublbobl )	/* A78 (c) 1986 Taito Corporation */
-        /*TODO*///	driver_bublbobr )	/* A78 (c) 1986 Taito America Corporation + Romstar license */
-        /*TODO*///	driver_bubbobr1 )	/* A78 (c) 1986 Taito America Corporation + Romstar license */
-        /*TODO*///	driver_boblbobl )	/* bootleg */
-        /*TODO*///	driver_sboblbob )	/* bootleg */
+        driver_lsasquad,/* A64 (c) 1986 Taito Corporation / Taito America (dip switch) */
+        driver_storming,/* A64 (c) 1986 Taito Corporation */
+        driver_tokio, /* A71 1986 */
+        driver_tokiob, /* bootleg */
+        driver_bublbobl, /* A78 (c) 1986 Taito Corporation */
+        driver_bublbobr, /* A78 (c) 1986 Taito America Corporation + Romstar license */
+        driver_bubbobr1, /* A78 (c) 1986 Taito America Corporation + Romstar license */
+        driver_boblbobl, /* bootleg */
+        driver_sboblbob, /* bootleg */
         driver_kikikai, /* A85 (c) 1986 Taito Corporation */
         driver_kicknrun, /* A87 (c) 1986 Taito Corporation */
         driver_mexico86, /* bootleg (Micro Research) */
