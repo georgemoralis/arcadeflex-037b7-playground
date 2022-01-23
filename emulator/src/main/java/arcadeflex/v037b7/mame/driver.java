@@ -120,6 +120,8 @@ import static arcadeflex.v037b7.drivers.lsasquad.*;
 import static arcadeflex.v037b7.drivers.bublbobl.*;
 import static arcadeflex.v037b7.drivers.spacefb.*;
 import static arcadeflex.v037b7.drivers.arkanoid.*;
+import static arcadeflex.v037b7.drivers.mario.*;
+import static arcadeflex.v037b7.drivers.gyruss.*;
 
 public class driver {
 
@@ -541,9 +543,9 @@ public class driver {
         /*TODO*///	driver_dkjrbl )	/* (c) 1982 Nintendo of America */
         /*TODO*///	driver_dkong3 )	/* (c) 1983 Nintendo of America */
         /*TODO*///	driver_dkong3j )	/* (c) 1983 Nintendo */
-        /*TODO*///	driver_mario )		/* (c) 1983 Nintendo of America */
-        /*TODO*///	driver_mariojp )	/* (c) 1983 Nintendo */
-        /*TODO*///	driver_masao )		/* bootleg */
+        driver_mario, /* (c) 1983 Nintendo of America */
+        driver_mariojp, /* (c) 1983 Nintendo */
+        driver_masao, /* bootleg */
         /*TODO*///	driver_hunchbkd )	/* (c) 1983 Century */
         /*TODO*///	driver_herbiedk )	/* (c) 1984 CVS */
         /*TODO*///TESTdriver_herocast )
@@ -2043,9 +2045,9 @@ public class driver {
         /*TODO*///	driver_megazone )	/* GX319 (c) 1983 */
         /*TODO*///	driver_megaznik )	/* GX319 (c) 1983 + Interlogic / Kosuka */
         /*TODO*///	driver_pandoras )	/* GX328 (c) 1984 + Interlogic */
-        /*TODO*///	driver_gyruss )	/* GX347 (c) 1983 */
-        /*TODO*///	driver_gyrussce )	/* GX347 (c) 1983 + Centuri license */
-        /*TODO*///	driver_venus )		/* bootleg */
+        driver_gyruss,/* GX347 (c) 1983 */
+        driver_gyrussce, /* GX347 (c) 1983 + Centuri license */
+        driver_venus, /* bootleg */
         /*TODO*///	driver_trackfld )	/* GX361 (c) 1983 */
         /*TODO*///	driver_trackflc )	/* GX361 (c) 1983 + Centuri license */
         /*TODO*///	driver_hyprolym )	/* GX361 (c) 1983 */
