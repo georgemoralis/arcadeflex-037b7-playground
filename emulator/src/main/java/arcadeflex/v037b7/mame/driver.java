@@ -118,6 +118,8 @@ import static arcadeflex.v037b7.drivers.snk.*;
 import static arcadeflex.v037b7.drivers.buggychl.*;
 import static arcadeflex.v037b7.drivers.lsasquad.*;
 import static arcadeflex.v037b7.drivers.bublbobl.*;
+import static arcadeflex.v037b7.drivers.spacefb.*;
+import static arcadeflex.v037b7.drivers.arkanoid.*;
 
 public class driver {
 
@@ -965,16 +967,16 @@ public class driver {
         /*TODO*///	driver_rainbow )	/* B22 (c) 1987 Taito Corporation */
         /*TODO*///	driver_rainbowe )	/* ??? (c) 1988 Taito Corporation */
         /*TODO*///	driver_jumping )	/* bootleg */
-        /*TODO*///	driver_arkanoid )	/* A75 (c) 1986 Taito Corporation Japan (World) */
-        /*TODO*///	driver_arknoidu )	/* A75 (c) 1986 Taito America Corporation + Romstar license (US) */
-        /*TODO*///	driver_arknoidj )	/* A75 (c) 1986 Taito Corporation (Japan) */
-        /*TODO*///	driver_arkbl2 )	/* bootleg */
-        /*TODO*///TESTdriver_arkbl3 )	/* bootleg */
-        /*TODO*///	driver_arkatayt )	/* bootleg */
-        /*TODO*///TESTdriver_arkblock )	/* bootleg */
-        /*TODO*///	driver_arkbloc2 )	/* bootleg */
-        /*TODO*///	driver_arkangc )	/* bootleg */
-        /*TODO*///	driver_arkatour )	/* ??? (c) 1987 Taito America Corporation + Romstar license (US) */
+        driver_arkanoid, /* A75 (c) 1986 Taito Corporation Japan (World) */
+        driver_arknoidu, /* A75 (c) 1986 Taito America Corporation + Romstar license (US) */
+        driver_arknoidj, /* A75 (c) 1986 Taito Corporation (Japan) */
+        driver_arkbl2, /* bootleg */
+        /*TESTDRIVER*/ driver_arkbl3, /* bootleg */
+        driver_arkatayt, /* bootleg */
+        /*TESTDRIVER*/ driver_arkblock, /* bootleg */
+        driver_arkbloc2, /* bootleg */
+        driver_arkangc, /* bootleg */
+        driver_arkatour, /* ??? (c) 1987 Taito America Corporation + Romstar license (US) */
         driver_superqix,/* B03 1987 */
         driver_sqixbl,/* bootleg? but (c) 1987 */
         /*TODO*///	driver_superman )	/* B61 (c) 1988 Taito Corporation */
@@ -2956,11 +2958,11 @@ public class driver {
         driver_sharkatt,/* (c) [1980] */
         driver_thief,/* (c) 1981 */
         driver_natodef,/* (c) 1982 */
-        /*TODO*///	driver_spacefb )	/* (c) [1980?] Nintendo */
-        /*TODO*///	driver_spacefbg )	/* 834-0031 (c) 1980 Gremlin */
-        /*TODO*///	driver_spacefbb )	/* bootleg */
-        /*TODO*///	driver_spacebrd )	/* bootleg */
-        /*TODO*///	driver_spacedem )	/* (c) 1980 Nintendo / Fortrek */
+        driver_spacefb, /* (c) [1980?] Nintendo */
+        driver_spacefbg, /* 834-0031 (c) 1980 Gremlin */
+        driver_spacefbb, /* bootleg */
+        driver_spacebrd, /* bootleg */
+        driver_spacedem, /* (c) 1980 Nintendo / Fortrek */
         driver_blueprnt,/* (c) 1982 Bally Midway (Zilec in ROM 3U, and the programmer names) */
         driver_blueprnj,/* (c) 1982 Jaleco (Zilec in ROM 3U, and the programmer names) */
         driver_saturn,/* (c) 1983 Jaleco (Zilec in ROM R6, and the programmer names) */
