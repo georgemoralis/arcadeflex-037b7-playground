@@ -123,6 +123,8 @@ import static arcadeflex.v037b7.drivers.arkanoid.*;
 import static arcadeflex.v037b7.drivers.mario.*;
 import static arcadeflex.v037b7.drivers.gyruss.*;
 import static arcadeflex.v037b7.drivers.vicdual.*;
+import static arcadeflex.v037b7.drivers.vigilant.*;
+import static arcadeflex.v037b7.drivers.shisen.*;
 
 public class driver {
 
@@ -813,11 +815,11 @@ public class driver {
         /*TODO*///	driver_spelunkr )	/* (c) 1985 licensed from Broderbund */
         /*TODO*///	driver_spelunk2 )	/* (c) 1986 licensed from Broderbund */
         /*TODO*///
-        /*TODO*///	driver_vigilant )	/* (c) 1988 (World) */
-        /*TODO*///	driver_vigilntu )	/* (c) 1988 (US) */
-        /*TODO*///	driver_vigilntj )	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_kikcubic )	/* (c) 1988 (Japan) */
-        /*TODO*///	/* M72 (and derivatives) */
+        driver_vigilant, /* (c) 1988 (World) */
+        driver_vigilntu, /* (c) 1988 (US) */
+        driver_vigilntj, /* (c) 1988 (Japan) */
+        driver_kikcubic, /* (c) 1988 (Japan) */
+        /* M72 (and derivatives) */
         /*TODO*///	driver_rtype )		/* (c) 1987 (Japan) */
         /*TODO*///	driver_rtypepj )	/* (c) 1987 (Japan) */
         /*TODO*///	driver_rtypeu )	/* (c) 1987 + Nintendo USA license (US) */
@@ -841,9 +843,9 @@ public class driver {
         /*TODO*///	driver_airduel )	/* (c) 1990 (Japan) */
         /*TODO*///	driver_gallop )	/* (c) 1991 (Japan) */
         /*TODO*///	/* not M72, but same sound hardware */
-        /*TODO*///	driver_sichuan2 )	/* (c) 1989 Tamtex */
-        /*TODO*///	driver_sichuana )	/* (c) 1989 Tamtex */
-        /*TODO*///	driver_shisen )	/* (c) 1989 Tamtex */
+        driver_sichuan2, /* (c) 1989 Tamtex */
+        driver_sichuana, /* (c) 1989 Tamtex */
+        driver_shisen, /* (c) 1989 Tamtex */
         /*TODO*///	/* M92 */
         /*TODO*///	driver_bmaster )	/* (c) 1991 Irem */
         /*TODO*///	driver_gunforce )	/* (c) 1991 Irem (World) */
