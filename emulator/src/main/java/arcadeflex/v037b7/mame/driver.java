@@ -125,6 +125,8 @@ import static arcadeflex.v037b7.drivers.gyruss.*;
 import static arcadeflex.v037b7.drivers.vicdual.*;
 import static arcadeflex.v037b7.drivers.vigilant.*;
 import static arcadeflex.v037b7.drivers.shisen.*;
+import static arcadeflex.v037b7.drivers.dotrikun.*;
+import static arcadeflex.v037b7.drivers.seicross.*;
 
 public class driver {
 
@@ -289,11 +291,11 @@ public class driver {
         driver_swimmer,/* (c) 1982 Tehkan */
         driver_swimmera,/* (c) 1982 Tehkan */
         driver_guzzler,/* (c) 1983 Tehkan */
-        /*TODO*///	/* Nichibutsu games */
-        /*TODO*///	driver_friskyt )	/* (c) 1981 */
-        /*TODO*///	driver_radrad )	/* (c) 1982 Nichibutsu USA */
-        /*TODO*///	driver_seicross )	/* (c) 1984 + Alice */
-        /*TODO*///	driver_sectrzon )	/* (c) 1984 + Alice */
+        /* Nichibutsu games */
+        driver_friskyt, /* (c) 1981 */
+        driver_radrad,/* (c) 1982 Nichibutsu USA */
+        driver_seicross, /* (c) 1984 + Alice */
+        driver_sectrzon, /* (c) 1984 + Alice */
         driver_wiping,/* (c) 1982 */
         driver_rugrats,/* (c) 1983 */
         /*TODO*///	driver_magmax )	/* (c) 1985 */
@@ -1732,8 +1734,8 @@ public class driver {
         driver_suprloco, /* (c) 1982 Sega */
         driver_appoooh,/* (c) 1984 Sega */
         driver_bankp,/* (c) 1984 Sega */
-        /*TODO*///	driver_dotrikun )	/* cabinet test board */
-        /*TODO*///	driver_dotriku2 )	/* cabinet test board */
+        driver_dotrikun, /* cabinet test board */
+        driver_dotriku2, /* cabinet test board */
         /*TODO*///
         /*TODO*///	/* Sega System 16 games */
         /*TODO*///	// Not working
