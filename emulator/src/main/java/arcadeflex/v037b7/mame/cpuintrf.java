@@ -66,6 +66,16 @@ import static gr.codebb.arcadeflex.WIP.v037b7.cpu.tms32010.tms32010H.TMS320C10_A
 import gr.codebb.arcadeflex.WIP.v037b7.cpu.z8000.z8000;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.z8000.z8000H.Z8000_NVI;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.z8000.z8000H.Z8000_VI;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_INT_ACK_AUTOVECTOR;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_INT_NONE;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_1;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_2;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_3;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_4;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_5;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_6;
+import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_7;
+import gr.codebb.arcadeflex.v036.cpu.m68000.m68kmame;
 import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_INT_FIRQ;
 import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_INT_IRQ;
 
@@ -341,7 +351,7 @@ public class cpuintrf {
                 new hd6309(),//CPU0(HD6309,   hd6309,	 2,  0,1.00,HD6309_INT_NONE,   HD6309_INT_IRQ, HD6309_INT_NMI, 16,	  0,16,BE,1, 4,16	),
                 new m6809(),//CPU0(M6809,    m6809,	 2,  0,1.00,M6809_INT_NONE,    M6809_INT_IRQ,  M6809_INT_NMI,  16,	  0,16,BE,1, 4,16	),
                 new konami(),//CPU0(KONAMI,   konami,	 2,  0,1.00,KONAMI_INT_NONE,   KONAMI_INT_IRQ, KONAMI_INT_NMI, 16,	  0,16,BE,1, 4,16	),
-                new Dummy_cpu(),//CPU0(M68000,   m68000,	 8, -1,1.00,MC68000_INT_NONE,  -1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
+                new m68kmame(),//CPU0(M68000,   m68000,	 8, -1,1.00,MC68000_INT_NONE,  -1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
                 new Dummy_cpu(),//CPU0(M68010,   m68010,	 8, -1,1.00,MC68010_INT_NONE,  -1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
                 new Dummy_cpu(),//CPU0(M68EC020, m68ec020, 8, -1,1.00,MC68EC020_INT_NONE,-1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
                 new Dummy_cpu(),//CPU0(M68020,   m68020,	 8, -1,1.00,MC68020_INT_NONE,  -1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
@@ -1139,54 +1149,71 @@ public class cpuintrf {
             return INT_TYPE_NMI(cpunum);
         }
     };
-    /*TODO*///
-/*TODO*///
-/*TODO*///#if (HAS_M68000 || HAS_M68010 || HAS_M68020 || HAS_M68EC020)
-/*TODO*///int m68_level1_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_1;
-/*TODO*///}
-/*TODO*///int m68_level2_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_2;
-/*TODO*///}
-/*TODO*///int m68_level3_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_3;
-/*TODO*///}
-/*TODO*///int m68_level4_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_4;
-/*TODO*///}
-/*TODO*///int m68_level5_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_5;
-/*TODO*///}
-/*TODO*///int m68_level6_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_6;
-/*TODO*///}
-/*TODO*///int m68_level7_irq(void)
-/*TODO*///{
-/*TODO*///	int cpunum = (activecpu < 0) ? 0 : activecpu;
-/*TODO*///	if (interrupt_enable[cpunum] == 0) return MC68000_INT_NONE;
-/*TODO*///	return MC68000_IRQ_7;
-/*TODO*///}
-/*TODO*///#endif
-/*TODO*///
-/*TODO*///
+
+    public static InterruptPtr m68_level1_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_1;
+        }
+    };
+    public static InterruptPtr m68_level2_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_2;
+        }
+    };
+    public static InterruptPtr m68_level3_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_3;
+        }
+    };
+    public static InterruptPtr m68_level4_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_4;
+        }
+    };
+    public static InterruptPtr m68_level5_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_5;
+        }
+    };
+    public static InterruptPtr m68_level6_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_6;
+        }
+    };
+    public static InterruptPtr m68_level7_irq = new InterruptPtr() {
+        public int handler() {
+            int cpunum = (activecpu < 0) ? 0 : activecpu;
+            if (interrupt_enable[cpunum] == 0) {
+                return MC68000_INT_NONE;
+            }
+            return MC68000_IRQ_7;
+        }
+    };
+
     public static InterruptPtr ignore_interrupt = new InterruptPtr() {
         public int handler() {
             int cpunum = (activecpu < 0) ? 0 : activecpu;
@@ -1654,27 +1681,39 @@ public class cpuintrf {
                                 break;
                             default:
                                 irq_line = 0;
-                                //LOG(("KONAMI unknown\n"));
+                            //LOG(("KONAMI unknown\n"));
                         }
                         break;
+                    case CPU_M68000:
+                        switch (num) {
+                            case MC68000_IRQ_1:
+                                irq_line = 1;
+                                break;
+                            case MC68000_IRQ_2:
+                                irq_line = 2;
+                                break;
+                            case MC68000_IRQ_3:
+                                irq_line = 3;
+                                break;
+                            case MC68000_IRQ_4:
+                                irq_line = 4;
+                                break;
+                            case MC68000_IRQ_5:
+                                irq_line = 5;
+                                break;
+                            case MC68000_IRQ_6:
+                                irq_line = 6;
+                                break;
+                            case MC68000_IRQ_7:
+                                irq_line = 7;
+                                break;
+                            default:
+                                irq_line = 0;
+                        }
+                        /* until now only auto vector interrupts supported */
+                        num = MC68000_INT_ACK_AUTOVECTOR;
+                        break;
                     /*TODO*///#endif
-/*TODO*///#if (HAS_M68000)
-/*TODO*///			case CPU_M68000:
-/*TODO*///				switch (num)
-/*TODO*///				{
-/*TODO*///				case MC68000_IRQ_1: 	irq_line = 1; LOG(("M68K IRQ1\n")); break;
-/*TODO*///				case MC68000_IRQ_2: 	irq_line = 2; LOG(("M68K IRQ2\n")); break;
-/*TODO*///				case MC68000_IRQ_3: 	irq_line = 3; LOG(("M68K IRQ3\n")); break;
-/*TODO*///				case MC68000_IRQ_4: 	irq_line = 4; LOG(("M68K IRQ4\n")); break;
-/*TODO*///				case MC68000_IRQ_5: 	irq_line = 5; LOG(("M68K IRQ5\n")); break;
-/*TODO*///				case MC68000_IRQ_6: 	irq_line = 6; LOG(("M68K IRQ6\n")); break;
-/*TODO*///				case MC68000_IRQ_7: 	irq_line = 7; LOG(("M68K IRQ7\n")); break;
-/*TODO*///				default:				irq_line = 0; LOG(("M68K unknown\n"));
-/*TODO*///				}
-/*TODO*///				/* until now only auto vector interrupts supported */
-/*TODO*///				num = MC68000_INT_ACK_AUTOVECTOR;
-/*TODO*///				break;
-/*TODO*///#endif
 /*TODO*///#if (HAS_M68010)
 /*TODO*///			case CPU_M68010:
 /*TODO*///				switch (num)
@@ -2557,10 +2596,11 @@ public class cpuintrf {
     /*TODO*///		return cpuintf[cpu_type].address_bits;
     /*TODO*///	return 0;
     /*TODO*///}
-    
-    /***************************************************************************
-      Returns the address bit mask for a specific CPU type
-    ***************************************************************************/
+    /**
+     * *************************************************************************
+     * Returns the address bit mask for a specific CPU type
+    **************************************************************************
+     */
     public static int cputype_address_mask(int cpu_type) {
         cpu_type &= ~CPU_FLAGS_MASK;
         if (cpu_type < CPU_COUNT) {
@@ -2613,17 +2653,19 @@ public class cpuintrf {
     /*TODO*///		return cpuintf[cpu_type].max_inst_len;
     /*TODO*///	return 0;
     /*TODO*///}
-    
-    /***************************************************************************
-      Returns the name for a specific CPU type
-    ***************************************************************************/
-    public static String cputype_name(int cpu_type)
-    {
-    	cpu_type &= ~CPU_FLAGS_MASK;
-    	if( cpu_type < CPU_COUNT )
-    		return IFC_INFO(cpu_type,null,CPU_INFO_NAME);
-    	return "";
+    /**
+     * *************************************************************************
+     * Returns the name for a specific CPU type
+    **************************************************************************
+     */
+    public static String cputype_name(int cpu_type) {
+        cpu_type &= ~CPU_FLAGS_MASK;
+        if (cpu_type < CPU_COUNT) {
+            return IFC_INFO(cpu_type, null, CPU_INFO_NAME);
+        }
+        return "";
     }
+
     /*TODO*///
     /*TODO*////***************************************************************************
     /*TODO*///  Returns the family name for a specific CPU type
@@ -2789,6 +2831,7 @@ public class cpuintrf {
         }
         return "";
     }
+
     /*TODO*///
 /*TODO*////***************************************************************************
 /*TODO*///  Returns the credits for a specific CPU number
@@ -2820,10 +2863,9 @@ public class cpuintrf {
 /*TODO*///	return (const char *)default_win_layout;
 /*TODO*///}
 /*TODO*///
-   /**
+    /**
      * *************************************************************************
-     * Return a register value for a specific CPU number of the running
-     * machine
+     * Return a register value for a specific CPU number of the running machine
      * *************************************************************************
      */
     public static int/*unsigned*/ cpunum_get_reg(int cpunum, int regnum) {
@@ -2903,7 +2945,7 @@ public class cpuintrf {
             }
         }
     }
-/*TODO*///
+    /*TODO*///
 /*TODO*////***************************************************************************
 /*TODO*///  Return a dissassembled instruction for a specific CPU
 /*TODO*///***************************************************************************/

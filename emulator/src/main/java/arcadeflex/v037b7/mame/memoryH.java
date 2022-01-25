@@ -13,6 +13,8 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase16bew;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase20;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase21;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_setOPbase24;
 
 public class memoryH {
 
@@ -356,7 +358,10 @@ public class memoryH {
         return OP_ROM.read(A);
     }
 
-    /*TODO*///#define cpu_readop16(A) 	READ_WORD(&OP_ROM[A])
+    public static int cpu_readop16(int A) {
+        return OP_ROM.READ_WORD(A);
+    }
+
     public static char cpu_readop_arg(int A) {
         return OP_RAM.read(A);
     }
@@ -387,9 +392,15 @@ public class memoryH {
         change_pc_generic(pc, ABITS2_20, ABITS_MIN_20, 0, cpu_setOPbase20);
     }
 
-    /*TODO*///#define change_pc21(pc) 	 change_pc_generic(pc, ABITS2_21, ABITS_MIN_21, 0, cpu_setOPbase21)
-/*TODO*///#define change_pc24(pc) 	 change_pc_generic(pc, ABITS2_24, ABITS_MIN_24, 0, cpu_setOPbase24)
-/*TODO*///#define change_pc24bew(pc)	 change_pc_generic(pc, ABITS2_24BEW, ABITS_MIN_24BEW, 0, cpu_setOPbase24bew)
+    public static void change_pc21(int pc) {
+        change_pc_generic(pc, ABITS2_21, ABITS_MIN_21, 0, cpu_setOPbase21);
+    }
+
+    public static void change_pc24(int pc) {
+        change_pc_generic(pc, ABITS2_24, ABITS_MIN_24, 0, cpu_setOPbase24);
+    }
+
+    /*TODO*///#define change_pc24bew(pc)	 change_pc_generic(pc, ABITS2_24BEW, ABITS_MIN_24BEW, 0, cpu_setOPbase24bew)
 /*TODO*///#define change_pc26lew(pc)	 change_pc_generic(pc, ABITS2_26LEW, ABITS_MIN_26LEW, 0, cpu_setOPbase26lew)
 /*TODO*///#define change_pc29(pc)      change_pc_generic(pc, ABITS2_29, ABITS_MIN_29, 3, cpu_setOPbase29)
 /*TODO*///#define change_pc32(pc) 	 change_pc_generic(pc, ABITS2_32, ABITS_MIN_32, 0, cpu_setOPbase32)

@@ -128,6 +128,11 @@ import static arcadeflex.v037b7.drivers.shisen.*;
 import static arcadeflex.v037b7.drivers.dotrikun.*;
 import static arcadeflex.v037b7.drivers.seicross.*;
 import static arcadeflex.v037b7.drivers.mitchell.*;
+import static arcadeflex.v037b7.drivers.dooyong.*;
+import static arcadeflex.v037b7.drivers.galpanic.*;
+import static arcadeflex.v037b7.drivers.galspnbl.*;
+import static arcadeflex.v037b7.drivers.rainbow.*;
+import static arcadeflex.v037b7.drivers.rastan.*;
 
 public class driver {
 
@@ -968,13 +973,13 @@ public class driver {
         driver_kikikai, /* A85 (c) 1986 Taito Corporation */
         driver_kicknrun, /* A87 (c) 1986 Taito Corporation */
         driver_mexico86, /* bootleg (Micro Research) */
-        /*TODO*///	driver_rastan )	/* B04 (c) 1987 Taito Corporation Japan (World) */
-        /*TODO*///	driver_rastanu )	/* B04 (c) 1987 Taito America Corporation (US) */
-        /*TODO*///	driver_rastanu2 )	/* B04 (c) 1987 Taito America Corporation (US) */
-        /*TODO*///	driver_rastsaga )	/* B04 (c) 1987 Taito Corporation (Japan)*/
-        /*TODO*///	driver_rainbow )	/* B22 (c) 1987 Taito Corporation */
-        /*TODO*///	driver_rainbowe )	/* ??? (c) 1988 Taito Corporation */
-        /*TODO*///	driver_jumping )	/* bootleg */
+        driver_rastan, /* B04 (c) 1987 Taito Corporation Japan (World) */
+        driver_rastanu, /* B04 (c) 1987 Taito America Corporation (US) */
+        driver_rastanu2, /* B04 (c) 1987 Taito America Corporation (US) */
+        driver_rastsaga, /* B04 (c) 1987 Taito Corporation (Japan)*/
+        driver_rainbow, /* B22 (c) 1987 Taito Corporation */
+        driver_rainbowe, /* ??? (c) 1988 Taito Corporation */
+        driver_jumping, /* bootleg */
         driver_arkanoid, /* A75 (c) 1986 Taito Corporation Japan (World) */
         driver_arknoidu, /* A75 (c) 1986 Taito America Corporation + Romstar license (US) */
         driver_arknoidj, /* A75 (c) 1986 Taito Corporation (Japan) */
@@ -2897,8 +2902,8 @@ public class driver {
         /*TODO*///TESTdriver_gtmr2 )
         /*TODO*///TESTdriver_shogwarr )
         /*TODO*///
-        /*TODO*///	/* other Kaneko games */
-        /*TODO*///	driver_galpanic )	/* (c) 1990 Kaneko */
+        /* other Kaneko games */
+        driver_galpanic, /* (c) 1990 Kaneko */
         driver_airbustr,/* (c) 1990 Kaneko */
         /* Seta games */
         driver_hanaawas,/* (c) SetaKikaku */
@@ -2935,21 +2940,20 @@ public class driver {
         driver_gundeala,/* (c) Dooyong */
         driver_yamyam,/* (c) 1990 Dooyong */
         driver_wiseguy,/* (c) 1990 Dooyong */
-        /*TODO*///	driver_lastday )	/* (c) 1990 Dooyong */
-        /*TODO*///	driver_lastdaya )	/* (c) 1990 Dooyong */
-        /*TODO*///	driver_pollux )	/* (c) 1991 Dooyong */
-        /*TODO*///	driver_bluehawk )	/* (c) 1993 Dooyong */
-        /*TODO*///	driver_primella )	/* (c) 1994 NTC */
-        /*TODO*///	driver_rshark )	/* (c) 1995 Dooyong */
-        /*TODO*///
+        driver_lastday, /* (c) 1990 Dooyong */
+        driver_lastdaya, /* (c) 1990 Dooyong */
+        driver_pollux, /* (c) 1991 Dooyong */
+        driver_bluehawk, /* (c) 1993 Dooyong */
+        driver_primella, /* (c) 1994 NTC */
+        driver_rshark, /* (c) 1995 Dooyong */
         /*TODO*///	/* NMK games */
         /*TODO*///TESTdriver_macross )	/* (c) 1992 NMK + Big West */
         /*TODO*///	driver_bjtwin )	/* (c) 1993 NMK */
         /*TODO*///
         /*TODO*///	/* Comad games */
         /*TODO*///	driver_zerozone )	/* (c) 1993 Comad */
-        /*TODO*///	driver_hotpinbl )	/* (c) 1995 Comad & New Japan System */
-        /*TODO*///	driver_galspnbl )	/* (c) 1996 Comad */
+        driver_hotpinbl, /* (c) 1995 Comad & New Japan System */
+        driver_galspnbl, /* (c) 1996 Comad */
         /*TODO*///TESTdriver_ladyfrog )
         /*TODO*///	/* the following ones run on modified Gals Panic hardware */
         /*TODO*///	driver_fantasia )	/* (c) 1994 Comad & New Japan System */
