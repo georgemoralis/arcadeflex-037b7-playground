@@ -149,6 +149,7 @@ import static arcadeflex.v037b7.drivers.superpac.*;
 import static arcadeflex.v037b7.drivers.yiear.*;
 import static arcadeflex.v037b7.drivers.ddrible.*;
 import static arcadeflex.v037b7.drivers.sonson.*;
+import static arcadeflex.v037b7.drivers.battlane.*;
 
 public class driver {
 
@@ -2565,9 +2566,9 @@ public class driver {
         /*TODO*///	driver_xsleena )	/* TA-0019 (c) 1986 */
         /*TODO*///	driver_xsleenab )	/* bootleg */
         /*TODO*///	driver_solarwar )	/* TA-0019 (c) 1986 Taito + Memetron license */
-        /*TODO*///	driver_battlane )	/* TA-???? (c) 1986 + Taito license */
-        /*TODO*///	driver_battlan2 )	/* TA-???? (c) 1986 + Taito license */
-        /*TODO*///	driver_battlan3 )	/* TA-???? (c) 1986 + Taito license */
+        driver_battlane, /* TA-???? (c) 1986 + Taito license */
+        driver_battlan2, /* TA-???? (c) 1986 + Taito license */
+        driver_battlan3, /* TA-???? (c) 1986 + Taito license */
         /*TODO*///	driver_ddragon )	/* TA-0021 (c) 1987 */
         /*TODO*///	driver_ddragonu )	/* TA-0021 (c) 1987 Taito America */
         /*TODO*///	driver_ddragonb )	/* bootleg */
