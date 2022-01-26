@@ -133,6 +133,11 @@ import static arcadeflex.v037b7.drivers.galpanic.*;
 import static arcadeflex.v037b7.drivers.galspnbl.*;
 import static arcadeflex.v037b7.drivers.rainbow.*;
 import static arcadeflex.v037b7.drivers.rastan.*;
+import static arcadeflex.v037b7.drivers.shaolins.*;
+import static arcadeflex.v037b7.drivers.mpatrol.*;
+import static arcadeflex.v037b7.drivers.yard.*;
+import static arcadeflex.v037b7.drivers.travrusa.*;
+import static arcadeflex.v037b7.drivers.troangel.*;
 
 public class driver {
 
@@ -796,15 +801,15 @@ public class driver {
         /*TODO*///
         /*TODO*///	driver_redalert )	/* (c) 1981 + "GDI presents" */
         driver_olibochu,/* M47 (c) 1981 + "GDI presents" */
-        /*TODO*///	driver_mpatrol )	/* M52 (c) 1982 */
-        /*TODO*///	driver_mpatrolw )	/* M52 (c) 1982 + Williams license */
-        /*TODO*///	driver_mranger )	/* bootleg */
-        /*TODO*///	driver_troangel )	/* (c) 1983 */
-        /*TODO*///	driver_yard )		/* (c) 1983 */
-        /*TODO*///	driver_vsyard )	/* (c) 1983/1984 */
-        /*TODO*///	driver_vsyard2 )	/* (c) 1983/1984 */
-        /*TODO*///	driver_travrusa )	/* (c) 1983 */
-        /*TODO*///	driver_motorace )	/* (c) 1983 Williams license */
+        driver_mpatrol, /* M52 (c) 1982 */
+        driver_mpatrolw, /* M52 (c) 1982 + Williams license */
+        driver_mranger, /* bootleg */
+        driver_troangel, /* (c) 1983 */
+        driver_yard, /* (c) 1983 */
+        driver_vsyard, /* (c) 1983/1984 */
+        driver_vsyard2, /* (c) 1983/1984 */
+        driver_travrusa, /* (c) 1983 */
+        driver_motorace, /* (c) 1983 Williams license */
         /*TODO*///	/* M62 */
         /*TODO*///	driver_kungfum )	/* (c) 1984 */
         /*TODO*///	driver_kungfud )	/* (c) 1984 + Data East license */
@@ -2079,8 +2084,8 @@ public class driver {
         /*TODO*///	driver_roadf2 )	/* GX461 (c) 1984 */
         /*TODO*///	driver_yiear )		/* GX407 (c) 1985 */
         /*TODO*///	driver_yiear2 )	/* GX407 (c) 1985 */
-        /*TODO*///	driver_kicker )	/* GX477 (c) 1985 */
-        /*TODO*///	driver_shaolins )	/* GX477 (c) 1985 */
+        driver_kicker,/* GX477 (c) 1985 */
+        driver_shaolins, /* GX477 (c) 1985 */
         driver_pingpong,/* GX555 (c) 1985 */
         /*TODO*///	driver_gberet )	/* GX577 (c) 1985 */
         /*TODO*///	driver_rushatck )	/* GX577 (c) 1985 */
