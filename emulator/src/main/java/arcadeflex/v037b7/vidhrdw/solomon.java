@@ -26,7 +26,6 @@ import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 
-
 public class solomon {
 
     public static UBytePtr solomon_bgvideoram = new UBytePtr();

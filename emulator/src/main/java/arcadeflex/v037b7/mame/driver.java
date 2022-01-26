@@ -147,6 +147,8 @@ import static arcadeflex.v037b7.drivers.mappy.*;
 import static arcadeflex.v037b7.drivers.phozon.*;
 import static arcadeflex.v037b7.drivers.superpac.*;
 import static arcadeflex.v037b7.drivers.yiear.*;
+import static arcadeflex.v037b7.drivers.ddrible.*;
+import static arcadeflex.v037b7.drivers.sonson.*;
 
 public class driver {
 
@@ -1271,7 +1273,7 @@ public class driver {
         /*TODO*///	driver_vulgus )	/*  5/1984 (c) 1984 */
         /*TODO*///	driver_vulgus2 )	/*  5/1984 (c) 1984 */
         /*TODO*///	driver_vulgusj )	/*  5/1984 (c) 1984 */
-        /*TODO*///	driver_sonson )	/*  7/1984 (c) 1984 */
+        driver_sonson, /*  7/1984 (c) 1984 */
         driver_higemaru,/*  9/1984 (c) 1984 */
         driver_1942,/* 12/1984 (c) 1984 */
         driver_1942a,/* 12/1984 (c) 1984 */
@@ -2110,7 +2112,7 @@ public class driver {
         /*TODO*///	driver_topgunr )	/* GX631 (c) 1986 (US) */
         /*TODO*///	driver_jackalj )	/* GX631 (c) 1986 (Japan) */
         /*TODO*///	driver_topgunbl )	/* bootleg */
-        /*TODO*///	driver_ddribble )	/* GX690 (c) 1986 */
+        driver_ddribble, /* GX690 (c) 1986 */
         /*TODO*///	driver_contra )	/* GX633 (c) 1987 */
         /*TODO*///	driver_contrab )	/* bootleg */
         /*TODO*///	driver_contraj )	/* GX633 (c) 1987 (Japan) */
