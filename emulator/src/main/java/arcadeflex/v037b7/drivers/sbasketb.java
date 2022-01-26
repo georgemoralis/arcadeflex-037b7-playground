@@ -17,6 +17,8 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+//sndhrdw imports
+import static arcadeflex.v037b7.sndhrdw.trackfld.*;
 //sound imports
 import static arcadeflex.v037b7.sound.dac.*;
 import static arcadeflex.v058.sound.vlm5030.*;
@@ -24,8 +26,6 @@ import static arcadeflex.v058.sound.vlm5030H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.sbasketb.*;
-//to be organized
-import static gr.codebb.arcadeflex.v037b7.sndhrdw.trackfld.*;
 
 public class sbasketb {
 

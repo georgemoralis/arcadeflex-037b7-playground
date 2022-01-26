@@ -157,6 +157,9 @@ import static arcadeflex.v037b7.drivers.jailbrek.*;
 import static arcadeflex.v037b7.drivers.junofrst.*;
 import static arcadeflex.v037b7.drivers.megazone.*;
 import static arcadeflex.v037b7.drivers.tutankhm.*;
+import static arcadeflex.v037b7.drivers.ironhors.*;
+import static arcadeflex.v037b7.drivers.rocnrope.*;
+import static arcadeflex.v037b7.drivers.trackfld.*;
 
 public class driver {
 
@@ -2080,12 +2083,12 @@ public class driver {
         driver_gyruss,/* GX347 (c) 1983 */
         driver_gyrussce, /* GX347 (c) 1983 + Centuri license */
         driver_venus, /* bootleg */
-        /*TODO*///	driver_trackfld )	/* GX361 (c) 1983 */
-        /*TODO*///	driver_trackflc )	/* GX361 (c) 1983 + Centuri license */
-        /*TODO*///	driver_hyprolym )	/* GX361 (c) 1983 */
-        /*TODO*///	driver_hyprolyb )	/* bootleg */
-        /*TODO*///	driver_rocnrope )	/* GX364 (c) 1983 */
-        /*TODO*///	driver_rocnropk )	/* GX364 (c) 1983 + Kosuka */
+        driver_trackfld, /* GX361 (c) 1983 */
+        driver_trackflc, /* GX361 (c) 1983 + Centuri license */
+        driver_hyprolym, /* GX361 (c) 1983 */
+        driver_hyprolyb, /* bootleg */
+        driver_rocnrope, /* GX364 (c) 1983 */
+        driver_rocnropk, /* GX364 (c) 1983 + Kosuka */
         driver_circusc, /* GX380 (c) 1984 */
         driver_circusc2, /* GX380 (c) 1984 */
         driver_circuscc, /* GX380 (c) 1984 + Centuri license */
@@ -2112,9 +2115,9 @@ public class driver {
         driver_jailbrek, /* GX507 (c) 1986 */
         driver_finalizr, /* GX523 (c) 1985 */
         driver_finalizb, /* bootleg */
-        /*TODO*///	driver_ironhors )	/* GX560 (c) 1986 */
-        /*TODO*///	driver_dairesya )	/* GX560 (c) 1986 (Japan) */
-        /*TODO*///	driver_farwest )
+        driver_ironhors, /* GX560 (c) 1986 */
+        driver_dairesya, /* GX560 (c) 1986 (Japan) */
+        driver_farwest,
         /*TODO*///	driver_jackal )	/* GX631 (c) 1986 (World) */
         /*TODO*///	driver_topgunr )	/* GX631 (c) 1986 (US) */
         /*TODO*///	driver_jackalj )	/* GX631 (c) 1986 (Japan) */
