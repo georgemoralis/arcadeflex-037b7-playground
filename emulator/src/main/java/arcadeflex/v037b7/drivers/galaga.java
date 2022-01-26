@@ -4,7 +4,6 @@
  */
 package arcadeflex.v037b7.drivers;
 
-//common imports
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports

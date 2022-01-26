@@ -150,6 +150,13 @@ import static arcadeflex.v037b7.drivers.yiear.*;
 import static arcadeflex.v037b7.drivers.ddrible.*;
 import static arcadeflex.v037b7.drivers.sonson.*;
 import static arcadeflex.v037b7.drivers.battlane.*;
+import static arcadeflex.v037b7.drivers.brkthru.*;
+import static arcadeflex.v037b7.drivers.gaplus.*;
+import static arcadeflex.v037b7.drivers.grobda.*;
+import static arcadeflex.v037b7.drivers.jailbrek.*;
+import static arcadeflex.v037b7.drivers.junofrst.*;
+import static arcadeflex.v037b7.drivers.megazone.*;
+import static arcadeflex.v037b7.drivers.tutankhm.*;
 
 public class driver {
 
@@ -412,13 +419,13 @@ public class driver {
         driver_todruaga, /* (c) 1984 */
         driver_todruagb, /* (c) 1984 */
         driver_motos, /* (c) 1985 */
-        /*TODO*///	driver_grobda )	/* (c) 1984 */
-        /*TODO*///	driver_grobda2 )	/* (c) 1984 */
-        /*TODO*///	driver_grobda3 )	/* (c) 1984 */
-        /*TODO*///	driver_gaplus )	/* (c) 1984 */
-        /*TODO*///	driver_gaplusa )	/* (c) 1984 */
-        /*TODO*///	driver_galaga3 )	/* (c) 1984 */
-        /*TODO*///	driver_galaga3a )	/* (c) 1984 */
+        driver_grobda, /* (c) 1984 */
+        driver_grobda2, /* (c) 1984 */
+        driver_grobda3, /* (c) 1984 */
+        driver_gaplus, /* (c) 1984 */
+        driver_gaplusa, /* (c) 1984 */
+        driver_galaga3, /* (c) 1984 */
+        driver_galaga3a, /* (c) 1984 */
         /*TODO*///	/* Libble Rabble board (first Japanese game using a 68000) */
         /*TODO*///TESTdriver_liblrabl )	/* (c) 1983 */
         /*TODO*///	driver_toypop )	/* (c) 1986 */
@@ -1910,9 +1917,9 @@ public class driver {
         driver_karatevs,/* (c) 1984 Data East Corporation (Japan) */
         /*TODO*///	driver_firetrap )	/* (c) 1986 */
         /*TODO*///	driver_firetpbl )	/* bootleg */
-        /*TODO*///	driver_brkthru )	/* (c) 1986 Data East USA (US) */
-        /*TODO*///	driver_brkthruj )	/* (c) 1986 Data East Corporation (Japan) */
-        /*TODO*///	driver_darwin )	/* (c) 1986 Data East Corporation (Japan) */
+        driver_brkthru, /* (c) 1986 Data East USA (US) */
+        driver_brkthruj, /* (c) 1986 Data East Corporation (Japan) */
+        driver_darwin, /* (c) 1986 Data East Corporation (Japan) */
         /*TODO*///	driver_shootout )	/* (c) 1985 Data East USA (US) */
         /*TODO*///	driver_shootouj )	/* (c) 1985 Data East USA (Japan) */
         /*TODO*///	driver_shootoub )	/* bootleg */
@@ -2054,12 +2061,11 @@ public class driver {
         /*TODO*///	driver_fstarfrc )	/* (c) 1992 Tecmo */
         /*TODO*///	driver_ginkun )	/* (c) 1995 Tecmo */
         /*TODO*///
-        /*TODO*///	/* Konami bitmap games */
-        /*TODO*///	driver_tutankhm )	/* GX350 (c) 1982 Konami */
-        /*TODO*///	driver_tutankst )	/* GX350 (c) 1982 Stern */
-        /*TODO*///	driver_junofrst )	/* GX310 (c) 1983 Konami */
-        /*TODO*///	driver_junofstg )	/* GX310 (c) 1983 Konami + Gottlieb license */
-        /*TODO*///
+        /* Konami bitmap games */
+        driver_tutankhm, /* GX350 (c) 1982 Konami */
+        driver_tutankst, /* GX350 (c) 1982 Stern */
+        driver_junofrst, /* GX310 (c) 1983 Konami */
+        driver_junofstg, /* GX310 (c) 1983 Konami + Gottlieb license */
         /* Konami games */
         driver_pooyan,/* GX320 (c) 1982 */
         driver_pooyans,/* GX320 (c) 1982 Stern */
@@ -2068,8 +2074,8 @@ public class driver {
         driver_timepltc, /* GX393 (c) 1982 + Centuri license*/
         driver_spaceplt, /* bootleg */
         driver_psurge,/* (c) 1988 unknown (NOT Konami) */
-        /*TODO*///	driver_megazone )	/* GX319 (c) 1983 */
-        /*TODO*///	driver_megaznik )	/* GX319 (c) 1983 + Interlogic / Kosuka */
+        driver_megazone, /* GX319 (c) 1983 */
+        driver_megaznik, /* GX319 (c) 1983 + Interlogic / Kosuka */
         /*TODO*///	driver_pandoras )	/* GX328 (c) 1984 + Interlogic */
         driver_gyruss,/* GX347 (c) 1983 */
         driver_gyrussce, /* GX347 (c) 1983 + Centuri license */
@@ -2103,7 +2109,7 @@ public class driver {
         /*TODO*///	driver_rushatck )	/* GX577 (c) 1985 */
         /*TODO*///	driver_gberetb )	/* bootleg on different hardware */
         /*TODO*///	driver_mrgoemon )	/* GX621 (c) 1986 (Japan) */
-        /*TODO*///	driver_jailbrek )	/* GX507 (c) 1986 */
+        driver_jailbrek, /* GX507 (c) 1986 */
         driver_finalizr, /* GX523 (c) 1985 */
         driver_finalizb, /* bootleg */
         /*TODO*///	driver_ironhors )	/* GX560 (c) 1986 */
