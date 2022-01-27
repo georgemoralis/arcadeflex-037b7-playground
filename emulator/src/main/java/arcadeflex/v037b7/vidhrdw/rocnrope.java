@@ -7,7 +7,7 @@ package arcadeflex.v037b7.vidhrdw;
 //common imports
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.libc.cstring.*;
-import static gr.codebb.arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports

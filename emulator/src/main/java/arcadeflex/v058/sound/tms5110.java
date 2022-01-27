@@ -13,7 +13,7 @@ import static arcadeflex.v058.sound.tms5110r.*;
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstdlib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
-import static gr.codebb.arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class tms5110 {

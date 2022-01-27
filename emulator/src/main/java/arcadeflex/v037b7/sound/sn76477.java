@@ -6,6 +6,9 @@ package arcadeflex.v037b7.sound;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.libc.cstdio.*;
+import static arcadeflex.common.libc.cstring.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
@@ -16,9 +19,6 @@ import static arcadeflex.v037b7.sound.sn76477H.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.common.libc.expressions.sizeof;
 
 public class sn76477 extends snd_interface {
 

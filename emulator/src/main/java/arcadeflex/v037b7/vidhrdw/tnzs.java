@@ -6,6 +6,7 @@ package arcadeflex.v037b7.vidhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
 //drivers imports
 import static arcadeflex.v037b7.drivers.tnzs.*;
 //generic imports
@@ -20,7 +21,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_init_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
-import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;

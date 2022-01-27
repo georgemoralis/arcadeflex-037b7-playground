@@ -6,6 +6,9 @@ package arcadeflex.v058.sound;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.libc.cstdlib.*;
+import static arcadeflex.common.libc.cstring.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -17,9 +20,6 @@ import static arcadeflex.v058.sound.vlm5030H.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.common.libc.expressions.sizeof;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_allocate_channel;
 

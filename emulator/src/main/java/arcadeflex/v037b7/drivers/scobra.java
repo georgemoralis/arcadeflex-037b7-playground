@@ -6,6 +6,7 @@ package arcadeflex.v037b7.drivers;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -30,8 +31,6 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.galaxian.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
-//to be organized
-import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 
 public class scobra {
 

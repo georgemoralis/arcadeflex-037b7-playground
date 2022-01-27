@@ -5,6 +5,7 @@
 package arcadeflex.v037b7.drivers;
 
 //common imports
+import static arcadeflex.common.libc.expressions.*;
 //cpu imports
 import static arcadeflex.v037b7.cpu.z80.z80H.*;
 //generic imports
@@ -25,8 +26,6 @@ import static arcadeflex.v037b7.sound.ay8910H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.munchmo.*;
-//to be organized
-import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 
 public class munchmo {
 

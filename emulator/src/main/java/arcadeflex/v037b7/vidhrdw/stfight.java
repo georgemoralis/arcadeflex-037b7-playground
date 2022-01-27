@@ -6,6 +6,7 @@ package arcadeflex.v037b7.vidhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -38,7 +39,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_TRANSPARENT;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_TRANSPARENT_COLOR;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILE_FLIPYX;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.struct_tilemap;
-import static gr.codebb.arcadeflex.common.libc.expressions.NOT;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
 
 

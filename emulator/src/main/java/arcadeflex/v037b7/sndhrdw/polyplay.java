@@ -5,12 +5,12 @@ package arcadeflex.v037b7.sndhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //to be organized
-import static gr.codebb.arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.old.sound.mixer.*;
 
 public class polyplay {

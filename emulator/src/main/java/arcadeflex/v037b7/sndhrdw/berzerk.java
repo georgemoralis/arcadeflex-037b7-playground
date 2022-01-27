@@ -3,6 +3,8 @@
  */
 package arcadeflex.v037b7.sndhrdw;
 
+//common imports
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
@@ -13,7 +15,6 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.sound.samples.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class berzerk {

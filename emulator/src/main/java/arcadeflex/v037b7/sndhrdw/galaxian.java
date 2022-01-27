@@ -6,6 +6,7 @@ package arcadeflex.v037b7.sndhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -17,7 +18,6 @@ import static arcadeflex.v056.mame.timerH.*;
 import static arcadeflex.v037b7.sound.streams.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
-import static gr.codebb.arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.old.sound.mixer.*;
 
 public class galaxian {
