@@ -13,6 +13,7 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -34,8 +35,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xBBBBBGGGGGRRRRR_swap_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;

@@ -19,6 +19,7 @@ import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
@@ -33,8 +34,6 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.rastan.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_word_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xBBBBBGGGGGRRRRR_word_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBGGGGRRRR_word_w;
 

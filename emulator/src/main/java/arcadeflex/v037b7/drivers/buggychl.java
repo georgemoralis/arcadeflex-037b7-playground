@@ -13,6 +13,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
 import static arcadeflex.v037b7.machine.buggychl.*;
 //mame improts
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -26,7 +27,6 @@ import static arcadeflex.v037b7.mame.inputH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
-import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910.*;
 import static arcadeflex.v037b7.sound.ay8910H.*;
@@ -34,7 +34,6 @@ import static arcadeflex.v037b7.sound.ay8910H.*;
 import static arcadeflex.v037b7.vidhrdw.buggychl.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.old.sound.mixer.mixer_sound_enable_global_w;
 
 public class buggychl {

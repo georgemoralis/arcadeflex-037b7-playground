@@ -19,15 +19,14 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.mnight.*;
-
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_RRRRGGGGBBBBxxxx_swap_w;
 
 public class mnight {
 

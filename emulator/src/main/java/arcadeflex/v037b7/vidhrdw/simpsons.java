@@ -9,13 +9,14 @@ import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
+import static arcadeflex.v037b7.mame.osdependH.*;
+import static arcadeflex.v037b7.mame.memory.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.paletteH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static arcadeflex.v037b7.vidhrdw.konamiicH.*;
-import static arcadeflex.v037b7.mame.osdependH.*;
-import static arcadeflex.v037b7.mame.memory.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;

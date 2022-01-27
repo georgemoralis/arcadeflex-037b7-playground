@@ -12,6 +12,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
 import static arcadeflex.v037b7.machine.bublbobl.*;
 //mame improts
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -32,9 +33,7 @@ import static arcadeflex.v037b7.sound._3812intfH.*;
 import static arcadeflex.v037b7.vidhrdw.bublbobl.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_RRRRGGGGBBBBxxxx_swap_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_r;
 
 public class bublbobl {
 

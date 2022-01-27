@@ -16,14 +16,13 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910.*;
 import static arcadeflex.v037b7.sound.ay8910H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.bogeyman.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 
 public class bogeyman {
 

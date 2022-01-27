@@ -20,6 +20,7 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -29,8 +30,6 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 import static arcadeflex.v037b7.vidhrdw.cabal.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_word_r;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBGGGGRRRR_word_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm.ADPCM_play;
 

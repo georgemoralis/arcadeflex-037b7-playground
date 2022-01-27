@@ -24,9 +24,6 @@ import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.stfight.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_2;
 
 public class stfight {
 

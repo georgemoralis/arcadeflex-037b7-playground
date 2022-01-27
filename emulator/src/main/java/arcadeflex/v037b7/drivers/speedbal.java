@@ -18,13 +18,13 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //platform imports
 import static arcadeflex.v037b7.sound._3812intf.*;
 import static arcadeflex.v037b7.sound._3812intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.speedbal.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_RRRRGGGGBBBBxxxx_swap_w;
 
 public class speedbal {

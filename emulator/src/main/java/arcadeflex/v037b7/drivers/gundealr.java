@@ -19,6 +19,7 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //platform imports
 //sound imports
 import static arcadeflex.v037b7.sound._2203intf.*;
@@ -26,7 +27,6 @@ import static arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.gundealr.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class gundealr {

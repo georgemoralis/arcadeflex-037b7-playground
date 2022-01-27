@@ -19,6 +19,7 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910.*;
 import static arcadeflex.v037b7.sound.ay8910H.*;
@@ -33,7 +34,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.cpu.i8039.i8039H.I8039_EXT_INT;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.i8039.i8039H.I8039_p1;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.i8039.i8039H.I8039_p2;
 import static gr.codebb.arcadeflex.WIP.v037b7.machine.konami.konami1_decode;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_BBGGGRRR_w;
 
 public class junofrst {

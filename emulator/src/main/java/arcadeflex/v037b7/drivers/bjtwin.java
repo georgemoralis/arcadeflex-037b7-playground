@@ -8,7 +8,6 @@ package arcadeflex.v037b7.drivers;
 import static arcadeflex.common.ptrLib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
-//machine imports
 //mame imports
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.inptport.*;
@@ -19,13 +18,12 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
+//sound imports
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.bjtwin.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_word_r;
 
 public class bjtwin {
 

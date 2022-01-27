@@ -19,6 +19,7 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
@@ -26,7 +27,6 @@ import static arcadeflex.v037b7.sound.okim6295H.*;
 import static arcadeflex.v037b7.vidhrdw.galpanic.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 
 public class galpanic {

@@ -20,6 +20,7 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 //sound imports
@@ -28,8 +29,6 @@ import static arcadeflex.v037b7.sound.ay8910H.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.jack.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 
 public class jack {
 

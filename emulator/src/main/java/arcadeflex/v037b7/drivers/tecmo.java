@@ -30,8 +30,6 @@ import static arcadeflex.v037b7.sound._3812intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.tecmo.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 
 public class tecmo {
 

@@ -19,6 +19,7 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.k053260.*;
 //vidhrdw imports
@@ -29,7 +30,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 
 public class simpsons {

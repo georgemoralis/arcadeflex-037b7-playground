@@ -14,6 +14,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.paletteH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
@@ -24,7 +25,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_change_color;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_transparent_pen;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 

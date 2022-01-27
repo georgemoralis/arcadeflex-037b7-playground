@@ -21,6 +21,7 @@ import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910.*;
 import static arcadeflex.v037b7.sound.ay8910H.*;
@@ -30,8 +31,6 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.taitosj.*;
-//to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 
 public class taitosj {
 

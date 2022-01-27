@@ -13,6 +13,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized

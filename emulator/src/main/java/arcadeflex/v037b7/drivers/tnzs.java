@@ -17,6 +17,7 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
@@ -31,7 +32,6 @@ import static arcadeflex.v037b7.sound.samplesH.*;
 import static arcadeflex.v037b7.vidhrdw.tnzs.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xRRRRRGGGGGBBBBB_w;
 import static gr.codebb.arcadeflex.common.libc.cstdio.sprintf;
 

@@ -20,6 +20,7 @@ import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -29,7 +30,6 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.vigilant.*;
 //to be organized
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sndhrdw.m72.*;
 
 public class vigilant {

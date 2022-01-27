@@ -25,13 +25,12 @@ import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_CACHED;
 import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_TRANSPARENT_FLAG;
 import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_VISIBLE;
 import arcadeflex.common.ptrLib.UBytePtr;
+import arcadeflex.v037b7.generic.funcPtr.ReadHandlerPtr;
 import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
 import static arcadeflex.v037b7.mame.memoryH.COMBINE_WORD;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxBBBBRRRRGGGG;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxRRRRBBBBGGGG;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxRRRRGGGGBBBB;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_2;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import gr.codebb.arcadeflex.old.arcadeflex.libc_old.FILE;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fprintf;
@@ -1599,27 +1598,29 @@ public class palette {
 /*TODO*///
 /*TODO*///******************************************************************************/
 /*TODO*///
-/*TODO*///UINT8 *paletteram,*paletteram_2;
-/*TODO*///
-/*TODO*///READ_HANDLER( paletteram_r )
-/*TODO*///{
-/*TODO*///	return paletteram[offset];
-/*TODO*///}
-/*TODO*///
-/*TODO*///READ_HANDLER( paletteram_2_r )
-/*TODO*///{
-/*TODO*///	return paletteram_2[offset];
-/*TODO*///}
-/*TODO*///
-/*TODO*///READ_HANDLER( paletteram_word_r )
-/*TODO*///{
-/*TODO*///	return READ_WORD(&paletteram[offset]);
-/*TODO*///}
-/*TODO*///
-/*TODO*///READ_HANDLER( paletteram_2_word_r )
-/*TODO*///{
-/*TODO*///	return READ_WORD(&paletteram_2[offset]);
-/*TODO*///}
+    public static UBytePtr paletteram = new UBytePtr();//unsigned char *paletteram,*paletteram_2;
+    public static UBytePtr paletteram_2 = new UBytePtr();
+
+    public static ReadHandlerPtr paletteram_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return paletteram.read(offset);
+        }
+    };
+    public static ReadHandlerPtr paletteram_2_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return paletteram_2.read(offset);
+        }
+    };
+    public static ReadHandlerPtr paletteram_word_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return paletteram.READ_WORD(offset);
+        }
+    };
+    public static ReadHandlerPtr paletteram_2_word_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return paletteram_2.READ_WORD(offset);
+        }
+    };
 /*TODO*///
 /*TODO*///WRITE_HANDLER( paletteram_RRRGGGBB_w )
 /*TODO*///{

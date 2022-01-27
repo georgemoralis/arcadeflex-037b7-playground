@@ -10,11 +10,11 @@ import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.osdependH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_change_color;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_init_used_colors;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_create;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_draw;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_mark_all_pixels_dirty;

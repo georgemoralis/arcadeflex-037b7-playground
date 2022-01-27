@@ -20,6 +20,7 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
@@ -30,7 +31,6 @@ import static arcadeflex.v037b7.vidhrdw.konamiic.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konami.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xBBBBBGGGGGRRRRR_swap_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.upd7759.UPD7759_message_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.upd7759.UPD7759_reset_w;
