@@ -27,6 +27,7 @@ import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_VISIBLE;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxBBBBRRRRGGGG;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxRRRRBBBBGGGG;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_2;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
@@ -1829,20 +1830,21 @@ public class palette {
 /*TODO*///	palette_change_color(color,r,g,b);
 /*TODO*///}
 /*TODO*///
-/*TODO*///WRITE_HANDLER( paletteram_xxxxRRRRBBBBGGGG_split1_w )
-/*TODO*///{
-/*TODO*///	paletteram[offset] = data;
-/*TODO*///	changecolor_xxxxRRRRBBBBGGGG(offset,paletteram[offset] | (paletteram_2[offset] << 8));
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( paletteram_xxxxRRRRBBBBGGGG_split2_w )
-/*TODO*///{
-/*TODO*///	paletteram_2[offset] = data;
-/*TODO*///	changecolor_xxxxRRRRBBBBGGGG(offset,paletteram[offset] | (paletteram_2[offset] << 8));
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///INLINE void changecolor_xxxxRRRRGGGGBBBB(int color,int data)
+    public static WriteHandlerPtr paletteram_xxxxRRRRBBBBGGGG_split1_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            paletteram.write(offset, data);
+            changecolor_xxxxRRRRBBBBGGGG(offset, paletteram.read(offset) | (paletteram_2.read(offset) << 8));
+        }
+    };
+
+    public static WriteHandlerPtr paletteram_xxxxRRRRBBBBGGGG_split2_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            paletteram_2.write(offset, data);
+            changecolor_xxxxRRRRBBBBGGGG(offset, paletteram.read(offset) | (paletteram_2.read(offset) << 8));
+        }
+    };
+
+    /*TODO*///INLINE void changecolor_xxxxRRRRGGGGBBBB(int color,int data)
 /*TODO*///{
 /*TODO*///	int r,g,b;
 /*TODO*///
