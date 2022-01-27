@@ -166,6 +166,7 @@ import static arcadeflex.v037b7.drivers.kingobox.*;
 import static arcadeflex.v037b7.drivers.skydiver.*;
 import static arcadeflex.v037b7.drivers.tp84.*;
 import static arcadeflex.v037b7.drivers.superman.*;
+import static arcadeflex.v037b7.drivers.bjtwin.*;
 
 public class driver {
 
@@ -2980,7 +2981,7 @@ public class driver {
         driver_rshark, /* (c) 1995 Dooyong */
         /*TODO*///	/* NMK games */
         /*TODO*///TESTdriver_macross )	/* (c) 1992 NMK + Big West */
-        /*TODO*///	driver_bjtwin )	/* (c) 1993 NMK */
+        driver_bjtwin,/* (c) 1993 NMK */
         /*TODO*///
         /*TODO*///	/* Comad games */
         /*TODO*///	driver_zerozone )	/* (c) 1993 Comad */
