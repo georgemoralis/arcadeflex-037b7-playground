@@ -160,6 +160,11 @@ import static arcadeflex.v037b7.drivers.tutankhm.*;
 import static arcadeflex.v037b7.drivers.ironhors.*;
 import static arcadeflex.v037b7.drivers.rocnrope.*;
 import static arcadeflex.v037b7.drivers.trackfld.*;
+import static arcadeflex.v037b7.drivers.bogeyman.*;
+import static arcadeflex.v037b7.drivers.cabal.*;
+import static arcadeflex.v037b7.drivers.kingobox.*;
+import static arcadeflex.v037b7.drivers.skydiver.*;
+import static arcadeflex.v037b7.drivers.tp84.*;
 
 public class driver {
 
@@ -2093,8 +2098,8 @@ public class driver {
         driver_circusc2, /* GX380 (c) 1984 */
         driver_circuscc, /* GX380 (c) 1984 + Centuri license */
         driver_circusce, /* GX380 (c) 1984 + Centuri license */
-        /*TODO*///	driver_tp84 )		/* GX388 (c) 1984 */
-        /*TODO*///	driver_tp84a )		/* GX388 (c) 1984 */
+        driver_tp84, /* GX388 (c) 1984 */
+        driver_tp84a, /* GX388 (c) 1984 */
         /*TODO*///	driver_hyperspt )	/* GX330 (c) 1984 + Centuri */
         /*TODO*///	driver_hpolym84 )	/* GX330 (c) 1984 */
         driver_sbasketb, /* GX405 (c) 1984 */
@@ -2364,7 +2369,7 @@ public class driver {
         /*TODO*///	driver_soccer )	/* no copyright notice */
         /*TODO*///	driver_canyon )	/* no copyright notice [1977] */
         /*TODO*///	driver_canbprot )	/* no copyright notice [1977] */
-        /*TODO*///	driver_skydiver )	/* no copyright notice [1977] */
+        driver_skydiver, /* no copyright notice [1977] */
         /*TODO*///	driver_videopin )	/* no copyright notice [1979] */
         /*TODO*///
         /*TODO*///	/* Atari "Centipede hardware" games */
@@ -2564,7 +2569,7 @@ public class driver {
         /*TODO*///	driver_ssozumo )	/* TA-0008 (c) 1984 */
         /*TODO*///	driver_mystston )	/* TA-0010 (c) 1984 */
         /*TODO*///	/* TA-0011 Dog Fight (Data East) / Batten O'hara no Sucha-Raka Kuuchuu Sen 1985 */
-        /*TODO*///	driver_bogeyman )	/* X-0204-0 (Data East part number) (c) [1985?] */
+        driver_bogeyman, /* X-0204-0 (Data East part number) (c) [1985?] */
         /*TODO*///	driver_matmania )	/* TA-0015 (c) 1985 + Taito America license */
         /*TODO*///	driver_excthour )	/* TA-0015 (c) 1985 + Taito license */
         /*TODO*///	driver_maniach )	/* TA-0017 (c) 1986 + Taito America license */
@@ -2780,10 +2785,10 @@ public class driver {
         /*TODO*///
         /*TODO*///*/
         /*TODO*///
-        /*TODO*///	/* Tad games (Tad games run on Seibu hardware) */
-        /*TODO*///	driver_cabal )		/* (c) 1988 Tad + Fabtek license */
-        /*TODO*///	driver_cabal2 )	/* (c) 1988 Tad + Fabtek license */
-        /*TODO*///	driver_cabalbl )	/* bootleg */
+        /* Tad games (Tad games run on Seibu hardware) */
+        driver_cabal, /* (c) 1988 Tad + Fabtek license */
+        driver_cabal2, /* (c) 1988 Tad + Fabtek license */
+        driver_cabalbl, /* bootleg */
         /*TODO*///	driver_toki )		/* (c) 1989 Tad */
         /*TODO*///	driver_toki2 )		/* (c) 1989 Tad */
         /*TODO*///	driver_toki3 )		/* (c) 1989 Tad */
@@ -3013,10 +3018,10 @@ public class driver {
         /*TODO*///	driver_spiders2 )	/* (c) 1981 Sigma Ent. Inc. */
         /*TODO*///	driver_stactics )	/* [1981 Sega] */
         /*TODO*///	driver_exterm )	/* (c) 1989 Premier Technology - a Gottlieb game */
-        /*TODO*///	driver_kingofb )	/* (c) 1985 Woodplace Inc. */
-        /*TODO*///	driver_ringking )	/* (c) 1985 Data East USA */
-        /*TODO*///	driver_ringkin2 )
-        /*TODO*///	driver_ringkin3 )	/* (c) 1985 Data East USA */
+        driver_kingofb, /* (c) 1985 Woodplace Inc. */
+        driver_ringking, /* (c) 1985 Data East USA */
+        driver_ringkin2,
+        driver_ringkin3, /* (c) 1985 Data East USA */
         driver_speedbal,/* (c) 1987 Tecfri */
         driver_sauro,/* (c) 1987 Tecfri */
         driver_ambush,/* (c) 1983 Nippon Amuse Co-Ltd */

@@ -6,6 +6,7 @@ package arcadeflex.v037b7.drivers;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -25,8 +26,6 @@ import static arcadeflex.v037b7.sound._2203intfH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.skyfox.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
-//to be organized
-import static gr.codebb.arcadeflex.common.libc.cstring.memcpy;
 
 public class skyfox {
 
