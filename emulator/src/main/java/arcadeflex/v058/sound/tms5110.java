@@ -7,13 +7,13 @@ package arcadeflex.v058.sound;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.libc.cstdlib.*;
+import static arcadeflex.common.libc.cstring.*;
 //sound imports
 import static arcadeflex.v058.sound.tms5110H.*;
 import static arcadeflex.v058.sound.tms5110r.*;
 //to be organized
-import static gr.codebb.arcadeflex.common.libc.cstdlib.*;
-import static gr.codebb.arcadeflex.common.libc.cstring.*;
-import static arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class tms5110 {

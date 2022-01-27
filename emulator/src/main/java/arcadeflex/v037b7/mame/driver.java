@@ -165,6 +165,7 @@ import static arcadeflex.v037b7.drivers.cabal.*;
 import static arcadeflex.v037b7.drivers.kingobox.*;
 import static arcadeflex.v037b7.drivers.skydiver.*;
 import static arcadeflex.v037b7.drivers.tp84.*;
+import static arcadeflex.v037b7.drivers.superman.*;
 
 public class driver {
 
@@ -1024,7 +1025,7 @@ public class driver {
         driver_arkatour, /* ??? (c) 1987 Taito America Corporation + Romstar license (US) */
         driver_superqix,/* B03 1987 */
         driver_sqixbl,/* bootleg? but (c) 1987 */
-        /*TODO*///	driver_superman )	/* B61 (c) 1988 Taito Corporation */
+        driver_superman, /* B61 (c) 1988 Taito Corporation */
         driver_minivadr,/* D26 cabinet test board */
         /* Taito "tnzs" hardware */
         driver_plumppop,/* A98 (c) 1987 Taito Corporation (Japan) */
