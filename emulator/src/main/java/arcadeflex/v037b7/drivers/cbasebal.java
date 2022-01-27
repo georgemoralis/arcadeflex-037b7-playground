@@ -24,6 +24,7 @@ import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.ym2413.*;
 import static arcadeflex.v037b7.sound._2413intfH.*;
@@ -35,7 +36,6 @@ import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_r;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBRRRRGGGG_w;
 
 public class cbasebal {
 

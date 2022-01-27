@@ -17,6 +17,7 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //sound imports
 import static arcadeflex.v037b7.sound.MSM5205H.*;
 import static arcadeflex.v037b7.sound._2203intf.*;
@@ -26,8 +27,6 @@ import static arcadeflex.v037b7.vidhrdw.stfight.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_2;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBRRRRGGGG_split1_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBRRRRGGGG_split2_w;
 
 public class stfight {
 

@@ -22,6 +22,7 @@ import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+import static arcadeflex.v037b7.mame.palette.*;
 //platform imports
 //sound imports
 import static arcadeflex.v037b7.sound._2203intf.*;
@@ -32,8 +33,6 @@ import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_2;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBRRRRGGGG_split1_w;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBRRRRGGGG_split2_w;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class blktiger {
