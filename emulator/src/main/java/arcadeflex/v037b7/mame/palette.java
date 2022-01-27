@@ -26,8 +26,10 @@ import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_TRANSPARENT_FLAG;
 import static arcadeflex.v037b7.mame.paletteH.PALETTE_COLOR_VISIBLE;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
+import static arcadeflex.v037b7.mame.memoryH.COMBINE_WORD;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxBBBBRRRRGGGG;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxRRRRBBBBGGGG;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.changecolor_xxxxRRRRGGGGBBBB;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_2;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
@@ -1860,30 +1862,31 @@ public class palette {
 /*TODO*///	palette_change_color(color,r,g,b);
 /*TODO*///}
 /*TODO*///
-/*TODO*///WRITE_HANDLER( paletteram_xxxxRRRRGGGGBBBB_w )
-/*TODO*///{
-/*TODO*///	paletteram[offset] = data;
-/*TODO*///	changecolor_xxxxRRRRGGGGBBBB(offset / 2,paletteram[offset & ~1] | (paletteram[offset | 1] << 8));
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( paletteram_xxxxRRRRGGGGBBBB_swap_w )
-/*TODO*///{
-/*TODO*///	paletteram[offset] = data;
-/*TODO*///	changecolor_xxxxRRRRGGGGBBBB(offset / 2,paletteram[offset | 1] | (paletteram[offset & ~1] << 8));
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( paletteram_xxxxRRRRGGGGBBBB_word_w )
-/*TODO*///{
-/*TODO*///	int oldword = READ_WORD(&paletteram[offset]);
-/*TODO*///	int newword = COMBINE_WORD(oldword,data);
-/*TODO*///
-/*TODO*///
-/*TODO*///	WRITE_WORD(&paletteram[offset],newword);
-/*TODO*///	changecolor_xxxxRRRRGGGGBBBB(offset / 2,newword);
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///INLINE void changecolor_RRRRGGGGBBBBxxxx(int color,int data)
+    public static WriteHandlerPtr paletteram_xxxxRRRRGGGGBBBB_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            paletteram.write(offset, data);
+            changecolor_xxxxRRRRGGGGBBBB(offset / 2, paletteram.read(offset & ~1) | (paletteram.read(offset | 1) << 8));
+        }
+    };
+
+    public static WriteHandlerPtr paletteram_xxxxRRRRGGGGBBBB_swap_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            paletteram.write(offset, data);
+            changecolor_xxxxRRRRGGGGBBBB(offset / 2, paletteram.read(offset | 1) | (paletteram.read(offset & ~1) << 8));
+        }
+    };
+
+    public static WriteHandlerPtr paletteram_xxxxRRRRGGGGBBBB_word_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            int oldword = paletteram.READ_WORD(offset);
+            int newword = COMBINE_WORD(oldword, data);
+
+            paletteram.WRITE_WORD(offset, newword);
+            changecolor_xxxxRRRRGGGGBBBB(offset / 2, newword);
+        }
+    };
+
+    /*TODO*///INLINE void changecolor_RRRRGGGGBBBBxxxx(int color,int data)
 /*TODO*///{
 /*TODO*///	int r,g,b;
 /*TODO*///

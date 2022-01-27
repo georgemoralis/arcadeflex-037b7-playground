@@ -301,6 +301,16 @@ public class ptrLib {
             offset = cp.offset + b;
         }
 
+        public UShortPtr(UBytePtr cp) {
+            memory = cp.memory;
+            offset = cp.offset;
+        }
+
+        public UShortPtr(UBytePtr cp, int b) {
+            memory = cp.memory;
+            offset = cp.offset + b;
+        }
+
         public char read(int index) {
             return (char) (memory[offset + 1 + index * 2] << 8 | memory[offset + index * 2]);
         }
