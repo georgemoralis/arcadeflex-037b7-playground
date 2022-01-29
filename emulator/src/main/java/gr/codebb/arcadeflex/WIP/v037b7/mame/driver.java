@@ -1,7 +1,7 @@
 /** ported to v0.37b7 */
 package gr.codebb.arcadeflex.WIP.v037b7.mame;
 
-import static arcadeflex.v037b7.drivers.bloodbro.*;
+import static arcadeflex.WIP.v037b7.drivers.bloodbro.*;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
 // WIP drivers
