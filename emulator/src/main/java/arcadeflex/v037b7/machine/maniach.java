@@ -2,8 +2,9 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.WIP.v037b7.machine;
+package arcadeflex.v037b7.machine;
 
+//generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 
 public class maniach {

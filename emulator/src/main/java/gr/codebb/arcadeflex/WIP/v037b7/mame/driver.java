@@ -60,7 +60,6 @@ import static gr.codebb.arcadeflex.v037b7.drivers.ccastles.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.centiped.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.exprraid.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.gameplan.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.matmania.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.renegade.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.tempest.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.mhavoc.*;
@@ -3453,10 +3452,6 @@ public class driver {
         driver_jackrab2,
         driver_jackrabs,
         driver_mystston,
-        driver_matmania,
-        driver_excthour,
-        driver_maniach,
-        driver_maniach2,
         driver_renegade,
         driver_kuniokun,
         driver_kuniokub,

@@ -2,11 +2,13 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.*;
-import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.maniach.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//machine imports
+import static arcadeflex.v037b7.machine.maniach.*;
+//mame imports
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
@@ -14,21 +16,22 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
+import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.palette.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
+//sound imports
 import static arcadeflex.v037b7.sound._3526intf.*;
-import arcadeflex.v037b7.sound._3812intfH.YM3526interface;
+import static arcadeflex.v037b7.sound._3812intfH.*;
+import static arcadeflex.v037b7.sound.ay8910.*;
+import static arcadeflex.v037b7.sound.ay8910H.*;
+import static arcadeflex.v037b7.sound.dac.*;
+import static arcadeflex.v037b7.sound.dacH.*;
+//vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.matmania.*;
-import static arcadeflex.v037b7.generic.funcPtr.*;
-import static arcadeflex.v037b7.mame.driverH.*;
-import static arcadeflex.v037b7.mame.palette.paletteram;
-import static arcadeflex.v037b7.mame.sndintrfH.*;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_control_port_0_w;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_control_port_1_w;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_write_port_0_w;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_write_port_1_w;
-import arcadeflex.v037b7.sound.ay8910H.AY8910interface;
-import static arcadeflex.v037b7.sound.dac.DAC_signed_data_w;
-import arcadeflex.v037b7.sound.dacH.DACinterface;
+//to be organized
+import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.*;
+import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.*;
 
 public class matmania {
 
@@ -669,6 +672,5 @@ public class matmania {
     public static GameDriver driver_matmania = new GameDriver("1985", "matmania", "matmania.java", rom_matmania, null, machine_driver_matmania, input_ports_matmania, null, ROT270, "Technos (Taito America license)", "Mat Mania");
     public static GameDriver driver_excthour = new GameDriver("1985", "excthour", "matmania.java", rom_excthour, driver_matmania, machine_driver_matmania, input_ports_matmania, null, ROT270, "Technos (Taito license)", "Exciting Hour");
     public static GameDriver driver_maniach = new GameDriver("1986", "maniach", "matmania.java", rom_maniach, null, machine_driver_maniach, input_ports_matmania, null, ROT270, "Technos (Taito America license)", "Mania Challenge (set 1)");
-    public static GameDriver driver_maniach2 = new GameDriver("1986", "maniach2", "matmania.java", rom_maniach2, driver_maniach, machine_driver_maniach, input_ports_matmania, null, ROT270, "Technos (Taito America license)", "Mania Challenge (set 2)");
-    /* earlier version? */
+    public static GameDriver driver_maniach2 = new GameDriver("1986", "maniach2", "matmania.java", rom_maniach2, driver_maniach, machine_driver_maniach, input_ports_matmania, null, ROT270, "Technos (Taito America license)", "Mania Challenge (set 2)");/* earlier version? */
 }
