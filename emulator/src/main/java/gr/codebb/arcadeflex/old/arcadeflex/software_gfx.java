@@ -226,7 +226,11 @@ public class software_gfx extends java.awt.Frame implements Runnable, ImageProdu
             }
         } else if (Machine.gamedrv.source_file.equals("raiden.java")) {
             super.setSize(width * 2 + this._insets.left + this._insets.right - (int) (width * 0.14), height * 2 + this._insets.top + this._insets.bottom);
-        } else {
+        } 
+        else if (Machine.gamedrv.source_file.equals("mcr1.java")|| Machine.gamedrv.source_file.equals("mcr2.java") || Machine.gamedrv.source_file.equals("mcr3.java")) {
+            super.setSize(width + this._insets.left + this._insets.right, height + this._insets.top + this._insets.bottom);
+        }
+        else {
             super.setSize(width * 2 + this._insets.left + this._insets.right, height * 2 + this._insets.top + this._insets.bottom);
         }
         System.out.println(this.getWidth() + "x" + this.getHeight());

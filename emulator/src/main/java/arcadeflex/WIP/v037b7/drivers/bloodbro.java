@@ -28,7 +28,7 @@ import static arcadeflex.v037b7.sound._3812intfH.*;
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
 //vidhrdw imports
-import static arcadeflex.v037b7.vidhrdw.bloodbro.*;
+import static arcadeflex.WIP.v037b7.vidhrdw.bloodbro.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBGGGGRRRR_word_w;
