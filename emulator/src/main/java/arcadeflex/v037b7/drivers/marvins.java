@@ -17,7 +17,6 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
-//platform imports
 //sound imports
 import static arcadeflex.v037b7.sound.ay8910.*;
 import static arcadeflex.v037b7.sound.ay8910H.*;
