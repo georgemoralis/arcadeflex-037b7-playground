@@ -167,6 +167,8 @@ import static arcadeflex.v037b7.drivers.skydiver.*;
 import static arcadeflex.v037b7.drivers.tp84.*;
 import static arcadeflex.v037b7.drivers.superman.*;
 import static arcadeflex.v037b7.drivers.bjtwin.*;
+import static arcadeflex.v037b7.drivers.matmania.*;
+import static arcadeflex.v037b7.drivers.aeroboto.*;
 
 public class driver {
 
@@ -2572,10 +2574,10 @@ public class driver {
         /*TODO*///	driver_mystston )	/* TA-0010 (c) 1984 */
         /*TODO*///	/* TA-0011 Dog Fight (Data East) / Batten O'hara no Sucha-Raka Kuuchuu Sen 1985 */
         driver_bogeyman, /* X-0204-0 (Data East part number) (c) [1985?] */
-        /*TODO*///	driver_matmania )	/* TA-0015 (c) 1985 + Taito America license */
-        /*TODO*///	driver_excthour )	/* TA-0015 (c) 1985 + Taito license */
-        /*TODO*///	driver_maniach )	/* TA-0017 (c) 1986 + Taito America license */
-        /*TODO*///	driver_maniach2 )	/* TA-0017 (c) 1986 + Taito America license */
+        driver_matmania, /* TA-0015 (c) 1985 + Taito America license */
+        driver_excthour, /* TA-0015 (c) 1985 + Taito license */
+        driver_maniach, /* TA-0017 (c) 1986 + Taito America license */
+        driver_maniach2, /* TA-0017 (c) 1986 + Taito America license */
         /*TODO*///	driver_renegade )	/* TA-0018 (c) 1986 + Taito America license */
         /*TODO*///	driver_kuniokun )	/* TA-0018 (c) 1986 */
         /*TODO*///	driver_kuniokub )	/* bootleg */
@@ -2803,8 +2805,8 @@ public class driver {
         /*TODO*///	driver_exerion )	/* (c) 1983 Jaleco */
         /*TODO*///	driver_exeriont )	/* (c) 1983 Jaleco + Taito America license */
         /*TODO*///	driver_exerionb )	/* bootleg */
-        /*TODO*///	driver_formatz )	/* (c) 1984 Jaleco */
-        /*TODO*///	driver_aeroboto )	/* (c) 1984 Williams */
+        driver_formatz, /* (c) 1984 Jaleco */
+        driver_aeroboto, /* (c) 1984 Williams */
         driver_citycon, /* (c) 1985 Jaleco */
         driver_citycona, /* (c) 1985 Jaleco */
         driver_cruisin, /* (c) 1985 Jaleco/Kitkorp */
