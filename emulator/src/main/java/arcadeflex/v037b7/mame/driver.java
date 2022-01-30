@@ -169,6 +169,7 @@ import static arcadeflex.v037b7.drivers.superman.*;
 import static arcadeflex.v037b7.drivers.bjtwin.*;
 import static arcadeflex.v037b7.drivers.matmania.*;
 import static arcadeflex.v037b7.drivers.aeroboto.*;
+import static arcadeflex.v037b7.drivers.atetris.*;
 
 public class driver {
 
@@ -2435,11 +2436,11 @@ public class driver {
         /*TODO*///	driver_gaunt2p )	/* (c) 1985 */
         /*TODO*///	driver_gaunt2 )	/* (c) 1986 */
         /*TODO*///	driver_vindctr2 )	/* (c) 1988 */
-        /*TODO*///	driver_atetris )	/* (c) 1988 */
-        /*TODO*///	driver_atetrisa )	/* (c) 1988 */
-        /*TODO*///	driver_atetrisb )	/* bootleg */
-        /*TODO*///	driver_atetcktl )	/* (c) 1989 */
-        /*TODO*///	driver_atetckt2 )	/* (c) 1989 */
+        driver_atetris, /* (c) 1988 */
+        driver_atetrisa, /* (c) 1988 */
+        driver_atetrisb, /* bootleg */
+        driver_atetcktl, /* (c) 1989 */
+        driver_atetckt2, /* (c) 1989 */
         /*TODO*///	driver_toobin )	/* (c) 1988 */
         /*TODO*///	driver_toobin2 )	/* (c) 1988 */
         /*TODO*///	driver_toobinp )	/* (c) 1988 */

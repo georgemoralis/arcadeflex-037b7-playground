@@ -301,7 +301,7 @@ public class superman {
             superman_vh_stop,
             superman_vh_screenrefresh,
             /* sound hardware */
-            0, 0, 0, 0,//SOUND_SUPPORTS_STEREO,0,0,0,
+            SOUND_SUPPORTS_STEREO,0,0,0,
             new MachineSound[]{
                 new MachineSound(
                         SOUND_YM2610,

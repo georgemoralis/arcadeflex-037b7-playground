@@ -56,7 +56,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.jedi.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.capbowl.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.balsente.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.asteroid.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.atetris.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.btime.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.bwidow.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.bzone.*;
@@ -3447,11 +3446,6 @@ public class driver {
         driver_ddragonu,
         driver_ddragonb,
         driver_ddragon2,
-        driver_atetris,
-        driver_atetrisa,
-        driver_atetrisb,
-        driver_atetcktl,
-        driver_atetckt2,
         driver_ccastles,
         driver_ccastle2,
         driver_missile,
