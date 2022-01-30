@@ -1997,14 +1997,15 @@ public class m6800ops {
             SET_NZ8(m6800.b);
         }
     };
-    /*TODO*///
-/*TODO*////* $d5 BITB direct -**0- */
+
+    /* $d5 BITB direct -**0- */
     public static opcode bitb_di = new opcode() {
         public void handler() {
-            throw new UnsupportedOperationException("Unsupported");
-            /*TODO*///	UINT8 t,r;
-/*TODO*///	DIRBYTE(t); r = B&t;
-/*TODO*///	CLR_NZV; SET_NZ8(r);
+            int t, r;
+            t = DIRBYTE();
+            r = (m6800.b & t) & 0xFF;
+            CLR_NZV();
+            SET_NZ8(r);
         }
     };
 
@@ -2135,7 +2136,7 @@ public class m6800ops {
 /*TODO*///	B = r;
         }
     };
-    
+
     public static opcode addd_ix = new opcode() {
         public void handler() {
             int r, d;

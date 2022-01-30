@@ -2,22 +2,26 @@
 package gr.codebb.arcadeflex.WIP.v037b7.mame;
 
 import static arcadeflex.WIP.v037b7.drivers.bloodbro.*;
+import static arcadeflex.WIP.v037b7.drivers.qix.*;
+import static arcadeflex.WIP.v037b7.drivers.tsamurai.*;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
-// WIP drivers
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.dday.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.lwings.*;
 import static arcadeflex.v037b7.drivers.mcr1.*;
 import static arcadeflex.v037b7.drivers.mcr2.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
+
+
+
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.dday.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.lwings.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.senjyo.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.slapfght.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.system1.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.vastar.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.vulgus.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.kyugo.*;
-import static arcadeflex.WIP.v037b7.drivers.tsamurai.*;
+
 import static arcadeflex.v037b7.mame.driverH.*;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.gladiatr.*;
@@ -852,30 +856,18 @@ public class driver {
         driver_screwloo, /* GV-123 (c) 1983 Mylstar - never released */
         driver_curvebal, /* GV-134 (c) 1984 Mylstar */
         /* Taito "Qix hardware" games */
-        /*TODO*/
-        // driver_qix,		/* LK  (c) 1981 Taito America Corporation */
-        /*TODO*/
-        // driver_qixa,		/* LK  (c) 1981 Taito America Corporation */
-        /*TODO*/
-        // driver_qixb,		/* LK  (c) 1981 Taito America Corporation */
-        /*TODO*/
-        // driver_qix2,		/* ??  (c) 1981 Taito America Corporation */
-        /*TODO*/
-        // driver_sdungeon,	/* SD  (c) 1981 Taito America Corporation */
-        /*TODO*/
-        // driver_elecyoyo,	/* YY  (c) 1982 Taito America Corporation */
-        /*TODO*/
-        // driver_elecyoy2,	/* YY  (c) 1982 Taito America Corporation */
-        /*TODO*/
-        // driver_kram,		/* KS  (c) 1982 Taito America Corporation */
-        /*TODO*/
-        // driver_kram2,		/* KS  (c) 1982 Taito America Corporation */
-        /*TODO*/
-        // driver_zookeep,	/* ZA  (c) 1982 Taito America Corporation */
-        /*TODO*/
-        // driver_zookeep2,	/* ZA  (c) 1982 Taito America Corporation */
-        /*TODO*/
-        // driver_zookeep3,	/* ZA  (c) 1982 Taito America Corporation */
+        driver_qix,		/* LK  (c) 1981 Taito America Corporation */
+        driver_qixa,		/* LK  (c) 1981 Taito America Corporation */
+        driver_qixb,		/* LK  (c) 1981 Taito America Corporation */
+        driver_qix2,		/* ??  (c) 1981 Taito America Corporation */
+        driver_sdungeon,	/* SD  (c) 1981 Taito America Corporation */
+        driver_elecyoyo,	/* YY  (c) 1982 Taito America Corporation */
+        driver_elecyoy2,	/* YY  (c) 1982 Taito America Corporation */
+        driver_kram,		/* KS  (c) 1982 Taito America Corporation */
+        driver_kram2,		/* KS  (c) 1982 Taito America Corporation */
+        driver_zookeep,	/* ZA  (c) 1982 Taito America Corporation */
+        driver_zookeep2,	/* ZA  (c) 1982 Taito America Corporation */
+        driver_zookeep3,	/* ZA  (c) 1982 Taito America Corporation */
 
         /* other Taito games */
         // TESTDRIVER( flstory,	/* A45 (c) 1985 Taito Corporation */
@@ -2857,10 +2849,6 @@ public class driver {
         driver_exerion, /* (c) 1983 Jaleco */
         driver_exeriont, /* (c) 1983 Jaleco + Taito America license */
         driver_exerionb, /* bootleg */
-        /*TODO*/
-        // driver_formatz,	/* (c) 1984 Jaleco */
-        /*TODO*/
-        // driver_aeroboto,	/* (c) 1984 Williams */
 
         driver_pinbo, /* (c) 1984 Jaleco */
         driver_pinbos, /* (c) 1985 Strike */
