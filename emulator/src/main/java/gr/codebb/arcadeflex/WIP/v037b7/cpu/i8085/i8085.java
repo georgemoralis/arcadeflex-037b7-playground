@@ -2328,11 +2328,11 @@ public class i8085 extends cpu_interface {
 
     @Override
     public int memory_read(int offset) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cpu_readmem16(offset);
     }
 
     @Override
     public void memory_write(int offset, int data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cpu_writemem16(offset, data);
     }
 }

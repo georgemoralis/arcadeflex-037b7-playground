@@ -171,6 +171,7 @@ import static arcadeflex.v037b7.drivers.matmania.*;
 import static arcadeflex.v037b7.drivers.aeroboto.*;
 import static arcadeflex.v037b7.drivers.atetris.*;
 import static arcadeflex.v037b7.drivers.gameplan.*;
+import static arcadeflex.v037b7.drivers.meteor.*;
 
 public class driver {
 
@@ -3033,7 +3034,7 @@ public class driver {
         /*TODO*///	driver_starcrus )	/* [1977 Ramtek] */
         driver_homo,/* bootleg */
         /*TODO*///TESTdriver_dlair )
-        /*TODO*///	driver_meteor )	/* (c) 1981 Venture Line */
+        driver_meteor,/* (c) 1981 Venture Line */
         /*TODO*///	driver_aztarac )	/* (c) 1983 Centuri (vector game) */
         /*TODO*///	driver_mole )		/* (c) 1982 Yachiyo Electronics, Ltd. */
         driver_gotya,/* (c) 1981 Game-A-Tron */

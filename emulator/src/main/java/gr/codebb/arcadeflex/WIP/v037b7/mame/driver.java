@@ -104,7 +104,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.lasso.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.cloud9.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.cloak.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.phoenix.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.meteor.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers._8080bw.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.geebee.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.safarir.*;
@@ -3098,7 +3097,6 @@ public class driver {
         driver_starcrus, /* [1977 Ramtek] */
         /*TODO*/
         /// *TODO*///TESTDRIVER( dlair,
-        driver_meteor, /* (c) 1981 Venture Line */
         /*TODO*/
         // driver_aztarac,	/* (c) 1983 Centuri (vector game) */
         driver_mole, /* (c) 1982 Yachiyo Electronics, Ltd. */
