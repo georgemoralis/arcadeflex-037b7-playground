@@ -170,6 +170,7 @@ import static arcadeflex.v037b7.drivers.bjtwin.*;
 import static arcadeflex.v037b7.drivers.matmania.*;
 import static arcadeflex.v037b7.drivers.aeroboto.*;
 import static arcadeflex.v037b7.drivers.atetris.*;
+import static arcadeflex.v037b7.drivers.gameplan.*;
 
 public class driver {
 
@@ -2608,12 +2609,11 @@ public class driver {
         driver_berzerk,/* (c) 1980 */
         driver_berzerk1,/* (c) 1980 */
         driver_frenzy,/* (c) 1982 */
-        /*TODO*///	/* GamePlan games */
-        /*TODO*///	driver_megatack )	/* (c) 1980 Centuri */
-        /*TODO*///	driver_killcom )	/* (c) 1980 Centuri */
-        /*TODO*///	driver_challeng )	/* (c) 1981 Centuri */
-        /*TODO*///	driver_kaos )		/* (c) 1981 */
-        /*TODO*///
+        /* GamePlan games */
+        driver_megatack, /* (c) 1980 Centuri */
+        driver_killcom, /* (c) 1980 Centuri */
+        driver_challeng, /* (c) 1981 Centuri */
+        driver_kaos, /* (c) 1981 */
         /* "stratovox hardware" games */
         driver_route16,/* (c) 1981 Tehkan/Sun + Centuri license */
         driver_route16b,/* bootleg */

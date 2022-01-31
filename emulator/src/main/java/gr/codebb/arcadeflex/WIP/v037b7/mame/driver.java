@@ -4,6 +4,7 @@ package gr.codebb.arcadeflex.WIP.v037b7.mame;
 import static arcadeflex.WIP.v037b7.drivers.bloodbro.*;
 import static arcadeflex.WIP.v037b7.drivers.qix.*;
 import static arcadeflex.WIP.v037b7.drivers.tsamurai.*;
+import static arcadeflex.WIP.v037b7.drivers.exprraid.*;
 
 import static arcadeflex.v037b7.drivers.mcr1.*;
 import static arcadeflex.v037b7.drivers.mcr2.*;
@@ -61,8 +62,6 @@ import static gr.codebb.arcadeflex.v037b7.drivers.bwidow.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.bzone.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.ccastles.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.centiped.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.exprraid.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.gameplan.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.renegade.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.tempest.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.mhavoc.*;
@@ -3468,10 +3467,6 @@ public class driver {
         driver_centipd2,
         driver_centipdb,
         driver_centipb2,
-        driver_megatack,
-        driver_killcom,
-        driver_challeng,
-        driver_kaos,
         driver_mhavoc,
         driver_mhavoc2,
         driver_mhavocp,
