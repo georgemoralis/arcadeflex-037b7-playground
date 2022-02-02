@@ -7,6 +7,7 @@ package arcadeflex.v037b7.drivers;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -33,7 +34,6 @@ import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.machine.konami.konami1_decode;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.common.libc.cstring.strcmp;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fread;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fwrite;
 

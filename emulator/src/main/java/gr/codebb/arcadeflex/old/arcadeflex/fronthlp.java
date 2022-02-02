@@ -16,6 +16,7 @@ along with Arcadeflex.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gr.codebb.arcadeflex.old.arcadeflex;
 
+import static arcadeflex.common.libc.cstring.strcmp;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.driver.drivers;
 import static arcadeflex.v037b7.mame.driverH.*;

@@ -151,10 +151,6 @@ public class cstring {
     return 0;
   }
 
-  /** STRCMP function */
-  public static int strcmp(String str1, String str2) {
-    return str1.compareTo(str2);
-  }
   
   public static void memmove(char[] dst,UBytePtr src,int src_offset,int size)
   {

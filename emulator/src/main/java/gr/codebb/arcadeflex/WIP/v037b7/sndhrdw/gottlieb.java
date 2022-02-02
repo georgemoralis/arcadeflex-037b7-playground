@@ -8,7 +8,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import arcadeflex.common.ptrLib.UBytePtr;
 import static arcadeflex.v037b7.generic.funcPtr.*;  
-import static gr.codebb.arcadeflex.common.libc.cstring.strcmp;
+import static arcadeflex.common.libc.cstring.strcmp;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static arcadeflex.v056.mame.timer.*;

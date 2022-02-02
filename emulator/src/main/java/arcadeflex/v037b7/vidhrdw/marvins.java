@@ -42,7 +42,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_FLIPY;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_IGNORE_TRANSPARENCY;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_TRANSPARENT;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.struct_tilemap;
-import static gr.codebb.arcadeflex.common.libc.cstring.strcmp;
+import static arcadeflex.common.libc.cstring.strcmp;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 
 

@@ -36,7 +36,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.hyperspt.hyperspt_vh_scree
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.hyperspt.hyperspt_vh_start;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.hyperspt.hyperspt_vh_stop;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.hyperspt.roadf_vh_screenrefresh;
-import static gr.codebb.arcadeflex.common.libc.cstring.strcmp;
+import static arcadeflex.common.libc.cstring.strcmp;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fread;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fwrite;
 import static arcadeflex.v058.sound.vlm5030.VLM5030_data_w;

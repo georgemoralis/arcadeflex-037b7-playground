@@ -10,7 +10,7 @@ import static arcadeflex.v037b7.drivers.mcr1.*;
 import static arcadeflex.v037b7.drivers.mcr2.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
 
-
+import static arcadeflex.v037b7.drivers.karnov.*;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
@@ -1942,16 +1942,11 @@ public class driver {
         driver_oscarj1, /* (c) 1987 Data East Corporation (Japan) */
         driver_oscarj0, /* (c) 1987 Data East Corporation (Japan) */
         /* Data East 16-bit games */
-        /*TODO*/
-        // driver_karnov,	/* (c) 1987 Data East USA (US) */
-        /*TODO*/
-        // driver_karnovj,	/* (c) 1987 Data East Corporation (Japan) */
-        /*TODO*/
-        // TESTDRIVER( wndrplnt,	/* (c) 1987 Data East Corporation (Japan) */
-        /*TODO*/
-        // driver_chelnov,	/* (c) 1988 Data East USA (US) */
-        /*TODO*/
-        // driver_chelnovj,	/* (c) 1988 Data East Corporation (Japan) */
+        driver_karnov,	/* (c) 1987 Data East USA (US) */
+        driver_karnovj,	/* (c) 1987 Data East Corporation (Japan) */
+        /*TESTDRIVER*/driver_wndrplnt,	/* (c) 1987 Data East Corporation (Japan) */
+        driver_chelnov,	/* (c) 1988 Data East USA (US) */
+        driver_chelnovj,	/* (c) 1988 Data East Corporation (Japan) */
         /* the following ones all run on similar hardware */
         /*TODO*/
         // driver_hbarrel,	/* (c) 1987 Data East USA (US) */
