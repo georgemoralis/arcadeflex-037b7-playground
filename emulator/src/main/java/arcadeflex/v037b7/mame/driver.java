@@ -172,6 +172,7 @@ import static arcadeflex.v037b7.drivers.aeroboto.*;
 import static arcadeflex.v037b7.drivers.atetris.*;
 import static arcadeflex.v037b7.drivers.gameplan.*;
 import static arcadeflex.v037b7.drivers.meteor.*;
+import static arcadeflex.v037b7.drivers.renegade.*;
 
 public class driver {
 
@@ -2581,9 +2582,9 @@ public class driver {
         driver_excthour, /* TA-0015 (c) 1985 + Taito license */
         driver_maniach, /* TA-0017 (c) 1986 + Taito America license */
         driver_maniach2, /* TA-0017 (c) 1986 + Taito America license */
-        /*TODO*///	driver_renegade )	/* TA-0018 (c) 1986 + Taito America license */
-        /*TODO*///	driver_kuniokun )	/* TA-0018 (c) 1986 */
-        /*TODO*///	driver_kuniokub )	/* bootleg */
+        driver_renegade, /* TA-0018 (c) 1986 + Taito America license */
+        driver_kuniokun, /* TA-0018 (c) 1986 */
+        driver_kuniokub, /* bootleg */
         /*TODO*///	driver_xsleena )	/* TA-0019 (c) 1986 */
         /*TODO*///	driver_xsleenab )	/* bootleg */
         /*TODO*///	driver_solarwar )	/* TA-0019 (c) 1986 Taito + Memetron license */

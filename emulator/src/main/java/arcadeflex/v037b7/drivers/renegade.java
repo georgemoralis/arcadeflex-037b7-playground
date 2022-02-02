@@ -2,32 +2,39 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
-import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.*;
-import static arcadeflex.v037b7.mame.commonH.*;
-import static arcadeflex.v037b7.mame.sndintrf.*;
-import static arcadeflex.v037b7.mame.cpuintrf.*;
-import static arcadeflex.v037b7.mame.drawgfxH.*;
+//common imports
+import static arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.ptrLib.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static arcadeflex.v037b7.sound._3526intf.*;
-import arcadeflex.v037b7.sound._3812intfH.YM3526interface;
-import static gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm.*;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.renegade.*;
-import static arcadeflex.common.ptrLib.*;
-import static arcadeflex.v037b7.generic.funcPtr.*;
-import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.driverH.*;
-import static arcadeflex.v037b7.mame.palette.paletteram;
-import static arcadeflex.v037b7.mame.palette.paletteram_2;
+import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
-import arcadeflex.v037b7.sound.adpcmH.ADPCMinterface;
-
+import static arcadeflex.v037b7.mame.sndintrf.*;
+//sound imports
+import static arcadeflex.v037b7.sound._3526intf.*;
+import static arcadeflex.v037b7.sound._3812intfH.*;
+import static arcadeflex.v037b7.sound.adpcmH.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+import static arcadeflex.v037b7.vidhrdw.renegade.*;
+//to be organized
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBGGGGRRRR_split1_w;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_xxxxBBBBGGGGRRRR_split2_w;
+import static gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm.ADPCM_play;
+import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
+import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_FIRQ_LINE;
+import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_INT_IRQ;
 
 public class renegade {
 
@@ -314,7 +321,7 @@ public class renegade {
 		else coin = 0;
              */
 
-            count = count!=0?0:1;
+            count = NOT(count);
             if (count != 0) {
                 return nmi_interrupt.handler();
             }

@@ -5,6 +5,7 @@ package arcadeflex.v037b7.sndhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -13,8 +14,6 @@ import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
 //sound imports
 import static arcadeflex.v037b7.sound.streams.*;
-//to be organized
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 
 public class wiping {
 

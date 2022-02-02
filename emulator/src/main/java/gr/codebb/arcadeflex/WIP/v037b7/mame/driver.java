@@ -62,7 +62,7 @@ import static gr.codebb.arcadeflex.v037b7.drivers.bwidow.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.bzone.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.ccastles.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.centiped.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.renegade.*;
+
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.tempest.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.mhavoc.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.missile.*;
@@ -3436,9 +3436,6 @@ public class driver {
         driver_jackrab2,
         driver_jackrabs,
         driver_mystston,
-        driver_renegade,
-        driver_kuniokun,
-        driver_kuniokub,
         driver_ddragon,
         driver_ddragonu,
         driver_ddragonb,
