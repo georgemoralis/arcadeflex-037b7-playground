@@ -4,7 +4,7 @@
  */
 package gr.codebb.arcadeflex.v037b7.drivers;
 
-import static gr.codebb.arcadeflex.v037b7.machine.missile.*;
+import static arcadeflex.v037b7.machine.missile.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
@@ -12,7 +12,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import gr.codebb.arcadeflex.WIP.v037b7.sound.pokeyH.POKEYinterface;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.missile.*;
+import static arcadeflex.v037b7.vidhrdw.missile.*;
 import static arcadeflex.v037b7.mame.inputH.*;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.driverH.*;

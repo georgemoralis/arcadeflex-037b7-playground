@@ -23,7 +23,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 
-
 public class cclimber {
 
     public static final int BIGSPRITE_WIDTH = 128;
