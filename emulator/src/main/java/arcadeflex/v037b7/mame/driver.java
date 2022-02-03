@@ -173,6 +173,9 @@ import static arcadeflex.v037b7.drivers.atetris.*;
 import static arcadeflex.v037b7.drivers.gameplan.*;
 import static arcadeflex.v037b7.drivers.meteor.*;
 import static arcadeflex.v037b7.drivers.renegade.*;
+import static arcadeflex.v037b7.drivers.karnov.*;
+import static arcadeflex.v037b7.drivers.starcrus.*;
+import static arcadeflex.v037b7.drivers.stactics.*;
 
 public class driver {
 
@@ -1977,12 +1980,12 @@ public class driver {
         /*TODO*///	driver_oscarj1 )	/* (c) 1987 Data East Corporation (Japan) */
         /*TODO*///	driver_oscarj0 )	/* (c) 1987 Data East Corporation (Japan) */
         /*TODO*///
-        /*TODO*///	/* Data East 16-bit games */
-        /*TODO*///	driver_karnov )	/* (c) 1987 Data East USA (US) */
-        /*TODO*///	driver_karnovj )	/* (c) 1987 Data East Corporation (Japan) */
-        /*TODO*///TESTdriver_wndrplnt )	/* (c) 1987 Data East Corporation (Japan) */
-        /*TODO*///	driver_chelnov )	/* (c) 1988 Data East USA (US) */
-        /*TODO*///	driver_chelnovj )	/* (c) 1988 Data East Corporation (Japan) */
+        /* Data East 16-bit games */
+        driver_karnov, /* (c) 1987 Data East USA (US) */
+        driver_karnovj, /* (c) 1987 Data East Corporation (Japan) */
+        /*TESTDRIVER*/ driver_wndrplnt, /* (c) 1987 Data East Corporation (Japan) */
+        driver_chelnov, /* (c) 1988 Data East USA (US) */
+        driver_chelnovj, /* (c) 1988 Data East Corporation (Japan) */
         /*TODO*////* the following ones all run on similar hardware */
         /*TODO*///	driver_hbarrel )	/* (c) 1987 Data East USA (US) */
         /*TODO*///	driver_hbarrelw )	/* (c) 1987 Data East Corporation (World) */
@@ -3023,7 +3026,7 @@ public class driver {
         /*TODO*///	driver_irobot )	/* (c) 1983 Atari */
         /*TODO*///	driver_spiders )	/* (c) 1981 Sigma Ent. Inc. */
         /*TODO*///	driver_spiders2 )	/* (c) 1981 Sigma Ent. Inc. */
-        /*TODO*///	driver_stactics )	/* [1981 Sega] */
+        driver_stactics, /* [1981 Sega] */
         /*TODO*///	driver_exterm )	/* (c) 1989 Premier Technology - a Gottlieb game */
         driver_kingofb, /* (c) 1985 Woodplace Inc. */
         driver_ringking, /* (c) 1985 Data East USA */
@@ -3032,7 +3035,7 @@ public class driver {
         driver_speedbal,/* (c) 1987 Tecfri */
         driver_sauro,/* (c) 1987 Tecfri */
         driver_ambush,/* (c) 1983 Nippon Amuse Co-Ltd */
-        /*TODO*///	driver_starcrus )	/* [1977 Ramtek] */
+        driver_starcrus, /* [1977 Ramtek] */
         driver_homo,/* bootleg */
         /*TODO*///TESTdriver_dlair )
         driver_meteor,/* (c) 1981 Venture Line */

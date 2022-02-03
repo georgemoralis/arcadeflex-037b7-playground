@@ -2,21 +2,28 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.WIP.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
-import static arcadeflex.v037b7.mame.commonH.*;
-import static arcadeflex.v037b7.mame.cpuintrf.interrupt;
-import static arcadeflex.v037b7.mame.drawgfxH.*;
+//common imports
+import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
+import static arcadeflex.common.libc.expressions.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//machine imports
+//mame imports
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.starcrus.*;
-import arcadeflex.common.ptrLib.UBytePtr;
-import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.driverH.*;
-import static gr.codebb.arcadeflex.common.libc.cstring.*;
+import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.cpuintrf.*;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
-import arcadeflex.v037b7.sound.samplesH.Samplesinterface;
+//sound imports
+import static arcadeflex.v037b7.sound.samplesH.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.starcrus.*;
 
 public class starcrus {
 
@@ -148,8 +155,8 @@ public class starcrus {
                 0x00, 0x01, /* White on Black */};
     public static VhConvertColorPromPtr init_palette = new VhConvertColorPromPtr() {
         public void handler(char[] game_palette, char[] game_colortable, UBytePtr color_prom) {
-            memcpy(game_palette, palette, palette.length);
-            memcpy(game_colortable, colortable, colortable.length);
+            memcpy(game_palette, palette, sizeof(palette));
+            memcpy(game_colortable, colortable, sizeof(colortable));
         }
     };
 

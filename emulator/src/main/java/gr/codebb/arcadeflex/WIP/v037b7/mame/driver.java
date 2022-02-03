@@ -10,7 +10,7 @@ import static arcadeflex.v037b7.drivers.mcr1.*;
 import static arcadeflex.v037b7.drivers.mcr2.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
 
-import static arcadeflex.v037b7.drivers.karnov.*;
+
 
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
@@ -109,8 +109,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.geebee.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.safarir.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.redalert.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.warpwarp.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.starcrus.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.stactics.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.wardner.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.skykid.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.baraduke.*;
@@ -1941,12 +1939,7 @@ public class driver {
         driver_oscarj, /* (c) 1987 Data East Corporation (Japan) */
         driver_oscarj1, /* (c) 1987 Data East Corporation (Japan) */
         driver_oscarj0, /* (c) 1987 Data East Corporation (Japan) */
-        /* Data East 16-bit games */
-        driver_karnov,	/* (c) 1987 Data East USA (US) */
-        driver_karnovj,	/* (c) 1987 Data East Corporation (Japan) */
-        /*TESTDRIVER*/driver_wndrplnt,	/* (c) 1987 Data East Corporation (Japan) */
-        driver_chelnov,	/* (c) 1988 Data East USA (US) */
-        driver_chelnovj,	/* (c) 1988 Data East Corporation (Japan) */
+
         /* the following ones all run on similar hardware */
         /*TODO*/
         // driver_hbarrel,	/* (c) 1987 Data East USA (US) */
@@ -3085,11 +3078,9 @@ public class driver {
         // driver_spiders,	/* (c) 1981 Sigma Ent. Inc. */
         /*TODO*/
         // driver_spiders2,	/* (c) 1981 Sigma Ent. Inc. */
-        driver_stactics, /* [1981 Sega] */
         /*TODO*/
         // driver_exterm,	/* (c) 1989 Premier Technology - a Gottlieb game */
 
-        driver_starcrus, /* [1977 Ramtek] */
         /*TODO*/
         /// *TODO*///TESTDRIVER( dlair,
         /*TODO*/

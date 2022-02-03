@@ -2,20 +2,22 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.WIP.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.stactics.*;
-import static arcadeflex.v037b7.mame.common.*;
-import static arcadeflex.v037b7.mame.commonH.*;
-import static arcadeflex.v037b7.mame.drawgfxH.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//machine imports
+import static arcadeflex.v037b7.machine.stactics.*;
+//mame imports
 import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
-import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.stactics.*;
-import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.commonH.*;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+import static arcadeflex.v037b7.vidhrdw.stactics.*;
 
 public class stactics {
 
