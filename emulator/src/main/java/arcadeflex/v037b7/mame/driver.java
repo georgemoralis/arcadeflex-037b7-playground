@@ -165,17 +165,17 @@ import static arcadeflex.v037b7.drivers.cabal.*;
 import static arcadeflex.v037b7.drivers.kingobox.*;
 import static arcadeflex.v037b7.drivers.skydiver.*;
 import static arcadeflex.v037b7.drivers.tp84.*;
-import static arcadeflex.v037b7.drivers.superman.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.superman.*;
 import static arcadeflex.v037b7.drivers.bjtwin.*;
-import static arcadeflex.v037b7.drivers.matmania.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.matmania.*;
 import static arcadeflex.v037b7.drivers.aeroboto.*;
 import static arcadeflex.v037b7.drivers.atetris.*;
-import static arcadeflex.v037b7.drivers.gameplan.*;
-import static arcadeflex.v037b7.drivers.meteor.*;
-import static arcadeflex.v037b7.drivers.renegade.*;
-import static arcadeflex.v037b7.drivers.karnov.*;
-import static arcadeflex.v037b7.drivers.starcrus.*;
-import static arcadeflex.v037b7.drivers.stactics.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.gameplan.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.meteor.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.renegade.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.karnov.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.starcrus.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.stactics.*;
 
 public class driver {
 
@@ -1035,7 +1035,7 @@ public class driver {
         driver_arkatour, /* ??? (c) 1987 Taito America Corporation + Romstar license (US) */
         driver_superqix,/* B03 1987 */
         driver_sqixbl,/* bootleg? but (c) 1987 */
-        driver_superman, /* B61 (c) 1988 Taito Corporation */
+        /*RELEASE*///driver_superman, /* B61 (c) 1988 Taito Corporation */
         driver_minivadr,/* D26 cabinet test board */
         /* Taito "tnzs" hardware */
         driver_plumppop,/* A98 (c) 1987 Taito Corporation (Japan) */
@@ -1981,11 +1981,11 @@ public class driver {
         /*TODO*///	driver_oscarj0 )	/* (c) 1987 Data East Corporation (Japan) */
         /*TODO*///
         /* Data East 16-bit games */
-        driver_karnov, /* (c) 1987 Data East USA (US) */
-        driver_karnovj, /* (c) 1987 Data East Corporation (Japan) */
-        /*TESTDRIVER*/ driver_wndrplnt, /* (c) 1987 Data East Corporation (Japan) */
-        driver_chelnov, /* (c) 1988 Data East USA (US) */
-        driver_chelnovj, /* (c) 1988 Data East Corporation (Japan) */
+        /*RELEASE*///driver_karnov, /* (c) 1987 Data East USA (US) */
+        /*RELEASE*///driver_karnovj, /* (c) 1987 Data East Corporation (Japan) */
+        /*RELEASE*////*TESTDRIVER*/ driver_wndrplnt, /* (c) 1987 Data East Corporation (Japan) */
+        /*RELEASE*///driver_chelnov, /* (c) 1988 Data East USA (US) */
+        /*RELEASE*///driver_chelnovj, /* (c) 1988 Data East Corporation (Japan) */
         /*TODO*////* the following ones all run on similar hardware */
         /*TODO*///	driver_hbarrel )	/* (c) 1987 Data East USA (US) */
         /*TODO*///	driver_hbarrelw )	/* (c) 1987 Data East Corporation (World) */
@@ -2581,13 +2581,13 @@ public class driver {
         /*TODO*///	driver_mystston )	/* TA-0010 (c) 1984 */
         /*TODO*///	/* TA-0011 Dog Fight (Data East) / Batten O'hara no Sucha-Raka Kuuchuu Sen 1985 */
         driver_bogeyman, /* X-0204-0 (Data East part number) (c) [1985?] */
-        driver_matmania, /* TA-0015 (c) 1985 + Taito America license */
-        driver_excthour, /* TA-0015 (c) 1985 + Taito license */
-        driver_maniach, /* TA-0017 (c) 1986 + Taito America license */
-        driver_maniach2, /* TA-0017 (c) 1986 + Taito America license */
-        driver_renegade, /* TA-0018 (c) 1986 + Taito America license */
-        driver_kuniokun, /* TA-0018 (c) 1986 */
-        driver_kuniokub, /* bootleg */
+        /*RELEASE*///driver_matmania, /* TA-0015 (c) 1985 + Taito America license */
+        /*RELEASE*///driver_excthour, /* TA-0015 (c) 1985 + Taito license */
+        /*RELEASE*///driver_maniach, /* TA-0017 (c) 1986 + Taito America license */
+        /*RELEASE*///driver_maniach2, /* TA-0017 (c) 1986 + Taito America license */
+        /*RELEASE*///driver_renegade, /* TA-0018 (c) 1986 + Taito America license */
+        /*RELEASE*///driver_kuniokun, /* TA-0018 (c) 1986 */
+        /*RELEASE*///driver_kuniokub, /* bootleg */
         /*TODO*///	driver_xsleena )	/* TA-0019 (c) 1986 */
         /*TODO*///	driver_xsleenab )	/* bootleg */
         /*TODO*///	driver_solarwar )	/* TA-0019 (c) 1986 Taito + Memetron license */
@@ -2615,10 +2615,10 @@ public class driver {
         driver_berzerk1,/* (c) 1980 */
         driver_frenzy,/* (c) 1982 */
         /* GamePlan games */
-        driver_megatack, /* (c) 1980 Centuri */
-        driver_killcom, /* (c) 1980 Centuri */
-        driver_challeng, /* (c) 1981 Centuri */
-        driver_kaos, /* (c) 1981 */
+        /*RELEASE*///driver_megatack, /* (c) 1980 Centuri */
+        /*RELEASE*///driver_killcom, /* (c) 1980 Centuri */
+        /*RELEASE*///driver_challeng, /* (c) 1981 Centuri */
+        /*RELEASE*///driver_kaos, /* (c) 1981 */
         /* "stratovox hardware" games */
         driver_route16,/* (c) 1981 Tehkan/Sun + Centuri license */
         driver_route16b,/* bootleg */
@@ -3026,7 +3026,7 @@ public class driver {
         /*TODO*///	driver_irobot )	/* (c) 1983 Atari */
         /*TODO*///	driver_spiders )	/* (c) 1981 Sigma Ent. Inc. */
         /*TODO*///	driver_spiders2 )	/* (c) 1981 Sigma Ent. Inc. */
-        driver_stactics, /* [1981 Sega] */
+        /*RELEASE*///driver_stactics, /* [1981 Sega] */
         /*TODO*///	driver_exterm )	/* (c) 1989 Premier Technology - a Gottlieb game */
         driver_kingofb, /* (c) 1985 Woodplace Inc. */
         driver_ringking, /* (c) 1985 Data East USA */
@@ -3035,10 +3035,10 @@ public class driver {
         driver_speedbal,/* (c) 1987 Tecfri */
         driver_sauro,/* (c) 1987 Tecfri */
         driver_ambush,/* (c) 1983 Nippon Amuse Co-Ltd */
-        driver_starcrus, /* [1977 Ramtek] */
+        /*RELEASE*///driver_starcrus, /* [1977 Ramtek] */
         driver_homo,/* bootleg */
         /*TODO*///TESTdriver_dlair )
-        driver_meteor,/* (c) 1981 Venture Line */
+        /*RELEASE*///driver_meteor,/* (c) 1981 Venture Line */
         /*TODO*///	driver_aztarac )	/* (c) 1983 Centuri (vector game) */
         /*TODO*///	driver_mole )		/* (c) 1982 Yachiyo Electronics, Ltd. */
         driver_gotya,/* (c) 1981 Game-A-Tron */

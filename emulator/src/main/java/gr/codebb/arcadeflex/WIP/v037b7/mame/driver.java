@@ -10,6 +10,10 @@ import static arcadeflex.v037b7.drivers.mcr1.*;
 import static arcadeflex.v037b7.drivers.mcr2.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
 
+import static arcadeflex.v037b7.drivers.centiped.*;
+import static arcadeflex.v037b7.drivers.sega.*;
+import static arcadeflex.v037b7.drivers.segar.*;
+
 
 
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
@@ -37,8 +41,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.psychic5.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.sidearms.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.gberet.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.cosmic.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.sega.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.segar.*;
+
 import static gr.codebb.arcadeflex.v037b7.drivers.zaccaria.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.m62.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.jackal.*;
@@ -61,8 +64,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.btime.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.bwidow.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.bzone.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.ccastles.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.centiped.*;
-
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.tempest.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.mhavoc.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.missile.*;
