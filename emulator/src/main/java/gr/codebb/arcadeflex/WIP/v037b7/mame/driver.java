@@ -10,12 +10,6 @@ import static arcadeflex.v037b7.drivers.mcr1.*;
 import static arcadeflex.v037b7.drivers.mcr2.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
 
-import static arcadeflex.v037b7.drivers.centiped.*;
-import static arcadeflex.v037b7.drivers.sega.*;
-import static arcadeflex.v037b7.drivers.segar.*;
-
-
-
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.astrocde.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.dday.*;
@@ -60,10 +54,8 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.jedi.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.capbowl.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.balsente.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.asteroid.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.drivers.btime.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.bwidow.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.bzone.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.ccastles.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.tempest.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.mhavoc.*;
 import static gr.codebb.arcadeflex.v037b7.drivers.missile.*;
@@ -852,19 +844,18 @@ public class driver {
         driver_screwloo, /* GV-123 (c) 1983 Mylstar - never released */
         driver_curvebal, /* GV-134 (c) 1984 Mylstar */
         /* Taito "Qix hardware" games */
-        driver_qix,		/* LK  (c) 1981 Taito America Corporation */
-        driver_qixa,		/* LK  (c) 1981 Taito America Corporation */
-        driver_qixb,		/* LK  (c) 1981 Taito America Corporation */
-        driver_qix2,		/* ??  (c) 1981 Taito America Corporation */
-        driver_sdungeon,	/* SD  (c) 1981 Taito America Corporation */
-        driver_elecyoyo,	/* YY  (c) 1982 Taito America Corporation */
-        driver_elecyoy2,	/* YY  (c) 1982 Taito America Corporation */
-        driver_kram,		/* KS  (c) 1982 Taito America Corporation */
-        driver_kram2,		/* KS  (c) 1982 Taito America Corporation */
-        driver_zookeep,	/* ZA  (c) 1982 Taito America Corporation */
-        driver_zookeep2,	/* ZA  (c) 1982 Taito America Corporation */
-        driver_zookeep3,	/* ZA  (c) 1982 Taito America Corporation */
-
+        driver_qix, /* LK  (c) 1981 Taito America Corporation */
+        driver_qixa, /* LK  (c) 1981 Taito America Corporation */
+        driver_qixb, /* LK  (c) 1981 Taito America Corporation */
+        driver_qix2, /* ??  (c) 1981 Taito America Corporation */
+        driver_sdungeon, /* SD  (c) 1981 Taito America Corporation */
+        driver_elecyoyo, /* YY  (c) 1982 Taito America Corporation */
+        driver_elecyoy2, /* YY  (c) 1982 Taito America Corporation */
+        driver_kram, /* KS  (c) 1982 Taito America Corporation */
+        driver_kram2, /* KS  (c) 1982 Taito America Corporation */
+        driver_zookeep, /* ZA  (c) 1982 Taito America Corporation */
+        driver_zookeep2, /* ZA  (c) 1982 Taito America Corporation */
+        driver_zookeep3, /* ZA  (c) 1982 Taito America Corporation */
         /* other Taito games */
         // TESTDRIVER( flstory,	/* A45 (c) 1985 Taito Corporation */
         /*TODO*/
@@ -1878,19 +1869,9 @@ public class driver {
         // driver_lnc,		/* (c) 1981 */
         /*TODO*/
         // driver_zoar,		/* (c) 1982 */
-        driver_btime, /* (c) 1982 */
-        driver_btime2, /* (c) 1982 */
-        driver_btimem, /* (c) 1982 + Midway */
-        driver_wtennis, /* bootleg 1982 */
-        driver_brubber, /* (c) 1982 */
-        driver_bnj, /* (c) 1982 + Midway */
-        driver_caractn, /* bootleg */
-        driver_disco, /* (c) 1982 */
-        driver_mmonkey, /* (c) 1982 Technos Japan + Roller Tron */
         /* cassette system */
         /*TODO*/
         // TESTDRIVER( decocass,
-        driver_cookrace, /* bootleg */
         /* other Data East games */
         /*TODO*/
         // driver_astrof,	/* (c) [1980?] */
@@ -1940,7 +1921,6 @@ public class driver {
         driver_oscarj, /* (c) 1987 Data East Corporation (Japan) */
         driver_oscarj1, /* (c) 1987 Data East Corporation (Japan) */
         driver_oscarj0, /* (c) 1987 Data East Corporation (Japan) */
-
         /* the following ones all run on similar hardware */
         /*TODO*/
         // driver_hbarrel,	/* (c) 1987 Data East USA (US) */
@@ -2835,7 +2815,6 @@ public class driver {
         driver_exerion, /* (c) 1983 Jaleco */
         driver_exeriont, /* (c) 1983 Jaleco + Taito America license */
         driver_exerionb, /* bootleg */
-
         driver_pinbo, /* (c) 1984 Jaleco */
         driver_pinbos, /* (c) 1985 Strike */
         driver_psychic5, /* (c) 1987 Jaleco */
@@ -3404,20 +3383,6 @@ public class driver {
         driver_basebal2,
         driver_dblplay,
         driver_strkzone,
-        driver_spacfury,
-        driver_spacfura,
-        driver_zektor,
-        driver_tacscan,
-        driver_elim2,
-        driver_elim2a,
-        driver_elim4,
-        driver_startrek,
-        driver_astrob,
-        driver_astrob2,
-        driver_005,
-        driver_monsterb,
-        driver_spaceod,
-        driver_sindbadm,
         driver_monymony,
         driver_jackrabt,
         driver_jackrab2,
@@ -3427,8 +3392,6 @@ public class driver {
         driver_ddragonu,
         driver_ddragonb,
         driver_ddragon2,
-        driver_ccastles,
-        driver_ccastle2,
         driver_missile,
         driver_missile2,
         driver_suprmatk,
@@ -3445,10 +3408,6 @@ public class driver {
         driver_spacduel,
         driver_pandoras,
         driver_warlord,
-        driver_centiped,
-        driver_centipd2,
-        driver_centipdb,
-        driver_centipb2,
         driver_mhavoc,
         driver_mhavoc2,
         driver_mhavocp,
@@ -3474,12 +3433,9 @@ public class driver {
         /*RELEASE*///driver_flyboy,
         /*RELEASE*///driver_mermaid,
         /*RELEASE*///driver_superqix,
-        driver_astrob1,
         /*
         NOT WORKING IN MAME EITHER
          */
-        driver_pignewt,//bad roms?
-        driver_pignewta,//bad roms??
         /*
         TEST DRIVERS
          */

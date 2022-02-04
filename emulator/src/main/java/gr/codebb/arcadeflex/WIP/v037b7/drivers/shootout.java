@@ -35,8 +35,6 @@ package gr.codebb.arcadeflex.WIP.v037b7.drivers;
 
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.M6502_INT_NMI;
 import static arcadeflex.common.ptrLib.*;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 
 import static arcadeflex.v037b7.mame.driverH.*;
@@ -51,12 +49,10 @@ import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.sndintrf.*;
 import static arcadeflex.v037b7.sound._2203intf.*;
 import static arcadeflex.v037b7.sound._2203intfH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.btime.btime_vh_convert_color_prom;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.shootout.*;
 import static arcadeflex.v037b7.mame.common.*;
-import static arcadeflex.v037b7.mame.input.*;
-import static arcadeflex.v037b7.mame.inputH.*;
+import static arcadeflex.v037b7.vidhrdw.btime.btime_vh_convert_color_prom;
 
 public class shootout
 {

@@ -1,37 +1,40 @@
 /*
- * ported to v0.37β7
+ * ported to v0.37b7
  * 
  */
-package gr.codebb.arcadeflex.WIP.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.M6502_INT_IRQ;
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.btime.*;
+//common imports
+import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
+import static arcadeflex.common.libc.cstdlib.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//machine imports
+import static arcadeflex.v037b7.machine.btime.*;
+//mame imports
+import static arcadeflex.v037b7.mame.inptport.*;
+import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.driverH.*;
+import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
-import static arcadeflex.v037b7.mame.inptport.*;
-import static arcadeflex.v037b7.mame.inptportH.*;
-import static arcadeflex.v037b7.mame.memoryH.*;
-import static arcadeflex.v037b7.mame.sndintrf.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.btime.*;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
-import arcadeflex.common.ptrLib.UBytePtr;
-import static arcadeflex.v037b7.mame.common.memory_region;
-import static arcadeflex.v037b7.mame.common.memory_region_length;
-import static arcadeflex.v037b7.generic.funcPtr.*;
-import static arcadeflex.v037b7.mame.driverH.*;
-import static arcadeflex.v037b7.mame.sndintrfH.*;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_control_port_0_w;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_control_port_1_w;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_write_port_0_w;
-import static arcadeflex.v037b7.sound.ay8910.AY8910_write_port_1_w;
-import arcadeflex.v037b7.sound.ay8910H.AY8910interface;
-import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static arcadeflex.v037b7.mame.memory.*;
-import static arcadeflex.v037b7.mame.palette.paletteram;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.common.libc.cstdlib.rand;
+import static arcadeflex.v037b7.mame.palette.*;
+import static arcadeflex.v037b7.mame.sndintrf.*;
+import static arcadeflex.v037b7.mame.sndintrfH.*;
+//sound imports
+import static arcadeflex.v037b7.sound.ay8910.*;
+import static arcadeflex.v037b7.sound.ay8910H.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.btime.*;
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+//to be organized
+import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
+import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.M6502_INT_IRQ;
 
 public class btime {
 

@@ -2,27 +2,32 @@
  * ported to 0.37b7
  * ported to v0.36
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
-import static arcadeflex.v037b7.mame.common.flip_screen_w;
+//common imports
+import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
+import static arcadeflex.v037b7.mame.inptport.*;
+import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.inptportH.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
-import static arcadeflex.v037b7.mame.inptport.*;
-import static arcadeflex.v037b7.mame.inptportH.*;
-import static arcadeflex.v037b7.mame.memoryH.*;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
-import arcadeflex.common.ptrLib.UBytePtr;
-import static arcadeflex.v037b7.mame.common.memory_region;
-import static arcadeflex.v037b7.generic.funcPtr.*;
-import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.sndintrfH.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.ccastles.*;
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+//to be organized
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.set_led_status;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.pokey.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.pokeyH.*;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.ccastles.*;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static arcadeflex.v037b7.mame.common.*;
-import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
+import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fread;
+import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fwrite;
 
 public class ccastles {
 
@@ -45,7 +50,7 @@ public class ccastles {
 
     public static WriteHandlerPtr ccastles_led_w = new WriteHandlerPtr() {
         public void handler(int offset, int data) {
-/*TODO*///            set_led_status(offset, ~data & 1);
+            set_led_status(offset, ~data & 1);
         }
     };
 

@@ -3,20 +3,29 @@
  * ported to v0.36
  *
  */
-package gr.codebb.arcadeflex.v037b7.vidhrdw;
+package arcadeflex.v037b7.vidhrdw;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
+//common imports
 import static arcadeflex.common.ptrLib.*;
-import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
+//generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
-import static arcadeflex.v037b7.mame.common.bitmap_alloc;
-import static arcadeflex.v037b7.mame.common.bitmap_free;
-import static arcadeflex.v037b7.mame.commonH.*;
+//mame imports
 import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
+import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.commonH.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyscrollbitmap;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_change_color;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
+import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
+import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
+import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
+import static gr.codebb.arcadeflex.old.mame.drawgfx.plot_pixel;
+import static gr.codebb.arcadeflex.old.mame.drawgfx.read_pixel;
 
 public class ccastles {
 

@@ -2,14 +2,19 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.WIP.v037b7.machine;
+package arcadeflex.v037b7.machine;
 
-import static arcadeflex.v037b7.mame.commonH.*;
-import arcadeflex.common.ptrLib.UBytePtr;
+//common imports
+import static arcadeflex.common.ptrLib.*;
+//cpu imports
+//generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
-import static arcadeflex.v037b7.mame.common.memory_region;
-import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
+//mame imports
+import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
+//to be organized
+import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class btime {
 
@@ -31,7 +36,8 @@ public class btime {
             } else if (offset == 0x0e00) {
                 ret = protection_ret;
             } else if (offset >= 0x0d00 && offset <= 0x0d02) {
-                ret = RAM.read(BASE + offset);  /* addition result */
+                ret = RAM.read(BASE + offset);
+                /* addition result */
             } else {
                 logerror("Unknown protection read.  PC=%04X  Offset=%04X\n", cpu_get_pc(), offset);
             }
@@ -65,15 +71,15 @@ public class btime {
 
                             RAM.write(BASE + 0x0d00, (r % 10));
                             r /= 10;
-                            RAM.write(BASE + 0x0d00,RAM.read(BASE + 0x0d00) | ((r % 10) << 4));
+                            RAM.write(BASE + 0x0d00, RAM.read(BASE + 0x0d00) | ((r % 10) << 4));
                             r /= 10;
                             RAM.write(BASE + 0x0d01, (r % 10));
                             r /= 10;
-                            RAM.write(BASE + 0x0d01,RAM.read(BASE + 0x0d01) | ((r % 10) << 4));
+                            RAM.write(BASE + 0x0d01, RAM.read(BASE + 0x0d01) | ((r % 10) << 4));
                             r /= 10;
                             RAM.write(BASE + 0x0d02, (r % 10));
                             r /= 10;
-                            RAM.write(BASE + 0x0d02,RAM.read(BASE + 0x0d02) | ((r % 10) << 4));
+                            RAM.write(BASE + 0x0d02, RAM.read(BASE + 0x0d02) | ((r % 10) << 4));
 
                             break;
 
@@ -103,9 +109,11 @@ public class btime {
             } else if (offset == 0x0e00) {
                 protection_value = data;
             } else if (offset >= 0x0f00) {
-                RAM.write(BASE + offset, data);   /* decrypt table */
+                RAM.write(BASE + offset, data);
+                /* decrypt table */
             } else if (offset >= 0x0d00 && offset <= 0x0d05) {
-                RAM.write(BASE + offset, data);   /* source table */
+                RAM.write(BASE + offset, data);
+                /* source table */
             } else {
                 logerror("Unknown protection write=%02X.  PC=%04X  Offset=%04X\n", data, cpu_get_pc(), offset);
             }
