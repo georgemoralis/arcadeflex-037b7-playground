@@ -1,5 +1,5 @@
 /*
- * ported to v0.37b7  - incompleted  missing hunchbks driver (s2650 cpu)
+ * ported to v0.37b7
  * 
  */
 package arcadeflex.v037b7.drivers;

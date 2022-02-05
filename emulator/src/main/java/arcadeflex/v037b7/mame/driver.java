@@ -6,14 +6,14 @@ package arcadeflex.v037b7.mame;
 //mame imports
 import static arcadeflex.v037b7.mame.driverH.*;
 //drivers
-import static arcadeflex.v037b7.drivers.ambush.*;
-import static arcadeflex.v037b7.drivers.amidar.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.ambush.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.amidar.*;
 import static arcadeflex.v037b7.drivers.bagman.*;
-import static arcadeflex.v037b7.drivers.bankp.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.bankp.*;
 import static arcadeflex.v037b7.drivers.blueprnt.*;
 import static arcadeflex.v037b7.drivers.bombjack.*;
 import static arcadeflex.v037b7.drivers.arabian.*;
-import static arcadeflex.v037b7.drivers.bking2.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.bking2.*;
 import static arcadeflex.v037b7.drivers.cheekyms.*;
 import static arcadeflex.v037b7.drivers.champbas.*;
 import static arcadeflex.v037b7.drivers.cop01.*;
@@ -69,7 +69,7 @@ import static arcadeflex.v037b7.drivers.royalmah.*;
 import static arcadeflex.v037b7.drivers.skyfox.*;
 import static arcadeflex.v037b7.drivers.gotya.*;
 import static arcadeflex.v037b7.drivers.goindol.*;
-import static arcadeflex.v037b7.drivers.appoooh.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.appoooh.*;
 import static arcadeflex.v037b7.drivers.bosco.*;
 import static arcadeflex.v037b7.drivers.digdug.*;
 import static arcadeflex.v037b7.drivers.jrpacman.*;
@@ -79,7 +79,7 @@ import static arcadeflex.v037b7.drivers.rallyx.*;
 import static arcadeflex.v037b7.drivers.fastfred.*;
 import static arcadeflex.v037b7.drivers.galaga.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers._1942.*;
-import static arcadeflex.v037b7.drivers.airbustr.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.airbustr.*;
 import static arcadeflex.v037b7.drivers.blktiger.*;
 import static arcadeflex.v037b7.drivers.cbasebal.*;
 import static arcadeflex.v037b7.drivers.commando.*;
@@ -316,13 +316,13 @@ public class driver {
         driver_frogseg1,/* (c) 1981 Sega */
         driver_frogseg2,/* 834-0068 (c) 1981 Sega */
         driver_froggrmc,/* 800-3110 (c) 1981 Sega */
-        driver_amidar,/* GX337 (c) 1981 Konami */
-        driver_amidaru,/* GX337 (c) 1982 Konami + Stern license */
-        driver_amidaro,/* GX337 (c) 1982 Konami + Olympia license */
-        driver_amigo,/* bootleg */
-        driver_turtles,/* (c) 1981 Stern */
-        driver_turpin,/* (c) 1981 Sega */
-        driver_600,/* GX353 (c) 1981 Konami */
+        /*RELEASE*///driver_amidar,/* GX337 (c) 1981 Konami */
+        /*RELEASE*///driver_amidaru,/* GX337 (c) 1982 Konami + Stern license */
+        /*RELEASE*///driver_amidaro,/* GX337 (c) 1982 Konami + Olympia license */
+        /*RELEASE*///driver_amigo,/* bootleg */
+        /*RELEASE*///driver_turtles,/* (c) 1981 Stern */
+        /*RELEASE*///driver_turpin,/* (c) 1981 Sega */
+        /*RELEASE*///driver_600,/* GX353 (c) 1981 Konami */
         driver_flyboy,/* (c) 1982 Kaneko */
         driver_flyboyb,/* bootleg */
         driver_fastfred,/* (c) 1982 Atari */
@@ -989,7 +989,7 @@ public class driver {
         driver_sfposeid, /* A14 (c) 1984 Taito Corporation */
         driver_kikstart, /* A20 */
         /* other Taito games */
-        driver_bking2,/* AD6 (c) 1983 Taito Corporation */
+        /*RELEASE*///driver_bking2,/* AD6 (c) 1983 Taito Corporation */
         driver_gsword,/* (c) 1984 Taito Corporation */
         driver_lkage, /* A54 (c) 1984 Taito Corporation */
         driver_lkageb, /* bootleg */
@@ -1783,8 +1783,8 @@ public class driver {
         /*TODO*///	driver_turbob )	/* (c) 1981 Sega */
         /*TODO*///TESTdriver_kopunch )	/* 834-0103 (c) 1981 Sega */
         driver_suprloco, /* (c) 1982 Sega */
-        driver_appoooh,/* (c) 1984 Sega */
-        driver_bankp,/* (c) 1984 Sega */
+        /*RELEASE*///driver_appoooh,/* (c) 1984 Sega */
+        /*RELEASE*///driver_bankp,/* (c) 1984 Sega */
         driver_dotrikun, /* cabinet test board */
         driver_dotriku2, /* cabinet test board */
         /*TODO*///
@@ -2947,7 +2947,7 @@ public class driver {
         /*TODO*///
         /* other Kaneko games */
         driver_galpanic, /* (c) 1990 Kaneko */
-        driver_airbustr,/* (c) 1990 Kaneko */
+        /*RELEASE*///driver_airbustr,/* (c) 1990 Kaneko */
         /* Seta games */
         driver_hanaawas,/* (c) SetaKikaku */
         /*TODO*///	driver_tndrcade )	/* UA-0 (c) 1987 Taito */
@@ -3036,7 +3036,7 @@ public class driver {
         driver_ringkin3, /* (c) 1985 Data East USA */
         driver_speedbal,/* (c) 1987 Tecfri */
         driver_sauro,/* (c) 1987 Tecfri */
-        driver_ambush,/* (c) 1983 Nippon Amuse Co-Ltd */
+        /*RELEASE*///driver_ambush,/* (c) 1983 Nippon Amuse Co-Ltd */
         /*RELEASE*///driver_starcrus, /* [1977 Ramtek] */
         driver_homo,/* bootleg */
         /*TODO*///TESTdriver_dlair )
