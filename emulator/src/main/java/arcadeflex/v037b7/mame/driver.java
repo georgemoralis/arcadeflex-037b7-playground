@@ -10,9 +10,9 @@ import static arcadeflex.v037b7.mame.driverH.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.amidar.*;
 import static arcadeflex.v037b7.drivers.bagman.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bankp.*;
-import static arcadeflex.v037b7.drivers.blueprnt.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.blueprnt.*;
 import static arcadeflex.v037b7.drivers.bombjack.*;
-import static arcadeflex.v037b7.drivers.arabian.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.arabian.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bking2.*;
 import static arcadeflex.v037b7.drivers.cheekyms.*;
 import static arcadeflex.v037b7.drivers.champbas.*;
@@ -81,7 +81,7 @@ import static arcadeflex.v037b7.drivers.galaga.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers._1942.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.airbustr.*;
 import static arcadeflex.v037b7.drivers.blktiger.*;
-import static arcadeflex.v037b7.drivers.cbasebal.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.cbasebal.*;
 import static arcadeflex.v037b7.drivers.commando.*;
 import static arcadeflex.v037b7.drivers.galaxian.*;
 import static arcadeflex.v037b7.drivers.galivan.*;
@@ -115,7 +115,7 @@ import static arcadeflex.v037b7.drivers.lkage.*;
 import static arcadeflex.v037b7.drivers.mexico86.*;
 import static arcadeflex.v037b7.drivers.hal21.*;
 import static arcadeflex.v037b7.drivers.snk.*;
-import static arcadeflex.v037b7.drivers.buggychl.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.buggychl.*;
 import static arcadeflex.v037b7.drivers.lsasquad.*;
 import static arcadeflex.v037b7.drivers.bublbobl.*;
 import static arcadeflex.v037b7.drivers.spacefb.*;
@@ -160,7 +160,7 @@ import static arcadeflex.v037b7.drivers.tutankhm.*;
 import static arcadeflex.v037b7.drivers.ironhors.*;
 import static arcadeflex.v037b7.drivers.rocnrope.*;
 import static arcadeflex.v037b7.drivers.trackfld.*;
-import static arcadeflex.v037b7.drivers.bogeyman.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.bogeyman.*;
 import static arcadeflex.v037b7.drivers.cabal.*;
 import static arcadeflex.v037b7.drivers.kingobox.*;
 import static arcadeflex.v037b7.drivers.skydiver.*;
@@ -1002,8 +1002,8 @@ public class driver {
         /*TODO*///	driver_tsamura2 )	/* A35 (c) 1985 Taito */
         /*TODO*///	driver_nunchaku )	/* ??? (c) 1985 Taito */
         /*TODO*///	driver_yamagchi )	/* A38 (c) 1985 Taito */
-        driver_buggychl, /* A22 (c) 1984 Taito Corporation */
-        driver_buggycht, /* A22 (c) 1984 Taito Corporation + Tefri license */
+        /*RELEASE*///driver_buggychl, /* A22 (c) 1984 Taito Corporation */
+        /*RELEASE*///driver_buggycht, /* A22 (c) 1984 Taito Corporation + Tefri license */
         /*TODO*///TESTdriver_flstory )	/* A45 (c) 1985 Taito Corporation */
         /*TODO*///TESTdriver_flstoryj )	/* A45 (c) 1985 Taito Corporation (Japan) */
         /*TODO*///TESTdriver_onna34ro )	/* A52 */
@@ -1568,7 +1568,7 @@ public class driver {
         driver_pangb, /* bootleg */
         driver_bbros, /* (c) 1989 Capcom (US) not listed on Capcom's site */
         driver_pompingw, /* (c) 1989 Mitchell (Japan) */
-        driver_cbasebal,/* 10/1989 (c) 1989 Capcom (Japan) (different hardware) */
+        /*RELEASE*///driver_cbasebal,/* 10/1989 (c) 1989 Capcom (Japan) (different hardware) */
         driver_cworld,/* 11/1989 (QUIZ 1) (c) 1989 Capcom */
         driver_hatena,/*  2/28/1990 (QUIZ 2) (c) 1990 Capcom (Japan) */
         driver_spang, /*  9/14/1990 (c) 1990 Mitchell (World) */
@@ -2399,8 +2399,8 @@ public class driver {
         driver_kangaroo,/* (c) 1982 Sun Electronics */
         driver_kangaroa,/* (c) 1982 Atari */
         driver_kangarob,/* bootleg */
-        driver_arabian,/* (c) 1983 Sun Electronics */
-        driver_arabiana,/* (c) 1983 Atari */
+        /*RELEASE*///driver_arabian,/* (c) 1983 Sun Electronics */
+        /*RELEASE*///driver_arabiana,/* (c) 1983 Atari */
         /*TODO*///	/* Atari "Missile Command hardware" games */
         /*TODO*///	driver_missile )	/* (c) 1980 */
         /*TODO*///	driver_missile2 )	/* (c) 1980 */
@@ -2582,7 +2582,7 @@ public class driver {
         /*TODO*///	driver_ssozumo )	/* TA-0008 (c) 1984 */
         /*TODO*///	driver_mystston )	/* TA-0010 (c) 1984 */
         /*TODO*///	/* TA-0011 Dog Fight (Data East) / Batten O'hara no Sucha-Raka Kuuchuu Sen 1985 */
-        driver_bogeyman, /* X-0204-0 (Data East part number) (c) [1985?] */
+        /*RELEASE*///driver_bogeyman, /* X-0204-0 (Data East part number) (c) [1985?] */
         /*RELEASE*///driver_matmania, /* TA-0015 (c) 1985 + Taito America license */
         /*RELEASE*///driver_excthour, /* TA-0015 (c) 1985 + Taito license */
         /*RELEASE*///driver_maniach, /* TA-0017 (c) 1986 + Taito America license */
@@ -3016,9 +3016,9 @@ public class driver {
         driver_spacefbb, /* bootleg */
         driver_spacebrd, /* bootleg */
         driver_spacedem, /* (c) 1980 Nintendo / Fortrek */
-        driver_blueprnt,/* (c) 1982 Bally Midway (Zilec in ROM 3U, and the programmer names) */
-        driver_blueprnj,/* (c) 1982 Jaleco (Zilec in ROM 3U, and the programmer names) */
-        driver_saturn,/* (c) 1983 Jaleco (Zilec in ROM R6, and the programmer names) */
+        /*RELEASE*///driver_blueprnt,/* (c) 1982 Bally Midway (Zilec in ROM 3U, and the programmer names) */
+        /*RELEASE*///driver_blueprnj,/* (c) 1982 Jaleco (Zilec in ROM 3U, and the programmer names) */
+        /*RELEASE*///driver_saturn,/* (c) 1983 Jaleco (Zilec in ROM R6, and the programmer names) */
         /*TODO*///	driver_omegrace )	/* (c) 1981 Midway */
         /*TODO*///	driver_dday )		/* (c) 1982 Olympia */
         /*TODO*///	driver_ddayc )		/* (c) 1982 Olympia + Centuri license */
