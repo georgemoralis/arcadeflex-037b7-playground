@@ -9,7 +9,7 @@ import static arcadeflex.v037b7.mame.cheat.he_did_cheat;
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.artworkC.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.driver.drivers;
+import static arcadeflex.v037b7.mame.driver.*;
 import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.osdependH.OSD_FILETYPE_NVRAM;
