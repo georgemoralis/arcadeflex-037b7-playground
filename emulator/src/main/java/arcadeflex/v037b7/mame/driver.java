@@ -62,7 +62,7 @@ import static arcadeflex.v037b7.drivers.yamato.*;
 import static arcadeflex.v037b7.drivers.zaxxon.*;
 import static arcadeflex.v037b7.drivers.congo.*;
 import static arcadeflex.v037b7.drivers.pipedrm.*;
-import static arcadeflex.v037b7.drivers._1943.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers._1943.*;
 import static arcadeflex.v037b7.drivers.sauro.*;
 import static arcadeflex.v037b7.drivers.speedbal.*;
 import static arcadeflex.v037b7.drivers.royalmah.*;
@@ -78,7 +78,7 @@ import static arcadeflex.v037b7.drivers.pengo.*;
 import static arcadeflex.v037b7.drivers.rallyx.*;
 import static arcadeflex.v037b7.drivers.fastfred.*;
 import static arcadeflex.v037b7.drivers.galaga.*;
-import static arcadeflex.v037b7.drivers._1942.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers._1942.*;
 import static arcadeflex.v037b7.drivers.airbustr.*;
 import static arcadeflex.v037b7.drivers.blktiger.*;
 import static arcadeflex.v037b7.drivers.cbasebal.*;
@@ -168,7 +168,7 @@ import static arcadeflex.v037b7.drivers.tp84.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.superman.*;
 import static arcadeflex.v037b7.drivers.bjtwin.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.matmania.*;
-import static arcadeflex.v037b7.drivers.aeroboto.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.aeroboto.*;
 import static arcadeflex.v037b7.drivers.atetris.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.gameplan.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.meteor.*;
@@ -1307,9 +1307,9 @@ public class driver {
         /*TODO*///	driver_vulgusj )	/*  5/1984 (c) 1984 */
         driver_sonson, /*  7/1984 (c) 1984 */
         driver_higemaru,/*  9/1984 (c) 1984 */
-        driver_1942,/* 12/1984 (c) 1984 */
-        driver_1942a,/* 12/1984 (c) 1984 */
-        driver_1942b,/* 12/1984 (c) 1984 */
+        /*RELEASE*///driver_1942,/* 12/1984 (c) 1984 */
+        /*RELEASE*///driver_1942a,/* 12/1984 (c) 1984 */
+        /*RELEASE*///driver_1942b,/* 12/1984 (c) 1984 */
         driver_exedexes,/*  2/1985 (c) 1985 */
         driver_savgbees,/*  2/1985 (c) 1985 + Memetron license */
         driver_commando,/*  5/1985 (c) 1985 (World) */
@@ -1349,8 +1349,8 @@ public class driver {
         /*TODO*///	driver_bionicc )	/*  3/1987 (c) 1987 (US) */
         /*TODO*///	driver_bionicc2 )	/*  3/1987 (c) 1987 (US) */
         /*TODO*///	driver_topsecrt )	/*  3/1987 (c) 1987 (Japan) */
-        driver_1943,/*  6/1987 (c) 1987 (US) */
-        driver_1943j,/*  6/1987 (c) 1987 (Japan) */
+        /*RELEASE*///driver_1943,/*  6/1987 (c) 1987 (US) */
+        /*RELEASE*///driver_1943j,/*  6/1987 (c) 1987 (Japan) */
         driver_blktiger,/*  8/1987 (c) 1987 (US) */
         driver_bktigerb,/* bootleg */
         driver_blkdrgon,/*  8/1987 (c) 1987 (Japan) */
@@ -1362,7 +1362,7 @@ public class driver {
         /*TODO*///	driver_toramich )	/* 11/1987 (c) 1987 (Japan) */
         /*TODO*///	driver_f1dream )	/*  4/1988 (c) 1988 + Romstar */
         /*TODO*///	driver_f1dreamb )	/* bootleg */
-        driver_1943kai,/*  6/1988 (c) 1987 (Japan) */
+        /*RELEASE*///driver_1943kai,/*  6/1988 (c) 1987 (Japan) */
         /*TODO*///	driver_lastduel )	/*  7/1988 (c) 1988 (US) */
         /*TODO*///	driver_lstduela )	/*  7/1988 (c) 1988 (US) */
         /*TODO*///	driver_lstduelb )	/* bootleg */
@@ -2813,8 +2813,8 @@ public class driver {
         /*TODO*///	driver_exerion )	/* (c) 1983 Jaleco */
         /*TODO*///	driver_exeriont )	/* (c) 1983 Jaleco + Taito America license */
         /*TODO*///	driver_exerionb )	/* bootleg */
-        driver_formatz, /* (c) 1984 Jaleco */
-        driver_aeroboto, /* (c) 1984 Williams */
+        /*RELEASE*///driver_formatz, /* (c) 1984 Jaleco */
+        /*RELEASE*///driver_aeroboto, /* (c) 1984 Williams */
         driver_citycon, /* (c) 1985 Jaleco */
         driver_citycona, /* (c) 1985 Jaleco */
         driver_cruisin, /* (c) 1985 Jaleco/Kitkorp */
