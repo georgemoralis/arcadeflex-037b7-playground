@@ -14,7 +14,7 @@ import static arcadeflex.v037b7.drivers.bagman.*;
 import static arcadeflex.v037b7.drivers.bombjack.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.arabian.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bking2.*;
-import static arcadeflex.v037b7.drivers.cheekyms.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.cheekyms.*;
 import static arcadeflex.v037b7.drivers.champbas.*;
 import static arcadeflex.v037b7.drivers.cop01.*;
 import static arcadeflex.v037b7.drivers.docastle.*;
@@ -44,7 +44,7 @@ import static arcadeflex.v037b7.drivers.tnzs.*;
 import static arcadeflex.v037b7.drivers.solomon.*;
 import static arcadeflex.v037b7.drivers.naughtyb.*;
 import static arcadeflex.v037b7.drivers.nova2001.*;
-import static arcadeflex.v037b7.drivers.pingpong.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.pingpong.*;
 import static arcadeflex.v037b7.drivers.pkunwar.*;
 import static arcadeflex.v037b7.drivers.pooyan.*;
 import static arcadeflex.v037b7.drivers.polyplay.*;
@@ -140,20 +140,20 @@ import static arcadeflex.v037b7.drivers.travrusa.*;
 import static arcadeflex.v037b7.drivers.troangel.*;
 import static arcadeflex.v037b7.drivers.circusc.*;
 import static arcadeflex.v037b7.drivers.mikie.*;
-import static arcadeflex.v037b7.drivers.sbasketb.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.sbasketb.*;
 import static arcadeflex.v037b7.drivers.citycon.*;
 import static arcadeflex.v037b7.drivers.finalizr.*;
 import static arcadeflex.v037b7.drivers.mappy.*;
 import static arcadeflex.v037b7.drivers.phozon.*;
 import static arcadeflex.v037b7.drivers.superpac.*;
 import static arcadeflex.v037b7.drivers.yiear.*;
-import static arcadeflex.v037b7.drivers.ddrible.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.ddrible.*;
 import static arcadeflex.v037b7.drivers.sonson.*;
 import static arcadeflex.v037b7.drivers.battlane.*;
 import static arcadeflex.v037b7.drivers.brkthru.*;
 import static arcadeflex.v037b7.drivers.gaplus.*;
 import static arcadeflex.v037b7.drivers.grobda.*;
-import static arcadeflex.v037b7.drivers.jailbrek.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.jailbrek.*;
 import static arcadeflex.v037b7.drivers.junofrst.*;
 import static arcadeflex.v037b7.drivers.megazone.*;
 import static arcadeflex.v037b7.drivers.tutankhm.*;
@@ -179,7 +179,7 @@ import static arcadeflex.v037b7.drivers.atetris.*;
 import static arcadeflex.v037b7.drivers.centiped.*;
 import static arcadeflex.v037b7.drivers.sega.*;
 import static arcadeflex.v037b7.drivers.segar.*;
-import static arcadeflex.v037b7.drivers.ccastles.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.ccastles.*;
 import static arcadeflex.v037b7.drivers.btime.*;
 
 public class driver {
@@ -569,7 +569,7 @@ public class driver {
         /*TODO*///	driver_devzone )	/* 8022 (c) [1980] */
         /*TODO*///	driver_nomnlnd )	/* (c) [1980?] */
         /*TODO*///	driver_nomnlndg )	/* (c) [1980?] + Gottlieb */
-        driver_cheekyms,/* (c) [1980?] */
+        /*RELEASE*///driver_cheekyms,/* (c) [1980?] */
         driver_ladybug,/* (c) 1981 */
         driver_ladybugb,/* bootleg */
         driver_snapjack,/* (c) */
@@ -2115,7 +2115,7 @@ public class driver {
         driver_tp84a, /* GX388 (c) 1984 */
         /*TODO*///	driver_hyperspt )	/* GX330 (c) 1984 + Centuri */
         /*TODO*///	driver_hpolym84 )	/* GX330 (c) 1984 */
-        driver_sbasketb, /* GX405 (c) 1984 */
+        /*RELEASE*///driver_sbasketb, /* GX405 (c) 1984 */
         driver_mikie, /* GX469 (c) 1984 */
         driver_mikiej, /* GX469 (c) 1984 */
         driver_mikiehs, /* GX469 (c) 1984 */
@@ -2125,12 +2125,12 @@ public class driver {
         driver_yiear2, /* GX407 (c) 1985 */
         driver_kicker,/* GX477 (c) 1985 */
         driver_shaolins, /* GX477 (c) 1985 */
-        driver_pingpong,/* GX555 (c) 1985 */
+        /*RELEASE*///driver_pingpong,/* GX555 (c) 1985 */
         /*TODO*///	driver_gberet )	/* GX577 (c) 1985 */
         /*TODO*///	driver_rushatck )	/* GX577 (c) 1985 */
         /*TODO*///	driver_gberetb )	/* bootleg on different hardware */
         /*TODO*///	driver_mrgoemon )	/* GX621 (c) 1986 (Japan) */
-        driver_jailbrek, /* GX507 (c) 1986 */
+        /*RELEASE*///driver_jailbrek, /* GX507 (c) 1986 */
         driver_finalizr, /* GX523 (c) 1985 */
         driver_finalizb, /* bootleg */
         driver_ironhors, /* GX560 (c) 1986 */
@@ -2140,7 +2140,7 @@ public class driver {
         /*TODO*///	driver_topgunr )	/* GX631 (c) 1986 (US) */
         /*TODO*///	driver_jackalj )	/* GX631 (c) 1986 (Japan) */
         /*TODO*///	driver_topgunbl )	/* bootleg */
-        driver_ddribble, /* GX690 (c) 1986 */
+        /*RELEASE*///driver_ddribble, /* GX690 (c) 1986 */
         /*TODO*///	driver_contra )	/* GX633 (c) 1987 */
         /*TODO*///	driver_contrab )	/* bootleg */
         /*TODO*///	driver_contraj )	/* GX633 (c) 1987 (Japan) */
@@ -2410,8 +2410,8 @@ public class driver {
         /*TODO*///	driver_foodf )		/* (c) 1982 */	/* made by Gencomp */
         /*TODO*///	driver_liberatr )	/* (c) 1982 */
         /*TODO*///TESTdriver_liberat2 )
-        driver_ccastles, /* (c) 1983 */
-        driver_ccastle2, /* (c) 1983 */
+        /*RELEASE*///driver_ccastles, /* (c) 1983 */
+        /*RELEASE*///driver_ccastle2, /* (c) 1983 */
         /*TODO*///	driver_cloak )		/* (c) 1983 */
         /*TODO*///	driver_cloud9 )	/* (c) 1983 */
         /*TODO*///	driver_jedi )		/* (c) 1984 */
