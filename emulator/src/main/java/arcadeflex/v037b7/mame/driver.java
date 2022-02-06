@@ -28,18 +28,18 @@ import static arcadeflex.v037b7.drivers.funkybee.*;
 import static arcadeflex.v037b7.drivers.ttmahjng.*;
 import static arcadeflex.v037b7.drivers.wiping.*;
 import static arcadeflex.v037b7.drivers.wiz.*;
-import static arcadeflex.v037b7.drivers.hexa.*;
-import static arcadeflex.v037b7.drivers.higemaru.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.hexa.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.higemaru.*;
 import static arcadeflex.v037b7.drivers.jack.*;
 import static arcadeflex.v037b7.drivers.kangaroo.*;
 import static arcadeflex.v037b7.drivers.ladybug.*;
 import static arcadeflex.v037b7.drivers.locomotn.*;
-import static arcadeflex.v037b7.drivers.hanaawas.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.hanaawas.*;
 import static arcadeflex.v037b7.drivers.gunsmoke.*;
 import static arcadeflex.v037b7.drivers.marineb.*;
-import static arcadeflex.v037b7.drivers.mermaid.*;
-import static arcadeflex.v037b7.drivers.minivadr.*;
-import static arcadeflex.v037b7.drivers.mrjong.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.mermaid.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.minivadr.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.mrjong.*;
 import static arcadeflex.v037b7.drivers.tnzs.*;
 import static arcadeflex.v037b7.drivers.solomon.*;
 import static arcadeflex.v037b7.drivers.naughtyb.*;
@@ -67,12 +67,12 @@ import static arcadeflex.v037b7.drivers.sauro.*;
 import static arcadeflex.v037b7.drivers.speedbal.*;
 import static arcadeflex.v037b7.drivers.royalmah.*;
 import static arcadeflex.v037b7.drivers.skyfox.*;
-import static arcadeflex.v037b7.drivers.gotya.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.gotya.*;
 import static arcadeflex.v037b7.drivers.goindol.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.appoooh.*;
 import static arcadeflex.v037b7.drivers.bosco.*;
 import static arcadeflex.v037b7.drivers.digdug.*;
-import static arcadeflex.v037b7.drivers.jrpacman.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.jrpacman.*;
 import static arcadeflex.v037b7.drivers.kchamp.*;
 import static arcadeflex.v037b7.drivers.pengo.*;
 import static arcadeflex.v037b7.drivers.rallyx.*;
@@ -86,8 +86,8 @@ import static arcadeflex.v037b7.drivers.commando.*;
 import static arcadeflex.v037b7.drivers.galaxian.*;
 import static arcadeflex.v037b7.drivers.galivan.*;
 import static arcadeflex.v037b7.drivers.gsword.*;
-import static arcadeflex.v037b7.drivers.gundealr.*;
-import static arcadeflex.v037b7.drivers.magix.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.gundealr.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.magix.*;
 import static arcadeflex.v037b7.drivers.marvins.*;
 import static arcadeflex.v037b7.drivers.mrdo.*;
 import static arcadeflex.v037b7.drivers.pacman.*;
@@ -224,7 +224,7 @@ public class driver {
         driver_pengo2,/* 834-0386 (c) 1982 Sega */
         driver_pengo2u,/* 834-0386 (c) 1982 Sega */
         driver_penta,/* bootleg */
-        driver_jrpacman,/* (c) 1983 Midway */
+        /*RELEASE*///driver_jrpacman,/* (c) 1983 Midway */
         /* "Galaxian hardware" games */
         driver_galaxian, /* (c) Namco */
         driver_galmidw, /* (c) Midway */
@@ -1042,7 +1042,7 @@ public class driver {
         driver_superqix,/* B03 1987 */
         driver_sqixbl,/* bootleg? but (c) 1987 */
         /*RELEASE*///driver_superman, /* B61 (c) 1988 Taito Corporation */
-        driver_minivadr,/* D26 cabinet test board */
+        /*RELEASE*///driver_minivadr,/* D26 cabinet test board */
         /* Taito "tnzs" hardware */
         driver_plumppop,/* A98 (c) 1987 Taito Corporation (Japan) */
         driver_extrmatn,/* B06 (c) 1987 World Games */
@@ -1307,7 +1307,7 @@ public class driver {
         /*TODO*///	driver_vulgus2 )	/*  5/1984 (c) 1984 */
         /*TODO*///	driver_vulgusj )	/*  5/1984 (c) 1984 */
         driver_sonson, /*  7/1984 (c) 1984 */
-        driver_higemaru,/*  9/1984 (c) 1984 */
+        /*RELEASE*///driver_higemaru,/*  9/1984 (c) 1984 */
         /*RELEASE*///driver_1942,/* 12/1984 (c) 1984 */
         /*RELEASE*///driver_1942a,/* 12/1984 (c) 1984 */
         /*RELEASE*///driver_1942b,/* 12/1984 (c) 1984 */
@@ -2950,7 +2950,7 @@ public class driver {
         driver_galpanic, /* (c) 1990 Kaneko */
         /*RELEASE*///driver_airbustr,/* (c) 1990 Kaneko */
         /* Seta games */
-        driver_hanaawas,/* (c) SetaKikaku */
+        /*RELEASE*///driver_hanaawas,/* (c) SetaKikaku */
         /*TODO*///	driver_tndrcade )	/* UA-0 (c) 1987 Taito */
         /*TODO*///	driver_tndrcadj )	/* UA-0 (c) 1987 Taito */
         /*TODO*///	driver_twineagl )	/* UA-2 (c) 1988 + Taito license */
@@ -2980,10 +2980,10 @@ public class driver {
         /*TODO*///	driver_bssoccer )	/* (c) 1996 Suna */
 
         /* Dooyong games */
-        driver_gundealr,/* (c) 1990 Dooyong */
-        driver_gundeala,/* (c) Dooyong */
-        driver_yamyam,/* (c) 1990 Dooyong */
-        driver_wiseguy,/* (c) 1990 Dooyong */
+        /*RELEASE*///driver_gundealr,/* (c) 1990 Dooyong */
+        /*RELEASE*///driver_gundeala,/* (c) Dooyong */
+        /*RELEASE*///driver_yamyam,/* (c) 1990 Dooyong */
+        /*RELEASE*///driver_wiseguy,/* (c) 1990 Dooyong */
         driver_lastday, /* (c) 1990 Dooyong */
         driver_lastdaya, /* (c) 1990 Dooyong */
         driver_pollux, /* (c) 1991 Dooyong */
@@ -3025,7 +3025,7 @@ public class driver {
         /*TODO*///	driver_ddayc )		/* (c) 1982 Olympia + Centuri license */
         /*TODO*///	driver_leprechn )	/* (c) 1982 Tong Electronic */
         /*TODO*///	driver_potogold )	/* (c) 1982 Tong Electronic */
-        driver_hexa,/* D. R. Korea */
+        /*RELEASE*///driver_hexa,/* D. R. Korea */
         /*TODO*///	driver_irobot )	/* (c) 1983 Atari */
         /*TODO*///	driver_spiders )	/* (c) 1981 Sigma Ent. Inc. */
         /*TODO*///	driver_spiders2 )	/* (c) 1981 Sigma Ent. Inc. */
@@ -3044,12 +3044,12 @@ public class driver {
         /*RELEASE*///driver_meteor,/* (c) 1981 Venture Line */
         /*TODO*///	driver_aztarac )	/* (c) 1983 Centuri (vector game) */
         /*TODO*///	driver_mole )		/* (c) 1982 Yachiyo Electronics, Ltd. */
-        driver_gotya,/* (c) 1981 Game-A-Tron */
-        driver_mrjong,/* (c) 1983 Kiwako */
-        /*TODO*///	driver_crazyblk )	/* (c) 1983 Kiwako + ECI license */
+        /*RELEASE*///driver_gotya,/* (c) 1981 Game-A-Tron */
+        /*RELEASE*///driver_mrjong,/* (c) 1983 Kiwako */
+        /*RELEASE*///driver_crazyblk, /* (c) 1983 Kiwako + ECI license */
         driver_polyplay,
-        driver_mermaid,/* (c) 1982 Rock-ola */
-        driver_magix,/* (c) 1995 Yun Sung */
+        /*RELEASE*///driver_mermaid,/* (c) 1982 Rock-ola */
+        /*RELEASE*///driver_magix,/* (c) 1995 Yun Sung */
         driver_royalmah,/* (c) 1982 Falcon */
         /*TODO*///
         /*TODO*///
