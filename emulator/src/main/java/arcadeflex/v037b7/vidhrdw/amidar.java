@@ -1,5 +1,5 @@
 /*
- * ported to v0.37b7
+ * ported to v0.37b7 - released used by scramble driver
  * ported to v0.36
  *
  */

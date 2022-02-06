@@ -1,5 +1,5 @@
 /*
- * ported to v0.37b7
+ * ported to v0.37b7  -RELEASED used by scramble driver
  * using automatic conversion tool v0.01
  */
 package arcadeflex.v037b7.drivers;
