@@ -11,17 +11,17 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.drivers.bagman.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bankp.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.blueprnt.*;
-import static arcadeflex.v037b7.drivers.bombjack.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.bombjack.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.arabian.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bking2.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.cheekyms.*;
 import static arcadeflex.v037b7.drivers.champbas.*;
-import static arcadeflex.v037b7.drivers.cop01.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.cop01.*;
 import static arcadeflex.v037b7.drivers.docastle.*;
 import static arcadeflex.v037b7.drivers.espial.*;
 import static arcadeflex.v037b7.drivers.exctsccr.*;
 import static arcadeflex.v037b7.drivers.cclimber.*;
-import static arcadeflex.v037b7.drivers.berzerk.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.berzerk.*;
 import static arcadeflex.v037b7.drivers.exedexes.*;
 import static arcadeflex.v037b7.drivers.frogger.*;
 import static arcadeflex.v037b7.drivers.funkybee.*;
@@ -60,7 +60,7 @@ import static arcadeflex.v037b7.drivers.pbaction.*;
 import static arcadeflex.v037b7.drivers.olibochu.*;
 import static arcadeflex.v037b7.drivers.yamato.*;
 import static arcadeflex.v037b7.drivers.zaxxon.*;
-import static arcadeflex.v037b7.drivers.congo.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.congo.*;
 import static arcadeflex.v037b7.drivers.pipedrm.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers._1943.*;
 import static arcadeflex.v037b7.drivers.sauro.*;
@@ -116,7 +116,7 @@ import static arcadeflex.v037b7.drivers.mexico86.*;
 import static arcadeflex.v037b7.drivers.hal21.*;
 import static arcadeflex.v037b7.drivers.snk.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.buggychl.*;
-import static arcadeflex.v037b7.drivers.lsasquad.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.lsasquad.*;
 import static arcadeflex.v037b7.drivers.bublbobl.*;
 import static arcadeflex.v037b7.drivers.spacefb.*;
 import static arcadeflex.v037b7.drivers.arkanoid.*;
@@ -354,8 +354,8 @@ public class driver {
         driver_wiping,/* (c) 1982 */
         driver_rugrats,/* (c) 1983 */
         /*TODO*///	driver_magmax )	/* (c) 1985 */
-        driver_cop01,/* (c) 1985 */
-        driver_cop01a,/* (c) 1985 */
+        /*RELEASE*///driver_cop01,/* (c) 1985 */
+        /*RELEASE*///driver_cop01a,/* (c) 1985 */
         /*TODO*///	driver_terracre )	/* (c) 1985 */
         /*TODO*///	driver_terracrb )	/* (c) 1985 */
         /*TODO*///	driver_terracra )	/* (c) 1985 */
@@ -1010,8 +1010,8 @@ public class driver {
         /*TODO*///TESTdriver_onna34ro )	/* A52 */
         /*TODO*///	driver_gladiatr )	/* ??? (c) 1986 Taito America Corporation (US) */
         /*TODO*///	driver_ogonsiro )	/* ??? (c) 1986 Taito Corporation (Japan) */
-        driver_lsasquad,/* A64 (c) 1986 Taito Corporation / Taito America (dip switch) */
-        driver_storming,/* A64 (c) 1986 Taito Corporation */
+        /*RELEASE*///driver_lsasquad,/* A64 (c) 1986 Taito Corporation / Taito America (dip switch) */
+        /*RELEASE*///driver_storming,/* A64 (c) 1986 Taito Corporation */
         driver_tokio, /* A71 1986 */
         driver_tokiob, /* bootleg */
         driver_bublbobl, /* A78 (c) 1986 Taito Corporation */
@@ -1705,8 +1705,8 @@ public class driver {
         driver_szaxxon,/* (c) 1982 */
         driver_futspy,/* (c) 1984 */
         driver_razmataz,/* modified 834-0213, 834-0214 (c) 1983 */
-        driver_congo,/* 605-5167 (c) 1983 */
-        driver_tiptop,/* 605-5167 (c) 1983 */
+        /*RELEASE*///driver_congo,/* 605-5167 (c) 1983 */
+        /*RELEASE*///driver_tiptop,/* 605-5167 (c) 1983 */
         /*TODO*///
         /*TODO*///	/* Sega System 1 / System 2 games */
         /*TODO*///	driver_starjack )	/* 834-5191 (c) 1983 (S1) */
@@ -2057,8 +2057,8 @@ public class driver {
         /*TODO*///	driver_starfore )	/* (c) 1984 Tehkan */
         /*TODO*///	driver_megaforc )	/* (c) 1985 Tehkan + Video Ware license */
         /*TODO*///	driver_baluba )	/* (c) 1986 Able Corp. */
-        driver_bombjack,/* (c) 1984 Tehkan */
-        driver_bombjac2,/* (c) 1984 Tehkan */
+        /*RELEASE*///driver_bombjack,/* (c) 1984 Tehkan */
+        /*RELEASE*///driver_bombjac2,/* (c) 1984 Tehkan */
         driver_pbaction,/* (c) 1985 Tehkan */
         driver_pbactio2,/* (c) 1985 Tehkan */
         /*TODO*///	/* 6009 Tank Busters */
@@ -2614,9 +2614,9 @@ public class driver {
         /*TODO*///	/* TA-0031 WWF Wrestlefest */
         /*TODO*///
         /* Stern "Berzerk hardware" games */
-        driver_berzerk,/* (c) 1980 */
-        driver_berzerk1,/* (c) 1980 */
-        driver_frenzy,/* (c) 1982 */
+        /*RELEASE*///driver_berzerk,/* (c) 1980 */
+        /*RELEASE*///driver_berzerk1,/* (c) 1980 */
+        /*RELEASE*///driver_frenzy,/* (c) 1982 */
         /* GamePlan games */
         /*RELEASE*///driver_megatack, /* (c) 1980 Centuri */
         /*RELEASE*///driver_killcom, /* (c) 1980 Centuri */
