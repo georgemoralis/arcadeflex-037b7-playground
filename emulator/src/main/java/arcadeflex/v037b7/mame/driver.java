@@ -182,6 +182,8 @@ import static arcadeflex.v037b7.drivers.segar.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.ccastles.*;
 import static arcadeflex.v037b7.drivers.btime.*;
 import static arcadeflex.v037b7.drivers.exidy.*;
+import static arcadeflex.v037b7.drivers.circus.*;
+import static arcadeflex.v037b7.drivers.armedf.*;
 
 public class driver {
 
@@ -366,11 +368,11 @@ public class driver {
         driver_dangarb, /* bootleg */
         driver_ninjemak, /* (c) 1986 (US?) */
         driver_youma, /* (c) 1986 (Japan) */
-        /*TODO*///	driver_terraf )	/* (c) 1987 */
-        /*TODO*///	driver_terrafu )	/* (c) 1987 Nichibutsu USA */
-        /*TODO*///	driver_kodure )	/* (c) 1987 (Japan) */
-        /*TODO*///	driver_armedf )	/* (c) 1988 */
-        /*TODO*///	driver_cclimbr2 )	/* (c) 1988 (Japan) */
+        driver_terraf,/* (c) 1987 */
+        driver_terrafu, /* (c) 1987 Nichibutsu USA */
+        driver_kodure, /* (c) 1987 (Japan) */
+        driver_armedf, /* (c) 1988 */
+        driver_cclimbr2, /* (c) 1988 (Japan) */
         /*TODO*///
         /*TODO*///	/* "Phoenix hardware" (and variations) games */
         /*TODO*///	driver_safarir )	/* Shin Nihon Kikaku (SNK) */
@@ -2313,10 +2315,10 @@ public class driver {
         driver_pepper2, /* (c) 1982 */
         driver_hardhat, /* (c) 1982 */
         driver_fax, /* (c) 1983 */
-        /*TODO*///	driver_circus )	/* no copyright notice [1977?] */
-        /*TODO*///	driver_robotbwl )	/* no copyright notice */
-        /*TODO*///	driver_crash )		/* Exidy [1979?] */
-        /*TODO*///	driver_ripcord )	/* Exidy [1977?] */
+        driver_circus, /* no copyright notice [1977?] */
+        driver_robotbwl, /* no copyright notice */
+        driver_crash, /* Exidy [1979?] */
+        driver_ripcord, /* Exidy [1977?] */
         /*TODO*///	driver_starfire )	/* Exidy [1979?] */
         /*TODO*///	driver_fireone )	/* (c) 1979 Exidy */
         /*TODO*///	driver_victory )	/* (c) 1982 */
