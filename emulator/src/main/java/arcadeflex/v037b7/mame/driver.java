@@ -185,6 +185,8 @@ import static arcadeflex.v037b7.drivers.exidy.*;
 import static arcadeflex.v037b7.drivers.circus.*;
 
 //WIP DRIVERS
+import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
+import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
 import static arcadeflex.WIP.v037b7.drivers.armedf.*;//buggy 68k not working
 
 public class driver {
@@ -2084,9 +2086,8 @@ public class driver {
         /*TODO*///	driver_wildfang )	/* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90,/* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90b,/* bootleg */
-        /*TODO*///	driver_fstarfrc )	/* (c) 1992 Tecmo */
-        /*TODO*///	driver_ginkun )	/* (c) 1995 Tecmo */
-        /*TODO*///
+        driver_fstarfrc, /* (c) 1992 Tecmo */
+        driver_ginkun, /* (c) 1995 Tecmo */
         /* Konami bitmap games */
         driver_tutankhm, /* GX350 (c) 1982 Konami */
         driver_tutankst, /* GX350 (c) 1982 Stern */
@@ -2555,22 +2556,21 @@ public class driver {
         /*TODO*///	driver_gensitou )	/* A8003 'GT' (c) 1989 */
         /*TODO*///	/* Beast Busters       A9003 'BB' (c) 1989 */
         /*TODO*///
-        /*TODO*///	/* SNK / Alpha 68K games */
-        /*TODO*///TESTdriver_kouyakyu )
-        /*TODO*///	driver_sstingry )	/* (c) 1986 Alpha Denshi Co. */
-        /*TODO*///	driver_kyros )		/* (c) 1987 World Games */
-        /*TODO*///TESTdriver_paddlema )	/* Alpha-68K96I  'PM' (c) 1988 SNK */
-        /*TODO*///	driver_timesold )	/* Alpha-68K96II 'BT' (c) 1987 SNK / Romstar */
-        /*TODO*///	driver_timesol1 )  /* Alpha-68K96II 'BT' (c) 1987 */
-        /*TODO*///	driver_btlfield )  /* Alpha-68K96II 'BT' (c) 1987 */
-        /*TODO*///	driver_skysoldr )	/* Alpha-68K96II 'SS' (c) 1988 SNK (Romstar with dip switch) */
-        /*TODO*///	driver_goldmedl )	/* Alpha-68K96II 'GM' (c) 1988 SNK */
-        /*TODO*///TESTdriver_goldmedb )	/* Alpha-68K96II bootleg */
-        /*TODO*///	driver_skyadvnt )	/* Alpha-68K96V  'SA' (c) 1989 SNK of America licensed from Alpha */
-        /*TODO*///	driver_gangwars )	/* Alpha-68K96V       (c) 1989 Alpha Denshi Co. */
-        /*TODO*///	driver_gangwarb )	/* Alpha-68K96V bootleg */
-        /*TODO*///	driver_sbasebal )	/* Alpha-68K96V       (c) 1989 SNK of America licensed from Alpha */
-
+        /* SNK / Alpha 68K games */
+        /*TESTDRIVER*/ driver_kouyakyu,
+        driver_sstingry, /* (c) 1986 Alpha Denshi Co. */
+        driver_kyros, /* (c) 1987 World Games */
+        /*TESTDRIVER*/ driver_paddlema, /* Alpha-68K96I  'PM' (c) 1988 SNK */
+        driver_timesold, /* Alpha-68K96II 'BT' (c) 1987 SNK / Romstar */
+        driver_timesol1, /* Alpha-68K96II 'BT' (c) 1987 */
+        driver_btlfield, /* Alpha-68K96II 'BT' (c) 1987 */
+        driver_skysoldr, /* Alpha-68K96II 'SS' (c) 1988 SNK (Romstar with dip switch) */
+        driver_goldmedl, /* Alpha-68K96II 'GM' (c) 1988 SNK */
+        /*TESTDRIVER*/ driver_goldmedb, /* Alpha-68K96II bootleg */
+        driver_skyadvnt, /* Alpha-68K96V  'SA' (c) 1989 SNK of America licensed from Alpha */
+        driver_gangwars, /* Alpha-68K96V       (c) 1989 Alpha Denshi Co. */
+        driver_gangwarb, /* Alpha-68K96V bootleg */
+        driver_sbasebal, /* Alpha-68K96V       (c) 1989 SNK of America licensed from Alpha */
         /* Alpha Denshi games */
         driver_champbas,/* (c) 1983 Sega */
         driver_champbbj,/* (c) 1983 Alpha Denshi Co. */

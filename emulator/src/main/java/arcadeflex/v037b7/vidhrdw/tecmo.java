@@ -40,7 +40,6 @@ import gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.struct_tilemap;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
 
-
 public class tecmo {
 
     public static UBytePtr tecmo_txvideoram = new UBytePtr();
