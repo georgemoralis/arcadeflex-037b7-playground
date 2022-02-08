@@ -2,7 +2,7 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package arcadeflex.v037b7.drivers;
+package arcadeflex.WIP.v037b7.drivers;
 
 //common imports
 //generic imports
@@ -28,7 +28,7 @@ import static arcadeflex.v037b7.sound.dac.DAC_0_signed_data_w;
 import static arcadeflex.v037b7.sound.dac.DAC_1_signed_data_w;
 import arcadeflex.v037b7.sound.dacH.DACinterface;
 //vidhrdw imports
-import static arcadeflex.v037b7.vidhrdw.armedf.*;
+import static arcadeflex.WIP.v037b7.vidhrdw.armedf.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;

@@ -2,7 +2,7 @@
  * ported to v0.37b7  -- MISSING SPRITES IMPLEMENTATION TODO
  * using automatic conversion tool v0.01
  */
-package arcadeflex.v037b7.vidhrdw;
+package arcadeflex.WIP.v037b7.vidhrdw;
 
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
