@@ -183,7 +183,9 @@ import static arcadeflex.v037b7.drivers.segar.*;
 import static arcadeflex.v037b7.drivers.btime.*;
 import static arcadeflex.v037b7.drivers.exidy.*;
 import static arcadeflex.v037b7.drivers.circus.*;
-
+import static arcadeflex.v037b7.drivers.terracre.*;
+import static arcadeflex.v037b7.drivers.sidepckt.*;
+import static arcadeflex.v037b7.drivers.xain.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -362,9 +364,9 @@ public class driver {
         /*TODO*///	driver_magmax )	/* (c) 1985 */
         /*RELEASE*///driver_cop01,/* (c) 1985 */
         /*RELEASE*///driver_cop01a,/* (c) 1985 */
-        /*TODO*///	driver_terracre )	/* (c) 1985 */
-        /*TODO*///	driver_terracrb )	/* (c) 1985 */
-        /*TODO*///	driver_terracra )	/* (c) 1985 */
+        driver_terracre, /* (c) 1985 */
+        driver_terracrb, /* (c) 1985 */
+        driver_terracra, /* (c) 1985 */
         driver_galivan,/* (c) 1985 */
         driver_galivan2,/* (c) 1985 */
         driver_dangar, /* (c) 1986 */
@@ -1951,9 +1953,9 @@ public class driver {
         /*TODO*///	driver_shootout )	/* (c) 1985 Data East USA (US) */
         /*TODO*///	driver_shootouj )	/* (c) 1985 Data East USA (Japan) */
         /*TODO*///	driver_shootoub )	/* bootleg */
-        /*TODO*///	driver_sidepckt )	/* (c) 1986 Data East Corporation */
-        /*TODO*///	driver_sidepctj )	/* (c) 1986 Data East Corporation */
-        /*TODO*///	driver_sidepctb )	/* bootleg */
+        driver_sidepckt, /* (c) 1986 Data East Corporation */
+        driver_sidepctj, /* (c) 1986 Data East Corporation */
+        driver_sidepctb, /* bootleg */
         /*TODO*///	driver_exprraid )	/* (c) 1986 Data East USA (US) */
         /*TODO*///	driver_wexpress )	/* (c) 1986 Data East Corporation (World?) */
         /*TODO*///	driver_wexpresb )	/* bootleg */
@@ -2595,9 +2597,9 @@ public class driver {
         /*RELEASE*///driver_renegade, /* TA-0018 (c) 1986 + Taito America license */
         /*RELEASE*///driver_kuniokun, /* TA-0018 (c) 1986 */
         /*RELEASE*///driver_kuniokub, /* bootleg */
-        /*TODO*///	driver_xsleena )	/* TA-0019 (c) 1986 */
-        /*TODO*///	driver_xsleenab )	/* bootleg */
-        /*TODO*///	driver_solarwar )	/* TA-0019 (c) 1986 Taito + Memetron license */
+        driver_xsleena, /* TA-0019 (c) 1986 */
+        driver_xsleenab, /* bootleg */
+        driver_solarwar, /* TA-0019 (c) 1986 Taito + Memetron license */
         driver_battlane, /* TA-???? (c) 1986 + Taito license */
         driver_battlan2, /* TA-???? (c) 1986 + Taito license */
         driver_battlan3, /* TA-???? (c) 1986 + Taito license */

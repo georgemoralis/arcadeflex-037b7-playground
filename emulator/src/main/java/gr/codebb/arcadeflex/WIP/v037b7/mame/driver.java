@@ -68,7 +68,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.actfancr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.battlera.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.punchout.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.playch10.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.sidepckt.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.dec8.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.pcktgal.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.videopin.*;
@@ -91,7 +90,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.drivers.dominos.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.milliped.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leprechn.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.firetrap.*;
-import static gr.codebb.arcadeflex.v037b7.drivers.xain.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.williams.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.lasso.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.cloud9.*;
@@ -3412,17 +3410,11 @@ public class driver {
         driver_mhavoc2,
         driver_mhavocp,
         driver_mhavocrv,
-        driver_sidepckt,
-        driver_sidepctj,
-        driver_sidepctb,
         driver_ssozumo,
         driver_scregg,
         driver_eggs,
         driver_bigprowr,
         driver_tagteam,
-        driver_xsleena,
-        driver_xsleenab,
-        driver_solarwar,
         /*
      * NOT Working flag
          */

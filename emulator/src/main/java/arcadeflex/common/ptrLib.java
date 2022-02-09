@@ -73,6 +73,10 @@ public class ptrLib {
             return (memory[offset + index + 1] << 8 | memory[offset + index]) & 0xFFFF;
         }
 
+        public int READ_WORD() {
+            return (memory[offset + 1] << 8 | memory[offset]) & 0xFFFF;
+        }
+
         public int READ_DWORD(int index) // unchecked!
         {
             int myNumber

@@ -182,10 +182,8 @@ public class exidy {
 						the variance, we compute the effective step value, and then apply a random
 						offset to it after each sample is generated
                          */
- /*UINT32*/
-                        int avgstep = (u16_sh6840_timer[chan]) != 0 ? (int) (freq_to_step * (noise_freq * 0.25) / (double) u16_sh6840_timer[chan]) : 0;
-                        /*UINT32*/
-                        int frac = c.u32_fraction;
+                        int /*UINT32*/ avgstep = (u16_sh6840_timer[chan]) != 0 ? (int) (freq_to_step * (noise_freq * 0.25) / (double) u16_sh6840_timer[chan]) : 0;
+                        int /*UINT32*/ frac = c.u32_fraction;
                         short vol = c.volume;
 
                         avgstep /= 32768;
@@ -207,10 +205,8 @@ public class exidy {
 
                 /* only process enabled channels */
                 if (c.enable) {
-                    /*UINT32*/
-                    int step = c.u32_step;
-                    /*UINT32*/
-                    int frac = c.u32_fraction;
+                    int /*UINT32*/ step = c.u32_step;
+                    int /*UINT32*/ frac = c.u32_fraction;
 
                     for (i = 0; i < length; i++) {
                         if ((frac & 0x0800000) != 0) {

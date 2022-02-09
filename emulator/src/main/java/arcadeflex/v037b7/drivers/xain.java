@@ -2,7 +2,7 @@
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */
-package gr.codebb.arcadeflex.v037b7.drivers;
+package arcadeflex.v037b7.drivers;
 
 import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.*;
 import static arcadeflex.v037b7.mame.commonH.*;
@@ -43,7 +43,7 @@ import static arcadeflex.v037b7.mame.palette.paletteram;
 import static arcadeflex.v037b7.mame.palette.paletteram_2;
 import arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2203;
-import static gr.codebb.arcadeflex.v037b7.vidhrdw.xain.*;
+import static arcadeflex.v037b7.vidhrdw.xain.*;
 
 public class xain {
 
