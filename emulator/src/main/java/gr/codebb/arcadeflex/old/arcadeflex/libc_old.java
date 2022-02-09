@@ -71,9 +71,9 @@ public class libc_old {
      *   return next random number
      */
 
-    public static int rand() {
+    /*public static int rand() {
         return rand.nextInt();
-    }
+    }*/
     /*
      *   return system's timer
      */
@@ -267,21 +267,10 @@ public class libc_old {
 
         }
     }
-
-    public static void memcpy(CharPtr dst, CharPtr src, int size) {
-        for (int i = 0; i < size; i++) {
-            dst.write(i, src.read(i));     
-        }
-    }
     public static void memcpy(UBytePtr dst, UBytePtr src, int size) {
         for (int i = 0; i < Math.min(size,src.memory.length); i++) {
             dst.write(i, src.read(i));     
         }
-    }
-    public static void memcpy(CharPtr dst,int dstoffs, CharPtr src,int srcoffs, int size) 
-    {
-        memcpy(dst.memory,dstoffs,src.memory,srcoffs,size);
-    
     }
     public static void memcpy(UBytePtr dst,int dstoffs, UBytePtr src,int srcoffs, int size) 
     {
@@ -291,11 +280,7 @@ public class libc_old {
         }
     }
 
-    public static void memcpy(char[] dst, CharPtr src, int size) {
-        for (int i = 0; i < size; i++) {
-            dst[i] = src.read(i);
-        }
-    }
+
     public static void memcpy(char[] dst, UBytePtr src, int size) {
         for (int i = 0; i < size; i++) {
             dst[i] = src.read(i);
@@ -680,133 +665,6 @@ public class libc_old {
         }
     }
 
-    /**
-     * ***********************************
-     *
-     * Char Pointer Emulation
-     ************************************
-     */
-    public static class CharPtr {
-
-        public CharPtr() {
-        }
-
-        public CharPtr(int size) {
-            memory = new char[size];
-            base = 0;
-        }
-
-        public CharPtr(char[] m) {
-            set(m, 0);
-        }
-
-        public CharPtr(char[] m, int b) {
-            set(m, b);
-        }
-
-        public CharPtr(CharPtr cp, int b) {
-            set(cp.memory, cp.base + b);
-        }
-
-        public CharPtr(UBytePtr cp, int b) {
-            set(cp.memory, cp.offset + b);
-        }
-
-        public void set(char[] m, int b) {
-            memory = m;
-            base = b;
-        }
-
-        public void set(CharPtr cp, int b) {
-            set(cp.memory, cp.base + b);
-        }
-
-        public char read(int offset) {
-            return memory[base + offset];
-        }
-
-        public char read() {
-            return memory[base];
-        }
-
-        public char readdec() {
-            return this.memory[(this.base--)];
-        }
-
-        public char readinc() {
-            return this.memory[(this.base++)];
-        }
-
-        public void write(int offset, int value) {
-            memory[base + offset] = (char) value;
-        }
-
-        public void write(int value) {
-            memory[base] = (char) value;
-        }
-
-        public void writeinc(int value) {
-            this.memory[(this.base++)] = (char) value;
-        }
-
-        public void and(int value) {
-            int tempbase = this.base;
-            char[] tempmemory = this.memory;
-            tempmemory[tempbase] = (char) (tempmemory[tempbase] & (char) value);
-        }
-
-        public void or(int value) {
-            int tempbase = this.base;
-            char[] tempmemory = this.memory;
-            tempmemory[tempbase] = (char) (tempmemory[tempbase] | (char) value);
-        }
-
-        public void dec() {
-            this.base -= 1;
-        }
-        public void dec(int count) {
-            this.base -= count;
-        }
-
-        public void inc() {
-            this.base += 1;
-        }
-
-        public void inc(int count) {
-            this.base += count;
-        }
-        public char[] memory;
-        public int base;
-    }
-
-    /**
-     * 
-     *  short pointer Emulation
-     */
-    /*public static class ShortPtr
-    {
-        public ShortPtr(char[] memory,int base)
-        {
-            this.memory=memory;
-            this.base=base;
-        }
-        public ShortPtr(ShortPtr sp,int base)
-        {
-            this.memory=sp.memory;
-            this.base=base+sp.base;
-        }
-        public char read(int offset)
-        {
-            return (char)(memory[base + 1 + offset * 2] << 8 | memory[base + offset * 2]);
-        }
-        public void write(int offset,int value)
-        {
-            memory[base + offset*2] = (char)(value&0xFF);
-            memory[base + offset * 2 + 1] = (char)((value >> 8)&0xFF);
-        }
-        public int base;
-        char[] memory;
-    }*/
     /**
      * ***********************************
      *

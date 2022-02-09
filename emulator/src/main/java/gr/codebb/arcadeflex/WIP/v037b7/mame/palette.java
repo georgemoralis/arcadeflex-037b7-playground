@@ -4,6 +4,7 @@
 package gr.codebb.arcadeflex.WIP.v037b7.mame;
 
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
+import static arcadeflex.common.libc.cstdlib.*;
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.artworkC.*;
@@ -17,7 +18,6 @@ import static arcadeflex.v037b7.mame.usrintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.commonH.REGION_PROMS;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static arcadeflex.v037b7.mame.palette.palette_recalc_8;
 import static arcadeflex.v037b7.mame.palette.paletteram;
 import static arcadeflex.v037b7.mame.palette.paletteram_2;

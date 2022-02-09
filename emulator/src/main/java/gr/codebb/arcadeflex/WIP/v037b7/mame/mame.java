@@ -3,6 +3,9 @@
  */
 package gr.codebb.arcadeflex.WIP.v037b7.mame;
 
+//common imports
+import static arcadeflex.common.libc.cstdlib.*;
+
 import static arcadeflex.v037b7.mame.cheat.InitCheat;
 import static arcadeflex.v037b7.mame.cheat.StopCheat;
 import static arcadeflex.v037b7.mame.cheat.he_did_cheat;

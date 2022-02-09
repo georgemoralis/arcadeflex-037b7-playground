@@ -6,6 +6,7 @@ package arcadeflex.v037b7.machine;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstdlib.*;
 //cpu imports
 import static arcadeflex.v037b7.cpu.z80.z80H.*;
 //generic imports
@@ -23,7 +24,6 @@ import static arcadeflex.v056.mame.timerH.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.bublbobl.*;
 //to be organized
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class bublbobl {

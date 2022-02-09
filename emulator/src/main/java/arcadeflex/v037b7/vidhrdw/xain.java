@@ -4,23 +4,26 @@
  */
 package arcadeflex.v037b7.vidhrdw;
 
+//common imports
+import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
+import static arcadeflex.common.libc.expressions.*;
+//generic imports
+import static arcadeflex.v037b7.generic.funcPtr.*;
+//mame imports
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
+import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.mame.paletteH.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+//to be organized
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
-import arcadeflex.common.ptrLib.UBytePtr;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static arcadeflex.common.libc.expressions.NOT;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
-import arcadeflex.v037b7.generic.funcPtr.VhStartPtr;
-import arcadeflex.v037b7.generic.funcPtr.VhUpdatePtr;
-import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
 
 public class xain {
 

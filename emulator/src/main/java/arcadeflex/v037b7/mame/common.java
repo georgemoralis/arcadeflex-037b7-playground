@@ -7,6 +7,8 @@ package arcadeflex.v037b7.mame;
 //common imports
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.libc.cstdio.*;
+import static arcadeflex.common.libc.cstring.*;
+import static arcadeflex.common.libc.cstdlib.*;
 import static arcadeflex.common.util.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
@@ -22,7 +24,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.tilemap_set_flip;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.ALL_TILEMAPS;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_FLIPX;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_FLIPY;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_display_loading_rom_message;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fclose;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fcrc;
@@ -35,7 +36,6 @@ import static gr.codebb.arcadeflex.old.arcadeflex.fileio.osd_fsize;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.SEEK_CUR;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.SEEK_SET;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.memcmp;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_alloc_bitmap;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_free_bitmap;

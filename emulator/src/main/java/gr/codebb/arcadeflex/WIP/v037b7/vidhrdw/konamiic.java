@@ -760,7 +760,7 @@ import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.mame.mameH.MAX_GFX_ELEMENTS;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
+import static arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.paletteH.*;
 import arcadeflex.common.ptrLib.UShortPtr;

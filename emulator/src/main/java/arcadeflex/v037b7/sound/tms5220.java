@@ -5,13 +5,13 @@ package arcadeflex.v037b7.sound;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstdlib.*;
 //sound imports
 import static arcadeflex.v037b7.sound._5220intfH.*;
 import static arcadeflex.v037b7.sound.tms5220r.*;
 
 //to be organized
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;
 
 public class tms5220 {

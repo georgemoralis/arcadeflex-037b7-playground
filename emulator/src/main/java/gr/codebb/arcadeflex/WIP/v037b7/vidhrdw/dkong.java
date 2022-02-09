@@ -5,6 +5,7 @@
 package gr.codebb.arcadeflex.WIP.v037b7.vidhrdw;
 
 import arcadeflex.common.ptrLib.UBytePtr;
+import static arcadeflex.common.libc.cstdlib.*;
 import static arcadeflex.common.libc.expressions.NOT;
 import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
@@ -16,8 +17,7 @@ import arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
+import static arcadeflex.common.libc.cstring.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.plot_pixel;
 

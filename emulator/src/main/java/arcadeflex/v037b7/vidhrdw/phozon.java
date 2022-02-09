@@ -6,6 +6,7 @@ package arcadeflex.v037b7.vidhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstdlib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
@@ -17,7 +18,6 @@ import static arcadeflex.v037b7.mame.osdependH.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 

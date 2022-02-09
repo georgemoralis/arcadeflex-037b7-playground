@@ -4,13 +4,13 @@
  */
 package gr.codebb.arcadeflex.WIP.v037b7.vidhrdw;
 
+import static arcadeflex.common.libc.cstdlib.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.avgdvgH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.vector.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.*;
 import static arcadeflex.v037b7.mame.common.memory_region;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v056.mame.timer.*;

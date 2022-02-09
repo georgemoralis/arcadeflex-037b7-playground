@@ -5,6 +5,7 @@ package arcadeflex.v037b7.drivers;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstdlib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -25,8 +26,6 @@ import static arcadeflex.v037b7.sndhrdw.polyplay.*;
 //vidhrdw imports
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.vidhrdw.polyplay.*;
-//to be organized
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 
 public class polyplay {
 

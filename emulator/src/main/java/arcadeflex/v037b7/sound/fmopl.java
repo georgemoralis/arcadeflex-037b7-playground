@@ -6,12 +6,11 @@ package arcadeflex.v037b7.sound;
 //common imports
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.subArrays.*;
+import static arcadeflex.common.libc.cstdlib.*;
 //sound imports
 import static arcadeflex.v037b7.sound.fmoplH.*;
 import static arcadeflex.v037b7.sound.ymdeltat.*;
 import static arcadeflex.v037b7.sound.ymdeltatH.*;
-//to be organized
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 
 public class fmopl {
 

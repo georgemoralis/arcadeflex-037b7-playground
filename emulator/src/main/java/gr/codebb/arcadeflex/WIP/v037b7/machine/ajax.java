@@ -4,6 +4,9 @@
  */ 
 package gr.codebb.arcadeflex.WIP.v037b7.machine;
 
+//common imports
+import static arcadeflex.common.libc.cstdlib.*;
+
 import static gr.codebb.arcadeflex.WIP.v037b7.cpu.konami.konamiH.KONAMI_INT_IRQ;
 import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.*;
 import static arcadeflex.v037b7.mame.commonH.REGION_CPU1;
@@ -20,7 +23,6 @@ import static arcadeflex.v037b7.mame.memoryH.cpu_setbank;
 import static arcadeflex.v037b7.mame.sndintrf.soundlatch_w;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K051960_is_IRQ_enabled;
 import arcadeflex.common.ptrLib.UBytePtr;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static arcadeflex.v037b7.mame.common.coin_counter_w;
 import static arcadeflex.v037b7.mame.common.memory_region;
 import arcadeflex.v037b7.generic.funcPtr.InitMachinePtr;

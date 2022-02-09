@@ -527,11 +527,6 @@ public class fileio {
         return r;
     }
 
-    public static int osd_fread(Object file, CharPtr buffer, int length) {
-        osd_fread(file, buffer.memory, buffer.base, length);
-        return 0;
-    }
-
     public static int osd_fread(Object file, UBytePtr buffer, int length) {
         osd_fread(file, buffer.memory, buffer.offset, length);
         return 0;
@@ -591,10 +586,6 @@ public class fileio {
     }
 
     /* JB 980920 update */
-    public static int osd_fwrite(Object file, CharPtr buffer, int length) {
-        osd_fwrite(file, buffer.memory, buffer.base, length);
-        return 0;
-    }
 
     public static int osd_fwrite(Object file, UBytePtr buffer, int length) {
         osd_fwrite(file, buffer.memory, buffer.offset, length);

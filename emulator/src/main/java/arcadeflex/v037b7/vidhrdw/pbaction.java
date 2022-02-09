@@ -7,6 +7,7 @@ package arcadeflex.v037b7.vidhrdw;
 //common imports
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.common.libc.expressions.*;
+import static arcadeflex.common.libc.cstring.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
@@ -22,7 +23,6 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_transparent_pen;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_used_colors;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 
 

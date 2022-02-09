@@ -4,6 +4,9 @@
  */
 package gr.codebb.arcadeflex.WIP.v037b7.vidhrdw;
 
+//common imports
+import static arcadeflex.common.libc.cstdlib.*;
+
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import arcadeflex.v037b7.mame.drawgfxH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.*;
@@ -11,7 +14,6 @@ import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.vectorH.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.subArrays.IntSubArray;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 import static gr.codebb.arcadeflex.old.arcadeflex.osinlineH.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_get_pen;
 import static arcadeflex.v037b7.generic.funcPtr.VhStartPtr;

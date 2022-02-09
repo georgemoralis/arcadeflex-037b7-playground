@@ -13,7 +13,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_change_color;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.palette_recalc;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.pngH.png_info;
 import arcadeflex.common.ptrLib.UBytePtr;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
+import static arcadeflex.common.libc.cstring.*;
 import static arcadeflex.v037b7.mame.driverH.ORIENTATION_SWAP_XY;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;

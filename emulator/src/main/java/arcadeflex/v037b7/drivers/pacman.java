@@ -6,6 +6,7 @@ package arcadeflex.v037b7.drivers;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstdlib.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //machine imports
@@ -37,7 +38,6 @@ import static arcadeflex.v037b7.vidhrdw.generic.*;
 //to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.set_led_status;
 import static gr.codebb.arcadeflex.common.libc.cstring.memcpy;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
 
 public class pacman {
 

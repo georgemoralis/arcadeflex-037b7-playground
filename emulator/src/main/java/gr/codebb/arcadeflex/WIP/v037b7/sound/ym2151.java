@@ -5,7 +5,7 @@
 package gr.codebb.arcadeflex.WIP.v037b7.sound;
 
 import arcadeflex.common.ptrLib.ShortPtr;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.rand;
+import static arcadeflex.common.libc.cstdlib.*;
 import arcadeflex.v037b7.sound.streams.StreamInitMultiPtr;
 import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
 import arcadeflex.v037b7.generic.funcPtr.WriteYmHandlerPtr;
