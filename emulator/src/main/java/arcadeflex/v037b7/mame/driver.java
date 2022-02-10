@@ -84,7 +84,7 @@ import static arcadeflex.v037b7.drivers.blktiger.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.cbasebal.*;
 import static arcadeflex.v037b7.drivers.commando.*;
 import static arcadeflex.v037b7.drivers.galaxian.*;
-import static arcadeflex.v037b7.drivers.galivan.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.galivan.*;
 import static arcadeflex.v037b7.drivers.gsword.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.gundealr.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.magix.*;
@@ -142,7 +142,7 @@ import static arcadeflex.v037b7.drivers.troangel.*;
 import static arcadeflex.v037b7.drivers.mikie.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.sbasketb.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.citycon.*;
-import static arcadeflex.v037b7.drivers.finalizr.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.finalizr.*;
 import static arcadeflex.v037b7.drivers.mappy.*;
 import static arcadeflex.v037b7.drivers.phozon.*;
 import static arcadeflex.v037b7.drivers.superpac.*;
@@ -161,7 +161,7 @@ import static arcadeflex.v037b7.drivers.ironhors.*;
 import static arcadeflex.v037b7.drivers.rocnrope.*;
 import static arcadeflex.v037b7.drivers.trackfld.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bogeyman.*;
-import static arcadeflex.v037b7.drivers.cabal.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.cabal.*;
 import static arcadeflex.v037b7.drivers.kingobox.*;
 import static arcadeflex.v037b7.drivers.skydiver.*;
 import static arcadeflex.v037b7.drivers.tp84.*;
@@ -185,7 +185,7 @@ import static arcadeflex.v037b7.drivers.exidy.*;
 import static arcadeflex.v037b7.drivers.circus.*;
 import static arcadeflex.v037b7.drivers.terracre.*;
 import static arcadeflex.v037b7.drivers.sidepckt.*;
-import static arcadeflex.v037b7.drivers.xain.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.xain.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -367,13 +367,13 @@ public class driver {
         driver_terracre, /* (c) 1985 */
         driver_terracrb, /* (c) 1985 */
         driver_terracra, /* (c) 1985 */
-        driver_galivan,/* (c) 1985 */
-        driver_galivan2,/* (c) 1985 */
-        driver_dangar, /* (c) 1986 */
-        driver_dangar2, /* (c) 1986 */
-        driver_dangarb, /* bootleg */
-        driver_ninjemak, /* (c) 1986 (US?) */
-        driver_youma, /* (c) 1986 (Japan) */
+        /*RELEASE*///driver_galivan,/* (c) 1985 */
+        /*RELEASE*///driver_galivan2,/* (c) 1985 */
+        /*RELEASE*///driver_dangar, /* (c) 1986 */
+        /*RELEASE*///driver_dangar2, /* (c) 1986 */
+        /*RELEASE*///driver_dangarb, /* bootleg */
+        /*RELEASE*///driver_ninjemak, /* (c) 1986 (US?) */
+        /*RELEASE*///driver_youma, /* (c) 1986 (Japan) */
         driver_terraf,/* (c) 1987 */
         driver_terrafu, /* (c) 1987 Nichibutsu USA */
         driver_kodure, /* (c) 1987 (Japan) */
@@ -2139,8 +2139,8 @@ public class driver {
         /*TODO*///	driver_gberetb )	/* bootleg on different hardware */
         /*TODO*///	driver_mrgoemon )	/* GX621 (c) 1986 (Japan) */
         /*RELEASE*///driver_jailbrek, /* GX507 (c) 1986 */
-        driver_finalizr, /* GX523 (c) 1985 */
-        driver_finalizb, /* bootleg */
+        /*RELEASE*///driver_finalizr, /* GX523 (c) 1985 */
+        /*RELEASE*///driver_finalizb, /* bootleg */
         driver_ironhors, /* GX560 (c) 1986 */
         driver_dairesya, /* GX560 (c) 1986 (Japan) */
         driver_farwest,
@@ -2597,9 +2597,9 @@ public class driver {
         /*RELEASE*///driver_renegade, /* TA-0018 (c) 1986 + Taito America license */
         /*RELEASE*///driver_kuniokun, /* TA-0018 (c) 1986 */
         /*RELEASE*///driver_kuniokub, /* bootleg */
-        driver_xsleena, /* TA-0019 (c) 1986 */
-        driver_xsleenab, /* bootleg */
-        driver_solarwar, /* TA-0019 (c) 1986 Taito + Memetron license */
+        /*RELEASE*///driver_xsleena, /* TA-0019 (c) 1986 */
+        /*RELEASE*///driver_xsleenab, /* bootleg */
+        /*RELEASE*///driver_solarwar, /* TA-0019 (c) 1986 Taito + Memetron license */
         driver_battlane, /* TA-???? (c) 1986 + Taito license */
         driver_battlan2, /* TA-???? (c) 1986 + Taito license */
         driver_battlan3, /* TA-???? (c) 1986 + Taito license */
@@ -2805,9 +2805,9 @@ public class driver {
         /*TODO*///*/
         /*TODO*///
         /* Tad games (Tad games run on Seibu hardware) */
-        driver_cabal, /* (c) 1988 Tad + Fabtek license */
-        driver_cabal2, /* (c) 1988 Tad + Fabtek license */
-        driver_cabalbl, /* bootleg */
+        /*RELEASE*///driver_cabal, /* (c) 1988 Tad + Fabtek license */
+        /*RELEASE*///driver_cabal2, /* (c) 1988 Tad + Fabtek license */
+        /*RELEASE*///driver_cabalbl, /* bootleg */
         /*TODO*///	driver_toki )		/* (c) 1989 Tad */
         /*TODO*///	driver_toki2 )		/* (c) 1989 Tad */
         /*TODO*///	driver_toki3 )		/* (c) 1989 Tad */
