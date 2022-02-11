@@ -15,7 +15,7 @@ import static arcadeflex.v037b7.drivers.bagman.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.arabian.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.bking2.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.cheekyms.*;
-import static arcadeflex.v037b7.drivers.champbas.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.champbas.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.cop01.*;
 import static arcadeflex.v037b7.drivers.docastle.*;
 import static arcadeflex.v037b7.drivers.espial.*;
@@ -76,13 +76,13 @@ import static arcadeflex.v037b7.drivers.digdug.*;
 import static arcadeflex.v037b7.drivers.kchamp.*;
 import static arcadeflex.v037b7.drivers.pengo.*;
 import static arcadeflex.v037b7.drivers.rallyx.*;
-import static arcadeflex.v037b7.drivers.fastfred.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.fastfred.*;
 import static arcadeflex.v037b7.drivers.galaga.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers._1942.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.airbustr.*;
 import static arcadeflex.v037b7.drivers.blktiger.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.cbasebal.*;
-import static arcadeflex.v037b7.drivers.commando.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.commando.*;
 import static arcadeflex.v037b7.drivers.galaxian.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.galivan.*;
 import static arcadeflex.v037b7.drivers.gsword.*;
@@ -150,7 +150,7 @@ import static arcadeflex.v037b7.drivers.yiear.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.ddrible.*;
 import static arcadeflex.v037b7.drivers.sonson.*;
 import static arcadeflex.v037b7.drivers.battlane.*;
-import static arcadeflex.v037b7.drivers.brkthru.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.brkthru.*;
 import static arcadeflex.v037b7.drivers.gaplus.*;
 import static arcadeflex.v037b7.drivers.grobda.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.jailbrek.*;
@@ -186,6 +186,7 @@ import static arcadeflex.v037b7.drivers.circus.*;
 import static arcadeflex.v037b7.drivers.terracre.*;
 import static arcadeflex.v037b7.drivers.sidepckt.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.xain.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.toki.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -332,10 +333,10 @@ public class driver {
         /*RELEASE*///driver_turtles,/* (c) 1981 Stern */
         /*RELEASE*///driver_turpin,/* (c) 1981 Sega */
         /*RELEASE*///driver_600,/* GX353 (c) 1981 Konami */
-        driver_flyboy,/* (c) 1982 Kaneko */
-        driver_flyboyb,/* bootleg */
-        driver_fastfred,/* (c) 1982 Atari */
-        driver_jumpcoas,/* (c) 1983 Kaneko */
+        /*RELEASE*///driver_flyboy,/* (c) 1982 Kaneko */
+        /*RELEASE*///driver_flyboyb,/* bootleg */
+        /*RELEASE*///driver_fastfred,/* (c) 1982 Atari */
+        /*RELEASE*///driver_jumpcoas,/* (c) 1983 Kaneko */
         /* "Crazy Climber hardware" games */
         driver_cclimber,/* (c) 1980 Nichibutsu */
         driver_cclimbrj,/* (c) 1980 Nichibutsu */
@@ -1321,10 +1322,10 @@ public class driver {
         /*RELEASE*///driver_1942b,/* 12/1984 (c) 1984 */
         /*RELEASE*///driver_exedexes,/*  2/1985 (c) 1985 */
         /*RELEASE*///driver_savgbees,/*  2/1985 (c) 1985 + Memetron license */
-        driver_commando,/*  5/1985 (c) 1985 (World) */
-        driver_commandu,/*  5/1985 (c) 1985 + Data East license (US) */
-        driver_commandj,/*  5/1985 (c) 1985 (Japan) */
-        driver_spaceinv,/* bootleg */
+        /*RELEASE*///driver_commando,/*  5/1985 (c) 1985 (World) */
+        /*RELEASE*///driver_commandu,/*  5/1985 (c) 1985 + Data East license (US) */
+        /*RELEASE*///driver_commandj,/*  5/1985 (c) 1985 (Japan) */
+        /*RELEASE*///driver_spaceinv,/* bootleg */
         /*TODO*///	driver_gng )		/*  9/1985 (c) 1985 */
         /*TODO*///	driver_gnga )		/*  9/1985 (c) 1985 */
         /*TODO*///	driver_gngt )		/*  9/1985 (c) 1985 */
@@ -1947,9 +1948,9 @@ public class driver {
         driver_karatevs,/* (c) 1984 Data East Corporation (Japan) */
         /*TODO*///	driver_firetrap )	/* (c) 1986 */
         /*TODO*///	driver_firetpbl )	/* bootleg */
-        driver_brkthru, /* (c) 1986 Data East USA (US) */
-        driver_brkthruj, /* (c) 1986 Data East Corporation (Japan) */
-        driver_darwin, /* (c) 1986 Data East Corporation (Japan) */
+        /*RELEASE*///driver_brkthru, /* (c) 1986 Data East USA (US) */
+        /*RELEASE*///driver_brkthruj, /* (c) 1986 Data East Corporation (Japan) */
+        /*RELEASE*///driver_darwin, /* (c) 1986 Data East Corporation (Japan) */
         /*TODO*///	driver_shootout )	/* (c) 1985 Data East USA (US) */
         /*TODO*///	driver_shootouj )	/* (c) 1985 Data East USA (Japan) */
         /*TODO*///	driver_shootoub )	/* bootleg */
@@ -2574,9 +2575,9 @@ public class driver {
         driver_gangwarb, /* Alpha-68K96V bootleg */
         driver_sbasebal, /* Alpha-68K96V       (c) 1989 SNK of America licensed from Alpha */
         /* Alpha Denshi games */
-        driver_champbas,/* (c) 1983 Sega */
-        driver_champbbj,/* (c) 1983 Alpha Denshi Co. */
-        driver_champbb2,/* (c) 1983 Sega */
+        /*RELEASE*///driver_champbas,/* (c) 1983 Sega */
+        /*RELEASE*///driver_champbbj,/* (c) 1983 Alpha Denshi Co. */
+        /*RELEASE*///driver_champbb2,/* (c) 1983 Sega */
         /*RELEASE*///driver_exctsccr,/* (c) 1983 Alpha Denshi Co. */
         /*RELEASE*///driver_exctscca,/* (c) 1983 Alpha Denshi Co. */
         /*RELEASE*///driver_exctsccb,/* bootleg */
@@ -2808,11 +2809,11 @@ public class driver {
         /*RELEASE*///driver_cabal, /* (c) 1988 Tad + Fabtek license */
         /*RELEASE*///driver_cabal2, /* (c) 1988 Tad + Fabtek license */
         /*RELEASE*///driver_cabalbl, /* bootleg */
-        /*TODO*///	driver_toki )		/* (c) 1989 Tad */
-        /*TODO*///	driver_toki2 )		/* (c) 1989 Tad */
-        /*TODO*///	driver_toki3 )		/* (c) 1989 Tad */
-        /*TODO*///	driver_tokiu )		/* (c) 1989 Tad + Fabtek license */
-        /*TODO*///	driver_tokib )		/* bootleg */
+        /*RELEASE*///driver_toki, /* (c) 1989 Tad */
+        /*RELEASE*///driver_toki2, /* (c) 1989 Tad */
+        /*RELEASE*///driver_toki3, /* (c) 1989 Tad */
+        /*RELEASE*///driver_tokiu, /* (c) 1989 Tad + Fabtek license */
+        /*RELEASE*///driver_tokib, /* bootleg */
         /*TODO*///	driver_bloodbro )	/* (c) 1990 Tad */
         /*TODO*///	driver_weststry )	/* bootleg */
         /*TODO*///
