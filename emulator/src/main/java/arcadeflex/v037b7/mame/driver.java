@@ -23,9 +23,9 @@ import static arcadeflex.v037b7.drivers.espial.*;
 import static arcadeflex.v037b7.drivers.cclimber.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.berzerk.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.exedexes.*;
-import static arcadeflex.v037b7.drivers.frogger.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.frogger.*;
 import static arcadeflex.v037b7.drivers.funkybee.*;
-import static arcadeflex.v037b7.drivers.ttmahjng.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.ttmahjng.*;
 import static arcadeflex.v037b7.drivers.wiping.*;
 import static arcadeflex.v037b7.drivers.wiz.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.hexa.*;
@@ -43,7 +43,7 @@ import static arcadeflex.v037b7.drivers.marineb.*;
 import static arcadeflex.v037b7.drivers.tnzs.*;
 import static arcadeflex.v037b7.drivers.solomon.*;
 import static arcadeflex.v037b7.drivers.naughtyb.*;
-import static arcadeflex.v037b7.drivers.nova2001.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.nova2001.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.pingpong.*;
 import static arcadeflex.v037b7.drivers.pkunwar.*;
 import static arcadeflex.v037b7.drivers.pooyan.*;
@@ -111,7 +111,7 @@ import static arcadeflex.v037b7.drivers.blockhl.*;
 import static arcadeflex.v037b7.drivers._88games.*;
 import static arcadeflex.v037b7.drivers.taito_l.*;
 import static arcadeflex.v037b7.drivers.taitosj.*;
-import static arcadeflex.v037b7.drivers.lkage.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.lkage.*;
 import static arcadeflex.v037b7.drivers.mexico86.*;
 import static arcadeflex.v037b7.drivers.hal21.*;
 import static arcadeflex.v037b7.drivers.snk.*;
@@ -121,7 +121,7 @@ import static arcadeflex.v037b7.drivers.bublbobl.*;
 import static arcadeflex.v037b7.drivers.spacefb.*;
 import static arcadeflex.v037b7.drivers.arkanoid.*;
 import static arcadeflex.v037b7.drivers.mario.*;
-import static arcadeflex.v037b7.drivers.gyruss.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.gyruss.*;
 import static arcadeflex.v037b7.drivers.vicdual.*;
 import static arcadeflex.v037b7.drivers.vigilant.*;
 import static arcadeflex.v037b7.drivers.shisen.*;
@@ -136,8 +136,8 @@ import static arcadeflex.v037b7.drivers.rastan.*;
 import static arcadeflex.v037b7.drivers.shaolins.*;
 import static arcadeflex.v037b7.drivers.mpatrol.*;
 import static arcadeflex.v037b7.drivers.yard.*;
-import static arcadeflex.v037b7.drivers.travrusa.*;
-import static arcadeflex.v037b7.drivers.troangel.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.travrusa.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.troangel.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.circusc.*;
 import static arcadeflex.v037b7.drivers.mikie.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.sbasketb.*;
@@ -148,7 +148,7 @@ import static arcadeflex.v037b7.drivers.phozon.*;
 import static arcadeflex.v037b7.drivers.superpac.*;
 import static arcadeflex.v037b7.drivers.yiear.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.ddrible.*;
-import static arcadeflex.v037b7.drivers.sonson.*;
+/*RELEASE*///import static arcadeflex.v037b7.drivers.sonson.*;
 import static arcadeflex.v037b7.drivers.battlane.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.brkthru.*;
 import static arcadeflex.v037b7.drivers.gaplus.*;
@@ -322,10 +322,10 @@ public class driver {
         driver_hustler, /* GX343 (c) 1981 Konami */
         driver_billiard, /* bootleg */
         driver_hustlerb, /* bootleg */
-        driver_frogger,/* GX392 (c) 1981 Konami */
-        driver_frogseg1,/* (c) 1981 Sega */
-        driver_frogseg2,/* 834-0068 (c) 1981 Sega */
-        driver_froggrmc,/* 800-3110 (c) 1981 Sega */
+        /*RELEASE*///driver_frogger,/* GX392 (c) 1981 Konami */
+        /*RELEASE*///driver_frogseg1,/* (c) 1981 Sega */
+        /*RELEASE*///driver_frogseg2,/* 834-0068 (c) 1981 Sega */
+        /*RELEASE*///driver_froggrmc,/* 800-3110 (c) 1981 Sega */
         /*RELEASE*///driver_amidar,/* GX337 (c) 1981 Konami */
         /*RELEASE*///driver_amidaru,/* GX337 (c) 1982 Konami + Stern license */
         /*RELEASE*///driver_amidaro,/* GX337 (c) 1982 Konami + Olympia license */
@@ -857,12 +857,12 @@ public class driver {
         driver_mpatrol, /* M52 (c) 1982 */
         driver_mpatrolw, /* M52 (c) 1982 + Williams license */
         driver_mranger, /* bootleg */
-        driver_troangel, /* (c) 1983 */
+        /*RELEASE*///driver_troangel, /* (c) 1983 */
         driver_yard, /* (c) 1983 */
         driver_vsyard, /* (c) 1983/1984 */
         driver_vsyard2, /* (c) 1983/1984 */
-        driver_travrusa, /* (c) 1983 */
-        driver_motorace, /* (c) 1983 Williams license */
+        /*RELEASE*///driver_travrusa, /* (c) 1983 */
+        /*RELEASE*///driver_motorace, /* (c) 1983 Williams license */
         /*TODO*///	/* M62 */
         /*TODO*///	driver_kungfum )	/* (c) 1984 */
         /*TODO*///	driver_kungfud )	/* (c) 1984 + Data East license */
@@ -1001,10 +1001,10 @@ public class driver {
         /* other Taito games */
         /*RELEASE*///driver_bking2,/* AD6 (c) 1983 Taito Corporation */
         driver_gsword,/* (c) 1984 Taito Corporation */
-        driver_lkage, /* A54 (c) 1984 Taito Corporation */
-        driver_lkageb, /* bootleg */
-        driver_lkageb2, /* bootleg */
-        driver_lkageb3, /* bootleg */
+        /*RELEASE*///driver_lkage, /* A54 (c) 1984 Taito Corporation */
+        /*RELEASE*///driver_lkageb, /* bootleg */
+        /*RELEASE*///driver_lkageb2, /* bootleg */
+        /*RELEASE*///driver_lkageb3, /* bootleg */
         driver_retofinv,/* A37 (c) 1985 Taito Corporation */
         driver_retofin1,/* bootleg */
         driver_retofin2,/* bootleg */
@@ -1315,7 +1315,7 @@ public class driver {
         /*TODO*///	driver_vulgus )	/*  5/1984 (c) 1984 */
         /*TODO*///	driver_vulgus2 )	/*  5/1984 (c) 1984 */
         /*TODO*///	driver_vulgusj )	/*  5/1984 (c) 1984 */
-        driver_sonson, /*  7/1984 (c) 1984 */
+        /*RELEASE*///driver_sonson, /*  7/1984 (c) 1984 */
         /*RELEASE*///driver_higemaru,/*  9/1984 (c) 1984 */
         /*RELEASE*///driver_1942,/* 12/1984 (c) 1984 */
         /*RELEASE*///driver_1942a,/* 12/1984 (c) 1984 */
@@ -2107,9 +2107,9 @@ public class driver {
         driver_megazone, /* GX319 (c) 1983 */
         driver_megaznik, /* GX319 (c) 1983 + Interlogic / Kosuka */
         /*TODO*///	driver_pandoras )	/* GX328 (c) 1984 + Interlogic */
-        driver_gyruss,/* GX347 (c) 1983 */
-        driver_gyrussce, /* GX347 (c) 1983 + Centuri license */
-        driver_venus, /* bootleg */
+        /*RELEASE*///driver_gyruss,/* GX347 (c) 1983 */
+        /*RELEASE*///driver_gyrussce, /* GX347 (c) 1983 + Centuri license */
+        /*RELEASE*///driver_venus, /* bootleg */
         driver_trackfld, /* GX361 (c) 1983 */
         driver_trackflc, /* GX361 (c) 1983 + Centuri license */
         driver_hyprolym, /* GX361 (c) 1983 */
@@ -2635,7 +2635,7 @@ public class driver {
         driver_stratvox,/* Taito */
         driver_stratvxb,/* bootleg */
         driver_speakres,/* no copyright notice */
-        driver_ttmahjng,/* Taito */
+        /*RELEASE*///driver_ttmahjng,/* Taito */
         /*TODO*///
         /*TODO*///	/* Zaccaria games */
         /*TODO*///	driver_sia2650 )
@@ -2646,8 +2646,8 @@ public class driver {
         /*TODO*///	driver_jackrabs )	/* (c) 1984 */
         /*TODO*///
         /*TODO*///	/* UPL games */
-        driver_nova2001,/* UPL-83005 (c) 1983 */
-        driver_nov2001u,/* UPL-83005 (c) [1983] + Universal license */
+        /*RELEASE*///driver_nova2001,/* UPL-83005 (c) 1983 */
+        /*RELEASE*///driver_nov2001u,/* UPL-83005 (c) [1983] + Universal license */
         driver_pkunwar,/* [1985?] */
         driver_pkunwarj,/* [1985?] */
         driver_ninjakd2,/* (c) 1987 */
