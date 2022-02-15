@@ -187,6 +187,8 @@ import static arcadeflex.v037b7.drivers.terracre.*;
 import static arcadeflex.v037b7.drivers.sidepckt.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.xain.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.toki.*;
+import static arcadeflex.v037b7.drivers.tigeroad.*;
+import static arcadeflex.v037b7.drivers.taito_b.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -1081,25 +1083,25 @@ public class driver {
         driver_cachat, /* ??? (c) 1993 Taito Corporation (Japan) */
         driver_plgirls, /* (c) 1992 Hot-B. */
         driver_plgirls2, /* (c) 1993 Hot-B. */
-        /*TODO*///	/* Taito B-System games */
-        /*TODO*///	driver_masterw )	/* B72 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///	driver_nastar )	/* B81 (c) 1988 Taito Corporation Japan (World) */
-        /*TODO*///	driver_nastarw )	/* B81 (c) 1988 Taito America Corporation (US) */
-        /*TODO*///	driver_rastsag2 )	/* B81 (c) 1988 Taito Corporation (Japan) */
-        /*TODO*///	driver_rambo3 )	/* B93 (c) 1989 Taito Europe Corporation (Europe) */
-        /*TODO*///	driver_rambo3a )	/* B93 (c) 1989 Taito America Corporation (US) */
-        /*TODO*///	driver_crimec )	/* B99 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///	driver_crimecu )	/* B99 (c) 1989 Taito America Corporation (US) */
-        /*TODO*///	driver_crimecj )	/* B99 (c) 1989 Taito Corporation (Japan) */
+        /* Taito B-System games */
+        driver_masterw, /* B72 (c) 1989 Taito Corporation Japan (World) */
+        driver_nastar, /* B81 (c) 1988 Taito Corporation Japan (World) */
+        driver_nastarw, /* B81 (c) 1988 Taito America Corporation (US) */
+        driver_rastsag2, /* B81 (c) 1988 Taito Corporation (Japan) */
+        driver_rambo3, /* B93 (c) 1989 Taito Europe Corporation (Europe) */
+        driver_rambo3a, /* B93 (c) 1989 Taito America Corporation (US) */
+        driver_crimec, /* B99 (c) 1989 Taito Corporation Japan (World) */
+        driver_crimecu, /* B99 (c) 1989 Taito America Corporation (US) */
+        driver_crimecj, /* B99 (c) 1989 Taito Corporation (Japan) */
         /*TODO*///	driver_tetrist )	/* C12 (c) 1989 Sega Enterprises,Ltd. (Japan) */
-        /*TODO*///	driver_viofight )	/* C16 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///	driver_ashura )	/* C43 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_ashurau )	/* C43 (c) 1990 Taito America Corporation (US) */
-        /*TODO*///	driver_hitice )	/* C59 (c) 1990 Williams (US) */
+        driver_viofight, /* C16 (c) 1989 Taito Corporation Japan (World) */
+        driver_ashura, /* C43 (c) 1990 Taito Corporation (Japan) */
+        driver_ashurau, /* C43 (c) 1990 Taito America Corporation (US) */
+        driver_hitice, /* C59 (c) 1990 Williams (US) */
         /*TODO*///	driver_puzbobb )	/* ??? (c) 1994 Taito Corporation (Japan) */
-        /*TODO*///	driver_qzshowby )	/* D72 (c) 1993 Taito Corporation (Japan) */
-        /*TODO*///	driver_spacedx )	/* D89 (c) 1994 Taito Corporation (Japan) */
-        /*TODO*///	driver_silentd )	/* ??? (c) 1992 Taito Corporation Japan (World) */
+        driver_qzshowby, /* D72 (c) 1993 Taito Corporation (Japan) */
+        driver_spacedx, /* D89 (c) 1994 Taito Corporation (Japan) */
+        driver_silentd, /* ??? (c) 1992 Taito Corporation Japan (World) */
         /*TODO*///
         /*TODO*///	/* Taito F2 games */
         /*TODO*///	driver_finalb )	/* B82 (c) 1988 Taito Corporation Japan (World) */
@@ -1368,10 +1370,10 @@ public class driver {
         /*TODO*///	driver_sf1 )		/*  8/1987 (c) 1987 (World) */
         /*TODO*///	driver_sf1us )		/*  8/1987 (c) 1987 (US) */
         /*TODO*///	driver_sf1jp )		/*  8/1987 (c) 1987 (Japan) */
-        /*TODO*///	driver_tigeroad )	/* 11/1987 (c) 1987 + Romstar (US) */
-        /*TODO*///	driver_toramich )	/* 11/1987 (c) 1987 (Japan) */
-        /*TODO*///	driver_f1dream )	/*  4/1988 (c) 1988 + Romstar */
-        /*TODO*///	driver_f1dreamb )	/* bootleg */
+        driver_tigeroad, /* 11/1987 (c) 1987 + Romstar (US) */
+        driver_toramich, /* 11/1987 (c) 1987 (Japan) */
+        driver_f1dream, /*  4/1988 (c) 1988 + Romstar */
+        driver_f1dreamb, /* bootleg */
         /*RELEASE*///driver_1943kai,/*  6/1988 (c) 1987 (Japan) */
         /*TODO*///	driver_lastduel )	/*  7/1988 (c) 1988 (US) */
         /*TODO*///	driver_lstduela )	/*  7/1988 (c) 1988 (US) */
