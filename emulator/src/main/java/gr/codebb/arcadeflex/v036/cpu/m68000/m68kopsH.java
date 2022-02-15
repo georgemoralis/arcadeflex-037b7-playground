@@ -25275,10 +25275,9 @@ public class m68kopsH {
     };
     public static opcode m68000_suba_di_32 = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+            long a_dst = get_AX();
+            set_AX(MASK_OUT_ABOVE_32(a_dst - m68ki_read_32(EA_DI())));
+            USE_CLKS(6+12);
         }
     };
     public static opcode m68000_suba_ix_32 = new opcode() {
