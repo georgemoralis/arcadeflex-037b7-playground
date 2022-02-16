@@ -189,6 +189,7 @@ import static arcadeflex.v037b7.drivers.sidepckt.*;
 /*RELEASE*///import static arcadeflex.v037b7.drivers.toki.*;
 import static arcadeflex.v037b7.drivers.tigeroad.*;
 import static arcadeflex.v037b7.drivers.taito_b.*;
+import static arcadeflex.v037b7.drivers.tail2nos.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -2868,8 +2869,8 @@ public class driver {
         /*TODO*///	driver_rpunch )	/* (c) 1987 V-System Co. + Bally/Midway/Sente license (US) */
         /*TODO*///	driver_svolley )	/* (c) 1989 V-System Co. (Japan) */
         /*TODO*///	driver_svolleyk )	/* (c) 1989 V-System Co. (Japan) */
-        /*TODO*///	driver_tail2nos )	/* [1989] V-System Co. */
-        /*TODO*///	driver_sformula )	/* [1989] V-System Co. (Japan) */
+       	driver_tail2nos,	/* [1989] V-System Co. */
+        driver_sformula,	/* [1989] V-System Co. (Japan) */
         driver_pipedrm,/* (c) 1990 Video System Co. (Japan) */
         driver_hatris,/* (c) 1990 Video System Co. (Japan) */
         /*TODO*///	driver_pspikes )	/* (c) 1991 Video System Co. (Korea) */

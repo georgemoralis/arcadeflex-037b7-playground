@@ -3163,10 +3163,14 @@ public class m68kopsH {
     };
     public static opcode m68000_and_er_ai_32 = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+            set_DX(get_DX() & m68ki_read_32(EA_AI()));
+            long res = get_DX();
+
+            m68k_cpu.n_flag = GET_MSB_32(res);
+            m68k_cpu.not_z_flag = res;
+            m68k_cpu.c_flag = 0;
+            m68k_cpu.v_flag = 0;
+            USE_CLKS(6+8);
         }
     };
     public static opcode m68000_and_er_pi_32 = new opcode() {
@@ -3652,7 +3656,7 @@ public class m68kopsH {
     };
     public static opcode m68000_andi_ix_8 = new opcode() {
         public void handler() {
-                        long tmp = m68ki_read_imm_8();
+            long tmp = m68ki_read_imm_8();
             long ea = EA_IX();
             long res = tmp & m68ki_read_8(ea);
 
@@ -18677,7 +18681,7 @@ public class m68kopsH {
     };
     public static opcode m68000_movem_er_aw_32 = new opcode() {
         public void handler() {
-/*TODO*///	uint i = 0;
+            /*TODO*///	uint i = 0;
 /*TODO*///	uint register_list = m68ki_read_imm_16();
 /*TODO*///	uint ea = EA_AW;
 /*TODO*///	uint count = 0;
@@ -18752,7 +18756,7 @@ public class m68kopsH {
                 }
             }
             /* ASG: changed from (count << 4) to (count << 3) */
-            USE_CLKS((int)((count << 3) + 8+8));
+            USE_CLKS((int) ((count << 3) + 8 + 8));
         }
     };
     public static opcode m68000_movem_er_al_32 = new opcode() {
@@ -19915,7 +19919,7 @@ public class m68kopsH {
     };
     public static opcode m68000_neg_ai_32 = new opcode() {
         public void handler() {
-                        long ea = EA_AI();
+            long ea = EA_AI();
             long dst = m68ki_read_32(ea);
             long res = MASK_OUT_ABOVE_32(-dst);
 
@@ -24939,7 +24943,7 @@ public class m68kopsH {
             long dst = m68ki_read_16(ea);
             long res = MASK_OUT_ABOVE_16(dst - src);
             m68ki_write_16(ea, res);
-            
+
             m68k_cpu.n_flag = GET_MSB_16(res);
             m68k_cpu.not_z_flag = res;
             m68k_cpu.x_flag = m68k_cpu.c_flag = CFLAG_SUB_16(src, dst, res);
@@ -25277,7 +25281,7 @@ public class m68kopsH {
         public void handler() {
             long a_dst = get_AX();
             set_AX(MASK_OUT_ABOVE_32(a_dst - m68ki_read_32(EA_DI())));
-            USE_CLKS(6+12);
+            USE_CLKS(6 + 12);
         }
     };
     public static opcode m68000_suba_ix_32 = new opcode() {
@@ -26042,10 +26046,19 @@ public class m68kopsH {
     };
     public static opcode m68000_subq_pi_16 = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+            long src = (((get_CPU_IR() >>> 9) - 1) & 7) + 1;
+            long ea = EA_PI_16();
+            long dst = m68ki_read_16(ea);
+            long res = MASK_OUT_ABOVE_16(dst - src);
+
+            m68ki_write_16(ea, res);
+
+            m68k_cpu.n_flag = GET_MSB_16(res);
+            m68k_cpu.not_z_flag = res;
+            m68k_cpu.x_flag = CFLAG_SUB_16(src, dst, res);
+            m68k_cpu.c_flag = CFLAG_SUB_16(src, dst, res);
+            m68k_cpu.v_flag = VFLAG_SUB_16(src, dst, res);
+            USE_CLKS(8 + 4);
         }
     };
     public static opcode m68000_subq_pd_16 = new opcode() {
@@ -26168,10 +26181,19 @@ public class m68kopsH {
     };
     public static opcode m68000_subq_ai_32 = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+            long src = (((get_CPU_IR() >>> 9) - 1) & 7) + 1;
+            long ea = EA_AI();
+            long dst = m68ki_read_32(ea);
+            long res = MASK_OUT_ABOVE_32(dst - src);
+
+            m68ki_write_32(ea, res);
+
+            m68k_cpu.n_flag = GET_MSB_32(res);
+            m68k_cpu.not_z_flag = res;
+            m68k_cpu.x_flag = CFLAG_SUB_32(src, dst, res);
+            m68k_cpu.c_flag = CFLAG_SUB_32(src, dst, res);
+            m68k_cpu.v_flag = VFLAG_SUB_32(src, dst, res);
+            USE_CLKS(12 + 8);
         }
     };
     public static opcode m68000_subq_pi_32 = new opcode() {
