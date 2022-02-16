@@ -194,6 +194,7 @@ import static arcadeflex.v037b7.drivers.tail2nos.*;
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
 import static arcadeflex.WIP.v037b7.drivers.armedf.*;//buggy 68k not working
+import static arcadeflex.WIP.v037b7.drivers.gaiden.*;
 
 public class driver {
 
@@ -2085,11 +2086,11 @@ public class driver {
         driver_gemini, /* (c) 1987 Tecmo */
         driver_silkworm, /* 6217 - (c) 1988 Tecmo */
         driver_silkwrm2, /* 6217 - (c) 1988 Tecmo */
-        /*TODO*///	driver_gaiden )	/* 6215 - (c) 1988 Tecmo (World) */
-        /*TODO*///	driver_shadoww )	/* 6215 - (c) 1988 Tecmo (US) */
-        /*TODO*///	driver_ryukendn )	/* 6215 - (c) 1989 Tecmo (Japan) */
-        /*TODO*///	driver_tknight )	/* (c) 1989 Tecmo */
-        /*TODO*///	driver_wildfang )	/* (c) 1989 Tecmo */
+        driver_gaiden,	/* 6215 - (c) 1988 Tecmo (World) */
+        driver_shadoww,	/* 6215 - (c) 1988 Tecmo (US) */
+        driver_ryukendn,	/* 6215 - (c) 1989 Tecmo (Japan) */
+        driver_tknight,	/* (c) 1989 Tecmo */
+        driver_wildfang,	/* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90,/* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90b,/* bootleg */
         driver_fstarfrc, /* (c) 1992 Tecmo */

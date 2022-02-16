@@ -127,6 +127,8 @@ public class fileio {
                     pathv = new String[1];
                     pathv[0] = "roms";
                     
+                    //System.out.println(new File(pathv[0] + File.separator + gamename + ".zip").getAbsolutePath());
+                    
                     if (!(new File(pathv[0] + File.separator + gamename + ".zip").exists())){
                         //found=1;
                         System.out.println(gamename+" not FOUND! Trying to download it");
