@@ -191,6 +191,8 @@ import static arcadeflex.v037b7.drivers.tigeroad.*;
 import static arcadeflex.v037b7.drivers.taito_b.*;
 import static arcadeflex.v037b7.drivers.tail2nos.*;
 import static arcadeflex.v037b7.drivers.prehisle.*;
+import static arcadeflex.v037b7.drivers.powerins.*;
+import static arcadeflex.v037b7.drivers.snowbros.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -1192,11 +1194,11 @@ public class driver {
         /*TODO*///	driver_vimana )	/* TP-019 (c) 1991 Toaplan (+ Tecmo license when set to Japan) */
         /*TODO*///	driver_vimana2 )	/* TP-019 (c) 1991 Toaplan (+ Tecmo license when set to Japan)  */
         /*TODO*///	driver_vimanan )	/* TP-019 (c) 1991 Toaplan (+ Nova Apparate GMBH & Co license) */
-        /*TODO*///	driver_snowbros )	/* MIN16-02 (c) 1990 Toaplan + Romstar license */
-        /*TODO*///	driver_snowbroa )	/* MIN16-02 (c) 1990 Toaplan + Romstar license */
-        /*TODO*///	driver_snowbrob )	/* MIN16-02 (c) 1990 Toaplan + Romstar license */
-        /*TODO*///	driver_snowbroj )	/* MIN16-02 (c) 1990 Toaplan */
-        /*TODO*///	driver_wintbob )	/* bootleg */
+        driver_snowbros, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
+        driver_snowbroa, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
+        driver_snowbrob, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
+        driver_snowbroj, /* MIN16-02 (c) 1990 Toaplan */
+        driver_wintbob, /* bootleg */
         /*TODO*///
         /*TODO*///	driver_tekipaki )	/* TP-020 (c) 1991 Toaplan */
         /*TODO*///	driver_ghox )		/* TP-021 (c) 1991 Toaplan */
@@ -2979,7 +2981,7 @@ public class driver {
         /*TODO*///
         /*TODO*///	/* Atlus games */
         /*TODO*///	driver_ohmygod )	/* (c) 1993 Atlus (Japan) */
-        /*TODO*///	driver_powerins )	/* (c) 1993 Atlus (Japan) */
+        driver_powerins, /* (c) 1993 Atlus (Japan) */
         /*TODO*///
         /*TODO*///	/* SunSoft games */
         /*TODO*///	driver_shanghai )	/* (c) 1988 Sunsoft (Sun Electronics) */
@@ -3011,10 +3013,10 @@ public class driver {
         driver_hotpinbl, /* (c) 1995 Comad & New Japan System */
         driver_galspnbl, /* (c) 1996 Comad */
         /*TODO*///TESTdriver_ladyfrog )
-        /*TODO*///	/* the following ones run on modified Gals Panic hardware */
-        /*TODO*///	driver_fantasia )	/* (c) 1994 Comad & New Japan System */
-        /*TODO*///	driver_newfant )	/* (c) 1995 Comad & New Japan System */
-        /*TODO*///	driver_missw96 )	/* (c) 1996 Comad */
+        /* the following ones run on modified Gals Panic hardware */
+        driver_fantasia, /* (c) 1994 Comad & New Japan System */
+        driver_newfant, /* (c) 1995 Comad & New Japan System */
+        driver_missw96, /* (c) 1996 Comad */
         /*TODO*///
         /*TODO*///	/* Playmark games */
         /*TODO*///	driver_bigtwin )	/* (c) 1995 */
