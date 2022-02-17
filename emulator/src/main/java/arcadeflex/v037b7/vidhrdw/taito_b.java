@@ -6,19 +6,20 @@ package arcadeflex.v037b7.vidhrdw;
 
 //common imports
 import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.common.libc.cstring.*;
+import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
 //mame imports
 import static arcadeflex.v037b7.mame.common.*;
-import static arcadeflex.v037b7.mame.drawgfxH.TRANSPARENCY_NONE;
-import static arcadeflex.v037b7.mame.drawgfxH.TRANSPARENCY_PEN;
-import static arcadeflex.v037b7.mame.memoryH.COMBINE_WORD;
-import static arcadeflex.v037b7.mame.memoryH.COMBINE_WORD_MEM;
-import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
+import static arcadeflex.v037b7.mame.osdependH.osd_bitmap;
 import static arcadeflex.v037b7.mame.paletteH.*;
-import static arcadeflex.v037b7.mame.usrintrf.usrintf_showmessage;
-//sound imports
-import static arcadeflex.v037b7.vidhrdw.generic.videoram;
+import static arcadeflex.v037b7.mame.usrintrf.*;
+//vidhrdw imports
+import static arcadeflex.v037b7.vidhrdw.generic.*;
+//to be organized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyscrollbitmap;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.drawgfxzoom;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
@@ -41,12 +42,9 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_OPAQUE;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILEMAP_TRANSPARENT;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.TILE_FLIPYX;
 import gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.struct_tilemap;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
-import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.copybitmap;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.plot_pixel;
-//import static java.time.InstantSource.offset;
 
 public class taito_b {
 
@@ -539,83 +537,80 @@ public class taito_b {
 	
          */
 
-		int x,y,xlatch=0,ylatch=0,x_no=0,y_no=0,x_num=0,y_num=0,big_sprite=0;
-		int offs,code,color,flipx,flipy;
-		/*unsigned*/ int data, zoomx, zoomy, zx, zy, zoomxlatch=0, zoomylatch=0;
-        		for (offs = 0x1980-16; offs >=0; offs -= 16)
-		{
-			code = videoram.READ_WORD(offs);
-	
-			color = videoram.READ_WORD(offs+2);
-			flipx = color & 0x4000;
-			flipy = color & 0x8000;
+        int x, y, xlatch = 0, ylatch = 0, x_no = 0, y_no = 0, x_num = 0, y_num = 0, big_sprite = 0;
+        int offs, code, color, flipx, flipy;
+        /*unsigned*/ int data, zoomx, zoomy, zx, zy, zoomxlatch = 0, zoomylatch = 0;
+        for (offs = 0x1980 - 16; offs >= 0; offs -= 16) {
+            code = videoram.READ_WORD(offs);
 
-			color = b_sp_color_base + (color & 0x3f);
-	
-			x = videoram.READ_WORD(offs+4) & 0x3ff;
-			y = videoram.READ_WORD(offs+6) & 0x3ff;
-			if (x >= 0x200)	x -= 0x400;
-			if (y >= 0x200)	y -= 0x400;
-			data = videoram.READ_WORD(offs+0x0a);
-			if (data != 0)
-			{
-				if (big_sprite==0)
-				{
-					x_num = (data>>8) & 0xff;
-					y_num = (data) & 0xff;
-					x_no  = 0;
-					y_no  = 0;
-					xlatch = x;
-					ylatch = y;
-					data = videoram.READ_WORD(offs+0x08);
-					zoomxlatch = (data>>8) & 0xff;
-					zoomylatch = (data) & 0xff;
-					big_sprite = 1;
-				}
-			}
-        			data = videoram.READ_WORD(offs+0x08);
-			zoomx = (data>>8) & 0xff;
-			zoomy = (data) & 0xff;
-			zx = (0x100 - zoomx) / 16;
-			zy = (0x100 - zoomy) / 16;
-	
-			if (big_sprite != 0)
-			{
-				zoomx = zoomxlatch;
-				zoomy = zoomylatch;
-	
-				x = xlatch + x_no * (0x100 - zoomx) / 16;
-				y = ylatch + y_no * (0x100 - zoomy) / 16;
-				zx = xlatch + (x_no+1) * (0x100 - zoomx) / 16 - x;
-				zy = ylatch + (y_no+1) * (0x100 - zoomy) / 16 - y;
-				y_no++;
-				if (y_no>y_num)
-				{
-					y_no = 0;
-					x_no++;
-					if (x_no>x_num)
-						big_sprite = 0;
-				}
-			}
-        			if ( zoomx!=0 || zoomy!=0 )
-			{
-				drawgfxzoom (bitmap,Machine.gfx[1],
-					code,color,
-					flipx,flipy,
-					x,y,
-					Machine.visible_area,
-					TRANSPARENCY_PEN,0,(zx << 16) / 16,(zy << 16) / 16);
-			}
-			else
-			{
-				drawgfx (bitmap,Machine.gfx[1],
-					code,color,
-					flipx,flipy,
-					x,y,
-					Machine.visible_area,
-					TRANSPARENCY_PEN,0);
-			}
-		}
+            color = videoram.READ_WORD(offs + 2);
+            flipx = color & 0x4000;
+            flipy = color & 0x8000;
+
+            color = b_sp_color_base + (color & 0x3f);
+
+            x = videoram.READ_WORD(offs + 4) & 0x3ff;
+            y = videoram.READ_WORD(offs + 6) & 0x3ff;
+            if (x >= 0x200) {
+                x -= 0x400;
+            }
+            if (y >= 0x200) {
+                y -= 0x400;
+            }
+            data = videoram.READ_WORD(offs + 0x0a);
+            if (data != 0) {
+                if (big_sprite == 0) {
+                    x_num = (data >> 8) & 0xff;
+                    y_num = (data) & 0xff;
+                    x_no = 0;
+                    y_no = 0;
+                    xlatch = x;
+                    ylatch = y;
+                    data = videoram.READ_WORD(offs + 0x08);
+                    zoomxlatch = (data >> 8) & 0xff;
+                    zoomylatch = (data) & 0xff;
+                    big_sprite = 1;
+                }
+            }
+            data = videoram.READ_WORD(offs + 0x08);
+            zoomx = (data >> 8) & 0xff;
+            zoomy = (data) & 0xff;
+            zx = (0x100 - zoomx) / 16;
+            zy = (0x100 - zoomy) / 16;
+
+            if (big_sprite != 0) {
+                zoomx = zoomxlatch;
+                zoomy = zoomylatch;
+
+                x = xlatch + x_no * (0x100 - zoomx) / 16;
+                y = ylatch + y_no * (0x100 - zoomy) / 16;
+                zx = xlatch + (x_no + 1) * (0x100 - zoomx) / 16 - x;
+                zy = ylatch + (y_no + 1) * (0x100 - zoomy) / 16 - y;
+                y_no++;
+                if (y_no > y_num) {
+                    y_no = 0;
+                    x_no++;
+                    if (x_no > x_num) {
+                        big_sprite = 0;
+                    }
+                }
+            }
+            if (zoomx != 0 || zoomy != 0) {
+                drawgfxzoom(bitmap, Machine.gfx[1],
+                        code, color,
+                        flipx, flipy,
+                        x, y,
+                        Machine.visible_area,
+                        TRANSPARENCY_PEN, 0, (zx << 16) / 16, (zy << 16) / 16);
+            } else {
+                drawgfx(bitmap, Machine.gfx[1],
+                        code, color,
+                        flipx, flipy,
+                        x, y,
+                        Machine.visible_area,
+                        TRANSPARENCY_PEN, 0);
+            }
+        }
     }
 
     public static VhUpdatePtr taitob_vh_screenrefresh_tm = new VhUpdatePtr() {
@@ -658,88 +653,84 @@ public class taito_b {
 	* 'priority' parameter
      */
     static void ashura_draw_sprites(osd_bitmap bitmap, int priority) {
-        		int x,y,xlatch=0,ylatch=0,x_no=0,y_no=0,x_num=0,y_num=0,big_sprite=0;
-		int data,offs,code,color,flipx,flipy;
-		/*unsigned*/ int zoomx, zoomy, zx, zy, zoomxlatch=0, zoomylatch=0;
+        int x, y, xlatch = 0, ylatch = 0, x_no = 0, y_no = 0, x_num = 0, y_num = 0, big_sprite = 0;
+        int data, offs, code, color, flipx, flipy;
+        /*unsigned*/ int zoomx, zoomy, zx, zy, zoomxlatch = 0, zoomylatch = 0;
 
-        		for (offs = 0x1980-16; offs >= 0; offs -= 16)
-		{
-			code = videoram.READ_WORD(offs);
-        			color = videoram.READ_WORD(offs+2);
-			flipx = color & 0x4000;
-			flipy = color & 0x8000;
-			//if ((color & 0x3fc0) != 0) logerror("color sprite (crimec)=%x\n",color);
-			color = b_sp_color_base + (color & 0x3f);
-        			x = videoram.READ_WORD(offs+4) & 0x3ff;
-			y = videoram.READ_WORD(offs+6) & 0x3ff;
-			if (x >= 0x200)	x -= 0x400;
-			if (y >= 0x200)	y -= 0x400;
-	
-			data = videoram.READ_WORD(offs+0x0a);
-			if (data != 0)
-			{
-				if (big_sprite==0)
-				{
-					x_num = (data>>8) & 0xff;
-					y_num = (data) & 0xff;
-					x_no  = 0;
-					y_no  = 0;
-					xlatch = x;
-					ylatch = y;
-					data = videoram.READ_WORD(offs+0x08);
-					zoomxlatch = (data>>8) & 0xff;
-					zoomylatch = (data) & 0xff;
-					big_sprite = 1;
-				}
-			}
-	
-			data = videoram.READ_WORD(offs+0x08);
-			zoomx = (data>>8) & 0xff;
-			zoomy = (data) & 0xff;
-			zx = (0x100 - zoomx) / 16;
-			zy = (0x100 - zoomy) / 16;
-	
-			if (big_sprite != 0)
-			{
-				zoomx = zoomxlatch;
-				zoomy = zoomylatch;
-	
-				x = xlatch + x_no * (0x100 - zoomx) / 16;
-				y = ylatch + y_no * (0x100 - zoomy) / 16;
-				zx = xlatch + (x_no+1) * (0x100 - zoomx) / 16 - x;
-				zy = ylatch + (y_no+1) * (0x100 - zoomy) / 16 - y;
-				y_no++;
-				if (y_no>y_num)
-				{
-					y_no = 0;
-					x_no++;
-					if (x_no>x_num)
-						big_sprite = 0;
-				}
-			}
-	
-			if ( (color&1) == priority ) /*needed for ashura and crimec*/
-			{
-				if ( zoomx!=0 || zoomy!=0 )
-				{
-					drawgfxzoom (bitmap,Machine.gfx[1],
-						code,color,
-						flipx,flipy,
-						x,y,
-						Machine.visible_area,
-						TRANSPARENCY_PEN,0,(zx << 16) / 16,(zy << 16) / 16);
-				}
-				else
-				{
-					drawgfx (bitmap,Machine.gfx[1],
-						code,color,
-						flipx,flipy,
-						x,y,
-						Machine.visible_area,
-						TRANSPARENCY_PEN,0);
-				}
-			}
-		}
+        for (offs = 0x1980 - 16; offs >= 0; offs -= 16) {
+            code = videoram.READ_WORD(offs);
+            color = videoram.READ_WORD(offs + 2);
+            flipx = color & 0x4000;
+            flipy = color & 0x8000;
+            //if ((color & 0x3fc0) != 0) logerror("color sprite (crimec)=%x\n",color);
+            color = b_sp_color_base + (color & 0x3f);
+            x = videoram.READ_WORD(offs + 4) & 0x3ff;
+            y = videoram.READ_WORD(offs + 6) & 0x3ff;
+            if (x >= 0x200) {
+                x -= 0x400;
+            }
+            if (y >= 0x200) {
+                y -= 0x400;
+            }
+
+            data = videoram.READ_WORD(offs + 0x0a);
+            if (data != 0) {
+                if (big_sprite == 0) {
+                    x_num = (data >> 8) & 0xff;
+                    y_num = (data) & 0xff;
+                    x_no = 0;
+                    y_no = 0;
+                    xlatch = x;
+                    ylatch = y;
+                    data = videoram.READ_WORD(offs + 0x08);
+                    zoomxlatch = (data >> 8) & 0xff;
+                    zoomylatch = (data) & 0xff;
+                    big_sprite = 1;
+                }
+            }
+
+            data = videoram.READ_WORD(offs + 0x08);
+            zoomx = (data >> 8) & 0xff;
+            zoomy = (data) & 0xff;
+            zx = (0x100 - zoomx) / 16;
+            zy = (0x100 - zoomy) / 16;
+
+            if (big_sprite != 0) {
+                zoomx = zoomxlatch;
+                zoomy = zoomylatch;
+
+                x = xlatch + x_no * (0x100 - zoomx) / 16;
+                y = ylatch + y_no * (0x100 - zoomy) / 16;
+                zx = xlatch + (x_no + 1) * (0x100 - zoomx) / 16 - x;
+                zy = ylatch + (y_no + 1) * (0x100 - zoomy) / 16 - y;
+                y_no++;
+                if (y_no > y_num) {
+                    y_no = 0;
+                    x_no++;
+                    if (x_no > x_num) {
+                        big_sprite = 0;
+                    }
+                }
+            }
+
+            if ((color & 1) == priority) /*needed for ashura and crimec*/ {
+                if (zoomx != 0 || zoomy != 0) {
+                    drawgfxzoom(bitmap, Machine.gfx[1],
+                            code, color,
+                            flipx, flipy,
+                            x, y,
+                            Machine.visible_area,
+                            TRANSPARENCY_PEN, 0, (zx << 16) / 16, (zy << 16) / 16);
+                } else {
+                    drawgfx(bitmap, Machine.gfx[1],
+                            code, color,
+                            flipx, flipy,
+                            x, y,
+                            Machine.visible_area,
+                            TRANSPARENCY_PEN, 0);
+                }
+            }
+        }
     }
 
     public static VhUpdatePtr ashura_vh_screenrefresh_tm = new VhUpdatePtr() {
