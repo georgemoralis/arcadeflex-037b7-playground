@@ -3170,7 +3170,7 @@ public class m68kopsH {
             m68k_cpu.not_z_flag = res;
             m68k_cpu.c_flag = 0;
             m68k_cpu.v_flag = 0;
-            USE_CLKS(6+8);
+            USE_CLKS(6 + 8);
         }
     };
     public static opcode m68000_and_er_pi_32 = new opcode() {
@@ -10648,10 +10648,16 @@ public class m68kopsH {
     };
     public static opcode m68000_eori_di_32 = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+            long tmp = m68ki_read_imm_32();
+            long ea = EA_DI();
+            long res = (tmp ^ m68ki_read_32(ea)) & 0xFFFFFFFFL;
+
+            m68ki_write_32(ea, res);
+
+            m68k_cpu.n_flag = GET_MSB_32(res);
+            m68k_cpu.not_z_flag = res;
+            m68k_cpu.c_flag = m68k_cpu.v_flag = 0;
+            USE_CLKS(20 + 12);
         }
     };
     public static opcode m68000_eori_ix_32 = new opcode() {

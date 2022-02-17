@@ -190,6 +190,7 @@ import static arcadeflex.v037b7.drivers.sidepckt.*;
 import static arcadeflex.v037b7.drivers.tigeroad.*;
 import static arcadeflex.v037b7.drivers.taito_b.*;
 import static arcadeflex.v037b7.drivers.tail2nos.*;
+import static arcadeflex.v037b7.drivers.prehisle.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -2086,11 +2087,11 @@ public class driver {
         driver_gemini, /* (c) 1987 Tecmo */
         driver_silkworm, /* 6217 - (c) 1988 Tecmo */
         driver_silkwrm2, /* 6217 - (c) 1988 Tecmo */
-        driver_gaiden,	/* 6215 - (c) 1988 Tecmo (World) */
-        driver_shadoww,	/* 6215 - (c) 1988 Tecmo (US) */
-        driver_ryukendn,	/* 6215 - (c) 1989 Tecmo (Japan) */
-        driver_tknight,	/* (c) 1989 Tecmo */
-        driver_wildfang,	/* (c) 1989 Tecmo */
+        driver_gaiden, /* 6215 - (c) 1988 Tecmo (World) */
+        driver_shadoww, /* 6215 - (c) 1988 Tecmo (US) */
+        driver_ryukendn, /* 6215 - (c) 1989 Tecmo (Japan) */
+        driver_tknight, /* (c) 1989 Tecmo */
+        driver_wildfang, /* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90,/* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90b,/* bootleg */
         driver_fstarfrc, /* (c) 1992 Tecmo */
@@ -2558,9 +2559,9 @@ public class driver {
         /*TODO*///	driver_streets1 )	/* A7008 'S2' (c) 1989 */
         /*TODO*///	driver_streetsj )	/* A8007 'S2' (c) 1989 */
         /*TODO*///	/* Mechanized Attack   A8002 'MA' (c) 1989 */
-        /*TODO*///	driver_prehisle )	/* A8003 'GT' (c) 1989 */
-        /*TODO*///	driver_prehislu )	/* A8003 'GT' (c) 1989 */
-        /*TODO*///	driver_gensitou )	/* A8003 'GT' (c) 1989 */
+        driver_prehisle, /* A8003 'GT' (c) 1989 */
+        driver_prehislu, /* A8003 'GT' (c) 1989 */
+        driver_gensitou, /* A8003 'GT' (c) 1989 */
         /*TODO*///	/* Beast Busters       A9003 'BB' (c) 1989 */
         /*TODO*///
         /* SNK / Alpha 68K games */
@@ -2870,8 +2871,8 @@ public class driver {
         /*TODO*///	driver_rpunch )	/* (c) 1987 V-System Co. + Bally/Midway/Sente license (US) */
         /*TODO*///	driver_svolley )	/* (c) 1989 V-System Co. (Japan) */
         /*TODO*///	driver_svolleyk )	/* (c) 1989 V-System Co. (Japan) */
-       	driver_tail2nos,	/* [1989] V-System Co. */
-        driver_sformula,	/* [1989] V-System Co. (Japan) */
+        driver_tail2nos, /* [1989] V-System Co. */
+        driver_sformula, /* [1989] V-System Co. (Japan) */
         driver_pipedrm,/* (c) 1990 Video System Co. (Japan) */
         driver_hatris,/* (c) 1990 Video System Co. (Japan) */
         /*TODO*///	driver_pspikes )	/* (c) 1991 Video System Co. (Korea) */
