@@ -199,6 +199,7 @@ import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
 import static arcadeflex.WIP.v037b7.drivers.armedf.*;//buggy 68k not working
 import static arcadeflex.WIP.v037b7.drivers.gaiden.*;
 import static arcadeflex.WIP.v037b7.drivers.shuuz.*;
+import static arcadeflex.WIP.v037b7.drivers.klax.*;
 
 public class driver {
 
@@ -2470,10 +2471,10 @@ public class driver {
         /*TODO*///	driver_toobin2 )	/* (c) 1988 */
         /*TODO*///	driver_toobinp )	/* (c) 1988 */
         /*TODO*///	driver_vindictr )	/* (c) 1988 */
-        /*TODO*///	driver_klax )		/* (c) 1989 */
-        /*TODO*///	driver_klax2 )		/* (c) 1989 */
-        /*TODO*///	driver_klax3 )		/* (c) 1989 */
-        /*TODO*///	driver_klaxj )		/* (c) 1989 (Japan) */
+        driver_klax ,		/* (c) 1989 */
+        driver_klax2, 		/* (c) 1989 */
+        driver_klax3, 		/* (c) 1989 */
+        driver_klaxj, 		/* (c) 1989 (Japan) */
         /*TODO*///	driver_blstroid )	/* (c) 1987 */
         /*TODO*///	driver_blstroi2 )	/* (c) 1987 */
         /*TODO*///	driver_blsthead )	/* (c) 1987 */
