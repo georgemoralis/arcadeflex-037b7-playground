@@ -198,6 +198,7 @@ import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
 import static arcadeflex.WIP.v037b7.drivers.armedf.*;//buggy 68k not working
 import static arcadeflex.WIP.v037b7.drivers.gaiden.*;
+import static arcadeflex.WIP.v037b7.drivers.shuuz.*;
 
 public class driver {
 
@@ -2489,8 +2490,8 @@ public class driver {
         /*TODO*///	driver_rampart )	/* (c) 1990 */
         /*TODO*///	driver_ramprt2p )	/* (c) 1990 */
         /*TODO*///	driver_rampartj )	/* (c) 1990 (Japan) */
-        /*TODO*///	driver_shuuz )		/* (c) 1990 */
-        /*TODO*///	driver_shuuz2 )	/* (c) 1990 */
+        driver_shuuz,		/* (c) 1990 */
+        driver_shuuz2,          /* (c) 1990 */
         /*TODO*///	driver_hydra )		/* (c) 1990 */
         /*TODO*///	driver_hydrap )	/* (c) 1990 */
         /*TODO*///	driver_pitfight )	/* (c) 1990 */

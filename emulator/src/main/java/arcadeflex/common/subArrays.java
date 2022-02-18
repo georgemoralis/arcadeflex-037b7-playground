@@ -47,6 +47,14 @@ public class subArrays {
         public char read() {
             return memory[offset];
         }
+        
+        public void inc() {
+            offset++;
+        }
+        
+        public void inc(int b) {
+            offset+=b;
+        }
 
         public char read(int offs) {
             return memory[offs + offset];
@@ -90,6 +98,14 @@ public class subArrays {
             this.buffer = _buffer;
             this.offset = offset;
         }
+        
+        public IntSubArray(UBytePtr _obj) {
+            int _longo=_obj.memory.length;
+            this.buffer = new int[_longo];
+            for (int _i=0 ; _i<_longo ; _i++)
+              this.buffer[_i] = _obj.memory[_i];
+            this.offset = _obj.offset;
+        }
 
         public IntSubArray(IntSubArray subarray) {
             this.buffer = subarray.buffer;
@@ -108,6 +124,16 @@ public class subArrays {
         public int read(int index) {
             return buffer[index + offset];
         }
+        
+        public int readinc() {
+            return readinc(0);
+        }
+        
+        public int readinc(int index) {
+            int _i = buffer[index + offset];
+            offset++;
+            return _i;
+        }
 
         public void write(int value) {
             buffer[offset] = value;
@@ -115,6 +141,10 @@ public class subArrays {
 
         public void write(int index, int value) {
             buffer[index + offset] = value;
+        }
+        
+        public void inc() {
+            inc(0);
         }
 
         public void inc(int value) {

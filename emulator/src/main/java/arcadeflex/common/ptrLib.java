@@ -292,12 +292,22 @@ public class ptrLib {
         public char[] memory;
         public int offset;
 
-        public UShortPtr() {
+        public UShortPtr() {            
+        }
+        
+        public UShortPtr(int bs) {
+            memory = new char[bs];
+            offset=0;
         }
 
         public UShortPtr(char[] m, int b) {
             memory = m;
             offset = b;
+        }
+        
+        public UShortPtr(UShortPtr cp) {
+            memory = cp.memory;
+            offset = 0;
         }
 
         public UShortPtr(UShortPtr cp, int b) {
@@ -318,10 +328,32 @@ public class ptrLib {
         public char read(int index) {
             return (char) (memory[offset + 1 + index * 2] << 8 | memory[offset + index * 2]);
         }
+        
+        public char readinc() {
+            char read =  (char) ((memory[offset + 1] & 0xFF) << 8 | (memory[offset] & 0xFF));
+            offset += bsize;
+            return read;
+        }
 
         public void write(int index, char value) {
             memory[offset + index * 2] = (char) (value & 0xFF);
             memory[offset + index * 2 + 1] = (char) ((value >> 8) & 0xFF);
+        }
+        
+        public void inc(int count) {
+            offset += count * bsize;
+        }
+
+        public void inc() {
+            offset += bsize;
+        }
+
+        public void dec(int count) {
+            offset -= count * bsize;
+        }
+
+        public void dec() {
+            offset -= bsize;
         }
     }
 }
