@@ -193,6 +193,7 @@ import static arcadeflex.v037b7.drivers.tail2nos.*;
 import static arcadeflex.v037b7.drivers.prehisle.*;
 import static arcadeflex.v037b7.drivers.powerins.*;
 import static arcadeflex.v037b7.drivers.snowbros.*;
+import static arcadeflex.v037b7.drivers.bssoccer.*;
 //WIP DRIVERS
 import static arcadeflex.WIP.v037b7.drivers.tecmo16.*;//crashes on tilemaps
 import static arcadeflex.WIP.v037b7.drivers.alpha68k.*;
@@ -2471,10 +2472,10 @@ public class driver {
         /*TODO*///	driver_toobin2 )	/* (c) 1988 */
         /*TODO*///	driver_toobinp )	/* (c) 1988 */
         /*TODO*///	driver_vindictr )	/* (c) 1988 */
-        driver_klax ,		/* (c) 1989 */
-        driver_klax2, 		/* (c) 1989 */
-        driver_klax3, 		/* (c) 1989 */
-        driver_klaxj, 		/* (c) 1989 (Japan) */
+        driver_klax, /* (c) 1989 */
+        driver_klax2, /* (c) 1989 */
+        driver_klax3, /* (c) 1989 */
+        driver_klaxj, /* (c) 1989 (Japan) */
         /*TODO*///	driver_blstroid )	/* (c) 1987 */
         /*TODO*///	driver_blstroi2 )	/* (c) 1987 */
         /*TODO*///	driver_blsthead )	/* (c) 1987 */
@@ -2491,8 +2492,8 @@ public class driver {
         /*TODO*///	driver_rampart )	/* (c) 1990 */
         /*TODO*///	driver_ramprt2p )	/* (c) 1990 */
         /*TODO*///	driver_rampartj )	/* (c) 1990 (Japan) */
-        driver_shuuz,		/* (c) 1990 */
-        driver_shuuz2,          /* (c) 1990 */
+        driver_shuuz, /* (c) 1990 */
+        driver_shuuz2, /* (c) 1990 */
         /*TODO*///	driver_hydra )		/* (c) 1990 */
         /*TODO*///	driver_hydrap )	/* (c) 1990 */
         /*TODO*///	driver_pitfight )	/* (c) 1990 */
@@ -2993,8 +2994,7 @@ public class driver {
 
         /* Suna games */
         driver_goindol,/* (c) 1987 Sun a Electronics */
-        /*TODO*///	driver_bssoccer )	/* (c) 1996 Suna */
-
+        driver_bssoccer, /* (c) 1996 Suna */
         /* Dooyong games */
         /*RELEASE*///driver_gundealr,/* (c) 1990 Dooyong */
         /*RELEASE*///driver_gundeala,/* (c) Dooyong */
