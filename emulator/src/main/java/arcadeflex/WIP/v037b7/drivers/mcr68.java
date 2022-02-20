@@ -600,7 +600,7 @@ public class mcr68
 		PORT_DIPSETTING(      0x0040, "Easy" );
 		PORT_DIPSETTING(      0x0000, "Medium" );
 		PORT_DIPSETTING(      0x0080, "Hard" );
-	/*	PORT_DIPSETTING(      0x00c0, "Medium" );/
+	/*	PORT_DIPSETTING(      0x00c0, "Medium" );*/
 		PORT_BIT( 0xff00, IP_ACTIVE_LOW, IPT_UNUSED );
 	INPUT_PORTS_END(); }}; 
 	
@@ -712,7 +712,7 @@ public class mcr68
 		PORT_DIPSETTING(      0x0008, "Easy" );
 		PORT_DIPSETTING(      0x0000, "Medium" );
 		PORT_DIPSETTING(      0x0004, "Hard" );
-	/*	PORT_DIPSETTING(      0x000c, "Medium" );/
+	/*	PORT_DIPSETTING(      0x000c, "Medium" );*/
 		PORT_DIPNAME( 0x0020, 0x0020, "Dollar Receptor" );
 		PORT_DIPSETTING(      0x0020, DEF_STR( "Off") );
 		PORT_DIPSETTING(      0x0000, DEF_STR( "On") );
@@ -1010,48 +1010,205 @@ public class mcr68
 	);
 	
 	
-/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		\
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver\
-/*TODO*///	(														\
-/*TODO*///		/* basic machine hardware */						\
-/*TODO*///		new MachineCPU[] {													\
-/*TODO*///			new MachineCPU(												\
-/*TODO*///				CPU_M68000,									\
-/*TODO*///				7723800,	/* 8 MHz */						\
-/*TODO*///				MEMMAP##_readmem,MEMMAP##_writemem,null,null,		\
-/*TODO*///				mcr68_interrupt,1							\
-/*TODO*///			),												\
-/*TODO*///			SOUND_CPU_##SOUND								\
-/*TODO*///		},													\
-/*TODO*///		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				\
-/*TODO*///		1,													\
-/*TODO*///		mcr68_init_machine,									\
-/*TODO*///															\
-/*TODO*///		/* video hardware */								\
-/*TODO*///		32*16, 30*16, new rectangle( 0, 32*16-1, 0, 30*16-1 ),			\
-/*TODO*///		gfxdecodeinfo,										\
-/*TODO*///		8*16, 8*16,											\
-/*TODO*///		null,													\
-/*TODO*///															\
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,			\
-/*TODO*///		null,													\
-/*TODO*///		generic_vh_start,									\
-/*TODO*///		generic_vh_stop,									\
-/*TODO*///		mcr68_vh_screenrefresh,								\
-/*TODO*///															\
-/*TODO*///		/* sound hardware */								\
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,						\
-/*TODO*///		new MachineSound[] {													\
-/*TODO*///			SOUND_##SOUND									\
-/*TODO*///		},													\
-/*TODO*///		0													\
-/*TODO*///	);
-	
 /*TODO*///	MACHINE_DRIVER_MCR68(xenophob, mcr68,    SOUNDS_GOOD)
+/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+	static MachineDriver machine_driver_xenophob = new MachineDriver
+	(														
+		/* basic machine hardware */						
+		new MachineCPU[] {													
+			new MachineCPU(												
+				CPU_M68000,									
+				7723800,	/* 8 MHz */						
+				mcr68_readmem,mcr68_writemem,null,null,		
+				mcr68_interrupt,1							
+/*TODO*///			),												
+/*TODO*///			SOUND_CPU_SOUNDS_GOOD
+                        )
+		},													
+		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
+		1,													
+		mcr68_init_machine,									
+															
+		/* video hardware */								
+		32*16, 30*16, new rectangle( 0, 32*16-1, 0, 30*16-1 ),			
+		gfxdecodeinfo,										
+		8*16, 8*16,											
+		null,													
+															
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,			
+		null,													
+		generic_vh_start,									
+		generic_vh_stop,									
+		mcr68_vh_screenrefresh,								
+															
+		/* sound hardware */								
+		SOUND_SUPPORTS_STEREO,0,0,0,						
+/*TODO*///		new MachineSound[] {													
+/*TODO*///			SOUND_SOUNDS_GOOD									
+/*TODO*///		},													
+/*TODO*///		0													
+                null
+	);
+        
 /*TODO*///	MACHINE_DRIVER_MCR68(spyhunt2, mcr68,    TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD)
+/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+	static MachineDriver machine_driver_spyhunt2 = new MachineDriver
+	(														
+		/* basic machine hardware */						
+		new MachineCPU[] {													
+			new MachineCPU(												
+				CPU_M68000,									
+				7723800,	/* 8 MHz */						
+				mcr68_readmem,mcr68_writemem,null,null,		
+				mcr68_interrupt,1							
+/*TODO*///			),												
+/*TODO*///			SOUND_CPU_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD
+                                )
+		},													
+		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
+		1,													
+		mcr68_init_machine,									
+															
+		/* video hardware */								
+		32*16, 30*16, new rectangle( 0, 32*16-1, 0, 30*16-1 ),			
+		gfxdecodeinfo,										
+		8*16, 8*16,											
+		null,													
+															
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,			
+		null,													
+		generic_vh_start,									
+		generic_vh_stop,									
+		mcr68_vh_screenrefresh,								
+															
+		/* sound hardware */								
+		SOUND_SUPPORTS_STEREO,0,0,0,						
+/*TODO*///		new MachineSound[] {													
+/*TODO*///			SOUND_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD
+/*TODO*///		},													
+/*TODO*///		0													
+                null
+	);
+        
 /*TODO*///	MACHINE_DRIVER_MCR68(archrivl, mcr68,    WILLIAMS_CVSD)
+/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+	static MachineDriver machine_driver_archrivl = new MachineDriver
+	(														
+		/* basic machine hardware */						
+		new MachineCPU[] {													
+			new MachineCPU(												
+				CPU_M68000,									
+				7723800,	/* 8 MHz */						
+				mcr68_readmem,mcr68_writemem,null,null,		
+				mcr68_interrupt,1							
+/*TODO*///			),												
+/*TODO*///			SOUND_CPU_WILLIAMS_CVSD
+                                )
+		},													
+		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
+		1,													
+		mcr68_init_machine,									
+															
+		/* video hardware */								
+		32*16, 30*16, new rectangle( 0, 32*16-1, 0, 30*16-1 ),			
+		gfxdecodeinfo,										
+		8*16, 8*16,											
+		null,													
+															
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,			
+		null,													
+		generic_vh_start,									
+		generic_vh_stop,									
+		mcr68_vh_screenrefresh,								
+															
+		/* sound hardware */								
+		SOUND_SUPPORTS_STEREO,0,0,0,						
+/*TODO*///		new MachineSound[] {													
+/*TODO*///			SOUND_WILLIAMS_CVSD
+/*TODO*///		},													
+/*TODO*///		0
+                null
+	);
+        
 /*TODO*///	MACHINE_DRIVER_MCR68(pigskin,  pigskin,  WILLIAMS_CVSD)
+/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+	static MachineDriver machine_driver_pigskin = new MachineDriver
+	(														
+		/* basic machine hardware */						
+		new MachineCPU[] {													
+			new MachineCPU(												
+				CPU_M68000,									
+				7723800,	/* 8 MHz */						
+				pigskin_readmem,pigskin_writemem,null,null,		
+				mcr68_interrupt,1							
+/*TODO*///			),												
+/*TODO*///			SOUND_CPU_WILLIAMS_CVSD
+                                )
+		},													
+		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
+		1,													
+		mcr68_init_machine,									
+															
+		/* video hardware */								
+		32*16, 30*16, new rectangle( 0, 32*16-1, 0, 30*16-1 ),			
+		gfxdecodeinfo,										
+		8*16, 8*16,											
+		null,													
+															
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,			
+		null,													
+		generic_vh_start,									
+		generic_vh_stop,									
+		mcr68_vh_screenrefresh,								
+															
+		/* sound hardware */								
+		SOUND_SUPPORTS_STEREO,0,0,0,						
+/*TODO*///		new MachineSound[] {													
+/*TODO*///			SOUND_WILLIAMS_CVSD
+/*TODO*///		},													
+/*TODO*///		0
+                null
+	);
+        
 /*TODO*///	MACHINE_DRIVER_MCR68(trisport, trisport, WILLIAMS_CVSD)
+/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+	static MachineDriver machine_driver_trisport = new MachineDriver
+	(														
+		/* basic machine hardware */						
+		new MachineCPU[] {													
+			new MachineCPU(												
+				CPU_M68000,									
+				7723800,	/* 8 MHz */						
+				trisport_readmem,trisport_writemem,null,null,		
+				mcr68_interrupt,1							
+/*TODO*///			),												
+/*TODO*///			SOUND_CPU_WILLIAMS_CVSD
+                        )
+		},													
+		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
+		1,													
+		mcr68_init_machine,									
+															
+		/* video hardware */								
+		32*16, 30*16, new rectangle( 0, 32*16-1, 0, 30*16-1 ),			
+		gfxdecodeinfo,										
+		8*16, 8*16,											
+		null,													
+															
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,			
+		null,													
+		generic_vh_start,									
+		generic_vh_stop,									
+		mcr68_vh_screenrefresh,								
+															
+		/* sound hardware */								
+		SOUND_SUPPORTS_STEREO,0,0,0,						
+/*TODO*///		new MachineSound[] {													
+/*TODO*///			SOUND_WILLIAMS_CVSD
+/*TODO*///		},													
+/*TODO*///		0
+                null
+	);        
 	
 	
 	
@@ -1477,12 +1634,12 @@ public class mcr68
 	 *************************************/
 	
 	public static GameDriver driver_zwackery	   = new GameDriver("1984"	,"zwackery"	,"mcr68.java"	,rom_zwackery,null	,machine_driver_zwackery	,input_ports_zwackery	,init_zwackery	,ROT0	,	"Bally Midway", "Zwackery" );
-/*TODO*///	public static GameDriver driver_xenophob	   = new GameDriver("1987"	,"xenophob"	,"mcr68.java"	,rom_xenophob,null	,machine_driver_xenophob	,input_ports_xenophob	,init_xenophob	,ROT0	,	"Bally Midway", "Xenophobe" )
-/*TODO*///	public static GameDriver driver_spyhunt2	   = new GameDriver("1987"	,"spyhunt2"	,"mcr68.java"	,rom_spyhunt2,null	,machine_driver_spyhunt2	,input_ports_spyhunt2	,init_spyhunt2	,ROT0	,	"Bally Midway", "Spy Hunter 2 (rev 2)" )
-/*TODO*///	public static GameDriver driver_spyhnt2a	   = new GameDriver("1987"	,"spyhnt2a"	,"mcr68.java"	,rom_spyhnt2a,driver_spyhunt2	,machine_driver_spyhunt2	,input_ports_spyhunt2	,init_spyhunt2	,ROT0	,	"Bally Midway", "Spy Hunter 2 (rev 1)" )
-/*TODO*///	public static GameDriver driver_blasted	   = new GameDriver("1988"	,"blasted"	,"mcr68.java"	,rom_blasted,null	,machine_driver_xenophob	,input_ports_blasted	,init_blasted	,ROT0	,	"Bally Midway", "Blasted" )
-/*TODO*///	public static GameDriver driver_archrivl	   = new GameDriver("1989"	,"archrivl"	,"mcr68.java"	,rom_archrivl,null	,machine_driver_archrivl	,input_ports_archrivl	,init_archrivl	,ROT0	,	"Bally Midway", "Arch Rivals (rev 4.0)" )
-/*TODO*///	public static GameDriver driver_archriv2	   = new GameDriver("1989"	,"archriv2"	,"mcr68.java"	,rom_archriv2,driver_archrivl	,machine_driver_archrivl	,input_ports_archrivl	,init_archrivl	,ROT0	,	"Bally Midway", "Arch Rivals (rev 2.0)" )
-/*TODO*///	public static GameDriver driver_trisport	   = new GameDriver("1989"	,"trisport"	,"mcr68.java"	,rom_trisport,null	,machine_driver_trisport	,input_ports_trisport	,init_trisport	,ROT270	,	"Bally Midway", "Tri-Sports" )
-/*TODO*///	public static GameDriver driver_pigskin	   = new GameDriver("1990"	,"pigskin"	,"mcr68.java"	,rom_pigskin,null	,machine_driver_pigskin	,input_ports_pigskin	,init_pigskin	,ROT0	,	"Bally Midway", "Pigskin 621AD" )
+	public static GameDriver driver_xenophob	   = new GameDriver("1987"	,"xenophob"	,"mcr68.java"	,rom_xenophob,null	,machine_driver_xenophob	,input_ports_xenophob	,init_xenophob	,ROT0	,	"Bally Midway", "Xenophobe" );
+	public static GameDriver driver_spyhunt2	   = new GameDriver("1987"	,"spyhunt2"	,"mcr68.java"	,rom_spyhunt2,null	,machine_driver_spyhunt2	,input_ports_spyhunt2	,init_spyhunt2	,ROT0	,	"Bally Midway", "Spy Hunter 2 (rev 2)" );
+	public static GameDriver driver_spyhnt2a	   = new GameDriver("1987"	,"spyhnt2a"	,"mcr68.java"	,rom_spyhnt2a,driver_spyhunt2	,machine_driver_spyhunt2	,input_ports_spyhunt2	,init_spyhunt2	,ROT0	,	"Bally Midway", "Spy Hunter 2 (rev 1)" );
+	public static GameDriver driver_blasted	   = new GameDriver("1988"	,"blasted"	,"mcr68.java"	,rom_blasted,null	,machine_driver_xenophob	,input_ports_blasted	,init_blasted	,ROT0	,	"Bally Midway", "Blasted" );
+	public static GameDriver driver_archrivl	   = new GameDriver("1989"	,"archrivl"	,"mcr68.java"	,rom_archrivl,null	,machine_driver_archrivl	,input_ports_archrivl	,init_archrivl	,ROT0	,	"Bally Midway", "Arch Rivals (rev 4.0)" );
+	public static GameDriver driver_archriv2	   = new GameDriver("1989"	,"archriv2"	,"mcr68.java"	,rom_archriv2,driver_archrivl	,machine_driver_archrivl	,input_ports_archrivl	,init_archrivl	,ROT0	,	"Bally Midway", "Arch Rivals (rev 2.0)" );
+	public static GameDriver driver_trisport	   = new GameDriver("1989"	,"trisport"	,"mcr68.java"	,rom_trisport,null	,machine_driver_trisport	,input_ports_trisport	,init_trisport	,ROT270	,	"Bally Midway", "Tri-Sports" );
+	public static GameDriver driver_pigskin	   = new GameDriver("1990"	,"pigskin"	,"mcr68.java"	,rom_pigskin,null	,machine_driver_pigskin	,input_ports_pigskin	,init_pigskin	,ROT0	,	"Bally Midway", "Pigskin 621AD" );
 }

@@ -239,16 +239,16 @@ public class mcr {
 	}
 	
 	
-/*TODO*///	public static InitMachinePtr mcr68_init_machine = new InitMachinePtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		/* for the most part all MCR/68k games are the same */
-/*TODO*///		mcr68_common_init();
-/*TODO*///		v493_callback = mcr68_493_callback;
-/*TODO*///	
-/*TODO*///		/* vectors are 1 and 2 */
-/*TODO*///		v493_irq_vector = 1;
-/*TODO*///		m6840_irq_vector = 2;
-/*TODO*///	} };
+	public static InitMachinePtr mcr68_init_machine = new InitMachinePtr() { public void handler() 
+	{
+		/* for the most part all MCR/68k games are the same */
+		mcr68_common_init();
+		v493_callback = mcr68_493_callback;
+	
+		/* vectors are 1 and 2 */
+		v493_irq_vector = 1;
+		m6840_irq_vector = 2;
+	} };
 	
 	
 	public static InitMachinePtr zwackery_init_machine = new InitMachinePtr() { public void handler() 
@@ -331,22 +331,22 @@ public class mcr {
 	}
 	
 	
-/*TODO*///	public static timer_callback mcr68_493_off_callback = new timer_callback() { public void handler(int param) 
-/*TODO*///	{
-/*TODO*///		v493_irq_state = 0;
-/*TODO*///		update_mcr68_interrupts();
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	public static timer_callback mcr68_493_callback = new timer_callback() { public void handler(int param) 
-/*TODO*///	{
-/*TODO*///		v493_irq_state = 1;
-/*TODO*///		update_mcr68_interrupts();
-/*TODO*///		timer_set(cpu_getscanlineperiod(), 0, mcr68_493_off_callback);
-/*TODO*///		logerror("--- (INT1) ---\n");
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
+	public static timer_callback mcr68_493_off_callback = new timer_callback() { public void handler(int param) 
+	{
+		v493_irq_state = 0;
+		update_mcr68_interrupts();
+	} };
+	
+	
+	public static timer_callback mcr68_493_callback = new timer_callback() { public void handler(int param) 
+	{
+		v493_irq_state = 1;
+		update_mcr68_interrupts();
+		timer_set(cpu_getscanlineperiod(), 0, mcr68_493_off_callback);
+		logerror("--- (INT1) ---\n");
+	} };
+	
+	
     /**
      * ***********************************
      *

@@ -815,14 +815,14 @@ public class driver {
         /*TODO*///	driver_crater )	/* (c) 1984 */
         /* MCR 68000 */
         driver_zwackery,	/* (c) 1984 */
-        /*TODO*///	driver_xenophob )	/* (c) 1987 */
-        /*TODO*///	driver_spyhunt2 )	/* (c) 1987 */
-        /*TODO*///	driver_spyhnt2a )	/* (c) 1987 */
-        /*TODO*///	driver_blasted )	/* (c) 1988 */
-        /*TODO*///	driver_archrivl )	/* (c) 1989 */
-        /*TODO*///	driver_archriv2 )	/* (c) 1989 */
-        /*TODO*///	driver_trisport )	/* (c) 1989 */
-        /*TODO*///	driver_pigskin )	/* (c) 1990 */
+        driver_xenophob,	/* (c) 1987 */
+        driver_spyhunt2,	/* (c) 1987 */
+        driver_spyhnt2a,	/* (c) 1987 */
+        driver_blasted,	/* (c) 1988 */
+        driver_archrivl,	/* (c) 1989 */
+        driver_archriv2,	/* (c) 1989 */
+        driver_trisport,	/* (c) 1989 */
+        driver_pigskin,	/* (c) 1990 */
         /*TODO*////* other possible MCR games:
         /*TODO*///Black Belt
         /*TODO*///Shoot the Bull
