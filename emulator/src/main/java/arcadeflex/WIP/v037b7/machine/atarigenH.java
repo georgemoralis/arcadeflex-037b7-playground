@@ -421,9 +421,9 @@ public class atarigenH
 	
 	public static class atarigen_pf_state
 	{
-		int hscroll;							/* current horizontal starting offset */
-		int vscroll;							/* current vertical starting offset */
-		int[] param = new int[2];							/* up to 2 other parameters that will cause a boundary break */
+		public int hscroll;							/* current horizontal starting offset */
+		public int vscroll;							/* current vertical starting offset */
+		public int[] param = new int[2];							/* up to 2 other parameters that will cause a boundary break */
 	};
 	
         public abstract static interface atarigen_pf_callback {

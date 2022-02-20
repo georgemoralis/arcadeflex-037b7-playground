@@ -4,7 +4,7 @@
  */
 package gr.codebb.arcadeflex.WIP.v037b7.vidhrdw;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.mcr.*;
+import static arcadeflex.v037b7.machine.mcr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.mcr3.*;
 import static arcadeflex.common.ptrLib.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;

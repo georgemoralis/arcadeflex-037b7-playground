@@ -4,7 +4,7 @@
  */
 package gr.codebb.arcadeflex.WIP.v037b7.drivers;
 
-import static gr.codebb.arcadeflex.WIP.v037b7.machine.mcr.*;
+import static arcadeflex.v037b7.machine.mcr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.machine.z80fmly.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sndhrdw.mcr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.sndhrdw.mcrH.*;

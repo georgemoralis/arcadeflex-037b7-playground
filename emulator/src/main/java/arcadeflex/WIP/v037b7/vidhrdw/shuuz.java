@@ -227,7 +227,7 @@ public class shuuz
 			atarigen_video_control_update(new UBytePtr(atarigen_playfieldram, 0x1f00));
 	
 		/* update the MOs from the SLIP table */
-/*TODO*///		atarigen_mo_update_slip_512(atarigen_spriteram, atarigen_video_control_state.sprite_yscroll, scanline, new UBytePtr(atarigen_playfieldram, 0x1f80));
+		atarigen_mo_update_slip_512(atarigen_spriteram, atarigen_video_control_state.sprite_yscroll, scanline, new UBytePtr(atarigen_playfieldram, 0x1f80));
             }
         };
         
@@ -258,7 +258,7 @@ public class shuuz
 	
 		/* render the motion objects */
                 //System.out.println("Antes atarigen_mo_process");
-/*TODO*///		atarigen_mo_process(mo_render_callback, bitmap);
+		atarigen_mo_process(mo_render_callback, bitmap);
                 //System.out.println("Despues atarigen_mo_process");
 	
 		/* update onscreen messages */
@@ -290,7 +290,7 @@ public class shuuz
                 //System.out.println("U_P_1_B");
 	
 		/* update color usage for the mo's */
-/*TODO*///		atarigen_mo_process(mo_color_callback, mo_map);
+		atarigen_mo_process(mo_color_callback, mo_map);
 	
 		/* rebuild the playfield palette */
 		for (i = 0; i < 16; i++)
@@ -516,10 +516,10 @@ public class shuuz
 		if (ypos >= YDIM) ypos -= 0x200;
 	
 		/* determine the bounding box */
-/*TODO*///		atarigen_mo_compute_clip_8x8(pf_clip, xpos, ypos, hsize, vsize, clip);
+		atarigen_mo_compute_clip_8x8(pf_clip, xpos, ypos, hsize, vsize, clip);
 	
 		/* draw the motion object */
-/*TODO*///		atarigen_mo_draw_8x8(bitmap, gfx, code, color, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);
+		atarigen_mo_draw_8x8(bitmap, gfx, code, color, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);
 	
 		/* standard priority case? */
 		if (color != 15)

@@ -32,9 +32,17 @@ import static gr.codebb.arcadeflex.common.libc.cstring.strlen;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import arcadeflex.v037b7.mame.drawgfxH.rectangle;
 import static arcadeflex.v037b7.mame.palette.*;
+import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.fileio.*;
 import static arcadeflex.common.subArrays.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m6502H.M6502_INT_IRQ;
+import static gr.codebb.arcadeflex.WIP.v037b7.machine.slapstic.*;
+import static arcadeflex.v037b7.sound.mixerH.*;
+import static gr.codebb.arcadeflex.old.sound.mixer.*;
+import static gr.codebb.arcadeflex.common.libc.cstring.*;
+import static arcadeflex.v037b7.mame.memory.*;
 
 public class atarigen
 {
@@ -153,33 +161,33 @@ public class atarigen
 	} };
 	
 	
-/*TODO*///	/*
-/*TODO*///	 *	Sound interrupt generator
-/*TODO*///	 *
-/*TODO*///	 *	Standard interrupt routine which sets the sound interrupt state.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	int atarigen_sound_int_gen(void)
-/*TODO*///	{
-/*TODO*///		atarigen_sound_int_state = 1;
-/*TODO*///		(*update_int_callback)();
-/*TODO*///		return 0;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound interrupt acknowledge write handler
-/*TODO*///	 *
-/*TODO*///	 *	Resets the state of the sound interrupt.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr atarigen_sound_int_ack_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		atarigen_sound_int_state = 0;
-/*TODO*///		(*update_int_callback)();
-/*TODO*///	} };
+	/*
+	 *	Sound interrupt generator
+	 *
+	 *	Standard interrupt routine which sets the sound interrupt state.
+	 *
+	 */
+	
+	public static int atarigen_sound_int_gen()
+	{
+		atarigen_sound_int_state = 1;
+		(update_int_callback).handler();
+		return 0;
+	}
+	
+	
+	/*
+	 *	Sound interrupt acknowledge write handler
+	 *
+	 *	Resets the state of the sound interrupt.
+	 *
+	 */
+	
+	public static WriteHandlerPtr atarigen_sound_int_ack_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		atarigen_sound_int_state = 0;
+		(update_int_callback).handler();
+	} };
 	
 	
 	/*
@@ -412,95 +420,95 @@ public class atarigen
 	
 	
 	
-/*TODO*///	/*--------------------------------------------------------------------------
-/*TODO*///	
-/*TODO*///		Slapstic I/O (optional)
-/*TODO*///	
-/*TODO*///			atarigen_slapstic - pointer to base of slapstic memory
-/*TODO*///	
-/*TODO*///			atarigen_slapstic_init - select and initialize the slapstic handlers
-/*TODO*///			atarigen_slapstic_reset - resets the slapstic state
-/*TODO*///	
-/*TODO*///			atarigen_slapstic_w - write handler for slapstic data
-/*TODO*///			atarigen_slapstic_r - read handler for slapstic data
-/*TODO*///	
-/*TODO*///			slapstic_init - low-level init routine
-/*TODO*///			slapstic_reset - low-level reset routine
-/*TODO*///			slapstic_bank - low-level routine to return the current bank
-/*TODO*///			slapstic_tweak - low-level tweak routine
-/*TODO*///	
-/*TODO*///	--------------------------------------------------------------------------*/
-/*TODO*///	
-/*TODO*///	/* globals */
-/*TODO*///	static UINT8 atarigen_slapstic_num;
-/*TODO*///	static UINT8 *atarigen_slapstic;
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Slapstic initialization
-/*TODO*///	 *
-/*TODO*///	 *	Installs memory handlers for the slapstic and sets the chip number.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_slapstic_init(int cpunum, int base, int chipnum)
-/*TODO*///	{
-/*TODO*///		atarigen_slapstic_num = chipnum;
-/*TODO*///		atarigen_slapstic = NULL;
-/*TODO*///		if (chipnum != 0)
-/*TODO*///		{
-/*TODO*///			slapstic_init(chipnum);
-/*TODO*///			atarigen_slapstic = install_mem_read_handler(cpunum, base, base + 0x7fff, atarigen_slapstic_r);
-/*TODO*///			atarigen_slapstic = install_mem_write_handler(cpunum, base, base + 0x7fff, atarigen_slapstic_w);
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Slapstic initialization
-/*TODO*///	 *
-/*TODO*///	 *	Makes the selected slapstic number active and resets its state.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_slapstic_reset(void)
-/*TODO*///	{
-/*TODO*///		if (atarigen_slapstic_num != 0)
-/*TODO*///			slapstic_reset();
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Slapstic write handler
-/*TODO*///	 *
-/*TODO*///	 *	Assuming that the slapstic sits in ROM memory space, we just simply
-/*TODO*///	 *	tweak the slapstic at this address and do nothing more.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr atarigen_slapstic_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		slapstic_tweak(offset / 2);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Slapstic read handler
-/*TODO*///	 *
-/*TODO*///	 *	Tweaks the slapstic at the appropriate address and then reads a
-/*TODO*///	 *	word from the underlying memory.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr atarigen_slapstic_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		int bank = slapstic_tweak(offset / 2) * 0x2000;
-/*TODO*///		return READ_WORD(&atarigen_slapstic[bank + (offset & 0x1fff)]);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+	/*--------------------------------------------------------------------------
+	
+		Slapstic I/O (optional)
+	
+			atarigen_slapstic - pointer to base of slapstic memory
+	
+			atarigen_slapstic_init - select and initialize the slapstic handlers
+			atarigen_slapstic_reset - resets the slapstic state
+	
+			atarigen_slapstic_w - write handler for slapstic data
+			atarigen_slapstic_r - read handler for slapstic data
+	
+			slapstic_init - low-level init routine
+			slapstic_reset - low-level reset routine
+			slapstic_bank - low-level routine to return the current bank
+			slapstic_tweak - low-level tweak routine
+	
+	--------------------------------------------------------------------------*/
+	
+	/* globals */
+	static int atarigen_slapstic_num;
+	static UBytePtr atarigen_slapstic = new UBytePtr();
+	
+	
+	/*
+	 *	Slapstic initialization
+	 *
+	 *	Installs memory handlers for the slapstic and sets the chip number.
+	 *
+	 */
+	
+	public static void atarigen_slapstic_init(int cpunum, int base, int chipnum)
+	{
+		atarigen_slapstic_num = chipnum;
+		atarigen_slapstic = null;
+		if (chipnum != 0)
+		{
+			slapstic_init(chipnum);
+			atarigen_slapstic = install_mem_read_handler(cpunum, base, base + 0x7fff, atarigen_slapstic_r);
+			atarigen_slapstic = install_mem_write_handler(cpunum, base, base + 0x7fff, atarigen_slapstic_w);
+		}
+	}
+	
+	
+	/*
+	 *	Slapstic initialization
+	 *
+	 *	Makes the selected slapstic number active and resets its state.
+	 *
+	 */
+	
+	public static void atarigen_slapstic_reset()
+	{
+		if (atarigen_slapstic_num != 0)
+			slapstic_reset();
+	}
+	
+	
+	/*
+	 *	Slapstic write handler
+	 *
+	 *	Assuming that the slapstic sits in ROM memory space, we just simply
+	 *	tweak the slapstic at this address and do nothing more.
+	 *
+	 */
+	
+	public static WriteHandlerPtr atarigen_slapstic_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		slapstic_tweak(offset / 2);
+	} };
+	
+	
+	/*
+	 *	Slapstic read handler
+	 *
+	 *	Tweaks the slapstic at the appropriate address and then reads a
+	 *	word from the underlying memory.
+	 *
+	 */
+	
+	public static ReadHandlerPtr atarigen_slapstic_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		int bank = slapstic_tweak(offset / 2) * 0x2000;
+		return atarigen_slapstic.READ_WORD(bank + (offset & 0x1fff));
+	} };
+	
+	
+	
+	
 /*TODO*///	/***********************************************************************************************/
 /*TODO*///	/***********************************************************************************************/
 /*TODO*///	/***********************************************************************************************/
@@ -533,80 +541,77 @@ public class atarigen
 /*TODO*///	--------------------------------------------------------------------------*/
 /*TODO*///	
 /*TODO*///	/* constants */
-/*TODO*///	#define SOUND_INTERLEAVE_RATE		TIME_IN_USEC(50)
-/*TODO*///	#define SOUND_INTERLEAVE_REPEAT		20
-/*TODO*///	
-/*TODO*///	/* globals */
-/*TODO*///	int atarigen_cpu_to_sound_ready;
-/*TODO*///	int atarigen_sound_to_cpu_ready;
-/*TODO*///	
-/*TODO*///	/* statics */
-/*TODO*///	static UINT8 sound_cpu_num;
-/*TODO*///	static UINT8 atarigen_cpu_to_sound;
-/*TODO*///	static UINT8 atarigen_sound_to_cpu;
-/*TODO*///	static UINT8 timed_int;
-/*TODO*///	static UINT8 ym2151_int;
-/*TODO*///	
-/*TODO*///	/* prototypes */
-/*TODO*///	static 
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound I/O reset
-/*TODO*///	 *
-/*TODO*///	 *	Resets the state of the sound I/O.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_sound_io_reset(int cpu_num)
-/*TODO*///	{
-/*TODO*///		/* remember which CPU is the sound CPU */
-/*TODO*///		sound_cpu_num = cpu_num;
-/*TODO*///	
-/*TODO*///		/* reset the internal interrupts states */
-/*TODO*///		timed_int = ym2151_int = 0;
-/*TODO*///	
-/*TODO*///		/* reset the sound I/O states */
-/*TODO*///		atarigen_cpu_to_sound = atarigen_sound_to_cpu = 0;
-/*TODO*///		atarigen_cpu_to_sound_ready = atarigen_sound_to_cpu_ready = 0;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	6502 IRQ generator
-/*TODO*///	 *
-/*TODO*///	 *	Generates an IRQ signal to the 6502 sound processor.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static InterruptPtr atarigen_6502_irq_gen = new InterruptPtr() { public int handler() 
-/*TODO*///	{
-/*TODO*///		timed_int = 1;
-/*TODO*///		update_6502_irq();
-/*TODO*///		return 0;
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	6502 IRQ acknowledgement
-/*TODO*///	 *
-/*TODO*///	 *	Resets the IRQ signal to the 6502 sound processor. Both reads and writes can be used.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr atarigen_6502_irq_ack_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		timed_int = 0;
-/*TODO*///		update_6502_irq();
-/*TODO*///		return 0;
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr atarigen_6502_irq_ack_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		timed_int = 0;
-/*TODO*///		update_6502_irq();
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
+	public static int SOUND_INTERLEAVE_RATE		= (int) TIME_IN_USEC(50);
+        public static int SOUND_INTERLEAVE_REPEAT	= 20;
+	
+	/* globals */
+	public static int atarigen_cpu_to_sound_ready;
+	public static int atarigen_sound_to_cpu_ready;
+	
+	/* statics */
+	public static int sound_cpu_num;
+        public static int atarigen_cpu_to_sound;
+        public static int atarigen_sound_to_cpu;
+	public static int timed_int;
+	public static int ym2151_int;
+	
+	/*
+	 *	Sound I/O reset
+	 *
+	 *	Resets the state of the sound I/O.
+	 *
+	 */
+	
+	public static void atarigen_sound_io_reset(int cpu_num)
+	{
+		/* remember which CPU is the sound CPU */
+		sound_cpu_num = cpu_num;
+	
+		/* reset the internal interrupts states */
+		timed_int = ym2151_int = 0;
+	
+		/* reset the sound I/O states */
+		atarigen_cpu_to_sound = atarigen_sound_to_cpu = 0;
+		atarigen_cpu_to_sound_ready = atarigen_sound_to_cpu_ready = 0;
+	}
+	
+	
+	/*
+	 *	6502 IRQ generator
+	 *
+	 *	Generates an IRQ signal to the 6502 sound processor.
+	 *
+	 */
+	
+	public static InterruptPtr atarigen_6502_irq_gen = new InterruptPtr() { public int handler() 
+	{
+		timed_int = 1;
+		update_6502_irq();
+		return 0;
+	} };
+	
+	
+	/*
+	 *	6502 IRQ acknowledgement
+	 *
+	 *	Resets the IRQ signal to the 6502 sound processor. Both reads and writes can be used.
+	 *
+	 */
+	
+	public static ReadHandlerPtr atarigen_6502_irq_ack_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		timed_int = 0;
+		update_6502_irq();
+		return 0;
+	} };
+	
+	public static WriteHandlerPtr atarigen_6502_irq_ack_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		timed_int = 0;
+		update_6502_irq();
+	} };
+	
+	
 /*TODO*///	/*
 /*TODO*///	 *	YM2151 IRQ generation
 /*TODO*///	 *
@@ -619,209 +624,216 @@ public class atarigen
 /*TODO*///		ym2151_int = irq;
 /*TODO*///		update_6502_irq();
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound CPU write handler
-/*TODO*///	 *
-/*TODO*///	 *	Write handler which resets the sound CPU in response.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr atarigen_sound_reset_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		timer_set(TIME_NOW, 0, delayed_sound_reset);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound CPU reset handler
-/*TODO*///	 *
-/*TODO*///	 *	Resets the state of the sound CPU manually.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_sound_reset(void)
-/*TODO*///	{
-/*TODO*///		timer_set(TIME_NOW, 1, delayed_sound_reset);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Main . sound CPU data write handlers
-/*TODO*///	 *
-/*TODO*///	 *	Handles communication from the main CPU to the sound CPU. Two versions are provided,
-/*TODO*///	 *	one with the data byte in the low 8 bits, and one with the data byte in the upper 8
-/*TODO*///	 *	bits.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr atarigen_sound_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		if (!(data & 0x00ff0000))
-/*TODO*///			timer_set(TIME_NOW, data & 0xff, delayed_sound_w);
-/*TODO*///	} };
-/*TODO*///	
+	
+	
+	/*
+	 *	Sound CPU write handler
+	 *
+	 *	Write handler which resets the sound CPU in response.
+	 *
+	 */
+	
+	public static WriteHandlerPtr atarigen_sound_reset_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		timer_set(TIME_NOW, 0, delayed_sound_reset);
+	} };
+	
+	
+	/*
+	 *	Sound CPU reset handler
+	 *
+	 *	Resets the state of the sound CPU manually.
+	 *
+	 */
+	
+	public static void atarigen_sound_reset()
+	{
+		timer_set(TIME_NOW, 1, delayed_sound_reset);
+	}
+	
+	
+	/*
+	 *	Main . sound CPU data write handlers
+	 *
+	 *	Handles communication from the main CPU to the sound CPU. Two versions are provided,
+	 *	one with the data byte in the low 8 bits, and one with the data byte in the upper 8
+	 *	bits.
+	 *
+	 */
+	
+	public static WriteHandlerPtr atarigen_sound_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		if ((data & 0x00ff0000)==0)
+			timer_set(TIME_NOW, data & 0xff, delayed_sound_w);
+	} };
+	
 /*TODO*///	public static WriteHandlerPtr atarigen_sound_upper_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 /*TODO*///	{
 /*TODO*///		if (!(data & 0xff000000))
 /*TODO*///			timer_set(TIME_NOW, (data >> 8) & 0xff, delayed_sound_w);
 /*TODO*///	} };
 /*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound . main CPU data read handlers
-/*TODO*///	 *
-/*TODO*///	 *	Handles reading data communicated from the sound CPU to the main CPU. Two versions
-/*TODO*///	 *	are provided, one with the data byte in the low 8 bits, and one with the data byte
-/*TODO*///	 *	in the upper 8 bits.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr atarigen_sound_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		atarigen_sound_to_cpu_ready = 0;
-/*TODO*///		atarigen_sound_int_ack_w(0, 0);
-/*TODO*///		return atarigen_sound_to_cpu | 0xff00;
-/*TODO*///	} };
-/*TODO*///	
+	
+	/*
+	 *	Sound . main CPU data read handlers
+	 *
+	 *	Handles reading data communicated from the sound CPU to the main CPU. Two versions
+	 *	are provided, one with the data byte in the low 8 bits, and one with the data byte
+	 *	in the upper 8 bits.
+	 *
+	 */
+	
+	public static ReadHandlerPtr atarigen_sound_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		atarigen_sound_to_cpu_ready = 0;
+		atarigen_sound_int_ack_w.handler(0, 0);
+		return atarigen_sound_to_cpu | 0xff00;
+	} };
+	
 /*TODO*///	public static ReadHandlerPtr atarigen_sound_upper_r  = new ReadHandlerPtr() { public int handler(int offset)
 /*TODO*///	{
 /*TODO*///		atarigen_sound_to_cpu_ready = 0;
 /*TODO*///		atarigen_sound_int_ack_w(0, 0);
 /*TODO*///		return (atarigen_sound_to_cpu << 8) | 0x00ff;
 /*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound . main CPU data write handler
-/*TODO*///	 *
-/*TODO*///	 *	Handles communication from the sound CPU to the main CPU.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr atarigen_6502_sound_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		timer_set(TIME_NOW, data, delayed_6502_sound_w);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Main . sound CPU data read handler
-/*TODO*///	 *
-/*TODO*///	 *	Handles reading data communicated from the main CPU to the sound CPU.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr atarigen_6502_sound_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		atarigen_cpu_to_sound_ready = 0;
-/*TODO*///		cpu_set_nmi_line(sound_cpu_num, CLEAR_LINE);
-/*TODO*///		return atarigen_cpu_to_sound;
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	6502 IRQ state updater
-/*TODO*///	 *
-/*TODO*///	 *	Called whenever the IRQ state changes. An interrupt is generated if
-/*TODO*///	 *	either atarigen_6502_irq_gen() was called, or if the YM2151 generated
-/*TODO*///	 *	an interrupt via the atarigen_ym2151_irq_gen() callback.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void update_6502_irq(void)
-/*TODO*///	{
-/*TODO*///		if (timed_int || ym2151_int)
-/*TODO*///			cpu_set_irq_line(sound_cpu_num, M6502_INT_IRQ, ASSERT_LINE);
-/*TODO*///		else
-/*TODO*///			cpu_set_irq_line(sound_cpu_num, M6502_INT_IRQ, CLEAR_LINE);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound communications timer
-/*TODO*///	 *
-/*TODO*///	 *	Set whenever a command is written from the main CPU to the sound CPU, in order to
-/*TODO*///	 *	temporarily bump up the interleave rate. This helps ensure that communications
-/*TODO*///	 *	between the two CPUs works properly.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	static void sound_comm_timer(int reps_left)
-/*TODO*///	{
-/*TODO*///		if (--reps_left)
-/*TODO*///			timer_set(SOUND_INTERLEAVE_RATE, reps_left, sound_comm_timer);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound CPU reset timer
-/*TODO*///	 *
-/*TODO*///	 *	Synchronizes the sound reset command between the two CPUs.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	static void delayed_sound_reset(int param)
-/*TODO*///	{
-/*TODO*///		/* unhalt and reset the sound CPU */
-/*TODO*///		if (param == 0)
-/*TODO*///		{
-/*TODO*///			cpu_set_halt_line(sound_cpu_num, CLEAR_LINE);
-/*TODO*///			cpu_set_reset_line(sound_cpu_num, PULSE_LINE);
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* reset the sound write state */
-/*TODO*///		atarigen_sound_to_cpu_ready = 0;
-/*TODO*///		atarigen_sound_int_ack_w(0, 0);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Main . sound data write timer
-/*TODO*///	 *
-/*TODO*///	 *	Synchronizes a data write from the main CPU to the sound CPU.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	static void delayed_sound_w(int param)
-/*TODO*///	{
-/*TODO*///		/* warn if we missed something */
-/*TODO*///		if (atarigen_cpu_to_sound_ready != 0)
-/*TODO*///			logerror("Missed command from 68010\n");
-/*TODO*///	
-/*TODO*///		/* set up the states and signal an NMI to the sound CPU */
-/*TODO*///		atarigen_cpu_to_sound = param;
-/*TODO*///		atarigen_cpu_to_sound_ready = 1;
-/*TODO*///		cpu_set_nmi_line(sound_cpu_num, ASSERT_LINE);
-/*TODO*///	
-/*TODO*///		/* allocate a high frequency timer until a response is generated */
-/*TODO*///		/* the main CPU is *very* sensistive to the timing of the response */
-/*TODO*///		timer_set(SOUND_INTERLEAVE_RATE, SOUND_INTERLEAVE_REPEAT, sound_comm_timer);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Sound . main data write timer
-/*TODO*///	 *
-/*TODO*///	 *	Synchronizes a data write from the sound CPU to the main CPU.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	static void delayed_6502_sound_w(int param)
-/*TODO*///	{
-/*TODO*///		/* warn if we missed something */
-/*TODO*///		if (atarigen_sound_to_cpu_ready != 0)
-/*TODO*///			logerror("Missed result from 6502\n");
-/*TODO*///	
-/*TODO*///		/* set up the states and signal the sound interrupt to the main CPU */
-/*TODO*///		atarigen_sound_to_cpu = param;
-/*TODO*///		atarigen_sound_to_cpu_ready = 1;
-/*TODO*///		atarigen_sound_int_gen();
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+	
+	
+	/*
+	 *	Sound . main CPU data write handler
+	 *
+	 *	Handles communication from the sound CPU to the main CPU.
+	 *
+	 */
+	
+	public static WriteHandlerPtr atarigen_6502_sound_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		timer_set(TIME_NOW, data, delayed_6502_sound_w);
+	} };
+	
+	
+	/*
+	 *	Main . sound CPU data read handler
+	 *
+	 *	Handles reading data communicated from the main CPU to the sound CPU.
+	 *
+	 */
+	
+	public static ReadHandlerPtr atarigen_6502_sound_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		atarigen_cpu_to_sound_ready = 0;
+		cpu_set_nmi_line(sound_cpu_num, CLEAR_LINE);
+		return atarigen_cpu_to_sound;
+	} };
+	
+	
+	/*
+	 *	6502 IRQ state updater
+	 *
+	 *	Called whenever the IRQ state changes. An interrupt is generated if
+	 *	either atarigen_6502_irq_gen() was called, or if the YM2151 generated
+	 *	an interrupt via the atarigen_ym2151_irq_gen() callback.
+	 *
+	 */
+	
+	public static void update_6502_irq()
+	{
+		if (timed_int!=0 || ym2151_int!=0)
+			cpu_set_irq_line(sound_cpu_num, M6502_INT_IRQ, ASSERT_LINE);
+		else
+			cpu_set_irq_line(sound_cpu_num, M6502_INT_IRQ, CLEAR_LINE);
+	}
+	
+	
+	/*
+	 *	Sound communications timer
+	 *
+	 *	Set whenever a command is written from the main CPU to the sound CPU, in order to
+	 *	temporarily bump up the interleave rate. This helps ensure that communications
+	 *	between the two CPUs works properly.
+	 *
+	 */
+	
+	static timer_callback sound_comm_timer = new timer_callback() {
+            @Override
+            public void handler(int reps_left) {
+                if (--reps_left != 0)
+			timer_set(SOUND_INTERLEAVE_RATE, reps_left, sound_comm_timer);
+            }
+        };
+        
+	
+	/*
+	 *	Sound CPU reset timer
+	 *
+	 *	Synchronizes the sound reset command between the two CPUs.
+	 *
+	 */
+	
+	static timer_callback delayed_sound_reset = new timer_callback() {
+            @Override
+            public void handler(int param) {
+                /* unhalt and reset the sound CPU */
+		if (param == 0)
+		{
+			cpu_set_halt_line(sound_cpu_num, CLEAR_LINE);
+			cpu_set_reset_line(sound_cpu_num, PULSE_LINE);
+		}
+	
+		/* reset the sound write state */
+		atarigen_sound_to_cpu_ready = 0;
+		atarigen_sound_int_ack_w.handler(0, 0);
+            }
+        };
+        
+	/*
+	 *	Main . sound data write timer
+	 *
+	 *	Synchronizes a data write from the main CPU to the sound CPU.
+	 *
+	 */
+	
+	static timer_callback delayed_sound_w = new timer_callback() {
+            @Override
+            public void handler(int param) {
+                /* warn if we missed something */
+		if (atarigen_cpu_to_sound_ready != 0)
+			logerror("Missed command from 68010\n");
+	
+		/* set up the states and signal an NMI to the sound CPU */
+		atarigen_cpu_to_sound = param;
+		atarigen_cpu_to_sound_ready = 1;
+		cpu_set_nmi_line(sound_cpu_num, ASSERT_LINE);
+	
+		/* allocate a high frequency timer until a response is generated */
+		/* the main CPU is *very* sensistive to the timing of the response */
+		timer_set(SOUND_INTERLEAVE_RATE, SOUND_INTERLEAVE_REPEAT, sound_comm_timer);
+            }
+        };
+        
+	
+	/*
+	 *	Sound . main data write timer
+	 *
+	 *	Synchronizes a data write from the sound CPU to the main CPU.
+	 *
+	 */
+	
+	static timer_callback delayed_6502_sound_w = new timer_callback() {
+            @Override
+            public void handler(int param) {
+                /* warn if we missed something */
+		if (atarigen_sound_to_cpu_ready != 0)
+			logerror("Missed result from 6502\n");
+	
+		/* set up the states and signal the sound interrupt to the main CPU */
+		atarigen_sound_to_cpu = param;
+		atarigen_sound_to_cpu_ready = 1;
+		atarigen_sound_int_gen();
+            }
+        };
+        
+	
+	
 /*TODO*///	/*--------------------------------------------------------------------------
 /*TODO*///	
 /*TODO*///		Misc sound helpers
@@ -836,66 +848,66 @@ public class atarigen
 /*TODO*///	--------------------------------------------------------------------------*/
 /*TODO*///	
 /*TODO*///	/* statics */
-/*TODO*///	static UINT8 *speed_a, *speed_b;
-/*TODO*///	static UINT32 speed_pc;
+	static UBytePtr speed_a=new UBytePtr(), speed_b=new UBytePtr();
+	static int speed_pc;
 /*TODO*///	
 /*TODO*///	/* prototypes */
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	6502 CPU speedup cheat installer
-/*TODO*///	 *
-/*TODO*///	 *	Installs a special read handler to catch the main spin loop in the
-/*TODO*///	 *	6502 sound code. The addresses accessed seem to be the same across
-/*TODO*///	 *	a large number of games, though the PC shifts.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_init_6502_speedup(int cpunum, int compare_pc1, int compare_pc2)
-/*TODO*///	{
-/*TODO*///		UINT8 *memory = memory_region(REGION_CPU1+cpunum);
-/*TODO*///		int address_low, address_high;
-/*TODO*///	
-/*TODO*///		/* determine the pointer to the first speed check location */
-/*TODO*///		address_low = memory[compare_pc1 + 1] | (memory[compare_pc1 + 2] << 8);
-/*TODO*///		address_high = memory[compare_pc1 + 4] | (memory[compare_pc1 + 5] << 8);
-/*TODO*///		if (address_low != address_high - 1)
-/*TODO*///			logerror("Error: address %04X does not point to a speedup location!", compare_pc1);
-/*TODO*///		speed_a = &memory[address_low];
-/*TODO*///	
-/*TODO*///		/* determine the pointer to the second speed check location */
-/*TODO*///		address_low = memory[compare_pc2 + 1] | (memory[compare_pc2 + 2] << 8);
-/*TODO*///		address_high = memory[compare_pc2 + 4] | (memory[compare_pc2 + 5] << 8);
-/*TODO*///		if (address_low != address_high - 1)
-/*TODO*///			logerror("Error: address %04X does not point to a speedup location!", compare_pc2);
-/*TODO*///		speed_b = &memory[address_low];
-/*TODO*///	
-/*TODO*///		/* install a handler on the second address */
-/*TODO*///		speed_pc = compare_pc2;
-/*TODO*///		install_mem_read_handler(cpunum, address_low, address_low, m6502_speedup_r);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Set the YM2151 volume
-/*TODO*///	 *
-/*TODO*///	 *	What it says.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_set_ym2151_vol(int volume)
-/*TODO*///	{
-/*TODO*///		int ch;
-/*TODO*///	
-/*TODO*///		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
-/*TODO*///		{
-/*TODO*///			const char *name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "2151"))
-/*TODO*///				mixer_set_volume(ch, volume);
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
+	
+	
+	/*
+	 *	6502 CPU speedup cheat installer
+	 *
+	 *	Installs a special read handler to catch the main spin loop in the
+	 *	6502 sound code. The addresses accessed seem to be the same across
+	 *	a large number of games, though the PC shifts.
+	 *
+	 */
+	
+	public static void atarigen_init_6502_speedup(int cpunum, int compare_pc1, int compare_pc2)
+	{
+		UBytePtr memory = memory_region(REGION_CPU1+cpunum);
+		int address_low, address_high;
+	
+		/* determine the pointer to the first speed check location */
+		address_low = memory.read(compare_pc1 + 1) | (memory.read(compare_pc1 + 2) << 8);
+		address_high = memory.read(compare_pc1 + 4) | (memory.read(compare_pc1 + 5) << 8);
+		if (address_low != address_high - 1)
+			logerror("Error: address %04X does not point to a speedup location!", compare_pc1);
+		speed_a = new UBytePtr(memory, address_low);
+	
+		/* determine the pointer to the second speed check location */
+		address_low = memory.read(compare_pc2 + 1) | (memory.read(compare_pc2 + 2) << 8);
+		address_high = memory.read(compare_pc2 + 4) | (memory.read(compare_pc2 + 5) << 8);
+		if (address_low != address_high - 1)
+			logerror("Error: address %04X does not point to a speedup location!", compare_pc2);
+		speed_b = new UBytePtr(memory, address_low);
+	
+		/* install a handler on the second address */
+		speed_pc = compare_pc2;
+		install_mem_read_handler(cpunum, address_low, address_low, m6502_speedup_r);
+	}
+	
+	
+	/*
+	 *	Set the YM2151 volume
+	 *
+	 *	What it says.
+	 *
+	 */
+	
+	public static void atarigen_set_ym2151_vol(int volume)
+	{
+		int ch;
+	
+		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
+		{
+			String name = mixer_get_name(ch);
+			if (name!=null && strstr(name, "2151")!=null)
+				mixer_set_volume(ch, volume);
+		}
+	}
+	
+	
 /*TODO*///	/*
 /*TODO*///	 *	Set the YM2413 volume
 /*TODO*///	 *
@@ -914,48 +926,48 @@ public class atarigen
 /*TODO*///				mixer_set_volume(ch, volume);
 /*TODO*///		}
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Set the POKEY volume
-/*TODO*///	 *
-/*TODO*///	 *	What it says.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_set_pokey_vol(int volume)
-/*TODO*///	{
-/*TODO*///		int ch;
-/*TODO*///	
-/*TODO*///		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
-/*TODO*///		{
-/*TODO*///			const char *name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "POKEY"))
-/*TODO*///				mixer_set_volume(ch, volume);
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Set the TMS5220 volume
-/*TODO*///	 *
-/*TODO*///	 *	What it says.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_set_tms5220_vol(int volume)
-/*TODO*///	{
-/*TODO*///		int ch;
-/*TODO*///	
-/*TODO*///		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
-/*TODO*///		{
-/*TODO*///			const char *name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "5220"))
-/*TODO*///				mixer_set_volume(ch, volume);
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
+	
+	
+	/*
+	 *	Set the POKEY volume
+	 *
+	 *	What it says.
+	 *
+	 */
+	
+	public static void atarigen_set_pokey_vol(int volume)
+	{
+		int ch;
+	
+		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
+		{
+			String name = mixer_get_name(ch);
+			if (name!=null && strstr(name, "POKEY")!=null)
+				mixer_set_volume(ch, volume);
+		}
+	}
+	
+	
+	/*
+	 *	Set the TMS5220 volume
+	 *
+	 *	What it says.
+	 *
+	 */
+	
+	public static void atarigen_set_tms5220_vol(int volume)
+	{
+		int ch;
+	
+		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
+		{
+			String name = mixer_get_name(ch);
+			if (name!=null && strstr(name, "5220")!=null)
+				mixer_set_volume(ch, volume);
+		}
+	}
+	
+	
 /*TODO*///	/*
 /*TODO*///	 *	Set the OKI6295 volume
 /*TODO*///	 *
@@ -974,24 +986,24 @@ public class atarigen
 /*TODO*///				mixer_set_volume(ch, volume);
 /*TODO*///		}
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Generic 6502 CPU speedup handler
-/*TODO*///	 *
-/*TODO*///	 *	Special shading renderer that runs any pixels under pen 1 through a lookup table.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr m6502_speedup_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		int result = speed_b[0];
-/*TODO*///	
-/*TODO*///		if (cpu_getpreviouspc() == speed_pc && speed_a[0] == speed_a[1] && result == speed_b[1])
-/*TODO*///			cpu_spinuntil_int();
-/*TODO*///	
-/*TODO*///		return result;
-/*TODO*///	} };
+	
+	
+	/*
+	 *	Generic 6502 CPU speedup handler
+	 *
+	 *	Special shading renderer that runs any pixels under pen 1 through a lookup table.
+	 *
+	 */
+	
+	public static ReadHandlerPtr m6502_speedup_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		int result = speed_b.read(0);
+	
+		if (cpu_getpreviouspc() == speed_pc && speed_a.read(0) == speed_a.read(1) && result == speed_b.read(1))
+			cpu_spinuntil_int();
+	
+		return result;
+	} };
 	
 	
 	
@@ -1010,14 +1022,14 @@ public class atarigen
 /*TODO*///	UINT8 *atarigen_playfieldram_color;
 /*TODO*///	UINT8 *atarigen_playfield2ram_color;
         public static UBytePtr atarigen_spriteram = new UBytePtr();
-/*TODO*///	UINT8 *atarigen_alpharam;
-/*TODO*///	UINT8 *atarigen_vscroll;
-/*TODO*///	UINT8 *atarigen_hscroll;
+        public static UBytePtr atarigen_alpharam = new UBytePtr();
+        public static UBytePtr atarigen_vscroll = new UBytePtr();
+        public static UBytePtr atarigen_hscroll = new UBytePtr();
 
 	public static int[] atarigen_playfieldram_size = new int[1];
 /*TODO*///	size_t atarigen_playfield2ram_size;
         public static int[] atarigen_spriteram_size = new int[1];
-/*TODO*///	size_t atarigen_alpharam_size;
+	public static int[] atarigen_alpharam_size = new int[1];
 	
 	
 	
@@ -2947,11 +2959,11 @@ public class atarigen
 		pf.scanline[pf.entries] = 100000;
 	}
 	
-/*TODO*///	void atarigen_pf_update(const struct atarigen_pf_state *state, int scanline)
-/*TODO*///	{
-/*TODO*///		internal_pf_update(&playfield, state, scanline);
-/*TODO*///	}
-/*TODO*///	
+	public static void atarigen_pf_update(atarigen_pf_state state, int scanline)
+	{
+		internal_pf_update(playfield, state, scanline);
+	}
+	
 /*TODO*///	void atarigen_pf2_update(const struct atarigen_pf_state *state, int scanline)
 /*TODO*///	{
 /*TODO*///		internal_pf_update(&playfield2, state, scanline);
@@ -3223,26 +3235,26 @@ public class atarigen
 /*TODO*///		message_text[4] = NULL;
 /*TODO*///		message_countdown = 15 * Machine.drv.frames_per_second;
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///	 *	Display a warning message about sound being disabled
-/*TODO*///	 *
-/*TODO*///	 *	What it says.
-/*TODO*///	 *
-/*TODO*///	 */
-/*TODO*///	
-/*TODO*///	void atarigen_show_sound_message(void)
-/*TODO*///	{
-/*TODO*///		if (Machine.sample_rate == 0)
-/*TODO*///		{
-/*TODO*///			message_text[0] = "This game may have trouble accepting";
-/*TODO*///			message_text[1] = "coins, or may even behave strangely,";
-/*TODO*///			message_text[2] = "because you have disabled sound.";
-/*TODO*///			message_text[3] = NULL;
-/*TODO*///			message_countdown = 15 * Machine.drv.frames_per_second;
-/*TODO*///		}
-/*TODO*///	}
+	
+	
+	/*
+	 *	Display a warning message about sound being disabled
+	 *
+	 *	What it says.
+	 *
+	 */
+	
+	public static void atarigen_show_sound_message()
+	{
+		if (Machine.sample_rate == 0)
+		{
+			message_text[0] = "This game may have trouble accepting";
+			message_text[1] = "coins, or may even behave strangely,";
+			message_text[2] = "because you have disabled sound.";
+			message_text[3] = null;
+			message_countdown = (int) (15 * Machine.drv.frames_per_second);
+		}
+	}
 	
 	
 	/*

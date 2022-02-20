@@ -201,6 +201,7 @@ import static arcadeflex.WIP.v037b7.drivers.armedf.*;//buggy 68k not working
 import static arcadeflex.WIP.v037b7.drivers.gaiden.*;
 import static arcadeflex.WIP.v037b7.drivers.shuuz.*;
 import static arcadeflex.WIP.v037b7.drivers.klax.*;
+import static arcadeflex.WIP.v037b7.drivers.mcr68.*;
 
 public class driver {
 
@@ -812,8 +813,8 @@ public class driver {
         /*TODO*///	driver_spyhunt )	/* (c) 1983 */
         /*TODO*///	driver_turbotag )	/* (c) 1985 */
         /*TODO*///	driver_crater )	/* (c) 1984 */
-        /*TODO*///	/* MCR 68000 */
-        /*TODO*///	driver_zwackery )	/* (c) 1984 */
+        /* MCR 68000 */
+        driver_zwackery,	/* (c) 1984 */
         /*TODO*///	driver_xenophob )	/* (c) 1987 */
         /*TODO*///	driver_spyhunt2 )	/* (c) 1987 */
         /*TODO*///	driver_spyhnt2a )	/* (c) 1987 */
