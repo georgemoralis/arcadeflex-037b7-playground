@@ -129,7 +129,7 @@ public class mcr68
 		control_word.WRITE_WORD(offset, newword);
 	
 	/*	soundsgood_reset_w(~newword & 0x0020);*/
-/*TODO*///		soundsgood_data_w(offset, ((newword & 0x000f) << 1) | ((newword & 0x0010) >> 4));
+		soundsgood_data_w.handler(offset, ((newword & 0x000f) << 1) | ((newword & 0x0010) >> 4));
 	} };
 	
 	
@@ -147,7 +147,7 @@ public class mcr68
 		control_word.WRITE_WORD(offset, newword);
 	
 	/*	soundsgood_reset_w(~newword & 0x0020);*/
-/*TODO*///		soundsgood_data_w(offset, (newword >> 8) & 0x1f);
+		soundsgood_data_w.handler(offset, (newword >> 8) & 0x1f);
 	} };
 	
 	
@@ -184,7 +184,7 @@ public class mcr68
 		turbocs_data_w.handler(offset, (newword >> 8) & 0x001f);
 	
 	/*	soundsgood_reset_w(~newword & 0x2000);*/
-/*TODO*///		soundsgood_data_w(offset, (newword >> 8) & 0x001f);
+		soundsgood_data_w.handler(offset, (newword >> 8) & 0x001f);
 	} };
 	
 	

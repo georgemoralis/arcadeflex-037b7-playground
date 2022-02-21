@@ -204,6 +204,7 @@ import static arcadeflex.WIP.v037b7.drivers.klax.*;
 import static arcadeflex.WIP.v037b7.drivers.mcr68.*;
 import static arcadeflex.WIP.v037b7.drivers.xmen.*;
 import static arcadeflex.WIP.v037b7.drivers.magmax.*;
+import static arcadeflex.WIP.v037b7.drivers.foodf.*;
 
 public class driver {
 
@@ -2427,9 +2428,9 @@ public class driver {
         /*TODO*///	driver_missile )	/* (c) 1980 */
         /*TODO*///	driver_missile2 )	/* (c) 1980 */
         /*TODO*///	driver_suprmatk )	/* (c) 1980 + (c) 1981 Gencomp */
-        /*TODO*///
-        /*TODO*///	/* misc Atari games */
-        /*TODO*///	driver_foodf )		/* (c) 1982 */	/* made by Gencomp */
+  
+        /* misc Atari games */
+        driver_foodf,		/* (c) 1982 */	/* made by Gencomp */
         /*TODO*///	driver_liberatr )	/* (c) 1982 */
         /*TODO*///TESTdriver_liberat2 )
         /*RELEASE*///driver_ccastles, /* (c) 1983 */
