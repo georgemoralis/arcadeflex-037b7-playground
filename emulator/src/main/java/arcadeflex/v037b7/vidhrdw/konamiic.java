@@ -2335,16 +2335,18 @@ public class konamiic {
         K053247_ram = null;
     }
 
-    /*TODO*///READ_HANDLER( K053247_word_r )
-/*TODO*///{
-/*TODO*///	return READ_WORD(&K053247_ram[offset]);
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( K053247_word_w )
-/*TODO*///{
-/*TODO*///	COMBINE_WORD_MEM(&K053247_ram[offset],data);
-/*TODO*///}
-/*TODO*///
+    public static ReadHandlerPtr K053247_word_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return K053247_ram.READ_WORD(offset);
+        }
+    };
+
+    public static WriteHandlerPtr K053247_word_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            COMBINE_WORD_MEM(K053247_ram, offset, data);
+        }
+    };
+
     public static ReadHandlerPtr K053247_r = new ReadHandlerPtr() {
         public int handler(int offset) {
             int shift = ((offset & 1) ^ 1) << 3;
@@ -2408,18 +2410,21 @@ public class konamiic {
         }
     };
 
-    /*TODO*///READ_HANDLER( K053246_word_r )
-/*TODO*///{
-/*TODO*///	return K053246_r(offset + 1) | (K053246_r(offset) << 8);
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( K053246_word_w )
-/*TODO*///{
-/*TODO*///	if ((data & 0xff000000) == 0)
-/*TODO*///		K053246_w(offset,(data >> 8) & 0xff);
-/*TODO*///	if ((data & 0x00ff0000) == 0)
-/*TODO*///		K053246_w(offset + 1,data & 0xff);
-/*TODO*///}
+    public static ReadHandlerPtr K053246_word_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return K053246_r.handler(offset + 1) | (K053246_r.handler(offset) << 8);
+        }
+    };
+
+    public static WriteHandlerPtr K053246_word_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            if ((data & 0xff000000) == 0)
+                    K053246_w.handler(offset,(data >> 8) & 0xff);
+            if ((data & 0x00ff0000) == 0)
+                    K053246_w.handler(offset + 1,data & 0xff);
+        }
+    };
+    
     public static void K053246_set_OBJCHA_line(int state) {
         K053246_OBJCHA_line = state;
     }

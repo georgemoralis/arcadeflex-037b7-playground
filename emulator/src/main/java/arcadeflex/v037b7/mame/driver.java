@@ -202,6 +202,7 @@ import static arcadeflex.WIP.v037b7.drivers.gaiden.*;
 import static arcadeflex.WIP.v037b7.drivers.shuuz.*;
 import static arcadeflex.WIP.v037b7.drivers.klax.*;
 import static arcadeflex.WIP.v037b7.drivers.mcr68.*;
+import static arcadeflex.WIP.v037b7.drivers.xmen.*;
 
 public class driver {
 
@@ -2293,9 +2294,9 @@ public class driver {
         /*TODO*///	driver_ssrdrubc )	/* GX064 (c) 1991 (US) */
         /*TODO*///	driver_ssrdrabd )	/* GX064 (c) 1991 (Asia) */
         /*TODO*///	driver_ssrdrjbd )	/* GX064 (c) 1991 (Japan) */
-        /*TODO*///	driver_xmen )		/* GX065 (c) 1992 (US) */
-        /*TODO*///	driver_xmen6p )	/* GX065 (c) 1992 */
-        /*TODO*///	driver_xmen2pj )	/* GX065 (c) 1992 (Japan) */
+        driver_xmen, 		/* GX065 (c) 1992 (US) */
+        driver_xmen6p,          /* GX065 (c) 1992 */
+        driver_xmen2pj,         /* GX065 (c) 1992 (Japan) */
         /*TODO*///	driver_thndrx2 )	/* GX073 (c) 1991 (Japan) */
         /*TODO*///
         /*TODO*////*
