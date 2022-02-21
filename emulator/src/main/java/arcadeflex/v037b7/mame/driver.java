@@ -205,6 +205,7 @@ import static arcadeflex.WIP.v037b7.drivers.mcr68.*;
 import static arcadeflex.WIP.v037b7.drivers.xmen.*;
 import static arcadeflex.WIP.v037b7.drivers.magmax.*;
 import static arcadeflex.WIP.v037b7.drivers.foodf.*;
+import static arcadeflex.WIP.v037b7.drivers.system16.*;
 
 public class driver {
 
@@ -1811,10 +1812,10 @@ public class driver {
         /*RELEASE*///driver_bankp,/* (c) 1984 Sega */
         driver_dotrikun, /* cabinet test board */
         driver_dotriku2, /* cabinet test board */
-        /*TODO*///
-        /*TODO*///	/* Sega System 16 games */
-        /*TODO*///	// Not working
-        /*TODO*///	driver_alexkidd )	/* (c) 1986 (protected) */
+        
+        /* Sega System 16 games */
+        // Not working
+        driver_alexkidd,	/* (c) 1986 (protected) */
         /*TODO*///	driver_aliensya )	/* (c) 1987 (protected) */
         /*TODO*///	driver_aliensyb )	/* (c) 1987 (protected) */
         /*TODO*///	driver_aliensyj )	/* (c) 1987 (protected. Japan) */
@@ -1862,12 +1863,12 @@ public class driver {
         /*TODO*///TESTdriver_thndrbdj )  /* (protected?) */
         /*TODO*///TESTdriver_toutrun )	/* (protected) */
         /*TODO*///TESTdriver_toutruna )	/* (protected) */
-        /*TODO*///
-        /*TODO*///	// Working
-        /*TODO*///	driver_alexkida )	/* (c) 1986 */
+       
+        // Working
+        driver_alexkida, 	/* (c) 1986 */
         /*TODO*///	driver_aliensyn )	/* (c) 1987 */
         /*TODO*///	driver_altbeas2 )	/* (c) 1988 */
-        /*TODO*///	driver_altbeast )	/* (c) 1988 */
+        driver_altbeast,	/* (c) 1988 */
         /*TODO*///	driver_astormbl )	/* bootleg */
         /*TODO*///	driver_atomicp )	/* (c) 1990 Philko */
         /*TODO*///	driver_aurail )	/* (c) 1990 Sega / Westone */
