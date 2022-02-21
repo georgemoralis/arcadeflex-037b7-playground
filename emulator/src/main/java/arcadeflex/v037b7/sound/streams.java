@@ -157,7 +157,8 @@ public class streams {
                 } else {
                     if (buflen > 0) {
                         ShortPtr buf = new ShortPtr(stream_buffer[channel], stream_buffer_pos[channel] * 2);//INT16 *buf= stream_buffer[channel] + stream_buffer_pos[channel];
-                        stream_callback[channel].handler(stream_param[channel], buf, buflen);
+                        if (stream_callback[channel] != null)
+                            stream_callback[channel].handler(stream_param[channel], buf, buflen);
 
                     }
 
@@ -267,7 +268,8 @@ public class streams {
             } else {
                 ShortPtr buf = new ShortPtr(stream_buffer[channel], stream_buffer_pos[channel] * 2);//INT16 *buf = stream_buffer[channel] + stream_buffer_pos[channel];
 
-                stream_callback[channel].handler(stream_param[channel], buf, buflen);
+                if (stream_callback[channel]!=null)
+                    stream_callback[channel].handler(stream_param[channel], buf, buflen);
 
                 stream_buffer_pos[channel] += buflen;
             }

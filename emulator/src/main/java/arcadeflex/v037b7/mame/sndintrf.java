@@ -37,6 +37,8 @@ import arcadeflex.v037b7.sound.MSM5205;
 import arcadeflex.v037b7.sound._2151intf;
 import arcadeflex.v037b7.sound.cem3394;
 import arcadeflex.v037b7.sound.namco;
+import arcadeflex.v037b7.sound.rf5c68;
+import arcadeflex.v037b7.sound._2612intf;
 //to be orgnanized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm;
@@ -313,32 +315,8 @@ public class sndintrf {
         /*TODO*///		YM2610_sh_reset
         /*TODO*///	},
         /*TODO*///#endif
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_YM2612)
-        /*TODO*///    {
-        /*TODO*///		SOUND_YM2612,
-        /*TODO*///		"YM-2612",
-        /*TODO*///		YM2612_num,
-        /*TODO*///		YM2612_clock,
-        /*TODO*///		YM2612_sh_start,
-        /*TODO*///		YM2612_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		YM2612_sh_reset
-        /*TODO*///	},
-        /*TODO*///#endif
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_YM3438)
-        /*TODO*///    {
-        /*TODO*///		SOUND_YM3438,
-        /*TODO*///		"YM-3438",
-        /*TODO*///		YM2612_num,
-        /*TODO*///		YM2612_clock,
-        /*TODO*///		YM2612_sh_start,
-        /*TODO*///		YM2612_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		YM2612_sh_reset
-        /*TODO*///	},
-        /*TODO*///#endif
+        new _2612intf(),        
+        new _2612intf(),        
         new ym2413(),
         new _3812intf(),
         new _3526intf(),
@@ -412,19 +390,7 @@ public class sndintrf {
         /*TODO*///		0
         /*TODO*///	},
         /*TODO*///#endif
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_RF5C68)
-        /*TODO*///	{
-        /*TODO*///		SOUND_RF5C68,
-        /*TODO*///		"RF5C68",
-        /*TODO*///		0,
-        /*TODO*///		0,
-        /*TODO*///		RF5C68_sh_start,
-        /*TODO*///		RF5C68_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		0
-        /*TODO*///	},
-        /*TODO*///#endif
+        new rf5c68(),        
         new cem3394(),
         new Dummy_snd(),
         /*TODO*///#if (HAS_C140)

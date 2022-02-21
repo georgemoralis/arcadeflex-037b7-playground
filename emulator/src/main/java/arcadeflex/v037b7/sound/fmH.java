@@ -101,7 +101,7 @@ public class fmH {
 /*TODO*///#if FM_STEREO_MIX
 /*TODO*///  #define YM2151_NUMBUF 1
 /*TODO*///  #define YM2608_NUMBUF 1
-/*TODO*///  #define YM2612_NUMBUF 1
+    public static final int YM2612_NUMBUF = 1;
 /*TODO*///  #define YM2610_NUMBUF 1
 /*TODO*///#else
 /*TODO*///  #define YM2151_NUMBUF 2    /* FM L+R */
