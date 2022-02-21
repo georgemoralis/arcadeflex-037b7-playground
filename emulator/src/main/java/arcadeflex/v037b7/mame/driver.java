@@ -203,6 +203,7 @@ import static arcadeflex.WIP.v037b7.drivers.shuuz.*;
 import static arcadeflex.WIP.v037b7.drivers.klax.*;
 import static arcadeflex.WIP.v037b7.drivers.mcr68.*;
 import static arcadeflex.WIP.v037b7.drivers.xmen.*;
+import static arcadeflex.WIP.v037b7.drivers.magmax.*;
 
 public class driver {
 
@@ -374,7 +375,7 @@ public class driver {
         driver_sectrzon, /* (c) 1984 + Alice */
         driver_wiping,/* (c) 1982 */
         driver_rugrats,/* (c) 1983 */
-        /*TODO*///	driver_magmax )	/* (c) 1985 */
+        driver_magmax, 	/* (c) 1985 */
         /*RELEASE*///driver_cop01,/* (c) 1985 */
         /*RELEASE*///driver_cop01a,/* (c) 1985 */
         driver_terracre, /* (c) 1985 */
