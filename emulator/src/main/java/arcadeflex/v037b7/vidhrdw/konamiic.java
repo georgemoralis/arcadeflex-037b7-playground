@@ -1935,17 +1935,21 @@ public class konamiic {
     public static void K053245_vh_stop() {
         K053245_ram = null;
     }
-    /*TODO*///
-/*TODO*///READ_HANDLER( K053245_word_r )
-/*TODO*///{
-/*TODO*///	return READ_WORD(&K053245_ram[offset]);
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( K053245_word_w )
-/*TODO*///{
-/*TODO*///	COMBINE_WORD_MEM(&K053245_ram[offset],data);
-/*TODO*///}
-/*TODO*///
+   
+    public static ReadHandlerPtr K053245_word_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            return K053245_ram.READ_WORD(offset);
+        }
+    };
+
+
+    public static WriteHandlerPtr K053245_word_w = new WriteHandlerPtr() {
+        @Override
+        public void handler(int offset, int data) {
+            COMBINE_WORD_MEM(K053245_ram,offset,data);
+        }
+    };
+
     public static ReadHandlerPtr K053245_r = new ReadHandlerPtr() {
         public int handler(int offset) {
             int shift = ((offset & 1) ^ 1) << 3;
@@ -2013,12 +2017,12 @@ public class konamiic {
         }
     };
 
-    /*TODO*///
-/*TODO*///void K053244_bankselect(int bank)   /* used by TMNT2 for ROM testing */
-/*TODO*///{
-/*TODO*///	K053244_rombank = bank;
-/*TODO*///}
-/*TODO*///
+    
+    public static void K053244_bankselect(int bank)   /* used by TMNT2 for ROM testing */
+    {
+            K053244_rombank = bank;
+    }
+
     public static void K053245_sprites_draw(osd_bitmap bitmap) {
         int NUM_SPRITES = 128;
         int offs, pri_code;

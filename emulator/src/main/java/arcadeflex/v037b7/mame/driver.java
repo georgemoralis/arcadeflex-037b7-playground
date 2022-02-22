@@ -208,6 +208,7 @@ import static arcadeflex.WIP.v037b7.drivers.foodf.*;
 import static arcadeflex.WIP.v037b7.drivers.system16.*;
 import static arcadeflex.WIP.v037b7.drivers.blockout.*;
 import static arcadeflex.WIP.v037b7.drivers.darkseal.*;
+import static arcadeflex.WIP.v037b7.drivers.tmnt.*;        
 
 public class driver {
 
@@ -2270,40 +2271,40 @@ public class driver {
         /*TODO*///	/* Konami Gradius III board */
         /*TODO*///	driver_gradius3 )	/* GX945 (c) 1989 (Japan) */
         /*TODO*///	driver_grdius3a )	/* GX945 (c) 1989 (Asia) */
-        /*TODO*///
-        /*TODO*///	/* (some) Konami 68000 games */
-        /*TODO*///	driver_mia )		/* GX808 (c) 1989 */
-        /*TODO*///	driver_mia2 )		/* GX808 (c) 1989 */
-        /*TODO*///	driver_tmnt )		/* GX963 (c) 1989 (US) */
-        /*TODO*///	driver_tmht )		/* GX963 (c) 1989 (UK) */
-        /*TODO*///	driver_tmntj )		/* GX963 (c) 1989 (Japan) */
-        /*TODO*///	driver_tmht2p )	/* GX963 (c) 1989 (UK) */
-        /*TODO*///	driver_tmnt2pj )	/* GX963 (c) 1990 (Japan) */
-        /*TODO*///	driver_tmnt2po )	/* GX963 (c) 1989 (Oceania) */
-        /*TODO*///	driver_punkshot )	/* GX907 (c) 1990 (US) */
-        /*TODO*///	driver_punksht2 )	/* GX907 (c) 1990 (US) */
-        /*TODO*///	driver_lgtnfght )	/* GX939 (c) 1990 (US) */
-        /*TODO*///	driver_trigon )	/* GX939 (c) 1990 (Japan) */
-        /*TODO*///	driver_blswhstl )	/* GX060 (c) 1991 */
-        /*TODO*///	driver_detatwin )	/* GX060 (c) 1991 (Japan) */
+        
+        	/* (some) Konami 68000 games */
+        	driver_mia,		/* GX808 (c) 1989 */
+        	driver_mia2,		/* GX808 (c) 1989 */
+        	driver_tmnt,		/* GX963 (c) 1989 (US) */
+        	driver_tmht,		/* GX963 (c) 1989 (UK) */
+        	driver_tmntj,		/* GX963 (c) 1989 (Japan) */
+        	driver_tmht2p,	/* GX963 (c) 1989 (UK) */
+        	driver_tmnt2pj,	/* GX963 (c) 1990 (Japan) */
+        	driver_tmnt2po,	/* GX963 (c) 1989 (Oceania) */
+        	driver_punkshot,	/* GX907 (c) 1990 (US) */
+        	driver_punksht2,	/* GX907 (c) 1990 (US) */
+        	driver_lgtnfght,	/* GX939 (c) 1990 (US) */
+        	driver_trigon,	/* GX939 (c) 1990 (Japan) */
+        	driver_blswhstl,	/* GX060 (c) 1991 */
+        	driver_detatwin,	/* GX060 (c) 1991 (Japan) */
         /*TODO*///TESTdriver_glfgreat )	/* GX061 (c) 1991 */
         /*TODO*///TESTdriver_glfgretj )	/* GX061 (c) 1991 (Japan) */
-        /*TODO*///	driver_tmnt2 )		/* GX063 (c) 1991 (US) */
-        /*TODO*///	driver_tmnt22p )	/* GX063 (c) 1991 (US) */
-        /*TODO*///	driver_tmnt2a )	/* GX063 (c) 1991 (Asia) */
-        /*TODO*///	driver_ssriders )	/* GX064 (c) 1991 (World) */
-        /*TODO*///	driver_ssrdrebd )	/* GX064 (c) 1991 (World) */
-        /*TODO*///	driver_ssrdrebc )	/* GX064 (c) 1991 (World) */
-        /*TODO*///	driver_ssrdruda )	/* GX064 (c) 1991 (US) */
-        /*TODO*///	driver_ssrdruac )	/* GX064 (c) 1991 (US) */
-        /*TODO*///	driver_ssrdrubc )	/* GX064 (c) 1991 (US) */
-        /*TODO*///	driver_ssrdrabd )	/* GX064 (c) 1991 (Asia) */
-        /*TODO*///	driver_ssrdrjbd )	/* GX064 (c) 1991 (Japan) */
+        	driver_tmnt2,		/* GX063 (c) 1991 (US) */
+        	driver_tmnt22p,	/* GX063 (c) 1991 (US) */
+        	driver_tmnt2a,	/* GX063 (c) 1991 (Asia) */
+        	driver_ssriders,	/* GX064 (c) 1991 (World) */
+        	driver_ssrdrebd,	/* GX064 (c) 1991 (World) */
+        	driver_ssrdrebc,	/* GX064 (c) 1991 (World) */
+        	driver_ssrdruda,	/* GX064 (c) 1991 (US) */
+        	driver_ssrdruac,	/* GX064 (c) 1991 (US) */
+        	driver_ssrdrubc,	/* GX064 (c) 1991 (US) */
+        	driver_ssrdrabd,	/* GX064 (c) 1991 (Asia) */
+        	driver_ssrdrjbd,	/* GX064 (c) 1991 (Japan) */
         driver_xmen, 		/* GX065 (c) 1992 (US) */
         driver_xmen6p,          /* GX065 (c) 1992 */
         driver_xmen2pj,         /* GX065 (c) 1992 (Japan) */
-        /*TODO*///	driver_thndrx2 )	/* GX073 (c) 1991 (Japan) */
-        /*TODO*///
+        	driver_thndrx2, 	/* GX073 (c) 1991 (Japan) */
+        
         /*TODO*////*
         /*TODO*///Konami System GX game list
         /*TODO*///1994.03 Racing Force (GX250)

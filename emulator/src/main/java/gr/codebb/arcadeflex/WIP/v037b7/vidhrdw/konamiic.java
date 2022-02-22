@@ -2050,19 +2050,19 @@ public class konamiic {
         }
     };
 
-    /*TODO*///	public static ReadHandlerPtr K051960_word_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		return K051960_r(offset + 1) | (K051960_r(offset) << 8);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr K051960_word_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		if ((data & 0xff000000) == 0)
-/*TODO*///			K051960_w(offset,(data >> 8) & 0xff);
-/*TODO*///		if ((data & 0x00ff0000) == 0)
-/*TODO*///			K051960_w(offset + 1,data & 0xff);
-/*TODO*///	} };
-/*TODO*///	
+    	public static ReadHandlerPtr K051960_word_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		return K051960_r.handler(offset + 1) | (K051960_r.handler(offset) << 8);
+	} };
+	
+	public static WriteHandlerPtr K051960_word_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		if ((data & 0xff000000) == 0)
+			K051960_w.handler(offset,(data >> 8) & 0xff);
+		if ((data & 0x00ff0000) == 0)
+			K051960_w.handler(offset + 1,data & 0xff);
+	} };
+	
     static int K051937_counter;
     public static ReadHandlerPtr K051937_r = new ReadHandlerPtr() {
         public int handler(int offset) {
@@ -2109,21 +2109,21 @@ public class konamiic {
         }
     };
 
-    /*TODO*///	
-/*TODO*///	public static ReadHandlerPtr K051937_word_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		return K051937_r(offset + 1) | (K051937_r(offset) << 8);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr K051937_word_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		if ((data & 0xff000000) == 0)
-/*TODO*///			K051937_w(offset,(data >> 8) & 0xff);
-/*TODO*///		if ((data & 0x00ff0000) == 0)
-/*TODO*///			K051937_w(offset + 1,data & 0xff);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
+    	
+	public static ReadHandlerPtr K051937_word_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		return K051937_r.handler(offset + 1) | (K051937_r.handler(offset) << 8);
+	} };
+	
+	public static WriteHandlerPtr K051937_word_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		if ((data & 0xff000000) == 0)
+			K051937_w.handler(offset,(data >> 8) & 0xff);
+		if ((data & 0x00ff0000) == 0)
+			K051937_w.handler(offset + 1,data & 0xff);
+	} };
+	
+	
 /*TODO*///	/*
 /*TODO*///	 * Sprite Format
 /*TODO*///	 * ------------------
