@@ -207,6 +207,7 @@ import static arcadeflex.WIP.v037b7.drivers.magmax.*;
 import static arcadeflex.WIP.v037b7.drivers.foodf.*;
 import static arcadeflex.WIP.v037b7.drivers.system16.*;
 import static arcadeflex.WIP.v037b7.drivers.blockout.*;
+import static arcadeflex.WIP.v037b7.drivers.darkseal.*;
 
 public class driver {
 
@@ -2045,11 +2046,11 @@ public class driver {
         /*TODO*///	driver_cbusterw )	/* MAB (c) 1990 Data East Corporation (World) */
         /*TODO*///	driver_cbusterj )	/* MAB (c) 1990 Data East Corporation (Japan) */
         /*TODO*///	driver_twocrude )	/* MAB (c) 1990 Data East USA (US) */
-        /*TODO*///	driver_darkseal )	/* MAC (c) 1990 Data East Corporation (World) */
-        /*TODO*///	driver_darksea1 )	/* MAC (c) 1990 Data East Corporation (World) */
-        /*TODO*///	driver_darkseaj )	/* MAC (c) 1990 Data East Corporation (Japan) */
-        /*TODO*///	driver_gatedoom )	/* MAC (c) 1990 Data East Corporation (US) */
-        /*TODO*///	driver_gatedom1 )	/* MAC (c) 1990 Data East Corporation (US) */
+        driver_darkseal, 	/* MAC (c) 1990 Data East Corporation (World) */
+        driver_darksea1, 	/* MAC (c) 1990 Data East Corporation (World) */
+        driver_darkseaj, 	/* MAC (c) 1990 Data East Corporation (Japan) */
+        driver_gatedoom, 	/* MAC (c) 1990 Data East Corporation (US) */
+        driver_gatedom1, 	/* MAC (c) 1990 Data East Corporation (US) */
         /*TODO*///TESTdriver_edrandy )	/* MAD (c) 1990 Data East Corporation (World) */
         /*TODO*///TESTdriver_edrandyj )	/* MAD (c) 1990 Data East Corporation (Japan) */
         /*TODO*///	driver_supbtime )	/* MAE (c) 1990 Data East Corporation (World) */
