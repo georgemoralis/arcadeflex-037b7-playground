@@ -33,6 +33,11 @@ public class subArrays {
             memory = cp.memory;
             offset = cp.offset;
         }
+        
+        public UShortArray(UBytePtr cp) {
+            memory = cp.memory;
+            offset = cp.offset;
+        }
 
         public UShortArray(UShortArray cp, int b) {
             memory = cp.memory;

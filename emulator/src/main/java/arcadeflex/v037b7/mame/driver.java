@@ -206,6 +206,7 @@ import static arcadeflex.WIP.v037b7.drivers.xmen.*;
 import static arcadeflex.WIP.v037b7.drivers.magmax.*;
 import static arcadeflex.WIP.v037b7.drivers.foodf.*;
 import static arcadeflex.WIP.v037b7.drivers.system16.*;
+import static arcadeflex.WIP.v037b7.drivers.blockout.*;
 
 public class driver {
 
@@ -2629,8 +2630,8 @@ public class driver {
         /*TODO*///	driver_ddragon2 )	/* TA-0026 (c) 1988 */
         /*TODO*///	driver_ctribe )	/* TA-0028 (c) 1990 (US) */
         /*TODO*///	driver_ctribeb )	/* bootleg */
-        /*TODO*///	driver_blockout )	/* TA-0029 (c) 1989 + California Dreams */
-        /*TODO*///	driver_blckout2 )	/* TA-0029 (c) 1989 + California Dreams */
+        driver_blockout,	/* TA-0029 (c) 1989 + California Dreams */
+        driver_blckout2,	/* TA-0029 (c) 1989 + California Dreams */
         /*TODO*///	driver_ddragon3 )	/* TA-0030 (c) 1990 */
         /*TODO*///	driver_ddrago3b )	/* bootleg */
         /*TODO*///	/* TA-0031 WWF Wrestlefest */
