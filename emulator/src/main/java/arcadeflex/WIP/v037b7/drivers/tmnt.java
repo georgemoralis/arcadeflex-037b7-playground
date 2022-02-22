@@ -276,55 +276,52 @@ public class tmnt
 	} };
 	
 	
-	static ShStartPtr tmnt_decode_sample = new ShStartPtr() {
+	public static ShStartPtr tmnt_decode_sample = new ShStartPtr() {
             public int handler(MachineSound msound) {
-		int i;
-		ShortPtr dest;
-		UBytePtr source = memory_region(REGION_SOUND3);
-		GameSamples samples;
-	
-	
-		if ((Machine.samples = new GameSamples()) == null)
-			return 1;
-	
-		samples = Machine.samples;
-	
-		if ((samples.sample[0] = new GameSample(0x40000)) == null)
-			return 1;
-	
-		samples.sample[0].length = 0x40000*2;
-		samples.sample[0].smpfreq = 20000;	/* 20 kHz */
-		samples.sample[0].resolution = 16;
-		dest = new ShortPtr(Machine.samples.sample[0].data);
-		samples.total = 1;
-	
-		/*	Sound sample for TMNT.D05 is stored in the following mode:
-		 *
-		 *	Bit 15-13:	Exponent (2 ^ x)
-		 *	Bit 12-4 :	Sound data (9 bit)
-		 *
-		 *	(Sound info courtesy of Dave <dayvee@rocketmail.com>)
-		 */
-	
-		for (i = 0;i < 0x40000;i++)
-		{
-			int val = source.read(2*i) + source.read(2*i+1) * 256;
-			int exp = val >> 13;
-	
-		  	val = (val >> 4) & (0x1ff);	/* 9 bit, Max Amplitude 0x200 */
-			val -= 0x100;					/* Centralize value	*/
-	
-			val <<= exp;
-	
-			dest.write(i, (short) val);
-		}
-	
-		/*	The sample is now ready to be used.  It's a 16 bit, 22kHz sample.
-		 */
-	
-		return 0;
-            }
-        };
+                int i;
+                ShortPtr dest;
+                UBytePtr source = memory_region(REGION_SOUND3);
+                GameSamples samples;
+
+
+                Machine.samples = new GameSamples();
+
+
+                //samples = Machine.samples;
+                Machine.samples.sample[0]=new GameSample(0x40000*2);
+
+                Machine.samples.sample[0].length = 0x40000*2;
+                Machine.samples.sample[0].smpfreq = 20000;	/* 20 kHz */
+                Machine.samples.sample[0].resolution = 16;
+                dest = new ShortPtr(Machine.samples.sample[0].data);
+                Machine.samples.total = 1;
+
+                /*	Sound sample for TMNT.D05 is stored in the following mode:
+                 *
+                 *	Bit 15-13:	Exponent (2 ^ x)
+                 *	Bit 12-4 :	Sound data (9 bit)
+                 *
+                 *	(Sound info courtesy of Dave <dayvee@rocketmail.com>)
+                 */
+
+                for (i = 0;i < 0x40000;i++)
+                {
+                        int val = source.read(2*i) + source.read(2*i+1) * 256;
+                        int exp = val >> 13;
+
+                        val = (val >> 4) & (0x1ff);	/* 9 bit, Max Amplitude 0x200 */
+                        val -= 0x100;					/* Centralize value	*/
+
+                        val <<= exp;
+
+                        dest.write(i, (short)val);
+                }
+
+                /*	The sample is now ready to be used.  It's a 16 bit, 22khz sample.
+                 */
+
+                return 0;
+        }};
 	
 	static int sound_nmi_enabled;
 	
