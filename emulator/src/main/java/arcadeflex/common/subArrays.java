@@ -48,6 +48,26 @@ public class subArrays {
             memory = cp.memory;
             offset = cp.offset + b;
         }
+        
+        public UShortArray(int[] buffer) {
+            int _longo = buffer.length;
+            char[] _buffer = new char[_longo];
+            for (int _i = 0; _i < _longo; _i++) {
+                _buffer[_i] = (char) buffer[_i];
+            }
+            this.memory = _buffer;
+            this.offset = 0;
+        }
+        
+        public UShortArray(int[] buffer, int offset) {
+            int _longo = buffer.length;
+            char[] _buffer = new char[_longo];
+            for (int _i = 0; _i < _longo; _i++) {
+                _buffer[_i] = (char) buffer[_i];
+            }
+            this.memory = _buffer;
+            this.offset = offset;
+        }
 
         public char read() {
             return memory[offset];

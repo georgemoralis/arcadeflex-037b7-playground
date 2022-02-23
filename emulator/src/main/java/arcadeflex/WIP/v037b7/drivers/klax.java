@@ -82,6 +82,7 @@ import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
+import arcadeflex.v056.mame.timer.timer_callback;
 
 public class klax
 {
@@ -93,7 +94,7 @@ public class klax
 	 *
 	 *************************************/
 	
-	static atarigen_int_callback update_interrupts = new atarigen_int_callback() {
+	static atarigen_int_callbackPtr update_interrupts = new atarigen_int_callbackPtr() {
             @Override
             public void handler() {
                 int newstate = 0;
@@ -109,7 +110,7 @@ public class klax
         };
         
 	
-	static atarigen_scanline_callback scanline_update = new atarigen_scanline_callback() {
+	static timer_callback scanline_update = new timer_callback() {
             @Override
             public void handler(int scanline) {
                 /* update the video */

@@ -47,7 +47,7 @@ public class shuuz
 	 *
 	 *************************************/
 	
-	static atarigen_int_callback update_interrupts = new atarigen_int_callback() {
+	static atarigen_int_callbackPtr update_interrupts = new atarigen_int_callbackPtr() {
             @Override
             public void handler() {
                 int newstate = 0;

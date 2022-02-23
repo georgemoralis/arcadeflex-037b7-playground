@@ -305,6 +305,13 @@ public class ptrLib {
             offset = b;
         }
         
+        public UShortPtr(int[] m, int b) {
+            memory = new char[m.length];
+            for (int _i=0; _i<m.length ; _i++)
+                memory[_i] = (char) m[_i];
+            offset = b;
+        }
+        
         public UShortPtr(UShortPtr cp) {
             memory = cp.memory;
             offset = 0;

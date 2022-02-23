@@ -209,6 +209,8 @@ import static arcadeflex.WIP.v037b7.drivers.system16.*;
 import static arcadeflex.WIP.v037b7.drivers.blockout.*;
 import static arcadeflex.WIP.v037b7.drivers.darkseal.*;
 import static arcadeflex.WIP.v037b7.drivers.tmnt.*;        
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.ajax.*; 
+import static arcadeflex.WIP.v037b7.drivers.arcadecl.*;
 
 public class driver {
 
@@ -2194,7 +2196,7 @@ public class driver {
         /*TODO*///	driver_hcastle )	/* GX768 (c) 1988 */
         /*TODO*///	driver_hcastlea )	/* GX768 (c) 1988 */
         /*TODO*///	driver_hcastlej )	/* GX768 (c) 1988 (Japan) */
-        /*TODO*///	driver_ajax )		/* GX770 (c) 1987 */
+        driver_ajax,		/* GX770 (c) 1987 */
         /*TODO*///	driver_ajaxj )		/* GX770 (c) 1987 (Japan) */
         /*TODO*///	driver_scontra )	/* GX775 (c) 1988 */
         /*TODO*///	driver_scontraj )	/* GX775 (c) 1988 (Japan) */
@@ -2512,8 +2514,8 @@ public class driver {
         /*TODO*///	driver_relief2 )	/* (c) 1992 */
         /*TODO*///	driver_offtwall )	/* (c) 1991 */
         /*TODO*///	driver_offtwalc )	/* (c) 1991 */
-        /*TODO*///	driver_arcadecl )	/* (c) 1992 */
-        /*TODO*///	driver_sparkz )	/* (c) 1992 */
+        driver_arcadecl, 	/* (c) 1992 */
+        driver_sparkz, 	/* (c) 1992 */
         /*TODO*///
         /*TODO*///	/* SNK / Rock-ola games */
         /*TODO*///	driver_sasuke )	/* [1980] Shin Nihon Kikaku (SNK) */

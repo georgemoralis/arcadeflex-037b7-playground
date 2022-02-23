@@ -46,9 +46,10 @@ package arcadeflex.WIP.v037b7.vidhrdw;
 import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.common.ptrLib.*;
-import arcadeflex.common.subArrays;
-import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
+//import arcadeflex.common.subArrays;
+//import arcadeflex.common.subArrays.IntSubArray;
+//import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.cpuintrf.cpu_getcurrentframe;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
@@ -59,6 +60,7 @@ import static arcadeflex.v037b7.mame.memoryH.*;
 import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
 import static arcadeflex.v037b7.mame.paletteH.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
+import arcadeflex.v056.mame.timer.timer_callback;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
@@ -148,7 +150,8 @@ public class shuuz
 			2,                   /* number of bytes between MO words */
 			0,                   /* ignore an entry if this word == 0xffff */
 			0, 0, 0xff,          /* link = (data[linkword] >> linkshift) & linkmask */
-			0                    /* render in reverse link order */
+			0,                    /* render in reverse link order */
+                        0
 		);
 	
 		atarigen_pf_desc pf_desc = new atarigen_pf_desc
@@ -219,7 +222,7 @@ public class shuuz
 	 *
 	 *************************************/
 	
-	public static atarigen_scanline_callback shuuz_scanline_update = new atarigen_scanline_callback() {
+	public static timer_callback shuuz_scanline_update = new timer_callback() {
             @Override
             public void handler(int scanline) {
                 /* update the playfield */
@@ -253,7 +256,7 @@ public class shuuz
 	
 		/* update playfield */
                 //System.out.println("Antes update playfield");
-		atarigen_pf_process(pf_render_callback, bitmap, new rectangle(Machine.visible_area));
+		atarigen_pf_process(pf_render_callback, bitmap, Machine.visible_area);
                 //System.out.println("Despues update playfield");
 	
 		/* render the motion objects */
@@ -348,6 +351,7 @@ public class shuuz
 		for (x = tiles.min_x; x != tiles.max_x; x = (x + 1) & 63){
 			for (y = tiles.min_y; y != tiles.max_y; y = (y + 1) & 63)
 			{
+                            //System.out.println("a");
 				int offs = x * 64 + y;
 				int data1 = atarigen_playfieldram.READ_WORD(offs * 2);
 				int data2 = atarigen_playfieldram.READ_WORD(offs * 2 + 0x2000);
@@ -373,6 +377,7 @@ public class shuuz
 	static atarigen_pf_callback pf_render_callback = new atarigen_pf_callback() {
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, java.lang.Object param) {
+                //System.out.println("Estoy en pf_render_callback");
                 GfxElement gfx = Machine.gfx[0];
 		osd_bitmap bitmap = (osd_bitmap) param;
 		int x, y;
@@ -391,7 +396,7 @@ public class shuuz
 					int color = (data2 >> 8) & 15;
 					int hflip = data1 & 0x8000;
 					int code = data1 & 0x3fff;
-	
+	//System.out.println("b");
 					drawgfx(atarigen_pf_bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, null, TRANSPARENCY_NONE, 0);
 					atarigen_pf_dirty.write(offs, 0);
 	
@@ -420,10 +425,11 @@ public class shuuz
 	
 	static atarigen_pf_callback pf_overrender_callback = new atarigen_pf_callback() {
             @Override
-            public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, java.lang.Object param) {
-                pf_overrender_data overrender_data = (pf_overrender_data) param;
+            public void handler(rectangle tiles, rectangle clip, atarigen_pf_state state, java.lang.Object param) {
+                System.out.println("Estoy en pf_overrender_callback");
+                 pf_overrender_data overrender_data = (pf_overrender_data) param;
 		GfxElement gfx = Machine.gfx[0];
-		osd_bitmap bitmap = overrender_data.bitmap;
+		//osd_bitmap bitmap = overrender_data.bitmap;
 		int x, y;
 	
 		/* standard loop over tiles */
@@ -441,7 +447,7 @@ public class shuuz
 					int hflip = data1 & 0x8000;
 					int code = data1 & 0x3fff;
 	
-					drawgfx(bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, clip, TRANSPARENCY_NONE, 0);
+					drawgfx(overrender_data.bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, clip, TRANSPARENCY_NONE, 0);
 	
 /*TODO*///	#if DEBUG_VIDEO
 /*TODO*///					if (show_colors != 0)
@@ -452,7 +458,7 @@ public class shuuz
 /*TODO*///					}
 /*TODO*///	#endif
 				}
-			}
+                        }
             }
         };
         	
@@ -465,7 +471,8 @@ public class shuuz
 	
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(subArrays.IntSubArray data, rectangle clip, java.lang.Object param) {
+            public void handler(UShortArray data, rectangle clip, java.lang.Object param) {
+                System.out.println("Estoy en mo_color_callback");
                 int[] usage = Machine.gfx[1].pen_usage;
 		int[] colormap = (int[]) param;
 		int code = data.read(1) & 0x7fff;
@@ -491,7 +498,8 @@ public class shuuz
 	
 	static atarigen_mo_callback mo_render_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(subArrays.IntSubArray data, rectangle clip, java.lang.Object param) {
+            public void handler(UShortArray data, rectangle clip, java.lang.Object param) {
+                System.out.println("mo_render_callback");
                 GfxElement gfx = Machine.gfx[1];
 		pf_overrender_data overrender_data = new pf_overrender_data();
 		osd_bitmap bitmap = (osd_bitmap) param;
@@ -516,7 +524,7 @@ public class shuuz
 		if (ypos >= YDIM) ypos -= 0x200;
 	
 		/* determine the bounding box */
-		atarigen_mo_compute_clip_8x8(pf_clip, xpos, ypos, hsize, vsize, clip);
+		pf_clip = atarigen_mo_compute_clip_8x8(/*pf_clip,*/ xpos, ypos, hsize, vsize, clip);
 	
 		/* draw the motion object */
 		atarigen_mo_draw_8x8(bitmap, gfx, code, color, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);

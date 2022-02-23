@@ -15,7 +15,7 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.common.ptrLib.*;
 import arcadeflex.common.subArrays;
-import arcadeflex.common.subArrays.IntSubArray;
+//import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
@@ -90,7 +90,8 @@ public class gauntlet
 			0x800,               /* number of bytes between MO words */
 			3,                   /* ignore an entry if this word == 0xffff */
 			3, 0, 0x3ff,         /* link = (data[linkword] >> linkshift) & linkmask */
-			0                    /* render in reverse link order */
+			0,                    /* render in reverse link order */
+                        0
 		);
 	
 		atarigen_pf_desc pf_desc = new atarigen_pf_desc
@@ -339,7 +340,7 @@ public class gauntlet
 	static atarigen_pf_callback pf_color_callback = new atarigen_pf_callback() {
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
-                IntSubArray usage = new IntSubArray(Machine.gfx[0].pen_usage, state.param[0] * 0x1000);
+                UShortPtr usage = new UShortPtr(Machine.gfx[0].pen_usage, state.param[0] * 0x1000);
 		int[] colormap = (int[]) param;
 		int x, y;
 	
@@ -451,7 +452,7 @@ public class gauntlet
 	
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(IntSubArray data, rectangle clip, Object param) {
+            public void handler(UShortArray data, rectangle clip, Object param) {
                 int[] usage = Machine.gfx[0].pen_usage;
 		int[] colormap = (int[]) param;
 		int code = (data.read(0) & 0x7fff) ^ 0x800;
@@ -477,7 +478,7 @@ public class gauntlet
 	
 	static atarigen_mo_callback mo_render_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(IntSubArray data, rectangle clip, Object param) {
+            public void handler(UShortArray data, rectangle clip, Object param) {
                 GfxElement gfx = Machine.gfx[0];
 		int[] usage = gfx.pen_usage;
 		int total_usage = 0;
@@ -505,7 +506,7 @@ public class gauntlet
 		if (ypos >= YDIM) ypos -= 0x200;
 	
 		/* determine the bounding box */
-		atarigen_mo_compute_clip_8x8(pf_clip, xpos, ypos, hsize, vsize, clip);
+		pf_clip = atarigen_mo_compute_clip_8x8(xpos, ypos, hsize, vsize, clip);
 	
 		/* adjust for h flip */
 		if (hflip != 0) {

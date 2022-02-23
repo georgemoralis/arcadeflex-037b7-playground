@@ -47,8 +47,9 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.common.ptrLib.*;
 import arcadeflex.common.subArrays;
-import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
+//import arcadeflex.common.subArrays.IntSubArray;
+//import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.cpuintrf.cpu_getcurrentframe;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
@@ -92,7 +93,8 @@ public class klax
 			2,                   /* number of bytes between MO words */
 			0,                   /* ignore an entry if this word == 0xffff */
 			0, 0, 0xff,          /* link = (data[linkword] >> linkshift) & linkmask */
-			0                    /* render in reverse link order */
+			0,                    /* render in reverse link order */
+                        0
 		);
 	
 		atarigen_pf_desc pf_desc = new atarigen_pf_desc
@@ -365,7 +367,7 @@ public class klax
 	
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(IntSubArray data, rectangle clip, Object param) {
+            public void handler(subArrays.UShortArray data, rectangle clip, Object param) {
                 int[] usage = Machine.gfx[1].pen_usage;
 		int[] colormap = (int[]) param;
 		int code = data.read(1) & 0x0fff;
@@ -391,7 +393,7 @@ public class klax
 	
 	static atarigen_mo_callback mo_render_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(IntSubArray data, rectangle clip, Object param) {
+            public void handler(UShortArray data, rectangle clip, Object param) {
                 GfxElement gfx = Machine.gfx[1];
 		osd_bitmap bitmap = (osd_bitmap) param;
 		rectangle pf_clip = new rectangle();
@@ -415,7 +417,7 @@ public class klax
 		if (ypos >= YDIM) ypos -= 0x200;
 	
 		/* determine the bounding box */
-		atarigen_mo_compute_clip_8x8(pf_clip, xpos, ypos, hsize, vsize, clip);
+		pf_clip = atarigen_mo_compute_clip_8x8(xpos, ypos, hsize, vsize, clip);
 	
 		/* draw the motion object */
 		atarigen_mo_draw_8x8(bitmap, gfx, code, color, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);
