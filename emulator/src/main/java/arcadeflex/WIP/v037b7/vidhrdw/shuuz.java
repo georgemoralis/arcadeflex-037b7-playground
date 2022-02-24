@@ -230,7 +230,7 @@ public class shuuz
 			atarigen_video_control_update(new UBytePtr(atarigen_playfieldram, 0x1f00));
 	
 		/* update the MOs from the SLIP table */
-		atarigen_mo_update_slip_512(atarigen_spriteram, atarigen_video_control_state.sprite_yscroll, scanline, new UBytePtr(atarigen_playfieldram, 0x1f80));
+		atarigen_mo_update_slip_512(new UBytePtr(atarigen_spriteram), atarigen_video_control_state.sprite_yscroll, scanline, new UBytePtr(atarigen_playfieldram, 0x1f80));
             }
         };
         

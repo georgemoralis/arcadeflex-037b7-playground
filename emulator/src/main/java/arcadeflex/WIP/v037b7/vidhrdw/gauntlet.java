@@ -203,7 +203,7 @@ public class gauntlet
 	
 	public static void gauntlet_scanline_update(int scanline)
 	{
-/*TODO*///		atarigen_mo_update_slip_512(atarigen_spriteram, pf_state.vscroll, scanline, new UBytePtr(atarigen_alpharam, 0xf80));
+		atarigen_mo_update_slip_512(new UBytePtr(atarigen_spriteram), pf_state.vscroll, scanline, new UBytePtr(atarigen_alpharam, 0xf80));
 	}
 	
 	

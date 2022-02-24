@@ -216,6 +216,8 @@ import static arcadeflex.WIP.v037b7.drivers.hydra.*;
 import static arcadeflex.WIP.v037b7.drivers.skullxbo.*;
 import static arcadeflex.WIP.v037b7.drivers.xybots.*;
 import static arcadeflex.WIP.v037b7.drivers.rampart.*;
+import static arcadeflex.WIP.v037b7.drivers.relief.*;
+import static arcadeflex.WIP.v037b7.drivers.gauntlet.*;
 
 public class driver {
 
@@ -2470,14 +2472,14 @@ public class driver {
         /*TODO*///	driver_720b )		/* (c) 1986 */
         /*TODO*///	driver_apb )		/* (c) 1987 */
         /*TODO*///	driver_apb2 )		/* (c) 1987 */
-        /*TODO*///
-        /*TODO*///	/* later Atari games */
-        /*TODO*///	driver_gauntlet )	/* (c) 1985 */
-        /*TODO*///	driver_gauntir1 )	/* (c) 1985 */
-        /*TODO*///	driver_gauntir2 )	/* (c) 1985 */
-        /*TODO*///	driver_gaunt2p )	/* (c) 1985 */
-        /*TODO*///	driver_gaunt2 )	/* (c) 1986 */
-        /*TODO*///	driver_vindctr2 )	/* (c) 1988 */
+        
+        /* later Atari games */
+        driver_gauntlet, 	/* (c) 1985 */
+        driver_gauntir1, 	/* (c) 1985 */
+        driver_gauntir2, 	/* (c) 1985 */
+        driver_gaunt2p, 	/* (c) 1985 */
+        driver_gaunt2, 	/* (c) 1986 */
+        driver_vindctr2, 	/* (c) 1988 */
         driver_atetris, /* (c) 1988 */
         driver_atetrisa, /* (c) 1988 */
         driver_atetrisb, /* bootleg */
@@ -2516,8 +2518,8 @@ public class driver {
         driver_pitfigh3, 	/* (c) 1990 */
         /*TODO*///	driver_thunderj )	/* (c) 1990 */
         /*TODO*///	driver_batman )	/* (c) 1991 */
-        /*TODO*///	driver_relief )	/* (c) 1992 */
-        /*TODO*///	driver_relief2 )	/* (c) 1992 */
+        driver_relief,          /* (c) 1992 */
+        driver_relief2, 	/* (c) 1992 */
         /*TODO*///	driver_offtwall )	/* (c) 1991 */
         /*TODO*///	driver_offtwalc )	/* (c) 1991 */
         driver_arcadecl, 	/* (c) 1992 */
