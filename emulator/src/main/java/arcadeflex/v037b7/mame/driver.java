@@ -219,6 +219,8 @@ import static arcadeflex.WIP.v037b7.drivers.rampart.*;
 import static arcadeflex.WIP.v037b7.drivers.relief.*;
 import static arcadeflex.WIP.v037b7.drivers.gauntlet.*;
 import static arcadeflex.WIP.v037b7.drivers.batman.*;
+import static arcadeflex.WIP.v037b7.drivers.bionicc.*;
+import static arcadeflex.WIP.v037b7.drivers.gaelco.*;
 
 public class driver {
 
@@ -1384,9 +1386,9 @@ public class driver {
         /*TODO*///	driver_dygera )	/* (c) 1989 Philco (NOT A CAPCOM GAME but runs on modified Sidearms hardware) */
         /*TODO*///	driver_avengers )	/*  2/1987 (c) 1987 (US) */
         /*TODO*///	driver_avenger2 )	/*  2/1987 (c) 1987 (US) */
-        /*TODO*///	driver_bionicc )	/*  3/1987 (c) 1987 (US) */
-        /*TODO*///	driver_bionicc2 )	/*  3/1987 (c) 1987 (US) */
-        /*TODO*///	driver_topsecrt )	/*  3/1987 (c) 1987 (Japan) */
+        driver_bionicc, 	/*  3/1987 (c) 1987 (US) */
+        driver_bionicc2, 	/*  3/1987 (c) 1987 (US) */
+        driver_topsecrt, 	/*  3/1987 (c) 1987 (Japan) */
         /*RELEASE*///driver_1943,/*  6/1987 (c) 1987 (US) */
         /*RELEASE*///driver_1943j,/*  6/1987 (c) 1987 (Japan) */
         driver_blktiger,/*  8/1987 (c) 1987 (US) */
@@ -2950,10 +2952,10 @@ public class driver {
         /*TODO*///   83 Super Crush                          Kit 2P           Action
         /*TODO*///*/
         /*TODO*///
-        /*TODO*///	/* Gaelco games */
-        /*TODO*///	driver_bigkarnk )	/* (c) 1991 Gaelco */
+        /* Gaelco games */
+        driver_bigkarnk, 	/* (c) 1991 Gaelco */
         /*TODO*///	driver_splash )	/* (c) 1992 Gaelco */
-        /*TODO*///	driver_biomtoy )	/* (c) 1995 Gaelco */
+        driver_biomtoy, 	/* (c) 1995 Gaelco */
         /*TODO*///TESTdriver_maniacsq )	/* (c) 1996 Gaelco */
         /*TODO*///
         /*TODO*////*
