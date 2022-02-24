@@ -249,20 +249,14 @@ public class shuuz
 /*TODO*///	#endif
 	
 		/* remap if necessary */
-                //System.out.println("Antes update_palette");
 		if (update_palette() != null)
 			memset(atarigen_pf_dirty, 1, atarigen_playfieldram_size[0] / 4);
-                //System.out.println("Despues update_palette");
 	
 		/* update playfield */
-                //System.out.println("Antes update playfield");
 		atarigen_pf_process(pf_render_callback, bitmap, Machine.visible_area);
-                //System.out.println("Despues update playfield");
 	
 		/* render the motion objects */
-                //System.out.println("Antes atarigen_mo_process");
 		atarigen_mo_process(mo_render_callback, bitmap);
-                //System.out.println("Despues atarigen_mo_process");
 	
 		/* update onscreen messages */
 		atarigen_update_messages();
@@ -425,7 +419,7 @@ public class shuuz
 	
 	static atarigen_pf_callback pf_overrender_callback = new atarigen_pf_callback() {
             @Override
-            public void handler(rectangle tiles, rectangle clip, atarigen_pf_state state, java.lang.Object param) {
+            public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, java.lang.Object param) {
                 System.out.println("Estoy en pf_overrender_callback");
                  pf_overrender_data overrender_data = (pf_overrender_data) param;
 		GfxElement gfx = Machine.gfx[0];

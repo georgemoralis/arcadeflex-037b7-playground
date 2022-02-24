@@ -211,6 +211,10 @@ import static arcadeflex.WIP.v037b7.drivers.darkseal.*;
 import static arcadeflex.WIP.v037b7.drivers.tmnt.*;        
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.ajax.*; 
 import static arcadeflex.WIP.v037b7.drivers.arcadecl.*;
+import static arcadeflex.WIP.v037b7.drivers.badlands.*;
+import static arcadeflex.WIP.v037b7.drivers.hydra.*;
+import static arcadeflex.WIP.v037b7.drivers.skullxbo.*;
+import static arcadeflex.WIP.v037b7.drivers.xybots.*;
 
 public class driver {
 
@@ -2489,12 +2493,12 @@ public class driver {
         /*TODO*///	driver_blstroid )	/* (c) 1987 */
         /*TODO*///	driver_blstroi2 )	/* (c) 1987 */
         /*TODO*///	driver_blsthead )	/* (c) 1987 */
-        /*TODO*///	driver_xybots )	/* (c) 1987 */
+        driver_xybots, 	/* (c) 1987 */
         /*TODO*///	driver_eprom )		/* (c) 1989 */
         /*TODO*///	driver_eprom2 )	/* (c) 1989 */
-        /*TODO*///	driver_skullxbo )	/* (c) 1989 */
-        /*TODO*///	driver_skullxb2 )	/* (c) 1989 */
-        /*TODO*///	driver_badlands )	/* (c) 1989 */
+        driver_skullxbo,	/* (c) 1989 */
+        driver_skullxb2,	/* (c) 1989 */
+        driver_badlands, 	/* (c) 1989 */
         /*TODO*///	driver_cyberbal )	/* (c) 1989 */
         /*TODO*///	driver_cyberba2 )	/* (c) 1989 */
         /*TODO*///	driver_cyberbt )	/* (c) 1989 */
@@ -2504,10 +2508,10 @@ public class driver {
         /*TODO*///	driver_rampartj )	/* (c) 1990 (Japan) */
         driver_shuuz, /* (c) 1990 */
         driver_shuuz2, /* (c) 1990 */
-        /*TODO*///	driver_hydra )		/* (c) 1990 */
-        /*TODO*///	driver_hydrap )	/* (c) 1990 */
-        /*TODO*///	driver_pitfight )	/* (c) 1990 */
-        /*TODO*///	driver_pitfigh3 )	/* (c) 1990 */
+        driver_hydra, 		/* (c) 1990 */
+        driver_hydrap, 	/* (c) 1990 */
+        driver_pitfight, 	/* (c) 1990 */
+        driver_pitfigh3, 	/* (c) 1990 */
         /*TODO*///	driver_thunderj )	/* (c) 1990 */
         /*TODO*///	driver_batman )	/* (c) 1991 */
         /*TODO*///	driver_relief )	/* (c) 1992 */

@@ -1413,9 +1413,8 @@ public class atarigen
 	
 	public static void atarigen_mo_reset()
 	{
-		molist_end = molist;
-                if (molist != null)
-                    new UShortArray(molist);
+		molist_end = new UShortArray(molist);
+                
 		molist_last = null;
 	}
 	
@@ -1441,13 +1440,14 @@ public class atarigen
                 //System.out.println("offset: "+base.offset);
 	
 		/* set up local pointers */
-		data_start = data = new UShortArray(molist_end);
+		data_start = new UShortArray(molist_end);
+                data = new UShortArray(molist_end);
 		prev_data = molist_last;
 	
 		/* if the last list entries were on the same scanline, overwrite them */
 		if (prev_data != null)
 		{
-                        //prev_data = new UShortPtr(molist_last);
+                        prev_data = new UShortArray(molist_last);
                         
 			if (prev_data.read(0) == scanline){
                                 data_start = data = new UShortArray(prev_data);
@@ -1570,6 +1570,7 @@ public class atarigen
 		/* loop over the list until the end */
 		while (base.offset < molist_end.offset)
 		{
+                    //System.out.println("Dentro!");
 			UShortArray data, first, last;
 			int start_scan = base.read(0);
                         int step;
