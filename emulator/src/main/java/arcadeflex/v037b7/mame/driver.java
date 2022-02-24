@@ -215,6 +215,7 @@ import static arcadeflex.WIP.v037b7.drivers.badlands.*;
 import static arcadeflex.WIP.v037b7.drivers.hydra.*;
 import static arcadeflex.WIP.v037b7.drivers.skullxbo.*;
 import static arcadeflex.WIP.v037b7.drivers.xybots.*;
+import static arcadeflex.WIP.v037b7.drivers.rampart.*;
 
 public class driver {
 
@@ -2503,9 +2504,10 @@ public class driver {
         /*TODO*///	driver_cyberba2 )	/* (c) 1989 */
         /*TODO*///	driver_cyberbt )	/* (c) 1989 */
         /*TODO*///	driver_cyberb2p )	/* (c) 1989 */
-        /*TODO*///	driver_rampart )	/* (c) 1990 */
-        /*TODO*///	driver_ramprt2p )	/* (c) 1990 */
-        /*TODO*///	driver_rampartj )	/* (c) 1990 (Japan) */
+        driver_rampart, 	/* (c) 1990 */
+        driver_ramprt2p, 	/* (c) 1990 */
+        driver_rampartj, 	/* (c) 1990 (Japan) */
+        driver_arcadecr,
         driver_shuuz, /* (c) 1990 */
         driver_shuuz2, /* (c) 1990 */
         driver_hydra, 		/* (c) 1990 */

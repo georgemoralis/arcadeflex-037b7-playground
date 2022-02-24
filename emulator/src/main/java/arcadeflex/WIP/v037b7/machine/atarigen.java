@@ -1413,7 +1413,10 @@ public class atarigen
 	
 	public static void atarigen_mo_reset()
 	{
-		molist_end = new UShortArray(molist);
+		molist_end = molist;
+                
+                if (molist!=null)
+                    molist_end = new UShortArray(molist);
                 
 		molist_last = null;
 	}
