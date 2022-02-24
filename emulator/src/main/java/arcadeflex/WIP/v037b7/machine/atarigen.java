@@ -1539,7 +1539,7 @@ public class atarigen
 		{
 			int pfscanline = scroll & 0x1f8;
 			int link = (slips.READ_WORD(2 * (pfscanline / 8)) >> modesc.linkshift) & modesc.linkmask;
-			atarigen_mo_update(new UBytePtr(base), link, 0);
+			atarigen_mo_update(base, link, 0);
 		}
 	
 		/* if we're within screen bounds, grab the next batch of MO's and process */
@@ -1547,7 +1547,7 @@ public class atarigen
 		{
 			int pfscanline = (scanline + scroll + 7) & 0x1f8;
 			int link = (slips.READ_WORD(2 * (pfscanline / 8)) >> modesc.linkshift) & modesc.linkmask;
-			atarigen_mo_update(new UBytePtr(base), link, (pfscanline - scroll) & 0x1ff);
+			atarigen_mo_update(base, link, (pfscanline - scroll) & 0x1ff);
 		}
 	}
 	

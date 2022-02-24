@@ -218,6 +218,7 @@ import static arcadeflex.WIP.v037b7.drivers.xybots.*;
 import static arcadeflex.WIP.v037b7.drivers.rampart.*;
 import static arcadeflex.WIP.v037b7.drivers.relief.*;
 import static arcadeflex.WIP.v037b7.drivers.gauntlet.*;
+import static arcadeflex.WIP.v037b7.drivers.batman.*;
 
 public class driver {
 
@@ -2517,7 +2518,7 @@ public class driver {
         driver_pitfight, 	/* (c) 1990 */
         driver_pitfigh3, 	/* (c) 1990 */
         /*TODO*///	driver_thunderj )	/* (c) 1990 */
-        /*TODO*///	driver_batman )	/* (c) 1991 */
+        driver_batman, 	/* (c) 1991 */
         driver_relief,          /* (c) 1992 */
         driver_relief2, 	/* (c) 1992 */
         /*TODO*///	driver_offtwall )	/* (c) 1991 */
