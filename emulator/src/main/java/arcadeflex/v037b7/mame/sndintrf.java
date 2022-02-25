@@ -39,6 +39,7 @@ import arcadeflex.v037b7.sound.cem3394;
 import arcadeflex.v037b7.sound.namco;
 import arcadeflex.v037b7.sound.rf5c68;
 import arcadeflex.v037b7.sound._2612intf;
+import arcadeflex.v037b7.sound.qsound;
 //to be orgnanized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm;
@@ -405,19 +406,7 @@ public class sndintrf {
         /*TODO*///		0
         /*TODO*///	},
         /*TODO*///#endif
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_QSOUND)
-        /*TODO*///	{
-        /*TODO*///		SOUND_QSOUND,
-        /*TODO*///		"QSound",
-        /*TODO*///		0,
-        /*TODO*///		qsound_clock,
-        /*TODO*///		qsound_sh_start,
-        /*TODO*///		qsound_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		0
-        /*TODO*///	},
-        /*TODO*///#endif
+        new qsound(),
         new Dummy_snd(), /*TODO*///#if (HAS_SAA1099)
     /*TODO*///	{
     /*TODO*///		SOUND_SAA1099,

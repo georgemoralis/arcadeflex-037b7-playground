@@ -223,6 +223,7 @@ import static arcadeflex.WIP.v037b7.drivers.bionicc.*;
 import static arcadeflex.WIP.v037b7.drivers.gaelco.*;
 import static arcadeflex.WIP.v037b7.drivers.twincobr.*;        
 import static arcadeflex.WIP.v037b7.drivers.karnov.*;
+import static arcadeflex.WIP.v037b7.drivers.cps1.*;
 
 public class driver {
 
@@ -1422,11 +1423,11 @@ public class driver {
         /*TODO*///	/*  6/1991 Quiz Sangokushi - see below among "Mitchell" games */
         /*TODO*///	/* 10/1991 Block Block - see below among "Mitchell" games */
         /*TODO*///	/*  6/1995 Street Fighter - the Movie - see below among "Incredible Technologies" games */
-        /*TODO*///
-        /*TODO*///	/* Capcom CPS1 games */
-        /*TODO*///	driver_forgottn )	/*  7/1988 (c) 1988 (US) */
+        
+        /* Capcom CPS1 games */
+        driver_forgottn, 	/*  7/1988 (c) 1988 (US) */
         /*TODO*///	driver_lostwrld )	/*  7/1988 (c) 1988 (Japan) */
-        /*TODO*///	driver_ghouls )	/* 12/1988 (c) 1988 (World) */
+        driver_ghouls, 	/* 12/1988 (c) 1988 (World) */
         /*TODO*///	driver_ghoulsu )	/* 12/1988 (c) 1988 (US) */
         /*TODO*///	driver_ghoulsj )	/* 12/1988 (c) 1988 (Japan) */
         /*TODO*///	driver_strider )	/*  3/1989 (c) 1989 (not explicitly stated but should be US) */
@@ -1437,7 +1438,7 @@ public class driver {
         /*TODO*///	driver_willowj )	/*  6/1989 (c) 1989 (Japan) */
         /*TODO*///	driver_unsquad )	/*  8/1989 (c) 1989 */
         /*TODO*///	driver_area88 )	/*  8/1989 (c) 1989 */
-        /*TODO*///	driver_ffight )	/* 12/1989 (c) (World) */
+        driver_ffight, 	/* 12/1989 (c) (World) */
         /*TODO*///	driver_ffightu )	/* 12/1989 (c) (US)    */
         /*TODO*///	driver_ffightj )	/* 12/1989 (c) (Japan) */
         /*TODO*///	driver_1941 )		/*  2/1990 (c) 1990 (World) */
