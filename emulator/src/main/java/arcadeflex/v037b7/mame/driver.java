@@ -222,6 +222,7 @@ import static arcadeflex.WIP.v037b7.drivers.batman.*;
 import static arcadeflex.WIP.v037b7.drivers.bionicc.*;
 import static arcadeflex.WIP.v037b7.drivers.gaelco.*;
 import static arcadeflex.WIP.v037b7.drivers.twincobr.*;        
+import static arcadeflex.WIP.v037b7.drivers.karnov.*;
 
 public class driver {
 
@@ -2024,11 +2025,11 @@ public class driver {
         /*TODO*///	driver_oscarj0 )	/* (c) 1987 Data East Corporation (Japan) */
         /*TODO*///
         /* Data East 16-bit games */
-        /*RELEASE*///driver_karnov, /* (c) 1987 Data East USA (US) */
-        /*RELEASE*///driver_karnovj, /* (c) 1987 Data East Corporation (Japan) */
+        driver_karnov, /* (c) 1987 Data East USA (US) */
+        driver_karnovj, /* (c) 1987 Data East Corporation (Japan) */
         /*RELEASE*////*TESTDRIVER*/ driver_wndrplnt, /* (c) 1987 Data East Corporation (Japan) */
-        /*RELEASE*///driver_chelnov, /* (c) 1988 Data East USA (US) */
-        /*RELEASE*///driver_chelnovj, /* (c) 1988 Data East Corporation (Japan) */
+        driver_chelnov, /* (c) 1988 Data East USA (US) */
+        driver_chelnovj, /* (c) 1988 Data East Corporation (Japan) */
         /*TODO*////* the following ones all run on similar hardware */
         /*TODO*///	driver_hbarrel )	/* (c) 1987 Data East USA (US) */
         /*TODO*///	driver_hbarrelw )	/* (c) 1987 Data East Corporation (World) */
