@@ -18,6 +18,8 @@ import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
+import static arcadeflex.v037b7.mame.memory.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
 
 public class twincobr {
 
@@ -37,37 +39,39 @@ public class twincobr {
 
     public static int twincobr_intenable;
     public static int fsharkbt_8741;
-    /*TODO*///	
-/*TODO*///	
-/*TODO*///	void fsharkbt_reset_8741_mcu(void)
-/*TODO*///	{
-/*TODO*///		/* clean out high score tables in these game hardware */
-/*TODO*///		int twincobr_cnt;
-/*TODO*///		int twinc_hisc_addr[12] =
-/*TODO*///		{
-/*TODO*///			0x15a4, 0x15a8, 0x170a, 0x170c, /* Twin Cobra */
-/*TODO*///			0x1282, 0x1284, 0x13ea, 0x13ec, /* Kyukyo Tiger */
-/*TODO*///			0x016c, 0x0170, 0x02d2, 0x02d4	/* Flying shark */
-/*TODO*///		};
-/*TODO*///		for (twincobr_cnt=0; twincobr_cnt < 12; twincobr_cnt++)
-/*TODO*///		{
-/*TODO*///			WRITE_WORD(&twincobr_68k_dsp_ram[(twinc_hisc_addr[twincobr_cnt])],0xffff);
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		toaplan_main_cpu = 0;		/* 68000 */
-/*TODO*///		twincobr_display_on = 0;
-/*TODO*///		fsharkbt_8741 = -1;
-/*TODO*///		twincobr_intenable = 0;
-/*TODO*///		dsp_addr_w = dsp_execute = 0;
-/*TODO*///		main_ram_seg = 0;
-/*TODO*///	
-/*TODO*///		/* coin count increments on startup ? , so stop it */
-/*TODO*///		coin_count = 0;
-/*TODO*///	
-/*TODO*///		/* blank out the screen */
-/*TODO*///		osd_clearbitmap(Machine.scrbitmap);
-/*TODO*///	}
-/*TODO*///	
+    	
+	
+    public static InitMachinePtr fsharkbt_reset_8741_mcu = new InitMachinePtr() {
+        @Override
+        public void handler() {
+            /* clean out high score tables in these game hardware */
+            int twincobr_cnt;
+            int twinc_hisc_addr[] =
+            {
+                    0x15a4, 0x15a8, 0x170a, 0x170c, /* Twin Cobra */
+                    0x1282, 0x1284, 0x13ea, 0x13ec, /* Kyukyo Tiger */
+                    0x016c, 0x0170, 0x02d2, 0x02d4	/* Flying shark */
+            };
+            for (twincobr_cnt=0; twincobr_cnt < 12; twincobr_cnt++)
+            {
+                    twincobr_68k_dsp_ram.WRITE_WORD((twinc_hisc_addr[twincobr_cnt]),0xffff);
+            }
+
+            toaplan_main_cpu = 0;		/* 68000 */
+            twincobr_display_on = 0;
+            fsharkbt_8741 = -1;
+            twincobr_intenable = 0;
+            dsp_addr_w = dsp_execute = 0;
+            main_ram_seg = 0;
+
+            /* coin count increments on startup ? , so stop it */
+            coin_count = 0;
+
+            /* blank out the screen */
+            osd_clearbitmap(Machine.scrbitmap);
+        }
+    };
+
     public static InitMachinePtr wardner_reset = new InitMachinePtr() {
         public void handler() {
             /* clean out high score tables in these game hardware */
@@ -223,19 +227,19 @@ public class twincobr {
             }
         }
     };
-    /*TODO*///	
-/*TODO*///	public static ReadHandlerPtr twincobr_68k_dsp_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		return READ_WORD(&twincobr_68k_dsp_ram[offset]);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr twincobr_68k_dsp_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
+    	
+	public static ReadHandlerPtr twincobr_68k_dsp_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		return twincobr_68k_dsp_ram.READ_WORD(offset);
+	} };
+	
+	public static WriteHandlerPtr twincobr_68k_dsp_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
 /*TODO*///	#if LOG_DSP_CALLS
 /*TODO*///		if (offset < 10) logerror("%s:%08x write %08x at %08x\n",toaplan_cpu_type[toaplan_main_cpu],cpu_get_pc(),data,0x30000+offset);
 /*TODO*///	#endif
-/*TODO*///		COMBINE_WORD_MEM(&twincobr_68k_dsp_ram[offset],data);
-/*TODO*///	} };
+		COMBINE_WORD_MEM(twincobr_68k_dsp_ram,offset,data);
+	} };
 
     public static WriteHandlerPtr wardner_mainram_w = new WriteHandlerPtr() {
         public void handler(int offset, int data) {

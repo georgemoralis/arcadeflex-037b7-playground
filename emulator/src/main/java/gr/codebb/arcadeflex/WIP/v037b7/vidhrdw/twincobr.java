@@ -407,30 +407,30 @@ public class twincobr {
         int offs;
 
         if (toaplan_main_cpu == 0) /* 68k */ {
-            /*TODO*///			for (offs = 0;offs < spriteram_size;offs += 8)
-/*TODO*///			{
-/*TODO*///				int attribute,sx,sy,flipx,flipy;
-/*TODO*///				int sprite, color;
-/*TODO*///	
-/*TODO*///				attribute = READ_WORD(&buffered_spriteram[offs + 2]);
-/*TODO*///				if ((attribute & 0x0c00) == priority) {	/* low priority */
-/*TODO*///					sy = READ_WORD(&buffered_spriteram[offs + 6]) >> 7;
-/*TODO*///					if (sy != 0x0100) {		/* sx = 0x01a0 or 0x0040*/
-/*TODO*///						sprite = READ_WORD(&buffered_spriteram[offs]) & 0x7ff;
-/*TODO*///						color  = attribute & 0x3f;
-/*TODO*///						sx = READ_WORD(&buffered_spriteram[offs + 4]) >> 7;
-/*TODO*///						flipx = attribute & 0x100;
-/*TODO*///						if (flipx != 0) sx -= 14;		/* should really be 15 */
-/*TODO*///						flipy = attribute & 0x200;
-/*TODO*///						drawgfx(bitmap,Machine.gfx[3],
-/*TODO*///							sprite,
-/*TODO*///							color,
-/*TODO*///							flipx,flipy,
-/*TODO*///							sx-32,sy-16,
-/*TODO*///							&Machine.visible_area,TRANSPARENCY_PEN,0);
-/*TODO*///					}
-/*TODO*///				}
-/*TODO*///			}
+            for (offs = 0;offs < spriteram_size[0];offs += 8)
+            {
+		int attribute,sx,sy,flipx,flipy;
+                int sprite, color;
+
+                attribute = buffered_spriteram.READ_WORD(offs + 2);
+                if ((attribute & 0x0c00) == priority) {	/* low priority */
+                        sy = buffered_spriteram.READ_WORD(offs + 6) >> 7;
+                        if (sy != 0x0100) {		/* sx = 0x01a0 or 0x0040*/
+                                sprite = buffered_spriteram.READ_WORD(offs) & 0x7ff;
+                                color  = attribute & 0x3f;
+                                sx = buffered_spriteram.READ_WORD(offs + 4) >> 7;
+                                flipx = attribute & 0x100;
+                                if (flipx != 0) sx -= 14;		/* should really be 15 */
+                                flipy = attribute & 0x200;
+                                drawgfx(bitmap,Machine.gfx[3],
+                                        sprite,
+                                        color,
+                                        flipx,flipy,
+                                        sx-32,sy-16,
+                                        Machine.visible_area,TRANSPARENCY_PEN,0);
+                        }
+		}
+            }
         } else /* Z80 */ {
             for (offs = 0; offs < spriteram_size[0]; offs += 8) {
                 int attribute, sx, sy, flipx, flipy;
@@ -537,16 +537,16 @@ public class twincobr {
                     }
 
                     if (toaplan_main_cpu == 0) /* 68k */ {
-                        /*TODO*///			for (offs = 0;offs < spriteram_size[0];offs += 8)
-/*TODO*///			{
-/*TODO*///				int sy;
-/*TODO*///				sy = READ_WORD(&buffered_spriteram[offs + 6]);
-/*TODO*///				if (sy != 0x8000) {					/* Is sprite is turned off ? */
-/*TODO*///					sprite = READ_WORD(&buffered_spriteram[offs]) & 0x7ff;
-/*TODO*///					color = READ_WORD(&buffered_spriteram[offs + 2]) & 0x3f;
-/*TODO*///					colmask[color] |= Machine.gfx[3].pen_usage[sprite];
-/*TODO*///				}
-/*TODO*///			}
+                        for (offs = 0;offs < spriteram_size[0];offs += 8)
+			{
+				int sy;
+				sy = buffered_spriteram.READ_WORD(offs + 6);
+				if (sy != 0x8000) {					/* Is sprite is turned off ? */
+					sprite = buffered_spriteram.READ_WORD(offs) & 0x7ff;
+					color = buffered_spriteram.READ_WORD(offs + 2) & 0x3f;
+					colmask[color] |= Machine.gfx[3].pen_usage[sprite];
+				}
+			}
                     } else /* Z80 */ {
                         for (offs = 0; offs < spriteram_size[0]; offs += 8) {
                             int sy;

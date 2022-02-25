@@ -221,6 +221,7 @@ import static arcadeflex.WIP.v037b7.drivers.gauntlet.*;
 import static arcadeflex.WIP.v037b7.drivers.batman.*;
 import static arcadeflex.WIP.v037b7.drivers.bionicc.*;
 import static arcadeflex.WIP.v037b7.drivers.gaelco.*;
+import static arcadeflex.WIP.v037b7.drivers.twincobr.*;        
 
 public class driver {
 
@@ -1193,18 +1194,18 @@ public class driver {
         /*TODO*///	driver_getstar )
         /*TODO*///	driver_getstarj )
         /*TODO*///	driver_getstarb )	/* GX-006 bootleg but (c) 1986 Taito Corporation */
-        /*TODO*///
-        /*TODO*///	driver_fshark )	/* TP-007 (c) 1987 Taito Corporation (World) */
-        /*TODO*///	driver_skyshark )	/* TP-007 (c) 1987 Taito America Corporation + Romstar license (US) */
-        /*TODO*///	driver_hishouza )	/* TP-007 (c) 1987 Taito Corporation (Japan) */
-        /*TODO*///	driver_fsharkbt )	/* bootleg */
+      
+        driver_fshark, 	/* TP-007 (c) 1987 Taito Corporation (World) */
+        driver_skyshark, 	/* TP-007 (c) 1987 Taito America Corporation + Romstar license (US) */
+        driver_hishouza, 	/* TP-007 (c) 1987 Taito Corporation (Japan) */
+        driver_fsharkbt, 	/* bootleg */
         /*TODO*///	driver_wardner )	/* TP-009 (c) 1987 Taito Corporation Japan (World) */
         /*TODO*///	driver_pyros )		/* TP-009 (c) 1987 Taito America Corporation (US) */
         /*TODO*///	driver_wardnerj )	/* TP-009 (c) 1987 Taito Corporation (Japan) */
-        /*TODO*///	driver_twincobr )	/* TP-011 (c) 1987 Taito Corporation (World) */
-        /*TODO*///	driver_twincobu )	/* TP-011 (c) 1987 Taito America Corporation + Romstar license (US) */
-        /*TODO*///	driver_ktiger )	/* TP-011 (c) 1987 Taito Corporation (Japan) */
-        /*TODO*///
+        driver_twincobr, 	/* TP-011 (c) 1987 Taito Corporation (World) */
+        driver_twincobu, 	/* TP-011 (c) 1987 Taito America Corporation + Romstar license (US) */
+        driver_ktiger, 	/* TP-011 (c) 1987 Taito Corporation (Japan) */
+        
         /*TODO*///	driver_rallybik )	/* TP-012 (c) 1988 Taito */
         /*TODO*///	driver_truxton )	/* TP-013B (c) 1988 Taito */
         /*TODO*///	driver_hellfire )	/* TP-??? (c) 1989 Toaplan + Taito license */
