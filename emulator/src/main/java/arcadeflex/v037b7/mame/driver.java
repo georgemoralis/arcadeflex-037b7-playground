@@ -1426,88 +1426,88 @@ public class driver {
         
         /* Capcom CPS1 games */
         driver_forgottn, 	/*  7/1988 (c) 1988 (US) */
-        /*TODO*///	driver_lostwrld )	/*  7/1988 (c) 1988 (Japan) */
+        driver_lostwrld, 	/*  7/1988 (c) 1988 (Japan) */
         driver_ghouls, 	/* 12/1988 (c) 1988 (World) */
-        /*TODO*///	driver_ghoulsu )	/* 12/1988 (c) 1988 (US) */
-        /*TODO*///	driver_ghoulsj )	/* 12/1988 (c) 1988 (Japan) */
-        /*TODO*///	driver_strider )	/*  3/1989 (c) 1989 (not explicitly stated but should be US) */
-        /*TODO*///	driver_striderj )	/*  3/1989 (c) 1989 */
-        /*TODO*///	driver_stridrja )	/*  3/1989 (c) 1989 */
-        /*TODO*///	driver_dwj )		/*  4/1989 (c) 1989 (Japan) */
-        /*TODO*///	driver_willow )	/*  6/1989 (c) 1989 (Japan) */
-        /*TODO*///	driver_willowj )	/*  6/1989 (c) 1989 (Japan) */
-        /*TODO*///	driver_unsquad )	/*  8/1989 (c) 1989 */
-        /*TODO*///	driver_area88 )	/*  8/1989 (c) 1989 */
+        driver_ghoulsu, 	/* 12/1988 (c) 1988 (US) */
+        driver_ghoulsj, 	/* 12/1988 (c) 1988 (Japan) */
+        driver_strider, 	/*  3/1989 (c) 1989 (not explicitly stated but should be US) */
+        driver_striderj, 	/*  3/1989 (c) 1989 */
+        driver_stridrja, 	/*  3/1989 (c) 1989 */
+        driver_dwj, 		/*  4/1989 (c) 1989 (Japan) */
+        driver_willow, 	/*  6/1989 (c) 1989 (Japan) */
+        driver_willowj, 	/*  6/1989 (c) 1989 (Japan) */
+        driver_unsquad, 	/*  8/1989 (c) 1989 */
+        driver_area88, 	/*  8/1989 (c) 1989 */
         driver_ffight, 	/* 12/1989 (c) (World) */
-        /*TODO*///	driver_ffightu )	/* 12/1989 (c) (US)    */
-        /*TODO*///	driver_ffightj )	/* 12/1989 (c) (Japan) */
-        /*TODO*///	driver_1941 )		/*  2/1990 (c) 1990 (World) */
-        /*TODO*///	driver_1941j )		/*  2/1990 (c) 1990 (Japan) */
-        /*TODO*///	driver_mercs )		/*  3/ 2/1990 (c) 1990 (World) */
-        /*TODO*///	driver_mercsu )	/*  3/ 2/1990 (c) 1990 (US)    */
-        /*TODO*///	driver_mercsj )	/*  3/ 2/1990 (c) 1990 (Japan) */
-        /*TODO*///	driver_mtwins )	/*  6/19/1990 (c) 1990 (World) */
-        /*TODO*///	driver_chikij )	/*  6/19/1990 (c) 1990 (Japan) */
-        /*TODO*///	driver_msword )	/*  7/25/1990 (c) 1990 (World) */
-        /*TODO*///	driver_mswordu )	/*  7/25/1990 (c) 1990 (US)    */
-        /*TODO*///	driver_mswordj )	/*  6/23/1990 (c) 1990 (Japan) */
-        /*TODO*///	driver_cawing )	/* 10/12/1990 (c) 1990 (World) */
-        /*TODO*///	driver_cawingj )	/* 10/12/1990 (c) 1990 (Japan) */
-        /*TODO*///	driver_nemo )		/* 11/30/1990 (c) 1990 (World) */
-        /*TODO*///	driver_nemoj )		/* 11/20/1990 (c) 1990 (Japan) */
-        /*TODO*///	driver_sf2 )		/*  2/14/1991 (c) 1991 (World) */
-        /*TODO*///	driver_sf2a )		/*  2/ 6/1991 (c) 1991 (US)    */
-        /*TODO*///	driver_sf2b )		/*  2/14/1991 (c) 1991 (US)    */
-        /*TODO*///	driver_sf2e )		/*  2/28/1991 (c) 1991 (US)    */
-        /*TODO*///	driver_sf2j )		/* 12/10/1991 (c) 1991 (Japan) */
-        /*TODO*///	driver_sf2jb )		/*  2/14/1991 (c) 1991 (Japan) */
-        /*TODO*///	driver_3wonders )	/*  5/20/1991 (c) 1991 (US) */
-        /*TODO*///	driver_wonder3 )	/*  5/20/1991 (c) 1991 (Japan) */
-        /*TODO*///	driver_kod )		/*  7/11/1991 (c) 1991 (World) */
-        /*TODO*///	driver_kodj )		/*  8/ 5/1991 (c) 1991 (Japan) */
-        /*TODO*///	driver_kodb )		/* bootleg */
-        /*TODO*///	driver_captcomm )	/* 10/14/1991 (c) 1991 (World) */
-        /*TODO*///	driver_captcomu )	/*  9/28/1991 (c) 1991 (US)    */
-        /*TODO*///	driver_captcomj )	/* 12/ 2/1991 (c) 1991 (Japan) */
-        /*TODO*///	driver_knights )	/* 11/27/1991 (c) 1991 (World) */
-        /*TODO*///	driver_knightsu )	/* 11/27/1991 (c) 1991 (US)    */
-        /*TODO*///	driver_knightsj )	/* 11/27/1991 (c) 1991 (Japan) */
-        /*TODO*///	driver_sf2ce )		/*  3/13/1992 (c) 1992 (World) */
-        /*TODO*///	driver_sf2cea )	/*  3/13/1992 (c) 1992 (US)    */
-        /*TODO*///	driver_sf2ceb )	/*  5/13/1992 (c) 1992 (US)    */
-        /*TODO*///	driver_sf2cej )	/*  5/13/1992 (c) 1992 (Japan) */
-        /*TODO*///	driver_sf2rb )		/* hack */
-        /*TODO*///	driver_sf2red )	/* hack */
-        /*TODO*///	driver_sf2accp2 )	/* hack */
-        /*TODO*///	driver_varth )		/*  6/12/1992 (c) 1992 (World) */
-        /*TODO*///	driver_varthu )	/*  6/12/1992 (c) 1992 (US) */
-        /*TODO*///	driver_varthj )	/*  7/14/1992 (c) 1992 (Japan) */
-        /*TODO*///	driver_cworld2j )	/*  6/11/1992 (QUIZ 5) (c) 1992 (Japan) */
-        /*TODO*///	driver_wof )		/* 10/ 2/1992 (c) 1992 (World) (CPS1 + QSound) */
-        /*TODO*///	driver_wofa )		/* 10/ 5/1992 (c) 1992 (Asia)  (CPS1 + QSound) */
-        /*TODO*///	driver_wofj )		/* 10/31/1992 (c) 1992 (Japan) (CPS1 + QSound) */
-        /*TODO*///	driver_sf2t )		/* 12/ 9/1992 (c) 1992 (US)    */
-        /*TODO*///	driver_sf2tj )		/* 12/ 9/1992 (c) 1992 (Japan) */
-        /*TODO*///	driver_dino )		/*  2/ 1/1993 (c) 1993 (World) (CPS1 + QSound) */
-        /*TODO*///	driver_dinoj )		/*  2/ 1/1993 (c) 1993 (Japan) (CPS1 + QSound) */
-        /*TODO*///	driver_punisher )	/*  4/22/1993 (c) 1993 (World) (CPS1 + QSound) */
-        /*TODO*///	driver_punishru )	/*  4/22/1993 (c) 1993 (US)    (CPS1 + QSound) */
-        /*TODO*///	driver_punishrj )	/*  4/22/1993 (c) 1993 (Japan) (CPS1 + QSound) */
-        /*TODO*///	driver_slammast )	/*  7/13/1993 (c) 1993 (World) (CPS1 + QSound) */
-        /*TODO*///	driver_slammasu )	/*  7/13/1993 (c) 1993 (US)    (CPS1 + QSound) */
-        /*TODO*///	driver_mbomberj )	/*  7/13/1993 (c) 1993 (Japan) (CPS1 + QSound) */
-        /*TODO*///	driver_mbombrd )	/* 12/ 6/1993 (c) 1993 (World) (CPS1 + QSound) */
-        /*TODO*///	driver_mbombrdj )	/* 12/ 6/1993 (c) 1993 (Japan) (CPS1 + QSound) */
-        /*TODO*///	driver_pnickj )	/*  6/ 8/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
-        /*TODO*///	driver_qad )		/*  7/ 1/1992 (c) 1992 (US)    */
-        /*TODO*///	driver_qadj )		/*  9/21/1994 (c) 1994 (Japan) */
-        /*TODO*///	driver_qtono2 )	/*  1/23/1995 (c) 1995 (Japan) */
-        /*TODO*///	driver_pang3 )		/*  5/11/1995 (c) 1995 Mitchell (Euro) not listed on Capcom's site */
-        /*TODO*///	driver_pang3j )	/*  5/11/1995 (c) 1995 Mitchell (Japan) not listed on Capcom's site */
-        /*TODO*///	driver_megaman )	/* 10/ 6/1995 (c) 1995 (Asia)  */
-        /*TODO*///	driver_rockmanj )	/*  9/22/1995 (c) 1995 (Japan) */
-        /*TODO*/////	driver_sfzch )		/* 10/20/1995 (c) 1995 (Japan) (CPS Changer) */
-        /*TODO*///
+        driver_ffightu, 	/* 12/1989 (c) (US)    */
+        driver_ffightj, 	/* 12/1989 (c) (Japan) */
+        driver_1941, 		/*  2/1990 (c) 1990 (World) */
+        driver_1941j, 		/*  2/1990 (c) 1990 (Japan) */
+        driver_mercs, 		/*  3/ 2/1990 (c) 1990 (World) */
+        driver_mercsu, 	/*  3/ 2/1990 (c) 1990 (US)    */
+        driver_mercsj, 	/*  3/ 2/1990 (c) 1990 (Japan) */
+        driver_mtwins, 	/*  6/19/1990 (c) 1990 (World) */
+        driver_chikij, 	/*  6/19/1990 (c) 1990 (Japan) */
+        driver_msword, 	/*  7/25/1990 (c) 1990 (World) */
+        driver_mswordu, 	/*  7/25/1990 (c) 1990 (US)    */
+        driver_mswordj, 	/*  6/23/1990 (c) 1990 (Japan) */
+        driver_cawing, 	/* 10/12/1990 (c) 1990 (World) */
+        driver_cawingj, 	/* 10/12/1990 (c) 1990 (Japan) */
+        driver_nemo, 		/* 11/30/1990 (c) 1990 (World) */
+        driver_nemoj, 		/* 11/20/1990 (c) 1990 (Japan) */
+        driver_sf2, 		/*  2/14/1991 (c) 1991 (World) */
+        driver_sf2a, 		/*  2/ 6/1991 (c) 1991 (US)    */
+        driver_sf2b,		/*  2/14/1991 (c) 1991 (US)    */
+        driver_sf2e,		/*  2/28/1991 (c) 1991 (US)    */
+        driver_sf2j,		/* 12/10/1991 (c) 1991 (Japan) */
+        driver_sf2jb,		/*  2/14/1991 (c) 1991 (Japan) */
+        driver_3wonders, 	/*  5/20/1991 (c) 1991 (US) */
+        driver_wonder3, 	/*  5/20/1991 (c) 1991 (Japan) */
+        driver_kod, 		/*  7/11/1991 (c) 1991 (World) */
+        driver_kodj, 		/*  8/ 5/1991 (c) 1991 (Japan) */
+        driver_kodb, 		/* bootleg */
+        driver_captcomm, 	/* 10/14/1991 (c) 1991 (World) */
+        driver_captcomu, 	/*  9/28/1991 (c) 1991 (US)    */
+        driver_captcomj, 	/* 12/ 2/1991 (c) 1991 (Japan) */
+        driver_knights, 	/* 11/27/1991 (c) 1991 (World) */
+        driver_knightsu, 	/* 11/27/1991 (c) 1991 (US)    */
+        driver_knightsj, 	/* 11/27/1991 (c) 1991 (Japan) */
+        driver_sf2ce, 		/*  3/13/1992 (c) 1992 (World) */
+        driver_sf2cea, 	/*  3/13/1992 (c) 1992 (US)    */
+        driver_sf2ceb, 	/*  5/13/1992 (c) 1992 (US)    */
+        driver_sf2cej, 	/*  5/13/1992 (c) 1992 (Japan) */
+        driver_sf2rb, 		/* hack */
+        driver_sf2red, 	/* hack */
+        driver_sf2accp2, 	/* hack */
+        driver_varth, 		/*  6/12/1992 (c) 1992 (World) */
+        driver_varthu, 	/*  6/12/1992 (c) 1992 (US) */
+        driver_varthj, 	/*  7/14/1992 (c) 1992 (Japan) */
+        driver_cworld2j, 	/*  6/11/1992 (QUIZ 5) (c) 1992 (Japan) */
+        driver_wof, 		/* 10/ 2/1992 (c) 1992 (World) (CPS1 + QSound) */
+        driver_wofa, 		/* 10/ 5/1992 (c) 1992 (Asia)  (CPS1 + QSound) */
+        driver_wofj, 		/* 10/31/1992 (c) 1992 (Japan) (CPS1 + QSound) */
+        driver_sf2t, 		/* 12/ 9/1992 (c) 1992 (US)    */
+        driver_sf2tj, 		/* 12/ 9/1992 (c) 1992 (Japan) */
+        driver_dino, 		/*  2/ 1/1993 (c) 1993 (World) (CPS1 + QSound) */
+        driver_dinoj, 		/*  2/ 1/1993 (c) 1993 (Japan) (CPS1 + QSound) */
+        driver_punisher, 	/*  4/22/1993 (c) 1993 (World) (CPS1 + QSound) */
+        driver_punishru, 	/*  4/22/1993 (c) 1993 (US)    (CPS1 + QSound) */
+        driver_punishrj, 	/*  4/22/1993 (c) 1993 (Japan) (CPS1 + QSound) */
+        driver_slammast, 	/*  7/13/1993 (c) 1993 (World) (CPS1 + QSound) */
+        driver_slammasu, 	/*  7/13/1993 (c) 1993 (US)    (CPS1 + QSound) */
+        driver_mbomberj, 	/*  7/13/1993 (c) 1993 (Japan) (CPS1 + QSound) */
+        driver_mbombrd, 	/* 12/ 6/1993 (c) 1993 (World) (CPS1 + QSound) */
+        driver_mbombrdj, 	/* 12/ 6/1993 (c) 1993 (Japan) (CPS1 + QSound) */
+        driver_pnickj, 	/*  6/ 8/1994 (c) 1994 + Compile license (Japan) not listed on Capcom's site */
+        driver_qad, 		/*  7/ 1/1992 (c) 1992 (US)    */
+        driver_qadj, 		/*  9/21/1994 (c) 1994 (Japan) */
+        driver_qtono2, 	/*  1/23/1995 (c) 1995 (Japan) */
+        driver_pang3, 		/*  5/11/1995 (c) 1995 Mitchell (Euro) not listed on Capcom's site */
+        driver_pang3j, 	/*  5/11/1995 (c) 1995 Mitchell (Japan) not listed on Capcom's site */
+        driver_megaman, 	/* 10/ 6/1995 (c) 1995 (Asia)  */
+        driver_rockmanj, 	/*  9/22/1995 (c) 1995 (Japan) */
+//	driver_sfzch )		/* 10/20/1995 (c) 1995 (Japan) (CPS Changer) */
+        
         /*TODO*///	/* Capcom CPS2 games */
         /*TODO*///	/* list completed by CPS2Shock */
         /*TODO*///	/* http://cps2shock.retrogames.com */
