@@ -309,6 +309,7 @@ public class hydra
 				ATARI_CLOCK_14MHz,
 				main_readmem,main_writemem,null,null,
 				atarigen_video_int_gen,1
+        
 			),
 			JSA_II_CPU
 		},

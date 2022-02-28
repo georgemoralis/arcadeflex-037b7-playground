@@ -59,7 +59,7 @@ import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays;
-import arcadeflex.common.subArrays.IntSubArray;
+//import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -162,7 +162,7 @@ public class skullxbo
 		mo_bank = 0;
 	
 		/* allocate the scroll list */
-		scroll_list = new int[2 * YDIM];
+		scroll_list = new int[2 * YDIM * 2];
 		if (scroll_list == null)
 			return 1;
 	
@@ -289,13 +289,13 @@ public class skullxbo
 	
 	public static void skullxbo_scanline_update(int scanline)
 	{
-		UShortArray base = new UShortArray(atarigen_alpharam, ((scanline / 8) * 64 + XCHARS) * 2);
+		UShortPtr base = new UShortPtr(atarigen_alpharam, ((scanline / 8) * 64 + XCHARS) * 2);
 		int x;
 	
 		/* keep in range */
-/*TODO*///		if ((UINT8 *)base >= &atarigen_alpharam[atarigen_alpharam_size])
-/*TODO*///			return;
-                if (base.offset >= atarigen_alpharam_size[0])
+//		if ((UINT8 *)base >= &atarigen_alpharam[atarigen_alpharam_size])
+//			return;
+               if (base.offset >= atarigen_alpharam_size[0])
                     return;
 //System.out.println("base="+base.offset+" "+atarigen_alpharam_size[0]);
 	
@@ -305,7 +305,7 @@ public class skullxbo
 		/* update the current parameters */
 		for (x = XCHARS; x < 64; x++)
 		{
-			int data = base.read(); base.inc();
+			int data = base.read(0); base.inc();
 			int command = data & 0x000f;
 	
 			if (command == 0x0d)

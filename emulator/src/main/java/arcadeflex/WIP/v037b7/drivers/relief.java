@@ -20,6 +20,7 @@ import static arcadeflex.WIP.v037b7.sndhrdw.atarijsaH.*;
 import static arcadeflex.WIP.v037b7.vidhrdw.relief.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;

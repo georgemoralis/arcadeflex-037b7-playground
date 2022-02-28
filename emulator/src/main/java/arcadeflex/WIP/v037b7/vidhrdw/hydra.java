@@ -268,15 +268,15 @@ public class hydra
 		if (scanline == 0) logerror("-------\n");
 	
 		/* keep in range */
-/*TODO*///		if ((UINT8 *)base >= &atarigen_alpharam[atarigen_alpharam_size])
-/*TODO*///			return;
+//		if ((UINT8 *)base >= &atarigen_alpharam[atarigen_alpharam_size])
+//			return;
                 if (base.offset >= atarigen_alpharam_size[0])
                     return;
 	
 		/* update the current parameters */
 		for (i = 0; i < 8; i++)
 		{
-			int word;
+			int word=0;
 	
 			word = base.read(i * 2 + 1);
 			if ((word & 0x8000) != 0)
@@ -564,7 +564,7 @@ public class hydra
 	
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(subArrays.UShortArray data, rectangle clip, Object param) {
+            public void handler(UShortArray data, rectangle clip, Object param) {
 		int[] colormap = (int[]) param;
 	
 		int scale = data.read(4);

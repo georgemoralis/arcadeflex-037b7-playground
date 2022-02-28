@@ -265,7 +265,7 @@ public class xybots
 				CPU_M68000,		/* verified */
 				ATARI_CLOCK_14MHz/2,
 				main_readmem,main_writemem,null,null,
-				atarigen_video_int_gen,1
+				atarigen_video_int_gen,1                          
 			),
 			JSA_I_CPU
 		},

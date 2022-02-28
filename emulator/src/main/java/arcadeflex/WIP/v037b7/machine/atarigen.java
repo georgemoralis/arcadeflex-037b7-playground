@@ -1335,7 +1335,7 @@ public class atarigen
 	
 	
 	
-	/*--------------------------------------------------------------------------
+/*--------------------------------------------------------------------------
 	
 		Motion object rendering
 	
@@ -1350,14 +1350,14 @@ public class atarigen
 			atarigen_mo_process - processes the current list
 	
 	--------------------------------------------------------------------------*/
-
+	
 	/* statics */
-	public static atarigen_mo_desc modesc;
-
-	public static UShortArray molist;
-        public static UShortArray molist_end;
-        public static UShortArray molist_last;
-	public static UShortArray molist_upper_bound;
+	static atarigen_mo_desc modesc;
+	
+	static UShortArray molist;
+	static UShortArray molist_end;
+	static UShortArray molist_last;
+	static UShortArray molist_upper_bound;
 	
 	
 	/*
@@ -1369,6 +1369,7 @@ public class atarigen
 	
 	public static int atarigen_mo_init(atarigen_mo_desc source_desc)
 	{
+            
 		modesc = new atarigen_mo_desc(source_desc);
 		if (modesc.entrywords == 0) modesc.entrywords = 4;
 		modesc.entrywords++;
@@ -1399,7 +1400,7 @@ public class atarigen
 	public static void atarigen_mo_free()
 	{
 		if (molist != null)
-			molist = null;
+                    molist = null;
 	}
 	
 	
@@ -1414,10 +1415,6 @@ public class atarigen
 	public static void atarigen_mo_reset()
 	{
 		molist_end = molist;
-                
-                if (molist!=null)
-                    molist_end = new UShortArray(molist);
-                
 		molist_last = null;
 	}
 	
@@ -1443,14 +1440,13 @@ public class atarigen
                 //System.out.println("offset: "+base.offset);
 	
 		/* set up local pointers */
-		data_start = new UShortArray(molist_end);
-                data = new UShortArray(molist_end);
+		data_start = data = new UShortArray(molist_end);
 		prev_data = molist_last;
 	
 		/* if the last list entries were on the same scanline, overwrite them */
 		if (prev_data != null)
 		{
-                        prev_data = new UShortArray(molist_last);
+                        //prev_data = new IntSubArray(molist_last);
                         
 			if (prev_data.read(0) == scanline){
                                 data_start = data = new UShortArray(prev_data);
@@ -1534,7 +1530,7 @@ public class atarigen
 	
 	public static void atarigen_mo_update_slip_512(UBytePtr base, int scroll, int scanline, UBytePtr slips)
 	{
-                /* catch a fractional character off the top of the screen */
+		/* catch a fractional character off the top of the screen */
 		if (scanline == 0 && (scroll & 7) != 0)
 		{
 			int pfscanline = scroll & 0x1f8;
@@ -1543,7 +1539,7 @@ public class atarigen
 		}
 	
 		/* if we're within screen bounds, grab the next batch of MO's and process */
-		if ((scanline < Machine.drv.screen_height) && (2 * (((scanline + scroll + 7) & 0x1f8) / 8))>(slips.memory.length+slips.offset))
+		if (scanline < Machine.drv.screen_height)
 		{
 			int pfscanline = (scanline + scroll + 7) & 0x1f8;
 			int link = (slips.READ_WORD(2 * (pfscanline / 8)) >> modesc.linkshift) & modesc.linkmask;
@@ -1561,7 +1557,6 @@ public class atarigen
 	
 	public static void atarigen_mo_process(atarigen_mo_callback callback, Object param)
 	{
-            //System.out.println("atarigen_mo_process");
 		UShortArray base = new UShortArray(molist);
 		int last_start_scan = -1;
 		rectangle clip=new rectangle();
@@ -1573,7 +1568,6 @@ public class atarigen
 		/* loop over the list until the end */
 		while (base.offset < molist_end.offset)
 		{
-                    //System.out.println("Dentro!");
 			UShortArray data, first, last;
 			int start_scan = base.read(0);
                         int step;
@@ -1618,6 +1612,9 @@ public class atarigen
 				(callback).handler(new UShortArray(data, 1), clip, param);
 		}
 	}
+	
+	
+	
 	
 	
 	

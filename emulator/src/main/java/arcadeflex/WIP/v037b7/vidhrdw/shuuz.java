@@ -46,6 +46,7 @@ package arcadeflex.WIP.v037b7.vidhrdw;
 import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.common.ptrLib.*;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 //import arcadeflex.common.subArrays;
 //import arcadeflex.common.subArrays.IntSubArray;
@@ -420,10 +421,10 @@ public class shuuz
 	static atarigen_pf_callback pf_overrender_callback = new atarigen_pf_callback() {
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, java.lang.Object param) {
-                System.out.println("Estoy en pf_overrender_callback");
-                 pf_overrender_data overrender_data = (pf_overrender_data) param;
+                //System.out.println("Estoy en pf_overrender_callback");
+                pf_overrender_data overrender_data = (pf_overrender_data) param;
 		GfxElement gfx = Machine.gfx[0];
-		//osd_bitmap bitmap = overrender_data.bitmap;
+		osd_bitmap bitmap = overrender_data.bitmap;
 		int x, y;
 	
 		/* standard loop over tiles */
@@ -441,7 +442,8 @@ public class shuuz
 					int hflip = data1 & 0x8000;
 					int code = data1 & 0x3fff;
 	
-					drawgfx(overrender_data.bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, clip, TRANSPARENCY_NONE, 0);
+					drawgfx(bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, clip, TRANSPARENCY_NONE, 0);
+                                        //param = overrender_data;
 	
 /*TODO*///	#if DEBUG_VIDEO
 /*TODO*///					if (show_colors != 0)
@@ -466,7 +468,7 @@ public class shuuz
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
             public void handler(UShortArray data, rectangle clip, java.lang.Object param) {
-                System.out.println("Estoy en mo_color_callback");
+                //System.out.println("Estoy en mo_color_callback");
                 int[] usage = Machine.gfx[1].pen_usage;
 		int[] colormap = (int[]) param;
 		int code = data.read(1) & 0x7fff;
@@ -493,7 +495,7 @@ public class shuuz
 	static atarigen_mo_callback mo_render_callback = new atarigen_mo_callback() {
             @Override
             public void handler(UShortArray data, rectangle clip, java.lang.Object param) {
-                System.out.println("mo_render_callback");
+                //System.out.println("mo_render_callback");
                 GfxElement gfx = Machine.gfx[1];
 		pf_overrender_data overrender_data = new pf_overrender_data();
 		osd_bitmap bitmap = (osd_bitmap) param;

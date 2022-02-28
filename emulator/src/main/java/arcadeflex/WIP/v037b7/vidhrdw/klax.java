@@ -47,6 +47,7 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.common.ptrLib.*;
 import arcadeflex.common.subArrays;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 //import arcadeflex.common.subArrays.IntSubArray;
 //import arcadeflex.common.subArrays.UShortArray;
@@ -367,7 +368,7 @@ public class klax
 	
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
-            public void handler(subArrays.UShortArray data, rectangle clip, Object param) {
+            public void handler(UShortArray data, rectangle clip, Object param) {
                 int[] usage = Machine.gfx[1].pen_usage;
 		int[] colormap = (int[]) param;
 		int code = data.read(1) & 0x0fff;

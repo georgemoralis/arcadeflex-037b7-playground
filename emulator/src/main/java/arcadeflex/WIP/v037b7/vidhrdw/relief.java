@@ -57,6 +57,7 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;        
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.subArrays;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import arcadeflex.v037b7.mame.drawgfxH;
@@ -101,13 +102,13 @@ public class relief
 	};
 	
 	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Statics
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
+	
+	/*************************************
+	 *
+	 *	Statics
+	 *
+	 *************************************/
+	
 	static atarigen_pf_state pf_state;
 	static atarigen_pf_state pf2_state;
 /*TODO*///	

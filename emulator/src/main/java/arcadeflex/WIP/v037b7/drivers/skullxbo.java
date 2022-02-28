@@ -85,6 +85,7 @@ import static arcadeflex.v056.mame.timerH.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static arcadeflex.WIP.v037b7.sndhrdw.atarijsa.*;
 import static arcadeflex.WIP.v037b7.sndhrdw.atarijsaH.*;
+//import arcadeflex.common.subArrays.IntSubArray;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public class skullxbo
@@ -130,7 +131,9 @@ public class skullxbo
 	
 		/* check for interrupts in the alpha ram */
 		/* the interrupt occurs on the HBLANK of the 6th scanline following */
-/*TODO*///		if ((UINT8 *)check < &atarigen_alpharam[atarigen_alpharam_size] && (*check & 0x8000))
+//		if ((UINT8 *)check < &atarigen_alpharam[atarigen_alpharam_size] && (*check & 0x8000))
+                if (check.offset < atarigen_alpharam.offset && (check.read(0) & 0x8000)!=0
+                        )
 			timer_set(cpu_getscanlineperiod() * 6.9, 0, irq_gen);
 	
 		/* update the playfield and motion objects */
@@ -336,6 +339,7 @@ public class skullxbo
 				ATARI_CLOCK_14MHz/2,
 				main_readmem,main_writemem,null,null,
 				atarigen_video_int_gen,1
+
 			),
 			JSA_II_CPU
 		},
