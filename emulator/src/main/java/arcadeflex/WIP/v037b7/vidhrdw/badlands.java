@@ -319,13 +319,13 @@ public class badlands
 		{
 			/* draw the motion object */
 			atarigen_mo_draw_16x8_strip(bitmap, gfx, code, color, 0, 0, xpos, ypos, vsize, clip, TRANSPARENCY_PEN, 0);
-                        System.out.println("1");
+                        //System.out.println("1");
 		}
 	
 		/* otherwise, make it tricky */
 		else
 		{
-                    System.out.println("2");
+                    //System.out.println("2");
 			/* draw an instance of the object in all transparent pens */
 			atarigen_mo_draw_transparent_16x8_strip(bitmap, gfx, code, 0, 0, xpos, ypos, vsize, clip, TRANSPARENCY_PEN, 0);
 	

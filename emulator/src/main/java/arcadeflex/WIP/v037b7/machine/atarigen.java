@@ -1557,7 +1557,7 @@ public class atarigen
 	
 	public static void atarigen_mo_process(atarigen_mo_callback callback, Object param)
 	{
-                UShortArray base = new UShortArray(molist);
+		UShortArray base = new UShortArray(molist);
 		int last_start_scan = -1;
 		rectangle clip=new rectangle();
 	
@@ -1569,21 +1569,22 @@ public class atarigen
 		while (base.offset < molist_end.offset)
 		{
 			UShortArray data, first, last;
-			int start_scan = base.read(0), step;
+			int start_scan = base.read(0);
+                        int step;
 	
 			last_start_scan = start_scan;
 			clip.min_y = start_scan;
 	
 			/* look for an entry whose scanline start is different from ours; that's our bottom */
 			for (data = new UShortArray(base); data.offset < molist_end.offset; data.inc( modesc.entrywords ))
-				if (data.read() != start_scan)
+				if (data.read(0) != start_scan)
 				{
-					clip.max_y = data.read();
+					clip.max_y = data.read(0);
 					break;
 				}
 	
 			/* if we didn't find any additional regions, go until the bottom of the screen */
-			if (data == molist_end)
+			if (data.offset == molist_end.offset)
 				clip.max_y = Machine.drv.screen_height - 1;
 	
 			/* set the start and end points */
@@ -1602,6 +1603,9 @@ public class atarigen
 	
 			/* update the base */
 			base = new UShortArray(data);
+                        
+                        //System.out.println("data.offset: "+data.offset);
+                        //System.out.println("last.offset: "+last.offset);
 	
 			/* render the mos */
 			for (data = new UShortArray(first); data.offset != last.offset; data.inc( step ))
