@@ -818,6 +818,7 @@ public class batman
 	
 		/* simple case? */
 		if (priority == 3)
+                //if (true)
 		{
 			/* just draw -- we have dominion over all */
 			atarigen_mo_draw_8x8(bitmap, gfx, code, color, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);
@@ -837,7 +838,7 @@ public class batman
 			atarigen_mo_draw_transparent_8x8(bitmap, gfx, code, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);
 	
 			/* start by recopying the background to the temp bitmap */
-			atarigen_pf_process(pf_overrender_callback, atarigen_pf_overrender_bitmap, pf_clip);
+/*TODO*///			atarigen_pf_process(pf_overrender_callback, atarigen_pf_overrender_bitmap, pf_clip);
 	
 			/* and then draw the M.O. normally on top of it */
 			atarigen_mo_draw_8x8(atarigen_pf_overrender_bitmap, gfx, code, color, hflip, 0, xpos, ypos, hsize, vsize, clip, TRANSPARENCY_PEN, 0);
