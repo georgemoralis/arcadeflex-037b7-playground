@@ -224,6 +224,7 @@ import static arcadeflex.WIP.v037b7.drivers.gaelco.*;
 import static arcadeflex.WIP.v037b7.drivers.twincobr.*;        
 import static arcadeflex.WIP.v037b7.drivers.karnov.*;
 import static arcadeflex.WIP.v037b7.drivers.cps1.*;
+import static arcadeflex.WIP.v037b7.drivers.thunderj.*;
 
 public class driver {
 
@@ -2522,7 +2523,7 @@ public class driver {
         driver_hydrap, 	/* (c) 1990 */
         driver_pitfight, 	/* (c) 1990 */
         driver_pitfigh3, 	/* (c) 1990 */
-        /*TODO*///	driver_thunderj )	/* (c) 1990 */
+        driver_thunderj, 	/* (c) 1990 */
         driver_batman, 	/* (c) 1991 */
         driver_relief,          /* (c) 1992 */
         driver_relief2, 	/* (c) 1992 */

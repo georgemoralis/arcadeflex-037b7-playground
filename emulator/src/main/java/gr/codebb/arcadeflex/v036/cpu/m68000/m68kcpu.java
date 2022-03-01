@@ -9,6 +9,7 @@ import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kmameH.*;
 import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kcpuH.*;
 import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kopsH.*;
 import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kops.*;
+import static gr.codebb.arcadeflex.common.libc.cstring.*;
 
 public class m68kcpu {
 
@@ -580,78 +581,95 @@ public class m68kcpu {
     public static void m68k_pulse_halt() {
         set_CPU_HALTED(1);
     }
-    /*TODO*///
-/*TODO*////* Get and set the current CPU context */
-/*TODO*////* This is to allow for multiple CPUs */
-/*TODO*///unsigned m68k_get_context(void* dst)
-/*TODO*///{
-/*TODO*///	if( dst )
-/*TODO*///	{
-/*TODO*///		m68k_cpu_context *cpu = dst;
-/*TODO*///
-/*TODO*///        cpu->mode                 = CPU_MODE;
-/*TODO*///		cpu->sr 				  = m68ki_get_sr();
-/*TODO*///		cpu->pc 				  = CPU_PC;
-/*TODO*///		memcpy(cpu->d, CPU_D, sizeof(CPU_D));
-/*TODO*///		memcpy(cpu->a, CPU_A, sizeof(CPU_A));
-/*TODO*///		cpu->usp				  = CPU_USP;
-/*TODO*///		cpu->isp				  = CPU_ISP;
-/*TODO*///		cpu->msp				  = CPU_MSP;
-/*TODO*///		cpu->vbr				  = CPU_VBR;
-/*TODO*///		cpu->sfc				  = CPU_SFC;
-/*TODO*///		cpu->dfc				  = CPU_DFC;
-/*TODO*///		cpu->stopped			  = CPU_STOPPED;
-/*TODO*///		cpu->halted 			  = CPU_HALTED;
-/*TODO*///		cpu->int_state			  = CPU_INT_STATE;	/* ASG: changed from CPU_INTS_PENDING */
-/*TODO*///		cpu->int_cycles           = CPU_INT_CYCLES;	/* ASG */
-/*TODO*///		cpu->int_ack_callback	  = CPU_INT_ACK_CALLBACK;
-/*TODO*///		cpu->bkpt_ack_callback	  = CPU_BKPT_ACK_CALLBACK;
-/*TODO*///		cpu->reset_instr_callback = CPU_RESET_INSTR_CALLBACK;
-/*TODO*///		cpu->pc_changed_callback  = CPU_PC_CHANGED_CALLBACK;
-/*TODO*///		cpu->set_fc_callback	  = CPU_SET_FC_CALLBACK;
-/*TODO*///		cpu->instr_hook_callback  = CPU_INSTR_HOOK_CALLBACK;
-/*TODO*///		cpu->pref_addr			  = CPU_PREF_ADDR;
-/*TODO*///		cpu->pref_data			  = CPU_PREF_DATA;
-/*TODO*///	}
-/*TODO*///	return sizeof(m68k_cpu_context);
-/*TODO*///}
-/*TODO*///
-/*TODO*///void m68k_set_context(void* src)
-/*TODO*///{
-/*TODO*///	if( src )
-/*TODO*///	{
-/*TODO*///		m68k_cpu_context *cpu = src;
-/*TODO*///
-/*TODO*///        CPU_MODE                 = cpu->mode;
-/*TODO*///		m68ki_set_sr_no_int(cpu->sr); /* This stays on top to prevent side-effects */
-/*TODO*///		m68ki_set_pc(cpu->pc);
-/*TODO*///		memcpy(CPU_D, cpu->d, sizeof(CPU_D));
-/*TODO*///		memcpy(CPU_A, cpu->a, sizeof(CPU_D));
-/*TODO*///		CPU_USP 				 = cpu->usp;
-/*TODO*///		CPU_ISP 				 = cpu->isp;
-/*TODO*///		CPU_MSP 				 = cpu->msp;
-/*TODO*///		CPU_VBR 				 = cpu->vbr;
-/*TODO*///		CPU_SFC 				 = cpu->sfc;
-/*TODO*///		CPU_DFC 				 = cpu->dfc;
-/*TODO*///		CPU_STOPPED 			 = cpu->stopped;
-/*TODO*///		CPU_HALTED				 = cpu->halted;
-/*TODO*///		CPU_INT_STATE			 = cpu->int_state;	/* ASG: changed from CPU_INTS_PENDING */
-/*TODO*///		CPU_INT_CYCLES           = cpu->int_cycles;	/* ASG */
-/*TODO*///		CPU_INT_ACK_CALLBACK	 = cpu->int_ack_callback;
-/*TODO*///		CPU_BKPT_ACK_CALLBACK	 = cpu->bkpt_ack_callback;
-/*TODO*///		CPU_RESET_INSTR_CALLBACK = cpu->reset_instr_callback;
-/*TODO*///		CPU_PC_CHANGED_CALLBACK  = cpu->pc_changed_callback;
-/*TODO*///		CPU_SET_FC_CALLBACK 	 = cpu->set_fc_callback;
-/*TODO*///		CPU_INSTR_HOOK_CALLBACK  = cpu->instr_hook_callback;
-/*TODO*///		CPU_PREF_ADDR 			 = cpu->pref_addr;
-/*TODO*///		CPU_PREF_DATA 			 = cpu->pref_data;
-/*TODO*///
-/*TODO*///		/* ASG: check for interrupts */
-/*TODO*///		m68ki_check_interrupts();
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///
+    
+    /* Get and set the current CPU context */
+    /* This is to allow for multiple CPUs */
+    public static Object m68k_get_context(Object dst)
+    {
+    	//if( dst != null )
+    	//{
+    		m68k_cpu_context cpu = (m68k_cpu_context) dst;
+    
+                cpu.mode                 = (int) get_CPU_MODE();
+/*TODO*///    		cpu.sr 				  = m68ki_get_sr();
+    		cpu.pc 				  = (int) get_CPU_PC();
+    		//memcpy(cpu.d, CPU_D, sizeof(CPU_D));
+                for (int _i=0 ; _i<get_CPU_D().length ; _i++)
+                    cpu.dr[_i] = (int) get_CPU_D()[_i];
+    		
+                //memcpy(cpu.a, CPU_A, sizeof(CPU_A));
+                for (int _i=0 ; _i<get_CPU_A().length ; _i++)
+                    cpu.ar[_i] = (int) get_CPU_A()[_i];
+    		
+                //cpu.usp				  = get_CPU_USP();
+                for (int _i=0 ; _i<m68k_cpu.sp.length ; _i++)
+                    cpu.sp[_i] = (int) m68k_cpu.sp[_i];
+                
+    		//cpu.isp				  = get_CPU_ISP();
+    		//cpu.msp				  = get_CPU_MSP();
+    		cpu.vbr				  = (int) get_CPU_VBR();
+    		cpu.sfc				  = (int) get_CPU_SFC();
+    		cpu.dfc				  = (int) get_CPU_DFC();
+    		cpu.stopped			  = (int) get_CPU_STOPPED();
+    		cpu.halted 			  = (int) get_CPU_HALTED();
+    		cpu.int_state			  = (int) get_CPU_INT_STATE();	/* ASG: changed from CPU_INTS_PENDING */
+    		cpu.int_cycles           = (int) get_CPU_INT_CYCLES();	/* ASG */
+    		cpu.int_ack_callback	  = get_CPU_INT_ACK_CALLBACK();
+    		cpu.bkpt_ack_callback	  = get_CPU_BKPT_ACK_CALLBACK();
+    		cpu.reset_instr_callback = get_CPU_RESET_INSTR_CALLBACK();
+    		cpu.pc_changed_callback  = get_CPU_PC_CHANGED_CALLBACK();
+    		cpu.set_fc_callback	  = get_CPU_SET_FC_CALLBACK();
+    		cpu.instr_hook_callback  = get_CPU_INSTR_HOOK_CALLBACK();
+    		cpu.pref_addr			  = (int) get_CPU_PREF_ADDR();
+    		cpu.pref_data			  = (int) get_CPU_PREF_DATA();
+    	//}
+    	return cpu;
+        //return dst;
+    }
+
+    static void m68k_set_context(Object src)
+    {
+	if( src != null )
+	{
+    		m68k_cpu_context cpu = (m68k_cpu_context) src;
+    
+                set_CPU_MODE(cpu.mode);
+/*TODO*///    		m68ki_set_sr_no_int(cpu.sr); /* This stays on top to prevent side-effects */
+    		m68ki_set_pc(cpu.pc);
+    		//memcpy(CPU_D, cpu.d, sizeof(CPU_D));
+                for (int _i=0 ; _i<cpu.dr.length ; _i++)
+                    set_CPU_D(_i, cpu.dr[_i]);
+    		//memcpy(CPU_A, cpu.a, sizeof(CPU_D));
+                for (int _i=0 ; _i<cpu.ar.length ; _i++)
+                    set_CPU_A(_i, cpu.ar[_i]);
+    		//CPU_USP 				 = cpu.usp;
+    		//CPU_ISP 				 = cpu.isp;
+    		//CPU_MSP 				 = cpu.msp;
+                for (int _i=0 ; _i<cpu.sp.length ; _i++)
+                    m68k_cpu.sp[_i] = cpu.sp[_i];
+                
+    		set_CPU_VBR(cpu.vbr);
+    		set_CPU_SFC(cpu.sfc);
+    		set_CPU_DFC(cpu.dfc);
+    		set_CPU_STOPPED(cpu.stopped);
+    		set_CPU_HALTED(cpu.halted);
+    		set_CPU_INT_STATE(cpu.int_state);	/* ASG: changed from CPU_INTS_PENDING */
+    		set_CPU_INT_CYCLES(cpu.int_cycles);	/* ASG */
+    		set_CPU_INT_ACK_CALLBACK(cpu.int_ack_callback);
+    		set_CPU_BKPT_ACK_CALLBACK(cpu.bkpt_ack_callback);
+    		set_CPU_RESET_INSTR_CALLBACK(cpu.reset_instr_callback);
+    		set_CPU_PC_CHANGED_CALLBACK(cpu.pc_changed_callback);
+    		set_CPU_SET_FC_CALLBACK(cpu.set_fc_callback);
+    		set_CPU_INSTR_HOOK_CALLBACK(cpu.instr_hook_callback);
+    		set_CPU_PREF_ADDR(cpu.pref_addr);
+    		set_CPU_PREF_DATA(cpu.pref_data);
+    
+    		/* ASG: check for interrupts */
+    		m68ki_check_interrupts();
+    	}
+    }
+    
+    
 /*TODO*////* Check if the instruction is a valid one */
 /*TODO*///int m68k_is_valid_instruction(int instruction, int cpu_mode)
 /*TODO*///{

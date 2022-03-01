@@ -1550,7 +1550,7 @@ public class m68kcpuH {
     /*TODO*///
 /*TODO*///
 /*TODO*////* Set the status register */
-/*TODO*///INLINE void m68ki_set_sr_no_int(uint value)
+/*TODO*///public static void m68ki_set_sr_no_int(uint value)
 /*TODO*///{
 /*TODO*///   /* Mask out the "unimplemented" bits */
 /*TODO*///   value &= m68k_sr_implemented_bits[CPU_MODE];
