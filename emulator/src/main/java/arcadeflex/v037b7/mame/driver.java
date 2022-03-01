@@ -1844,7 +1844,7 @@ public class driver {
         /*TODO*///	driver_bayrouta )	/* (c) 1989 (protected) */
         /*TODO*///	driver_bayrtbl1 )	/* (c) 1989 (protected) (bootleg) */
         /*TODO*///	driver_bayrtbl2 )	/* (c) 1989 (protected) (bootleg) */
-        /*TODO*///	driver_enduror )	/* (c) 1985 (protected) */
+        driver_enduror, 	/* (c) 1985 (protected) */
         /*TODO*///	driver_eswat )		/* (c) 1989 (protected) */
         /*TODO*///	driver_fpoint )	/* (c) 1989 (protected) */
         /*TODO*///	driver_goldnaxb )	/* (c) 1989 (protected) */
@@ -1885,34 +1885,34 @@ public class driver {
        
         // Working
         driver_alexkida, 	/* (c) 1986 */
-        /*TODO*///	driver_aliensyn )	/* (c) 1987 */
-        /*TODO*///	driver_altbeas2 )	/* (c) 1988 */
+        driver_aliensyn, 	/* (c) 1987 */
+        driver_altbeas2, 	/* (c) 1988 */
         driver_altbeast,	/* (c) 1988 */
-        /*TODO*///	driver_astormbl )	/* bootleg */
-        /*TODO*///	driver_atomicp )	/* (c) 1990 Philko */
-        /*TODO*///	driver_aurail )	/* (c) 1990 Sega / Westone */
-        /*TODO*///	driver_bayroute )	/* (c) 1989 */
-        /*TODO*///	driver_bodyslam )	/* (c) 1986 */
-        /*TODO*///	driver_dduxbl )	/* (c) 1989 (Datsu bootleg) */
-        /*TODO*///	driver_dumpmtmt )	/* (c) 1986 (Japan) */
-        /*TODO*///	driver_endurob2 )	/* (c) 1985 (Beta bootleg) */
-        /*TODO*///	driver_endurobl )	/* (c) 1985 (Herb bootleg) */
-        /*TODO*///	driver_eswatbl )	/* (c) 1989 (but bootleg) */
-        /*TODO*///	driver_fantzone )	/* (c) 1986 */
-        /*TODO*///	driver_fantzono )	/* (c) 1986 */
-        /*TODO*///	driver_fpointbl )	/* (c) 1989 (Datsu bootleg) */
-        /*TODO*///	driver_goldnabl )	/* (c) 1989 (bootleg) */
-        /*TODO*///	driver_goldnaxa )	/* (c) 1989 */
+        driver_astormbl, 	/* bootleg */
+        driver_atomicp, 	/* (c) 1990 Philko */
+        driver_aurail,          /* (c) 1990 Sega / Westone */
+        driver_bayroute, 	/* (c) 1989 */
+        driver_bodyslam, 	/* (c) 1986 */
+        driver_dduxbl,          /* (c) 1989 (Datsu bootleg) */
+        driver_dumpmtmt, 	/* (c) 1986 (Japan) */
+        driver_endurob2, 	/* (c) 1985 (Beta bootleg) */
+        driver_endurobl, 	/* (c) 1985 (Herb bootleg) */
+        driver_eswatbl, 	/* (c) 1989 (but bootleg) */
+        driver_fantzone, 	/* (c) 1986 */
+        driver_fantzono, 	/* (c) 1986 */
+        driver_fpointbl, 	/* (c) 1989 (Datsu bootleg) */
+        driver_goldnabl, 	/* (c) 1989 (bootleg) */
+        driver_goldnaxa, 	/* (c) 1989 */
         driver_goldnaxe, 	/* (c) 1989 */
-        /*TODO*///	driver_hangon )	/* (c) 1985 */
-        /*TODO*///	driver_hwchamp )	/* (c) 1987 */
-        /*TODO*///	driver_mjleague )	/* (c) 1985 */
+        driver_hangon, 	/* (c) 1985 */
+        driver_hwchamp, 	/* (c) 1987 */
+        driver_mjleague, 	/* (c) 1985 */
         driver_moonwlkb, 	/* bootleg */
         /*TODO*///	driver_outrun )	/* (c) 1986 (bootleg)*/
         /*TODO*///	driver_outruna )	/* (c) 1986 (bootleg) */
         /*TODO*///	driver_outrunb )	/* (c) 1986 (protected beta bootleg) */
-        /*TODO*///	driver_passht4b )	/* bootleg */
-        /*TODO*///	driver_passshtb )	/* bootleg */
+        driver_passht4b, 	/* bootleg */
+        driver_passshtb, 	/* bootleg */
         /*TODO*///	driver_quartet )	/* (c) 1986 */
         /*TODO*///	driver_quartet2 )	/* (c) 1986 */
         /*TODO*///	driver_quartetj )	/* (c) 1986 */

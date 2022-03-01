@@ -21,6 +21,7 @@ package arcadeflex.WIP.v037b7.vidhrdw;
 import static arcadeflex.WIP.v037b7.drivers.system16.sys16_spriteram;
 import static arcadeflex.WIP.v037b7.drivers.system16.sys16_textram;
 import static arcadeflex.WIP.v037b7.drivers.system16.sys16_tileram;
+import static arcadeflex.WIP.v037b7.drivers.system16.gr_bitmap_width;
 import arcadeflex.WIP.v037b7.drivers.system16.sys16_update_procPtr;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
@@ -29,6 +30,7 @@ import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
@@ -122,14 +124,14 @@ public class system16
 /*TODO*///	#ifdef SPACEHARRIER_OFFSETS
 /*TODO*///	UBytePtr spaceharrier_patternoffsets;
 /*TODO*///	#endif
-/*TODO*///	UBytePtr gr_ver;
-/*TODO*///	UBytePtr gr_hor;
-/*TODO*///	UBytePtr gr_pal;
-/*TODO*///	UBytePtr gr_flip;
-/*TODO*///	int gr_palette;
-/*TODO*///	int gr_palette_default;
-/*TODO*///	unsigned char gr_colorflip[2][4];
-/*TODO*///	UBytePtr gr_second_road;
+	public static UBytePtr gr_ver = new UBytePtr();
+	public static UBytePtr gr_hor = new UBytePtr();
+	public static UBytePtr gr_pal = new UBytePtr();
+	public static UBytePtr gr_flip = new UBytePtr();
+	public static int gr_palette;
+	public static int gr_palette_default;
+	public static int[][] gr_colorflip = new int[2][4];
+        public static UBytePtr gr_second_road = new UBytePtr();
 
 	static struct_tilemap background, foreground, text_layer;
 	static struct_tilemap background2, foreground2;
@@ -588,23 +590,23 @@ public class system16
 		return 1;
 	} };
 	
-/*TODO*///	public static VhStartPtr sys16_ho_vh_start = new VhStartPtr() { public int handler() {
-/*TODO*///		int ret;
-/*TODO*///		sys16_bg1_trans=1;
-/*TODO*///		ret = sys16_vh_start();
-/*TODO*///		if (ret != 0) return 1;
-/*TODO*///	
-/*TODO*///		sys16_textlayer_lo_min=0;
-/*TODO*///		sys16_textlayer_lo_max=0;
-/*TODO*///		sys16_textlayer_hi_min=0;
-/*TODO*///		sys16_textlayer_hi_max=0xff;
-/*TODO*///	
-/*TODO*///		sys16_bg_priority_mode=-1;
-/*TODO*///		sys16_bg_priority_value=0x1800;
-/*TODO*///		sys16_fg_priority_value=0x2000;
-/*TODO*///		return 0;
-/*TODO*///	} };
-/*TODO*///	
+	public static VhStartPtr sys16_ho_vh_start = new VhStartPtr() { public int handler() {
+		int ret;
+		sys16_bg1_trans=1;
+		ret = sys16_vh_start.handler();
+		if (ret != 0) return 1;
+	
+		sys16_textlayer_lo_min=0;
+		sys16_textlayer_lo_max=0;
+		sys16_textlayer_hi_min=0;
+		sys16_textlayer_hi_max=0xff;
+	
+		sys16_bg_priority_mode=-1;
+		sys16_bg_priority_value=0x1800;
+		sys16_fg_priority_value=0x2000;
+		return 0;
+	} };
+	
 /*TODO*///	public static VhStartPtr sys16_or_vh_start = new VhStartPtr() { public int handler() {
 /*TODO*///		int ret;
 /*TODO*///		sys16_bg1_trans=1;
@@ -2042,369 +2044,369 @@ public class system16
 		sprite_draw(sprite_list,0);
 		tilemap_draw( bitmap, text_layer, 0 );
 	} };
-/*TODO*///	
-/*TODO*///	extern int gr_bitmap_width;
-/*TODO*///	
-/*TODO*///	static void gr_colors(void)
-/*TODO*///	{
-/*TODO*///		int i;
-/*TODO*///		UINT16 ver_data;
-/*TODO*///		int colorflip;
-/*TODO*///		UINT8 *data_ver=gr_ver;
-/*TODO*///	
-/*TODO*///		for(i=0;i<224;i++)
-/*TODO*///		{
-/*TODO*///			ver_data=READ_WORD(data_ver);
-/*TODO*///			palette_used_colors[(READ_WORD(&gr_pal[(ver_data<<1)&0x1fe])&0xff) + gr_palette] = PALETTE_COLOR_USED;
-/*TODO*///	
-/*TODO*///			if(!((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200))
-/*TODO*///			{
-/*TODO*///				ver_data=ver_data & 0x00ff;
-/*TODO*///				colorflip = (READ_WORD(&gr_flip[ver_data<<1]) >> 3) & 1;
-/*TODO*///	
-/*TODO*///				palette_used_colors[ gr_colorflip[colorflip][0] + gr_palette_default ] = PALETTE_COLOR_USED;
-/*TODO*///				palette_used_colors[ gr_colorflip[colorflip][1] + gr_palette_default ] = PALETTE_COLOR_USED;
-/*TODO*///				palette_used_colors[ gr_colorflip[colorflip][2] + gr_palette_default ] = PALETTE_COLOR_USED;
-/*TODO*///				palette_used_colors[ gr_colorflip[colorflip][3] + gr_palette_default ] = PALETTE_COLOR_USED;
-/*TODO*///			}
-/*TODO*///			data_ver+=2;
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	static void render_gr(struct osd_bitmap *bitmap,int priority)
-/*TODO*///	{
-/*TODO*///		int i,j;
-/*TODO*///		UINT8 *data = memory_region(REGION_GFX3);
-/*TODO*///		UINT8 *source;
-/*TODO*///		UINT8 *line;
-/*TODO*///		UINT16 *line16;
-/*TODO*///		UINT32 *line32;
-/*TODO*///		UINT8 *data_ver=gr_ver;
-/*TODO*///		UINT32 ver_data,hor_pos;
-/*TODO*///		UINT16 colors[5];
-/*TODO*///	//	UINT8 colors[5];
-/*TODO*///		UINT32 fastfill;
-/*TODO*///		int colorflip;
-/*TODO*///		int yflip=0,ypos;
-/*TODO*///		int dx=1,xoff=0;
-/*TODO*///	
-/*TODO*///		UINT16 *paldata1 = Machine.gfx[0].colortable + gr_palette;
-/*TODO*///		UINT16 *paldata2 = Machine.gfx[0].colortable + gr_palette_default;
-/*TODO*///	
-/*TODO*///		priority=priority << 10;
-/*TODO*///	
-/*TODO*///		if (Machine.scrbitmap.depth == 16) /* 16 bit */
-/*TODO*///		{
-/*TODO*///			if( Machine.orientation & ORIENTATION_SWAP_XY )
-/*TODO*///			{
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_Y ){
-/*TODO*///					dx=-1;
-/*TODO*///					xoff=319;
-/*TODO*///				}
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_X ){
-/*TODO*///					yflip=1;
-/*TODO*///				}
-/*TODO*///	
-/*TODO*///				for(i=0;i<224;i++)
-/*TODO*///				{
-/*TODO*///					if (yflip != 0) ypos=223-i;
-/*TODO*///					else ypos=i;
-/*TODO*///					ver_data=READ_WORD(data_ver);
-/*TODO*///					if((ver_data & 0x400) == priority)
-/*TODO*///					{
-/*TODO*///						colors[0] = paldata1[ READ_WORD(&gr_pal[(ver_data<<1)&0x1fe])&0xff ];
-/*TODO*///	
-/*TODO*///						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
-/*TODO*///						{
-/*TODO*///							// fill line
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								line16=(UINT16 *)bitmap.line[j]+ypos;
-/*TODO*///								*line16=colors[0];
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///						else
-/*TODO*///						{
-/*TODO*///							// copy line
-/*TODO*///							ver_data=ver_data & 0x00ff;
-/*TODO*///							colorflip = (READ_WORD(&gr_flip[ver_data<<1]) >> 3) & 1;
-/*TODO*///	
-/*TODO*///							colors[1] = paldata2[ gr_colorflip[colorflip][0] ];
-/*TODO*///							colors[2] = paldata2[ gr_colorflip[colorflip][1] ];
-/*TODO*///							colors[3] = paldata2[ gr_colorflip[colorflip][2] ];
-/*TODO*///							colors[4] = paldata2[ gr_colorflip[colorflip][3] ];
-/*TODO*///	
-/*TODO*///							hor_pos = (READ_WORD(&gr_hor[ver_data<<1]) );
-/*TODO*///							ver_data = ver_data << gr_bitmap_width;
-/*TODO*///	
-/*TODO*///							if ((hor_pos & 0xf000) != 0)
-/*TODO*///							{
-/*TODO*///								// reverse
-/*TODO*///								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
-/*TODO*///							}
-/*TODO*///							else
-/*TODO*///							{
-/*TODO*///								// normal
-/*TODO*///								hor_pos=(hor_pos+0x200) & 0x3ff;
-/*TODO*///							}
-/*TODO*///	
-/*TODO*///							source = data + hor_pos + ver_data + 18 + 8;
-/*TODO*///	
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								line16=(UINT16 *)bitmap.line[xoff+j*dx]+ypos;
-/*TODO*///								*line16 = colors[*source++];
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///					data_ver+=2;
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///			else
-/*TODO*///			{
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_X ){
-/*TODO*///					dx=-1;
-/*TODO*///					xoff=319;
-/*TODO*///				}
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_Y ){
-/*TODO*///					yflip=1;
-/*TODO*///				}
-/*TODO*///	
-/*TODO*///				for(i=0;i<224;i++)
-/*TODO*///				{
-/*TODO*///					if (yflip != 0) ypos=223-i;
-/*TODO*///					else ypos=i;
-/*TODO*///					ver_data=READ_WORD(data_ver);
-/*TODO*///					if((ver_data & 0x400) == priority)
-/*TODO*///					{
-/*TODO*///						colors[0] = paldata1[ READ_WORD(&gr_pal[(ver_data<<1)&0x1fe])&0xff ];
-/*TODO*///	
-/*TODO*///						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
-/*TODO*///						{
-/*TODO*///							line16=(UINT16 *)bitmap.line[ypos];
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								*line16++=colors[0];
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///						else
-/*TODO*///						{
-/*TODO*///							// copy line
-/*TODO*///							line16 = (UINT16 *)bitmap.line[ypos]+xoff;
-/*TODO*///							ver_data=ver_data & 0x00ff;
-/*TODO*///							colorflip = (READ_WORD(&gr_flip[ver_data<<1]) >> 3) & 1;
-/*TODO*///	
-/*TODO*///							colors[1] = paldata2[ gr_colorflip[colorflip][0] ];
-/*TODO*///							colors[2] = paldata2[ gr_colorflip[colorflip][1] ];
-/*TODO*///							colors[3] = paldata2[ gr_colorflip[colorflip][2] ];
-/*TODO*///							colors[4] = paldata2[ gr_colorflip[colorflip][3] ];
-/*TODO*///	
-/*TODO*///							hor_pos = (READ_WORD(&gr_hor[ver_data<<1]) );
-/*TODO*///							ver_data = ver_data << gr_bitmap_width;
-/*TODO*///	
-/*TODO*///							if ((hor_pos & 0xf000) != 0)
-/*TODO*///							{
-/*TODO*///								// reverse
-/*TODO*///								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
-/*TODO*///							}
-/*TODO*///							else
-/*TODO*///							{
-/*TODO*///								// normal
-/*TODO*///								hor_pos=(hor_pos+0x200) & 0x3ff;
-/*TODO*///							}
-/*TODO*///	
-/*TODO*///							source = data + hor_pos + ver_data + 18 + 8;
-/*TODO*///	
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								*line16 = colors[*source++];
-/*TODO*///								line16+=dx;
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///					data_ver+=2;
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///		else /* 8 bit */
-/*TODO*///		{
-/*TODO*///			if( Machine.orientation & ORIENTATION_SWAP_XY )
-/*TODO*///			{
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_Y ){
-/*TODO*///					dx=-1;
-/*TODO*///					xoff=319;
-/*TODO*///				}
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_X ){
-/*TODO*///					yflip=1;
-/*TODO*///				}
-/*TODO*///	
-/*TODO*///				for(i=0;i<224;i++)
-/*TODO*///				{
-/*TODO*///					if (yflip != 0) ypos=223-i;
-/*TODO*///					else ypos=i;
-/*TODO*///					ver_data=READ_WORD(data_ver);
-/*TODO*///					if((ver_data & 0x400) == priority)
-/*TODO*///					{
-/*TODO*///						colors[0] = paldata1[ READ_WORD(&gr_pal[(ver_data<<1)&0x1fe])&0xff ];
-/*TODO*///	
-/*TODO*///						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
-/*TODO*///						{
-/*TODO*///							// fill line
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								bitmap.line[j][ypos]=colors[0];
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///						else
-/*TODO*///						{
-/*TODO*///							// copy line
-/*TODO*///							ver_data=ver_data & 0x00ff;
-/*TODO*///							colorflip = (READ_WORD(&gr_flip[ver_data<<1]) >> 3) & 1;
-/*TODO*///	
-/*TODO*///							colors[1] = paldata2[ gr_colorflip[colorflip][0] ];
-/*TODO*///							colors[2] = paldata2[ gr_colorflip[colorflip][1] ];
-/*TODO*///							colors[3] = paldata2[ gr_colorflip[colorflip][2] ];
-/*TODO*///							colors[4] = paldata2[ gr_colorflip[colorflip][3] ];
-/*TODO*///	
-/*TODO*///							hor_pos = (READ_WORD(&gr_hor[ver_data<<1]) );
-/*TODO*///							ver_data = ver_data << gr_bitmap_width;
-/*TODO*///	
-/*TODO*///							if ((hor_pos & 0xf000) != 0)
-/*TODO*///							{
-/*TODO*///								// reverse
-/*TODO*///								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
-/*TODO*///							}
-/*TODO*///							else
-/*TODO*///							{
-/*TODO*///								// normal
-/*TODO*///								hor_pos=(hor_pos+0x200) & 0x3ff;
-/*TODO*///							}
-/*TODO*///	
-/*TODO*///							source = data + hor_pos + ver_data + 18 + 8;
-/*TODO*///	
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								bitmap.line[xoff+j*dx][ypos] = colors[*source++];
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///					data_ver+=2;
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///			else
-/*TODO*///			{
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_X ){
-/*TODO*///					dx=-1;
-/*TODO*///					xoff=319;
-/*TODO*///				}
-/*TODO*///				if( Machine.orientation & ORIENTATION_FLIP_Y ){
-/*TODO*///					yflip=1;
-/*TODO*///				}
-/*TODO*///	
-/*TODO*///				for(i=0;i<224;i++)
-/*TODO*///				{
-/*TODO*///					if (yflip != 0) ypos=223-i;
-/*TODO*///					else ypos=i;
-/*TODO*///					ver_data=READ_WORD(data_ver);
-/*TODO*///					if((ver_data & 0x400) == priority)
-/*TODO*///					{
-/*TODO*///						colors[0] = paldata1[ READ_WORD(&gr_pal[(ver_data<<1)&0x1fe])&0xff ];
-/*TODO*///	
-/*TODO*///						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
-/*TODO*///						{
-/*TODO*///							// fill line
-/*TODO*///							line32 = (UINT32 *)bitmap.line[ypos];
-/*TODO*///							fastfill = colors[0] + (colors[0] << 8) + (colors[0] << 16) + (colors[0] << 24);
-/*TODO*///							for(j=0;j<320;j+=4)
-/*TODO*///							{
-/*TODO*///								*line32++ = fastfill;
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///						else
-/*TODO*///						{
-/*TODO*///							// copy line
-/*TODO*///							line = bitmap.line[ypos]+xoff;
-/*TODO*///							ver_data=ver_data & 0x00ff;
-/*TODO*///							colorflip = (READ_WORD(&gr_flip[ver_data<<1]) >> 3) & 1;
-/*TODO*///	
-/*TODO*///							colors[1] = paldata2[ gr_colorflip[colorflip][0] ];
-/*TODO*///							colors[2] = paldata2[ gr_colorflip[colorflip][1] ];
-/*TODO*///							colors[3] = paldata2[ gr_colorflip[colorflip][2] ];
-/*TODO*///							colors[4] = paldata2[ gr_colorflip[colorflip][3] ];
-/*TODO*///	
-/*TODO*///							hor_pos = (READ_WORD(&gr_hor[ver_data<<1]) );
-/*TODO*///							ver_data = ver_data << gr_bitmap_width;
-/*TODO*///	
-/*TODO*///							if ((hor_pos & 0xf000) != 0)
-/*TODO*///							{
-/*TODO*///								// reverse
-/*TODO*///								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
-/*TODO*///							}
-/*TODO*///							else
-/*TODO*///							{
-/*TODO*///								// normal
-/*TODO*///								hor_pos=(hor_pos+0x200) & 0x3ff;
-/*TODO*///							}
-/*TODO*///	
-/*TODO*///							source = data + hor_pos + ver_data + 18 + 8;
-/*TODO*///	
-/*TODO*///							for(j=0;j<320;j++)
-/*TODO*///							{
-/*TODO*///								*line = colors[*source++];
-/*TODO*///								line+=dx;
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///					data_ver+=2;
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	// Refresh for hang-on, etc.
-/*TODO*///	public static VhUpdatePtr sys16_ho_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) {
-/*TODO*///		if (!sys16_refreshenable) return;
-/*TODO*///	
-/*TODO*///		if (sys16_update_proc != 0) sys16_update_proc();
-/*TODO*///		update_page();
-/*TODO*///	
-/*TODO*///		tilemap_set_scrollx( background, 0, -320-sys16_bg_scrollx+sys16_bgxoffset );
-/*TODO*///		tilemap_set_scrollx( foreground, 0, -320-sys16_fg_scrollx+sys16_fgxoffset );
-/*TODO*///	
-/*TODO*///		tilemap_set_scrolly( background, 0, -256+sys16_bg_scrolly );
-/*TODO*///		tilemap_set_scrolly( foreground, 0, -256+sys16_fg_scrolly );
-/*TODO*///	
-/*TODO*///		tilemap_update(  ALL_TILEMAPS  );
-/*TODO*///		get_sprite_info();
-/*TODO*///	
-/*TODO*///		palette_init_used_colors();
-/*TODO*///		mark_sprite_colors(); // custom; normally this would be handled by the sprite manager
-/*TODO*///		sprite_update();
-/*TODO*///		gr_colors();
-/*TODO*///	
-/*TODO*///		if( palette_recalc() ) tilemap_mark_all_pixels_dirty( ALL_TILEMAPS );
-/*TODO*///		build_shadow_table();
-/*TODO*///		tilemap_render(  ALL_TILEMAPS  );
-/*TODO*///	
-/*TODO*///		render_gr(bitmap,0);
-/*TODO*///	
-/*TODO*///		tilemap_draw( bitmap, background, 0 );
-/*TODO*///		tilemap_draw( bitmap, foreground, 0 );
-/*TODO*///	
-/*TODO*///		render_gr(bitmap,1);
-/*TODO*///	
-/*TODO*///		sprite_draw(sprite_list,0);
-/*TODO*///		tilemap_draw( bitmap, text_layer, 0 );
-/*TODO*///	
+	
+	static void gr_colors()
+	{
+		int i;
+		int ver_data;
+		int colorflip;
+		UBytePtr data_ver=new UBytePtr(gr_ver);
+	
+		for(i=0;i<224;i++)
+		{
+			ver_data=data_ver.READ_WORD();
+			palette_used_colors.write((gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff) + gr_palette, PALETTE_COLOR_USED);
+	
+			if(!((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200))
+			{
+				ver_data=ver_data & 0x00ff;
+				colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
+	
+				palette_used_colors.write( gr_colorflip[colorflip][0] + gr_palette_default , PALETTE_COLOR_USED);
+				palette_used_colors.write( gr_colorflip[colorflip][1] + gr_palette_default , PALETTE_COLOR_USED);
+				palette_used_colors.write( gr_colorflip[colorflip][2] + gr_palette_default , PALETTE_COLOR_USED);
+				palette_used_colors.write( gr_colorflip[colorflip][3] + gr_palette_default , PALETTE_COLOR_USED);
+			}
+			data_ver.inc(2);
+		}
+	}
+	
+	static void render_gr(osd_bitmap bitmap,int priority)
+	{
+		int i,j;
+		UBytePtr data = new UBytePtr(memory_region(REGION_GFX3));
+		UBytePtr source=new UBytePtr();
+		UBytePtr line=new UBytePtr();
+		UShortPtr line16;
+		UShortPtr line32;
+		UBytePtr data_ver=new UBytePtr(gr_ver);
+		int ver_data,hor_pos;
+		int[] colors=new int[5];
+	//	UINT8 colors[5];
+		int fastfill;
+		int colorflip;
+		int yflip=0,ypos;
+		int dx=1,xoff=0;
+	
+		UShortArray paldata1 = new UShortArray(Machine.gfx[0].colortable, gr_palette);
+		UShortArray paldata2 = new UShortArray(Machine.gfx[0].colortable, gr_palette_default);
+	
+		priority=priority << 10;
+	
+		if (Machine.scrbitmap.depth == 16) /* 16 bit */
+		{
+			if(( Machine.orientation & ORIENTATION_SWAP_XY ) != 0)
+			{
+				if(( Machine.orientation & ORIENTATION_FLIP_Y ) != 0){
+					dx=-1;
+					xoff=319;
+				}
+				if(( Machine.orientation & ORIENTATION_FLIP_X ) != 0){
+					yflip=1;
+				}
+	
+				for(i=0;i<224;i++)
+				{
+					if (yflip != 0) ypos=223-i;
+					else ypos=i;
+					ver_data=data_ver.READ_WORD();
+					if((ver_data & 0x400) == priority)
+					{
+						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
+	
+						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
+						{
+							// fill line
+							for(j=0;j<320;j++)
+							{
+								line16=new UShortPtr(bitmap.line[j], ypos);
+								line16.write(0, (char) colors[0]);
+							}
+						}
+						else
+						{
+							// copy line
+							ver_data=ver_data & 0x00ff;
+							colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
+	
+							colors[1] = paldata2.read( gr_colorflip[colorflip][0] );
+							colors[2] = paldata2.read( gr_colorflip[colorflip][1] );
+							colors[3] = paldata2.read( gr_colorflip[colorflip][2] );
+							colors[4] = paldata2.read( gr_colorflip[colorflip][3] );
+	
+							hor_pos = (gr_hor.READ_WORD(ver_data<<1) );
+							ver_data = ver_data << gr_bitmap_width;
+	
+							if ((hor_pos & 0xf000) != 0)
+							{
+								// reverse
+								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
+							}
+							else
+							{
+								// normal
+								hor_pos=(hor_pos+0x200) & 0x3ff;
+							}
+	
+							source = new UBytePtr(data, hor_pos + ver_data + 18 + 8);
+	
+							for(j=0;j<320;j++)
+							{
+								line16= new UShortPtr(bitmap.line[xoff+j*dx], ypos);
+								line16.write(0, (char) colors[source.readinc()]);
+							}
+						}
+					}
+					data_ver.inc(2);
+				}
+			}
+			else
+			{
+				if(( Machine.orientation & ORIENTATION_FLIP_X ) != 0){
+					dx=-1;
+					xoff=319;
+				}
+				if(( Machine.orientation & ORIENTATION_FLIP_Y ) != 0){
+					yflip=1;
+				}
+	
+				for(i=0;i<224;i++)
+				{
+					if (yflip != 0) ypos=223-i;
+					else ypos=i;
+					ver_data=data_ver.READ_WORD();
+					if((ver_data & 0x400) == priority)
+					{
+						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
+	
+						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
+						{
+							line16=new UShortPtr(bitmap.line[ypos]);
+							for(j=0;j<320;j++)
+							{
+								line16.write(0, (char) colors[0]);
+                                                                line16.inc();
+							}
+						}
+						else
+						{
+							// copy line
+							line16 = new UShortPtr(bitmap.line[ypos], xoff);
+							ver_data=ver_data & 0x00ff;
+							colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
+	
+							colors[1] = paldata2.read( gr_colorflip[colorflip][0] );
+							colors[2] = paldata2.read( gr_colorflip[colorflip][1] );
+							colors[3] = paldata2.read( gr_colorflip[colorflip][2] );
+							colors[4] = paldata2.read( gr_colorflip[colorflip][3] );
+	
+							hor_pos = (gr_hor.READ_WORD(ver_data<<1) );
+							ver_data = ver_data << gr_bitmap_width;
+	
+							if ((hor_pos & 0xf000) != 0)
+							{
+								// reverse
+								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
+							}
+							else
+							{
+								// normal
+								hor_pos=(hor_pos+0x200) & 0x3ff;
+							}
+	
+							source = new UBytePtr( data, hor_pos + ver_data + 18 + 8 );
+	
+							for(j=0;j<320;j++)
+							{
+								line16.write(0, (char) colors[source.readinc()]);
+								line16.inc(dx);
+							}
+						}
+					}
+					data_ver.inc(2);
+				}
+			}
+		}
+		else /* 8 bit */
+		{
+			if(( Machine.orientation & ORIENTATION_SWAP_XY ) != 0)
+			{
+				if(( Machine.orientation & ORIENTATION_FLIP_Y ) != 0){
+					dx=-1;
+					xoff=319;
+				}
+				if(( Machine.orientation & ORIENTATION_FLIP_X ) != 0){
+					yflip=1;
+				}
+	
+				for(i=0;i<224;i++)
+				{
+					if (yflip != 0) ypos=223-i;
+					else ypos=i;
+					ver_data=data_ver.READ_WORD();
+					if((ver_data & 0x400) == priority)
+					{
+						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
+	
+						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
+						{
+							// fill line
+							for(j=0;j<320;j++)
+							{
+								bitmap.line[j].write(ypos, colors[0]);
+							}
+						}
+						else
+						{
+							// copy line
+							ver_data=ver_data & 0x00ff;
+							colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
+	
+							colors[1] = paldata2.read( gr_colorflip[colorflip][0] );
+							colors[2] = paldata2.read( gr_colorflip[colorflip][1] );
+							colors[3] = paldata2.read( gr_colorflip[colorflip][2] );
+							colors[4] = paldata2.read( gr_colorflip[colorflip][3] );
+	
+							hor_pos = (gr_hor.READ_WORD(ver_data<<1) );
+							ver_data = ver_data << gr_bitmap_width;
+	
+							if ((hor_pos & 0xf000) != 0)
+							{
+								// reverse
+								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
+							}
+							else
+							{
+								// normal
+								hor_pos=(hor_pos+0x200) & 0x3ff;
+							}
+	
+							source = new UBytePtr( data, hor_pos + ver_data + 18 + 8 );
+	
+							for(j=0;j<320;j++)
+							{
+								bitmap.line[xoff+j*dx].write(ypos, colors[source.readinc()]);
+							}
+						}
+					}
+					data_ver.inc(2);
+				}
+			}
+			else
+			{
+				if(( Machine.orientation & ORIENTATION_FLIP_X ) != 0){
+					dx=-1;
+					xoff=319;
+				}
+				if(( Machine.orientation & ORIENTATION_FLIP_Y ) != 0){
+					yflip=1;
+				}
+	
+				for(i=0;i<224;i++)
+				{
+					if (yflip != 0) ypos=223-i;
+					else ypos=i;
+					ver_data=data_ver.READ_WORD();
+					if((ver_data & 0x400) == priority)
+					{
+						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
+	
+						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
+						{
+							// fill line
+							line32 = new UShortPtr(bitmap.line[ypos]);
+							fastfill = colors[0] + (colors[0] << 8) + (colors[0] << 16) + (colors[0] << 24);
+							for(j=0;j<320;j+=4)
+							{
+								line32.write(0, (char) fastfill);
+                                                                line32.inc();
+							}
+						}
+						else
+						{
+							// copy line
+							line = new UBytePtr(bitmap.line[ypos], xoff);
+							ver_data=ver_data & 0x00ff;
+							colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
+	
+							colors[1] = paldata2.read( gr_colorflip[colorflip][0] );
+							colors[2] = paldata2.read( gr_colorflip[colorflip][1] );
+							colors[3] = paldata2.read( gr_colorflip[colorflip][2] );
+							colors[4] = paldata2.read( gr_colorflip[colorflip][3] );
+	
+							hor_pos = (gr_hor.READ_WORD(ver_data<<1) );
+							ver_data = ver_data << gr_bitmap_width;
+	
+							if ((hor_pos & 0xf000) != 0)
+							{
+								// reverse
+								hor_pos=((0-((hor_pos&0x7ff)^7))+0x9f8)&0x3ff;
+							}
+							else
+							{
+								// normal
+								hor_pos=(hor_pos+0x200) & 0x3ff;
+							}
+	
+							source = new UBytePtr( data, hor_pos + ver_data + 18 + 8 );
+	
+							for(j=0;j<320;j++)
+							{
+								line.write(0, colors[source.readinc()]);
+								line.inc(dx);
+							}
+						}
+					}
+					data_ver.inc(2);
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+	// Refresh for hang-on, etc.
+	public static VhUpdatePtr sys16_ho_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) {
+		if (sys16_refreshenable==0) return;
+	
+		if (sys16_update_proc != null) sys16_update_proc.handler();
+		update_page();
+	
+		tilemap_set_scrollx( background, 0, -320-sys16_bg_scrollx+sys16_bgxoffset );
+		tilemap_set_scrollx( foreground, 0, -320-sys16_fg_scrollx+sys16_fgxoffset );
+	
+		tilemap_set_scrolly( background, 0, -256+sys16_bg_scrolly );
+		tilemap_set_scrolly( foreground, 0, -256+sys16_fg_scrolly );
+	
+		tilemap_update(  ALL_TILEMAPS  );
+		get_sprite_info();
+	
+		palette_init_used_colors();
+		mark_sprite_colors(); // custom; normally this would be handled by the sprite manager
+		sprite_update();
+		gr_colors();
+	
+		if( palette_recalc() != null ) tilemap_mark_all_pixels_dirty( ALL_TILEMAPS );
+		build_shadow_table();
+		tilemap_render(  ALL_TILEMAPS  );
+	
+		render_gr(bitmap,0);
+	
+		tilemap_draw( bitmap, background, 0 );
+		tilemap_draw( bitmap, foreground, 0 );
+	
+		render_gr(bitmap,1);
+	
+		sprite_draw(sprite_list,0);
+		tilemap_draw( bitmap, text_layer, 0 );
+	
 /*TODO*///	#ifdef SYS16_DEBUG
 /*TODO*///		dump_tilemap();
 /*TODO*///	#endif
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
+	} };
+	
+	
 /*TODO*///	static void grv2_colors(void)
 /*TODO*///	{
 /*TODO*///		int i;
