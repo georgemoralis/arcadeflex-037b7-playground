@@ -1903,7 +1903,7 @@ public class driver {
         /*TODO*///	driver_fpointbl )	/* (c) 1989 (Datsu bootleg) */
         /*TODO*///	driver_goldnabl )	/* (c) 1989 (bootleg) */
         /*TODO*///	driver_goldnaxa )	/* (c) 1989 */
-        /*TODO*///	driver_goldnaxe )	/* (c) 1989 */
+        driver_goldnaxe, 	/* (c) 1989 */
         /*TODO*///	driver_hangon )	/* (c) 1985 */
         /*TODO*///	driver_hwchamp )	/* (c) 1987 */
         /*TODO*///	driver_mjleague )	/* (c) 1985 */

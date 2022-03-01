@@ -282,7 +282,7 @@ public class system16
 	static GetTileInfoPtr get_bg_tile_info = new GetTileInfoPtr() {
             @Override
             public void handler(int offset) {
-                UShortPtr source = new UShortPtr(sys16_tileram, 64*32*sys16_bg_page[offset/(64*32)]);
+                UShortPtr source = new UShortPtr(sys16_tileram, 64*32*sys16_bg_page[offset/(64*32)] * 2);
 		int data = source.read(offset%(64*32));
 		int tile_number = (data&0xfff) + 0x1000*((data&sys16_tilebank_switch)!=0?sys16_tile_bank1:sys16_tile_bank0);
 	
@@ -316,7 +316,7 @@ public class system16
 	static GetTileInfoPtr get_fg_tile_info = new GetTileInfoPtr() {
             @Override
             public void handler(int offset) {
-		UShortPtr source = new UShortPtr(sys16_tileram, 64*32*sys16_fg_page[offset/(64*32)]);
+		UShortPtr source = new UShortPtr(sys16_tileram, 64*32*sys16_fg_page[offset/(64*32)] * 2);
 		int data = source.read(offset%(64*32));
 		int tile_number = (data&0xfff) + 0x1000*((data&sys16_tilebank_switch)!=0?sys16_tile_bank1:sys16_tile_bank0);
 	
