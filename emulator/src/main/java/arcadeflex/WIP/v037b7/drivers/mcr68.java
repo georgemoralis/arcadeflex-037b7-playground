@@ -73,6 +73,7 @@ import static arcadeflex.v037b7.mame.driverH.*;
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.palette.*;
+import static arcadeflex.v037b7.sndhrdw.mcrH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
@@ -980,9 +981,9 @@ public class mcr68
 				7652400,	/* 8 MHz */
 				zwackery_readmem,zwackery_writemem,null,null,
 				mcr68_interrupt,1
-/*TODO*///			),
-/*TODO*///			SOUND_CPU_CHIP_SQUEAK_DELUXE
-                        )
+			),
+			SOUND_CPU_CHIP_SQUEAK_DELUXE
+                        
 		},
 		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,
 		1,
@@ -1002,11 +1003,11 @@ public class mcr68
 	
 		/* sound hardware */
 		SOUND_SUPPORTS_STEREO,0,0,0,
-/*TODO*///		new MachineSound[] {
-/*TODO*///			SOUND_CHIP_SQUEAK_DELUXE
-/*TODO*///		},
-/*TODO*///		0
-                null
+		new MachineSound[] {
+			SOUND_CHIP_SQUEAK_DELUXE
+		},
+		null
+                
 	);
 	
 	

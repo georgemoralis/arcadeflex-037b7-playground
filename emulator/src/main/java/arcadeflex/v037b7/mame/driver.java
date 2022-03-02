@@ -1918,10 +1918,10 @@ public class driver {
         /*TODO*///	driver_quartetj )	/* (c) 1986 */
         /*TODO*///	driver_riotcity )	/* (c) 1991 Sega / Westone */
         /*TODO*///	driver_sdi )		/* (c) 1987 */
-        /*TODO*///	driver_shangonb )	/* (c) 1992 (but bootleg) */
+        driver_shangonb, 	/* (c) 1992 (but bootleg) */
         driver_sharrier, 	/* (c) 1985 */
         /*TODO*///	driver_shdancbl )	/* (c) 1989 (but bootleg) */
-        /*TODO*///	driver_shdancer )	/* (c) 1989 */
+        driver_shdancer, 	/* (c) 1989 */
         /*TODO*///	driver_shdancrj )	/* (c) 1989 */
         /*TODO*///	driver_shinobi )	/* (c) 1987 */
         /*TODO*///	driver_shinobl )	/* (c) 1987 (but bootleg) */

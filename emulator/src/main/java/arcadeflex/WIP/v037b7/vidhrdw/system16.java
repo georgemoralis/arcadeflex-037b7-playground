@@ -2054,7 +2054,7 @@ public class system16
 	
 		for(i=0;i<224;i++)
 		{
-			ver_data=data_ver.READ_WORD();
+			ver_data=data_ver.READ_WORD(0);
 			palette_used_colors.write((gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff) + gr_palette, PALETTE_COLOR_USED);
 	
 			if(!((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200))
@@ -2109,7 +2109,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD();
+					ver_data=data_ver.READ_WORD(0);
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2152,7 +2152,7 @@ public class system16
 	
 							for(j=0;j<320;j++)
 							{
-								line16= new UShortPtr(bitmap.line[xoff+j*dx], ypos);
+								line16=new UShortPtr(bitmap.line[xoff+j*dx], ypos);
 								line16.write(0, (char) colors[source.readinc()]);
 							}
 						}
@@ -2174,7 +2174,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD();
+					ver_data=data_ver.READ_WORD(0);
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2185,7 +2185,7 @@ public class system16
 							for(j=0;j<320;j++)
 							{
 								line16.write(0, (char) colors[0]);
-                                                                line16.inc();
+                                                                line16.inc(1);
 							}
 						}
 						else
@@ -2214,7 +2214,7 @@ public class system16
 								hor_pos=(hor_pos+0x200) & 0x3ff;
 							}
 	
-							source = new UBytePtr( data, hor_pos + ver_data + 18 + 8 );
+							source = new UBytePtr(data, hor_pos + ver_data + 18 + 8);
 	
 							for(j=0;j<320;j++)
 							{
@@ -2243,7 +2243,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD();
+					ver_data=data_ver.READ_WORD(0);
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2253,7 +2253,7 @@ public class system16
 							// fill line
 							for(j=0;j<320;j++)
 							{
-								bitmap.line[j].write(ypos, colors[0]);
+								new UBytePtr(bitmap.line[j]).write(ypos, colors[0]);
 							}
 						}
 						else
@@ -2281,11 +2281,11 @@ public class system16
 								hor_pos=(hor_pos+0x200) & 0x3ff;
 							}
 	
-							source = new UBytePtr( data, hor_pos + ver_data + 18 + 8 );
+							source = new UBytePtr(data, hor_pos + ver_data + 18 + 8);
 	
 							for(j=0;j<320;j++)
 							{
-								bitmap.line[xoff+j*dx].write(ypos, colors[source.readinc()]);
+								new UBytePtr(bitmap.line[xoff+j*dx]).write(ypos, colors[source.readinc()]);
 							}
 						}
 					}
@@ -2306,7 +2306,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD();
+					ver_data=data_ver.READ_WORD(0);
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2319,7 +2319,7 @@ public class system16
 							for(j=0;j<320;j+=4)
 							{
 								line32.write(0, (char) fastfill);
-                                                                line32.inc();
+                                                                line32.inc(1);
 							}
 						}
 						else
@@ -2348,7 +2348,7 @@ public class system16
 								hor_pos=(hor_pos+0x200) & 0x3ff;
 							}
 	
-							source = new UBytePtr( data, hor_pos + ver_data + 18 + 8 );
+							source = new UBytePtr(data, hor_pos + ver_data + 18 + 8);
 	
 							for(j=0;j<320;j++)
 							{
@@ -2362,8 +2362,6 @@ public class system16
 			}
 		}
 	}
-	
-	
 	
 	
 	// Refresh for hang-on, etc.
