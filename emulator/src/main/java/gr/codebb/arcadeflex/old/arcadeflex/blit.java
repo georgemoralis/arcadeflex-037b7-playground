@@ -7,7 +7,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 
 public class blit {
 
-    public static int[] palette = new int[256];
+    public static int[] palette = new int[256 * 1024];
     public static char[] back_buffer;
 
     public static void set_color(int index, RGB entry) {

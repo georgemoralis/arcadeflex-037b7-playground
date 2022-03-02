@@ -1908,9 +1908,9 @@ public class driver {
         driver_hwchamp, 	/* (c) 1987 */
         driver_mjleague, 	/* (c) 1985 */
         driver_moonwlkb, 	/* bootleg */
-        /*TODO*///	driver_outrun )	/* (c) 1986 (bootleg)*/
-        /*TODO*///	driver_outruna )	/* (c) 1986 (bootleg) */
-        /*TODO*///	driver_outrunb )	/* (c) 1986 (protected beta bootleg) */
+        driver_outrun, 	/* (c) 1986 (bootleg)*/
+        driver_outruna, 	/* (c) 1986 (bootleg) */
+        driver_outrunb, 	/* (c) 1986 (protected beta bootleg) */
         driver_passht4b, 	/* bootleg */
         driver_passshtb, 	/* bootleg */
         /*TODO*///	driver_quartet )	/* (c) 1986 */
