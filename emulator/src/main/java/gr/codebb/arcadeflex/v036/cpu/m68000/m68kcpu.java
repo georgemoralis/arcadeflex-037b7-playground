@@ -592,6 +592,23 @@ public class m68kcpu {
     
                 cpu.mode                 = (int) get_CPU_MODE();
 /*TODO*///    		cpu.sr 				  = m68ki_get_sr();
+                /*******/
+                
+        cpu.ppc = get_CPU_PPC();                 /* Previous program counter */
+        cpu.cacr = get_CPU_CACR();                /* Cache Control Register (m68020+) */
+        cpu.caar = get_CPU_CAAR();                /* Cache Address Register (m68020+) */
+        cpu.ir = get_CPU_IR();                  /* Instruction Register */
+        cpu.t1_flag = get_CPU_T1();             /* Trace 1 */
+        cpu.t0_flag = get_CPU_T0();             /* Trace 0 */
+        cpu.s_flag = get_CPU_S();              /* Supervisor */
+        cpu.m_flag = get_CPU_M();              /* Master/Interrupt state */
+        cpu.x_flag = get_CPU_X();              /* Extend */
+        cpu.n_flag = get_CPU_N();              /* Negative */
+        cpu.not_z_flag = get_CPU_NOT_Z();          /* Zero, inverted for speedups */
+        cpu.v_flag = get_CPU_V();              /* Overflow */
+        cpu.c_flag = get_CPU_C();              /* Carry */
+        cpu.int_mask = get_CPU_INT_MASK();            /* I0-I2 */
+                /*******/
     		cpu.pc 				  = (int) get_CPU_PC();
     		//memcpy(cpu.d, CPU_D, sizeof(CPU_D));
                 for (int _i=0 ; _i<get_CPU_D().length ; _i++)
@@ -626,6 +643,20 @@ public class m68kcpu {
     	return cpu;
         //return dst;
     }
+    
+    public static long var_get_sr(m68k_cpu_context cpu) {
+        return ((((cpu.t1_flag != 0) ? 1 : 0) << 15)
+                | (((cpu.t0_flag != 0) ? 1 : 0) << 14)
+                | (((cpu.s_flag != 0) ? 1 : 0) << 13)
+                | (((cpu.m_flag != 0) ? 1 : 0) << 12)
+                | (cpu.int_mask << 8)
+                | (((cpu.x_flag != 0) ? 1 : 0) << 4)
+                | (((cpu.n_flag != 0) ? 1 : 0) << 3)
+                | (((cpu.not_z_flag == 0) ? 1 : 0) << 2)
+                | (((cpu.v_flag != 0) ? 1 : 0) << 1)
+                | ((cpu.c_flag != 0) ? 1 : 0));
+
+    }
 
     static void m68k_set_context(Object src)
     {
@@ -634,7 +665,7 @@ public class m68kcpu {
     		m68k_cpu_context cpu = (m68k_cpu_context) src;
     
                 set_CPU_MODE(cpu.mode);
-/*TODO*///    		m68ki_set_sr_no_int(cpu.sr); /* This stays on top to prevent side-effects */
+    		m68ki_set_sr_no_int(var_get_sr(cpu)); /* This stays on top to prevent side-effects */
     		m68ki_set_pc(cpu.pc);
     		//memcpy(CPU_D, cpu.d, sizeof(CPU_D));
                 for (int _i=0 ; _i<cpu.dr.length ; _i++)

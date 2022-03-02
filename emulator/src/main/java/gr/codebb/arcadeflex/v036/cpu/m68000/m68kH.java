@@ -21,33 +21,33 @@ public class m68kH {
     
     public static class m68k_cpu_context {
         public int mode;                /* CPU Operation Mode: 68000, 68010, or 68020 */
-        public int[] dr = new int[8];   /* Data Registers */
-        public int[] ar = new int[8];   /* Address Registers */
-        public int ppc;                 /* Previous program counter */
-        public int pc;                  /* Program Counter */
-        public int[] sp = new int[4];   /* User, Interrupt, and Master Stack Pointers */
-        public int vbr;                 /* Vector Base Register (68010+) */
-        public int sfc;                 /* Source Function Code Register (m68010+) */
-        public int dfc;                 /* Destination Function Code Register (m68010+) */
-        public int cacr;                /* Cache Control Register (m68020+) */
-        public int caar;                /* Cache Address Register (m68020+) */
-        public int ir;                  /* Instruction Register */
-        public int t1_flag;             /* Trace 1 */
-        public int t0_flag;             /* Trace 0 */
-        public int s_flag;              /* Supervisor */
-        public int m_flag;              /* Master/Interrupt state */
-        public int x_flag;              /* Extend */
-        public int n_flag;              /* Negative */
-        public int not_z_flag;          /* Zero, inverted for speedups */
-        public int v_flag;              /* Overflow */
-        public int c_flag;              /* Carry */
-        public int int_mask;            /* I0-I2 */
-        public int int_state;           /* Current interrupt state -- ASG: changed from ints_pending */
-        public int stopped;             /* Stopped state */
-        public int halted;              /* Halted state */
-        public int int_cycles;          /* ASG: extra cycles from generated interrupts */
-        public int pref_addr;           /* Last prefetch address */
-        public int pref_data;           /* Data in the prefetch queue */
+        public long[] dr = new long[8];   /* Data Registers */
+        public long[] ar = new long[8];   /* Address Registers */
+        public long ppc;                 /* Previous program counter */
+        public long pc;                  /* Program Counter */
+        public long[] sp = new long[4];   /* User, Interrupt, and Master Stack Pointers */
+        public long vbr;                 /* Vector Base Register (68010+) */
+        public long sfc;                 /* Source Function Code Register (m68010+) */
+        public long dfc;                 /* Destination Function Code Register (m68010+) */
+        public long cacr;                /* Cache Control Register (m68020+) */
+        public long caar;                /* Cache Address Register (m68020+) */
+        public long ir;                  /* Instruction Register */
+        public long t1_flag;             /* Trace 1 */
+        public long t0_flag;             /* Trace 0 */
+        public long s_flag;              /* Supervisor */
+        public long m_flag;              /* Master/Interrupt state */
+        public long x_flag;              /* Extend */
+        public long n_flag;              /* Negative */
+        public long not_z_flag;          /* Zero, inverted for speedups */
+        public long v_flag;              /* Overflow */
+        public long c_flag;              /* Carry */
+        public long int_mask;            /* I0-I2 */
+        public long int_state;           /* Current interrupt state -- ASG: changed from ints_pending */
+        public long stopped;             /* Stopped state */
+        public long halted;              /* Halted state */
+        public long int_cycles;          /* ASG: extra cycles from generated interrupts */
+        public long pref_addr;           /* Last prefetch address */
+        public long pref_data;           /* Data in the prefetch queue */
 
         /* Callbacks to host */
         irqcallbacksPtr int_ack_callback;  /* Interrupt Acknowledge */

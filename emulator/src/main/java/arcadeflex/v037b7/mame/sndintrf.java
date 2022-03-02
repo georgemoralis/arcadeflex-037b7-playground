@@ -40,6 +40,7 @@ import arcadeflex.v037b7.sound.namco;
 import arcadeflex.v037b7.sound.rf5c68;
 import arcadeflex.v037b7.sound._2612intf;
 import arcadeflex.v037b7.sound.qsound;
+import arcadeflex.v037b7.sound.segapcm;
 //to be orgnanized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm;
@@ -378,19 +379,7 @@ public class sndintrf {
         /*TODO*///	},
         /*TODO*///#endif
         new k053260(),
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_SEGAPCM)
-        /*TODO*///	{
-        /*TODO*///		SOUND_SEGAPCM,
-        /*TODO*///		"Sega PCM",
-        /*TODO*///		0,
-        /*TODO*///		0,
-        /*TODO*///		SEGAPCM_sh_start,
-        /*TODO*///		SEGAPCM_sh_stop,
-        /*TODO*///		SEGAPCM_sh_update,
-        /*TODO*///		0
-        /*TODO*///	},
-        /*TODO*///#endif
+        new segapcm(),        
         new rf5c68(),        
         new cem3394(),
         new Dummy_snd(),

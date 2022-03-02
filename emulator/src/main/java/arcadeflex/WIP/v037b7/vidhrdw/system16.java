@@ -122,7 +122,7 @@ public class system16
         public static UBytePtr sys18_splittab_fg_y = new UBytePtr();
 
 /*TODO*///	#ifdef SPACEHARRIER_OFFSETS
-/*TODO*///	UBytePtr spaceharrier_patternoffsets;
+	public static UBytePtr spaceharrier_patternoffsets = new UBytePtr();
 /*TODO*///	#endif
 	public static UBytePtr gr_ver = new UBytePtr();
 	public static UBytePtr gr_hor = new UBytePtr();
