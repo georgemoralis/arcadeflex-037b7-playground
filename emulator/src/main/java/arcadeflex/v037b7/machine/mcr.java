@@ -41,15 +41,15 @@ public class mcr {
     public static double mcr68_timing_factor;
 
     public static int/*UINT8*/ mcr_cocktail_flip;
-    /*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Statics
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
+    	
+	
+	
+	/*************************************
+	 *
+	 *	Statics
+	 *
+	 *************************************/
+	
 	static int m6840_status;
 	static int m6840_status_read_since_int;
 	static int m6840_msb_buffer;
@@ -78,22 +78,6 @@ public class mcr {
 	
 	static double m6840_counter_periods[] = { 1.0 / 30.0, 1000000.0, 1.0 / (512.0 * 30.0) };
 	static double m6840_internal_counter_period;	/* 68000 CLK / 10 */
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Function prototypes
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	static void subtract_from_counter(int counter, int count);
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static void zwackery_pia_irq(int state);
-/*TODO*///	
-/*TODO*///	static void reload_count(int counter);
-/*TODO*///	
 
     /**
      * ***********************************
