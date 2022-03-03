@@ -3725,13 +3725,12 @@ public class konamiic {
             K051316_ctrl_w(0, offset, data);
         }
     };
-
-    /*TODO*///	
-/*TODO*///	public static WriteHandlerPtr K051316_ctrl_1_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		K051316_ctrl_w(1,offset,data);
-/*TODO*///	} };
-/*TODO*///	
+    	
+    public static WriteHandlerPtr K051316_ctrl_1_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+    {
+            K051316_ctrl_w(1,offset,data);
+    } };
+	
 /*TODO*///	public static WriteHandlerPtr K051316_ctrl_2_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 /*TODO*///	{
 /*TODO*///		K051316_ctrl_w(2,offset,data);
@@ -3741,12 +3740,13 @@ public class konamiic {
         K051316_wraparound[chip] = status;
     }
 
-    /*TODO*///	
-/*TODO*///	void K051316_set_offset(int chip, int xoffs, int yoffs)
-/*TODO*///	{
-/*TODO*///		K051316_offset[chip][0] = xoffs;
-/*TODO*///		K051316_offset[chip][1] = yoffs;
-/*TODO*///	}
+    	
+/*TODO*///    public static void K051316_set_offset(int chip, int xoffs, int yoffs)
+/*TODO*///    {
+/*TODO*///            K051316_offset[chip][0] = xoffs;
+/*TODO*///            K051316_offset[chip][1] = yoffs;
+/*TODO*///    }
+    
     public static void K051316_tilemap_update(int chip) {
         K051316_preupdate(chip);
         tilemap_update(K051316_tilemap[chip]);
@@ -3768,12 +3768,12 @@ public class konamiic {
     public static void K051316_zoom_draw_0(osd_bitmap bitmap, int/*UINT32*/ priority) {
         K051316_zoom_draw(0, bitmap, priority);
     }
-    /*TODO*///	
-/*TODO*///	void K051316_zoom_draw_1(struct osd_bitmap *bitmap,UINT32 priority)
-/*TODO*///	{
-/*TODO*///		K051316_zoom_draw(1,bitmap,priority);
-/*TODO*///	}
-/*TODO*///	
+    	
+    public static void K051316_zoom_draw_1(osd_bitmap bitmap, int priority)
+    {
+            K051316_zoom_draw(1,bitmap,priority);
+    }
+	
 /*TODO*///	void K051316_zoom_draw_2(struct osd_bitmap *bitmap,UINT32 priority)
 /*TODO*///	{
 /*TODO*///		K051316_zoom_draw(2,bitmap,priority);

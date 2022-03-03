@@ -463,10 +463,8 @@ public class _6821pia {
                         pia[which].u8_ddr_a = data & 0xFF;
 
                         /* send it to the output function */
-                        if (pia[which].intf != null) {
-                            if (pia[which].intf.out_a_func != null && pia[which].u8_ddr_a != 0) {
-                                pia[which].intf.out_a_func.handler(0, pia[which].u8_out_a & pia[which].u8_ddr_a);
-                            }
+                        if (pia[which].intf.out_a_func != null && pia[which].u8_ddr_a != 0) {
+                            pia[which].intf.out_a_func.handler(0, pia[which].u8_out_a & pia[which].u8_ddr_a);
                         }
                     }
                 }
@@ -520,10 +518,8 @@ public class _6821pia {
                         pia[which].u8_ddr_b = data & 0xFF;
 
                         /* send it to the output function */
-                        if (pia[which].intf != null) {
-                            if (pia[which].intf.out_b_func != null && pia[which].u8_ddr_b != 0) {
-                                pia[which].intf.out_b_func.handler(0, pia[which].u8_out_b & pia[which].u8_ddr_b);
-                            }
+                        if (pia[which].intf.out_b_func != null && pia[which].u8_ddr_b != 0) {
+                            pia[which].intf.out_b_func.handler(0, pia[which].u8_out_b & pia[which].u8_ddr_b);
                         }
                     }
                 }

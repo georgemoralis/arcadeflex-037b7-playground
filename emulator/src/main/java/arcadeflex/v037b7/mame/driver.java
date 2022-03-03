@@ -225,6 +225,7 @@ import static arcadeflex.WIP.v037b7.drivers.twincobr.*;
 import static arcadeflex.WIP.v037b7.drivers.karnov.*;
 import static arcadeflex.WIP.v037b7.drivers.cps1.*;
 import static arcadeflex.WIP.v037b7.drivers.thunderj.*;
+import static arcadeflex.WIP.v037b7.drivers.wecleman.*;
 
 public class driver {
 
@@ -2252,8 +2253,8 @@ public class driver {
         driver_vendetta,/* GX081 (c) 1991 (Asia) */
         driver_vendett2,/* GX081 (c) 1991 (Asia) */
         driver_vendettj,/* GX081 (c) 1991 (Japan) */
-        /*TODO*///	driver_wecleman )	/* GX602 (c) 1986 */
-        /*TODO*///	driver_hotchase )	/* GX763 (c) 1988 */
+        driver_wecleman, 	/* GX602 (c) 1986 */
+        driver_hotchase, 	/* GX763 (c) 1988 */
         /*TODO*///TESTdriver_chqflag )	/* GX717 (c) 1988 */
         /*TODO*///TESTdriver_chqflagj )	/* GX717 (c) 1988 (Japan) */
         /*TODO*///	driver_ultraman )	/* GX910 (c) 1991 Banpresto/Bandai */

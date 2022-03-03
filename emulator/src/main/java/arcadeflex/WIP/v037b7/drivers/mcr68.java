@@ -1480,7 +1480,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_zwackery = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_CHIP_SQUEAK_DELUXE);
+		MCR_CONFIGURE_SOUND(MCR_CHIP_SQUEAK_DELUXE);
 	
 		/* Zwackery doesn't care too much about this value; currently taken from Blasted */
 		mcr68_timing_factor = (256.0 + 16.0) / (double)(Machine.drv.cpu[0].cpu_clock / 10);
@@ -1491,7 +1491,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_xenophob = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_SOUNDS_GOOD);
+		MCR_CONFIGURE_SOUND(MCR_SOUNDS_GOOD);
 	
 		mcr68_sprite_clip = 0;
 		mcr68_sprite_xoffset = 0;
@@ -1508,7 +1508,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_spyhunt2 = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_TURBO_CHIP_SQUEAK | MCR_SOUNDS_GOOD);
+		MCR_CONFIGURE_SOUND(MCR_TURBO_CHIP_SQUEAK | MCR_SOUNDS_GOOD);
 	
 		mcr68_sprite_clip = 0;
 		mcr68_sprite_xoffset = -6;
@@ -1527,7 +1527,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_blasted = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_SOUNDS_GOOD);
+		MCR_CONFIGURE_SOUND(MCR_SOUNDS_GOOD);
 	
 		mcr68_sprite_clip = 0;
 		mcr68_sprite_xoffset = 0;
@@ -1550,7 +1550,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_archrivl = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_WILLIAMS_SOUND);
+		MCR_CONFIGURE_SOUND(MCR_WILLIAMS_SOUND);
 	
 		mcr68_sprite_clip = 16;
 		mcr68_sprite_xoffset = 0;
@@ -1582,7 +1582,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_pigskin = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_WILLIAMS_SOUND);
+		MCR_CONFIGURE_SOUND(MCR_WILLIAMS_SOUND);
 	
 		/* handle control writes */
 		install_mem_write_handler(0, 0x1a0000, 0x1affff, archrivl_control_w);
@@ -1604,7 +1604,7 @@ public class mcr68
 	
 	public static InitDriverPtr init_trisport = new InitDriverPtr() { public void handler() 
 	{
-/*TODO*///		MCR_CONFIGURE_SOUND(MCR_WILLIAMS_SOUND);
+		MCR_CONFIGURE_SOUND(MCR_WILLIAMS_SOUND);
 	
 		/* Tri-Sports checks the timing of VBLANK relative to the 493 interrupt */
 		/* VBLANK is required to come within 87-119 E clocks (i.e., 870-1190 CPU clocks) */
