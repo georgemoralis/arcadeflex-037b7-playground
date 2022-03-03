@@ -1836,6 +1836,7 @@ public class system16
 		{
 			tilemap_set_scrolly( foreground, 0, -256+sys16_fg_scrolly );
 		}
+                
 	
 		if (sys16_quartet_title_kludge != 0)
 		{

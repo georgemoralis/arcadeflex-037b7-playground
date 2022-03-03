@@ -990,8 +990,11 @@ public class m68kcpuH {
     public static boolean CONDITION_LE() {
         return (get_CPU_NOT_Z() == 0 || (get_CPU_N() == 0) != (get_CPU_V() == 0));
     }
-    /*TODO*///#define CONDITION_NOT_LE (CPU_NOT_Z != 0 && (CPU_N == 0) == (CPU_V == 0))
-/*TODO*///
+    
+    public static boolean CONDITION_NOT_LE() {
+        return (get_CPU_NOT_Z() != 0 && (get_CPU_N() == 0) == (get_CPU_V() == 0));
+    }
+
 
     /* Use up clock cycles.
      * NOTE: clock cycles used in here are 99.9% correct for a 68000, not for the

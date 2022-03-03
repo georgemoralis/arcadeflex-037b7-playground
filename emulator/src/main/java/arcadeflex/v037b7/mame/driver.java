@@ -1914,18 +1914,18 @@ public class driver {
         driver_outrunb, 	/* (c) 1986 (protected beta bootleg) */
         driver_passht4b, 	/* bootleg */
         driver_passshtb, 	/* bootleg */
-        /*TODO*///	driver_quartet )	/* (c) 1986 */
-        /*TODO*///	driver_quartet2 )	/* (c) 1986 */
-        /*TODO*///	driver_quartetj )	/* (c) 1986 */
-        /*TODO*///	driver_riotcity )	/* (c) 1991 Sega / Westone */
-        /*TODO*///	driver_sdi )		/* (c) 1987 */
+        driver_quartet, 	/* (c) 1986 */
+        driver_quartet2, 	/* (c) 1986 */
+        driver_quartetj, 	/* (c) 1986 */
+        driver_riotcity, 	/* (c) 1991 Sega / Westone */
+        driver_sdi, 		/* (c) 1987 */
         driver_shangonb, 	/* (c) 1992 (but bootleg) */
         driver_sharrier, 	/* (c) 1985 */
-        /*TODO*///	driver_shdancbl )	/* (c) 1989 (but bootleg) */
+        driver_shdancbl, 	/* (c) 1989 (but bootleg) */
         driver_shdancer, 	/* (c) 1989 */
-        /*TODO*///	driver_shdancrj )	/* (c) 1989 */
-        /*TODO*///	driver_shinobi )	/* (c) 1987 */
-        /*TODO*///	driver_shinobl )	/* (c) 1987 (but bootleg) */
+        driver_shdancrj, 	/* (c) 1989 */
+        driver_shinobi, 	/* (c) 1987 */
+        driver_shinobl, 	/* (c) 1987 (but bootleg) */
         /*TODO*///	driver_tetrisbl )	/* (c) 1988 (but bootleg) */
         /*TODO*///	driver_timscanr )	/* (c) 1987 */
         /*TODO*///	driver_toryumon )	/* (c) 1995 */
