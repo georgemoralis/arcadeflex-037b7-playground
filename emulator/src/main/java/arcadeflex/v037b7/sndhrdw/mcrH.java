@@ -86,17 +86,16 @@ public class mcrH {
             SOUND_DAC,
             mcr_dac_interface
     );
-    /*TODO*///
+    
     /*TODO*///#define SOUND_CPU_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD \
     /*TODO*///	SOUND_CPU_TURBO_CHIP_SQUEAK,					\
     /*TODO*///	SOUND_CPU_SOUNDS_GOOD
-    /*TODO*///
-    /*TODO*///#define SOUND_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD	\
-    /*TODO*///	{												\
-    /*TODO*///		SOUND_DAC,									\
-    /*TODO*///		&mcr_dual_dac_interface						\
-    /*TODO*///	}
-    /*TODO*///
+    
+    public static MachineSound SOUND_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD = new MachineSound(
+        SOUND_DAC,
+        mcr_dual_dac_interface
+    );
+    
     /*TODO*///
 
     /**

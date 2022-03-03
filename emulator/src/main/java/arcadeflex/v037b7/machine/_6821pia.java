@@ -237,7 +237,7 @@ public class _6821pia {
     /**
      * ***************** CPU interface for PIA read ******************
      */
-    static int pia_read(int which, int offset) {
+    public static int pia_read(int which, int offset) {
         int val = 0;
 
         /* adjust offset for 16-bit and ordering */
@@ -402,7 +402,7 @@ public class _6821pia {
     /**
      * ***************** CPU interface for PIA write ******************
      */
-    static void pia_write(int which, int offset, int data) {
+    public static void pia_write(int which, int offset, int data) {
 
         /* adjust offset for 16-bit and ordering */
         if ((pia[which].u8_addr & PIA_16BIT) != 0) {
@@ -613,7 +613,7 @@ public class _6821pia {
      * ***************** interface setting PIA port CA1 input
      * ******************
      */
-    static void pia_set_input_ca1(int which, int data) {
+    public static void pia_set_input_ca1(int which, int data) {
         /* limit the data to 0 or 1 */
         data = data != 0 ? 1 : 0;
 
@@ -676,7 +676,7 @@ public class _6821pia {
     /**
      * ***************** interface setting PIA port B input ******************
      */
-    static void pia_set_input_b(int which, int data) {
+    public static void pia_set_input_b(int which, int data) {
         /* set the input, what could be easier? */
         pia[which].u8_in_b = data & 0xFF;
     }
@@ -685,7 +685,7 @@ public class _6821pia {
      * ***************** interface setting PIA port CB1 input
      * ******************
      */
-    static void pia_set_input_cb1(int which, int data) {
+    public static void pia_set_input_cb1(int which, int data) {
         /* limit the data to 0 or 1 */
         data = data != 0 ? 1 : 0;
 
@@ -725,7 +725,7 @@ public class _6821pia {
      * ***************** interface setting PIA port CB2 input
      * ******************
      */
-    static void pia_set_input_cb2(int which, int data) {
+    public static void pia_set_input_cb2(int which, int data) {
         /* limit the data to 0 or 1 */
         data = data != 0 ? 1 : 0;
 

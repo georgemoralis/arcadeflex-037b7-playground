@@ -5,6 +5,7 @@
 package arcadeflex.v037b7.sndhrdw;
 
 //common imports
+import static arcadeflex.WIP.v037b7.sndhrdw.williams.*;
 import static arcadeflex.common.libc.expressions.*;
 //generic imports
 import static arcadeflex.v037b7.generic.funcPtr.*;
@@ -136,11 +137,10 @@ public class mcr {
         }
         /* Advanced Audio */
         if ((mcr_sound_config & MCR_WILLIAMS_SOUND) != 0) {
-            throw new UnsupportedOperationException("Unsupported");
-            /*TODO*///			williams_cvsd_init(sound_cpu++, 0);
-/*TODO*///			dac_index++;
-/*TODO*///			williams_cvsd_reset_w(1);
-/*TODO*///			williams_cvsd_reset_w(0);
+                williams_cvsd_init(sound_cpu++, 0);
+                dac_index++;
+                williams_cvsd_reset_w(1);
+                williams_cvsd_reset_w(0);
         }
     }
 

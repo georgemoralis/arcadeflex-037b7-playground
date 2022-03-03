@@ -80,7 +80,10 @@ import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.WIP.v037b7.sndhrdw.mcr.*;
+import static arcadeflex.v037b7.sndhrdw.mcr.*;
+import static arcadeflex.v037b7.sndhrdw.mcrH.*;
+import static arcadeflex.WIP.v037b7.sndhrdw.williams.*;
+import static arcadeflex.WIP.v037b7.sndhrdw.williamsH.*;
 
 public class mcr68
 {
@@ -232,8 +235,8 @@ public class mcr68
 		int newword = COMBINE_WORD(oldword, data);
 		control_word.WRITE_WORD(offset, newword);
 	
-/*TODO*///		williams_cvsd_reset_w(~newword & 0x0400);
-/*TODO*///		williams_cvsd_data_w(offset, newword & 0x3ff);
+		williams_cvsd_reset_w(~newword & 0x0400);
+		williams_cvsd_data_w.handler(offset, newword & 0x3ff);
 	} };
 	
 	
@@ -1011,8 +1014,8 @@ public class mcr68
 	);
 	
 	
-/*TODO*///	MACHINE_DRIVER_MCR68(xenophob, mcr68,    SOUNDS_GOOD)
-/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+//	MACHINE_DRIVER_MCR68(xenophob, mcr68,    SOUNDS_GOOD)
+//	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
 	static MachineDriver machine_driver_xenophob = new MachineDriver
 	(														
 		/* basic machine hardware */						
@@ -1022,9 +1025,9 @@ public class mcr68
 				7723800,	/* 8 MHz */						
 				mcr68_readmem,mcr68_writemem,null,null,		
 				mcr68_interrupt,1							
-/*TODO*///			),												
-/*TODO*///			SOUND_CPU_SOUNDS_GOOD
-                        )
+			),												
+			SOUND_CPU_SOUNDS_GOOD
+                        
 		},													
 		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
 		1,													
@@ -1044,15 +1047,15 @@ public class mcr68
 															
 		/* sound hardware */								
 		SOUND_SUPPORTS_STEREO,0,0,0,						
-/*TODO*///		new MachineSound[] {													
-/*TODO*///			SOUND_SOUNDS_GOOD									
-/*TODO*///		},													
-/*TODO*///		0													
+		new MachineSound[] {													
+			SOUND_SOUNDS_GOOD									
+		},													
+													
                 null
 	);
         
-/*TODO*///	MACHINE_DRIVER_MCR68(spyhunt2, mcr68,    TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD)
-/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+//	MACHINE_DRIVER_MCR68(spyhunt2, mcr68,    TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD)
+//	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
 	static MachineDriver machine_driver_spyhunt2 = new MachineDriver
 	(														
 		/* basic machine hardware */						
@@ -1062,9 +1065,11 @@ public class mcr68
 				7723800,	/* 8 MHz */						
 				mcr68_readmem,mcr68_writemem,null,null,		
 				mcr68_interrupt,1							
-/*TODO*///			),												
-/*TODO*///			SOUND_CPU_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD
-                                )
+			),												
+			//SOUND_CPU_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD
+                        SOUND_CPU_TURBO_CHIP_SQUEAK,
+                        SOUND_CPU_SOUNDS_GOOD
+                                
 		},													
 		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
 		1,													
@@ -1084,15 +1089,15 @@ public class mcr68
 															
 		/* sound hardware */								
 		SOUND_SUPPORTS_STEREO,0,0,0,						
-/*TODO*///		new MachineSound[] {													
-/*TODO*///			SOUND_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD
-/*TODO*///		},													
-/*TODO*///		0													
+		new MachineSound[] {													
+			SOUND_TURBO_CHIP_SQUEAK_PLUS_SOUNDS_GOOD
+		},													
+													
                 null
 	);
         
-/*TODO*///	MACHINE_DRIVER_MCR68(archrivl, mcr68,    WILLIAMS_CVSD)
-/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+//	MACHINE_DRIVER_MCR68(archrivl, mcr68,    WILLIAMS_CVSD)
+//	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
 	static MachineDriver machine_driver_archrivl = new MachineDriver
 	(														
 		/* basic machine hardware */						
@@ -1102,9 +1107,9 @@ public class mcr68
 				7723800,	/* 8 MHz */						
 				mcr68_readmem,mcr68_writemem,null,null,		
 				mcr68_interrupt,1							
-/*TODO*///			),												
-/*TODO*///			SOUND_CPU_WILLIAMS_CVSD
-                                )
+			),												
+			SOUND_CPU_WILLIAMS_CVSD
+                                
 		},													
 		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
 		1,													
@@ -1124,15 +1129,31 @@ public class mcr68
 															
 		/* sound hardware */								
 		SOUND_SUPPORTS_STEREO,0,0,0,						
-/*TODO*///		new MachineSound[] {													
-/*TODO*///			SOUND_WILLIAMS_CVSD
-/*TODO*///		},													
-/*TODO*///		0
+		new MachineSound[] {													
+			//SOUND_WILLIAMS_CVSD
+                    new MachineSound(
+                        SOUND_CUSTOM,										
+                        williams_custom_interface							
+                    ),														
+                    new MachineSound(
+                        SOUND_YM2151,
+                        williams_cvsd_ym2151_interface
+                    ),														
+                    new MachineSound(
+                        SOUND_DAC,											
+                        williams_cvsd_dac_interface						
+                    ),														
+                    new MachineSound(
+                        SOUND_HC55516,										
+                        williams_cvsd_interface							
+                    )
+		},													
+
                 null
 	);
         
-/*TODO*///	MACHINE_DRIVER_MCR68(pigskin,  pigskin,  WILLIAMS_CVSD)
-/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+//	MACHINE_DRIVER_MCR68(pigskin,  pigskin,  WILLIAMS_CVSD)
+//	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
 	static MachineDriver machine_driver_pigskin = new MachineDriver
 	(														
 		/* basic machine hardware */						

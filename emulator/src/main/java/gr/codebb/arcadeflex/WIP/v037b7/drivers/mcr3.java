@@ -6,8 +6,7 @@ package gr.codebb.arcadeflex.WIP.v037b7.drivers;
 
 import static arcadeflex.v037b7.machine.mcr.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.machine.z80fmly.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sndhrdw.mcr.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.sndhrdw.mcrH.*;
+
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.mcr3.*;
 import static arcadeflex.common.ptrLib.*;
 import static arcadeflex.v037b7.mame.driverH.*;
@@ -26,6 +25,8 @@ import static arcadeflex.v037b7.mame.sndintrfH.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.cpu_getpreviouspc;
 import static arcadeflex.v037b7.mame.palette.paletteram;
+import static arcadeflex.v037b7.sndhrdw.mcr.*;
+import static arcadeflex.v037b7.sndhrdw.mcrH.*;
 
 public class mcr3 {
 
@@ -1265,8 +1266,9 @@ public class mcr3 {
                         5000000, /* 5 MHz */
                         readmem, mcrmono_writemem, readport, writeport,
                         mcr_interrupt, 1,
-                        null, 0, mcr_daisy_chain)
-            /*TODO*///			,SOUND_CPU_SOUNDS_GOOD
+                        null, 0, mcr_daisy_chain),
+            			
+                SOUND_CPU_SOUNDS_GOOD
             },
             30, DEFAULT_REAL_30HZ_VBLANK_DURATION,
             1,
@@ -1283,10 +1285,10 @@ public class mcr3 {
             mcrmono_vh_screenrefresh,
             /* sound hardware */
             SOUND_SUPPORTS_STEREO, 0, 0, 0,
-            /*TODO*///		new MachineSound[] {
-            /*TODO*///			SOUND_SOUNDS_GOOD
-            /*TODO*///		},
-            null,
+            		new MachineSound[] {
+            			SOUND_SOUNDS_GOOD
+            		},
+            
             null
     );
 
@@ -1300,8 +1302,8 @@ public class mcr3 {
                         readmem, mcrmono_writemem, readport, writeport,
                         powerdrv_interrupt, 2,
                         null, 0, mcr_daisy_chain
-                )
-            /*TODO*///			,SOUND_CPU_SOUNDS_GOOD
+                ),
+                SOUND_CPU_SOUNDS_GOOD
             },
             30, DEFAULT_REAL_30HZ_VBLANK_DURATION,
             1,
@@ -1355,11 +1357,11 @@ public class mcr3 {
             spyhunt_vh_screenrefresh,
             /* sound hardware */
             SOUND_SUPPORTS_STEREO, 0, 0, 0,
-            /*TODO*///		new MachineSound[] {
-            /*TODO*///			SOUND_SSIO,
-            /*TODO*///			SOUND_CHIP_SQUEAK_DELUXE
-            /*TODO*///		},
-            null,
+            		new MachineSound[] {
+            			SOUND_SSIO,
+            			SOUND_CHIP_SQUEAK_DELUXE
+            		},
+ 
             spyhunt_nvram_handler
     );
 
