@@ -1926,16 +1926,16 @@ public class driver {
         driver_shdancrj, 	/* (c) 1989 */
         driver_shinobi, 	/* (c) 1987 */
         driver_shinobl, 	/* (c) 1987 (but bootleg) */
-        /*TODO*///	driver_tetrisbl )	/* (c) 1988 (but bootleg) */
-        /*TODO*///	driver_timscanr )	/* (c) 1987 */
-        /*TODO*///	driver_toryumon )	/* (c) 1995 */
-        /*TODO*///	driver_tturf )		/* (c) 1989 Sega / Sunsoft */
-        /*TODO*///	driver_tturfbl )	/* (c) 1989 (Datsu bootleg) */
-        /*TODO*///	driver_tturfu )	/* (c) 1989 Sega / Sunsoft */
-        /*TODO*///	driver_wb3 )		/* (c) 1988 Sega / Westone */
-        /*TODO*///	driver_wb3bl )		/* (c) 1988 Sega / Westone (but bootleg) */
-        /*TODO*///	driver_wrestwar )	/* (c) 1989 */
-        /*TODO*///
+        driver_tetrisbl, 	/* (c) 1988 (but bootleg) */
+        driver_timscanr, 	/* (c) 1987 */
+        driver_toryumon, 	/* (c) 1995 */
+        driver_tturf, 		/* (c) 1989 Sega / Sunsoft */
+        driver_tturfbl, 	/* (c) 1989 (Datsu bootleg) */
+        driver_tturfu, 	/* (c) 1989 Sega / Sunsoft */
+        driver_wb3, 		/* (c) 1988 Sega / Westone */
+        driver_wb3bl, 		/* (c) 1988 Sega / Westone (but bootleg) */
+        driver_wrestwar, 	/* (c) 1989 */
+
         /*TODO*///	/* Deniam games */
         /*TODO*///	/* they run on Sega System 16 video hardware */
         /*TODO*///	driver_logicpro )	/* (c) 1996 Deniam */
