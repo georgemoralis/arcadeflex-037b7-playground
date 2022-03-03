@@ -421,7 +421,7 @@ public class mcr {
 	
 	public static WriteHandlerPtr zwackery_ca2_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
-/*TODO*///		csdeluxe_data_w(offset, (data << 4) | zwackery_sound_data);
+		csdeluxe_data_w.handler(offset, (data << 4) | zwackery_sound_data);
 	} };
 	
 	

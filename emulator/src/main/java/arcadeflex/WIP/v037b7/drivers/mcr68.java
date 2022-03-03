@@ -1163,9 +1163,9 @@ public class mcr68
 				7723800,	/* 8 MHz */						
 				pigskin_readmem,pigskin_writemem,null,null,		
 				mcr68_interrupt,1							
-/*TODO*///			),												
-/*TODO*///			SOUND_CPU_WILLIAMS_CVSD
-                                )
+			),												
+			SOUND_CPU_WILLIAMS_CVSD
+                      
 		},													
 		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
 		1,													
@@ -1185,15 +1185,30 @@ public class mcr68
 															
 		/* sound hardware */								
 		SOUND_SUPPORTS_STEREO,0,0,0,						
-/*TODO*///		new MachineSound[] {													
-/*TODO*///			SOUND_WILLIAMS_CVSD
-/*TODO*///		},													
-/*TODO*///		0
-                null
+		new MachineSound[] {													
+			new MachineSound(
+                            SOUND_CUSTOM,										
+                            williams_custom_interface							
+                        ),														
+                new MachineSound(												
+                    SOUND_YM2151,										
+                    williams_cvsd_ym2151_interface						
+                ),
+                new MachineSound(
+                    SOUND_DAC,											
+                    williams_cvsd_dac_interface						
+                ),
+                new MachineSound(
+                    SOUND_HC55516,										
+                    williams_cvsd_interface							
+                )
+            },													
+
+            null
 	);
         
-/*TODO*///	MACHINE_DRIVER_MCR68(trisport, trisport, WILLIAMS_CVSD)
-/*TODO*///	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
+//	MACHINE_DRIVER_MCR68(trisport, trisport, WILLIAMS_CVSD)
+//	#define MACHINE_DRIVER_MCR68(NAME, MEMMAP, SOUND) 		
 	static MachineDriver machine_driver_trisport = new MachineDriver
 	(														
 		/* basic machine hardware */						
@@ -1203,9 +1218,9 @@ public class mcr68
 				7723800,	/* 8 MHz */						
 				trisport_readmem,trisport_writemem,null,null,		
 				mcr68_interrupt,1							
-/*TODO*///			),												
-/*TODO*///			SOUND_CPU_WILLIAMS_CVSD
-                        )
+			),												
+			SOUND_CPU_WILLIAMS_CVSD
+                        
 		},													
 		30, DEFAULT_REAL_30HZ_VBLANK_DURATION,				
 		1,													
@@ -1225,10 +1240,26 @@ public class mcr68
 															
 		/* sound hardware */								
 		SOUND_SUPPORTS_STEREO,0,0,0,						
-/*TODO*///		new MachineSound[] {													
-/*TODO*///			SOUND_WILLIAMS_CVSD
-/*TODO*///		},													
-/*TODO*///		0
+		new MachineSound[] {													
+                    //SOUND_WILLIAMS_CVSD
+                    new MachineSound(
+                        SOUND_CUSTOM,										
+                        williams_custom_interface							
+                    ),														
+                    new MachineSound(
+                        SOUND_YM2151,
+                        williams_cvsd_ym2151_interface
+                    ),														
+                    new MachineSound(
+                        SOUND_DAC,											
+                        williams_cvsd_dac_interface						
+                    ),														
+                    new MachineSound(
+                        SOUND_HC55516,										
+                        williams_cvsd_interface							
+                    )
+		},													
+
                 null
 	);        
 	
