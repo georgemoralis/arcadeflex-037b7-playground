@@ -241,43 +241,43 @@ public static int BITSWAP(int _x,int _f,int _e,int _d,int _c,int _b,int _a,int _
             PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
     }
 
-/*TODO*///#define COINAGE_8BITS 
-/*TODO*///	PORT_DIPNAME( 0x0f, 0x0f, DEF_STR( "Coin_A") );
-/*TODO*///	PORT_DIPSETTING(    0x07, DEF_STR( "4C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x08, DEF_STR( "3C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x09, DEF_STR( "2C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x0f, DEF_STR( "1C_1C") );
-/*TODO*////*	PORT_DIPSETTING(    0x05, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x04, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x03, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x02, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x01, DEF_STR( "1C_1C") );*/	
-/*TODO*///	PORT_DIPSETTING(    0x06, DEF_STR( "2C_3C") );
-/*TODO*///	PORT_DIPSETTING(    0x0e, DEF_STR( "1C_2C") );
-/*TODO*///	PORT_DIPSETTING(    0x0d, DEF_STR( "1C_3C") );
-/*TODO*///	PORT_DIPSETTING(    0x0c, DEF_STR( "1C_4C") );
-/*TODO*///	PORT_DIPSETTING(    0x0b, DEF_STR( "1C_5C") );
-/*TODO*///	PORT_DIPSETTING(    0x0a, DEF_STR( "1C_6C") );
-/*TODO*///	PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
-/*TODO*///	PORT_DIPNAME( 0xf0, 0xf0, DEF_STR( "Coin_B") );
-/*TODO*///	PORT_DIPSETTING(    0x70, DEF_STR( "4C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x80, DEF_STR( "3C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x90, DEF_STR( "2C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0xf0, DEF_STR( "1C_1C") );
-/*TODO*////*	PORT_DIPSETTING(    0x50, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x40, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x30, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x20, DEF_STR( "1C_1C") );*/	
-/*TODO*////*	PORT_DIPSETTING(    0x10, DEF_STR( "1C_1C") );*/	
-/*TODO*///	PORT_DIPSETTING(    0x60, DEF_STR( "2C_3C") );
-/*TODO*///	PORT_DIPSETTING(    0xe0, DEF_STR( "1C_2C") );
-/*TODO*///	PORT_DIPSETTING(    0xd0, DEF_STR( "1C_3C") );
-/*TODO*///	PORT_DIPSETTING(    0xc0, DEF_STR( "1C_4C") );
-/*TODO*///	PORT_DIPSETTING(    0xb0, DEF_STR( "1C_5C") );
-/*TODO*///	PORT_DIPSETTING(    0xa0, DEF_STR( "1C_6C") );
-/*TODO*///	PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
-/*TODO*///
-/*TODO*///
+    public static void COINAGE_8BITS() {
+            PORT_DIPNAME( 0x0f, 0x0f, DEF_STR( "Coin_A") );
+            PORT_DIPSETTING(    0x07, DEF_STR( "4C_1C") );
+            PORT_DIPSETTING(    0x08, DEF_STR( "3C_1C") );
+            PORT_DIPSETTING(    0x09, DEF_STR( "2C_1C") );
+            PORT_DIPSETTING(    0x0f, DEF_STR( "1C_1C") );
+    /*	PORT_DIPSETTING(    0x05, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x04, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x03, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x02, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x01, DEF_STR( "1C_1C") );*/	
+            PORT_DIPSETTING(    0x06, DEF_STR( "2C_3C") );
+            PORT_DIPSETTING(    0x0e, DEF_STR( "1C_2C") );
+            PORT_DIPSETTING(    0x0d, DEF_STR( "1C_3C") );
+            PORT_DIPSETTING(    0x0c, DEF_STR( "1C_4C") );
+            PORT_DIPSETTING(    0x0b, DEF_STR( "1C_5C") );
+            PORT_DIPSETTING(    0x0a, DEF_STR( "1C_6C") );
+            PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
+            PORT_DIPNAME( 0xf0, 0xf0, DEF_STR( "Coin_B") );
+            PORT_DIPSETTING(    0x70, DEF_STR( "4C_1C") );
+            PORT_DIPSETTING(    0x80, DEF_STR( "3C_1C") );
+            PORT_DIPSETTING(    0x90, DEF_STR( "2C_1C") );
+            PORT_DIPSETTING(    0xf0, DEF_STR( "1C_1C") );
+    /*	PORT_DIPSETTING(    0x50, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x40, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x30, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x20, DEF_STR( "1C_1C") );*/	
+    /*	PORT_DIPSETTING(    0x10, DEF_STR( "1C_1C") );*/	
+            PORT_DIPSETTING(    0x60, DEF_STR( "2C_3C") );
+            PORT_DIPSETTING(    0xe0, DEF_STR( "1C_2C") );
+            PORT_DIPSETTING(    0xd0, DEF_STR( "1C_3C") );
+            PORT_DIPSETTING(    0xc0, DEF_STR( "1C_4C") );
+            PORT_DIPSETTING(    0xb0, DEF_STR( "1C_5C") );
+            PORT_DIPSETTING(    0xa0, DEF_STR( "1C_6C") );
+            PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
+    }
+
 /*TODO*////***************************************************************************
 /*TODO*///
 /*TODO*///						Read and Write Errors Logging

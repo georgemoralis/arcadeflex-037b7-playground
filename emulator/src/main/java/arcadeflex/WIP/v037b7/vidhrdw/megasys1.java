@@ -211,6 +211,8 @@ package arcadeflex.WIP.v037b7.vidhrdw;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_astyanax;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_lomakai;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_hachoo;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_iganinju;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_kickoff;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.ms_soundlatch_w;
 import static arcadeflex.WIP.v037b7.drivers.megasys1H.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;
@@ -1142,14 +1144,14 @@ public class megasys1
 			new int[]{ 0x24130,0x01423,0xfffff,0x02413,0x04132,0xfffff,0x24130,0x13240,
 			  0x24103,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
                         ),
-/*TODO*///		{	&driver_iganinju,
-/*TODO*///			{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
-/*TODO*///		{	&driver_kickoff,
-/*TODO*///			{ 0x04132,0x02413,0x03142,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
+                        new priority(	driver_iganinju,
+			new int[]{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                        ),
+                        new priority(	driver_kickoff,
+			new int[]{ 0x04132,0x02413,0x03142,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                        ),
 /*TODO*///		{	&driver_soldamj,
 /*TODO*///			{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0x20413,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
