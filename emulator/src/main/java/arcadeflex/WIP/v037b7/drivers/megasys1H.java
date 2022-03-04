@@ -155,17 +155,18 @@ public static int BITSWAP(int _x,int _f,int _e,int _d,int _c,int _b,int _a,int _
 /*TODO*///	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 | _flag_ );
 /*TODO*///	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 | _flag_ );
 /*TODO*///	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON4 | _flag_ );
-/*TODO*///
-/*TODO*///#define JOY_3BUTTONS(_flag_) 
-/*TODO*///	PORT_START
-/*TODO*///	PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT | IPF_8WAY | _flag_ );
-/*TODO*///	PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT  | IPF_8WAY | _flag_ );
-/*TODO*///	PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN  | IPF_8WAY | _flag_ );
-/*TODO*///	PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_UP    | IPF_8WAY | _flag_ );
-/*TODO*///	PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 | _flag_ );
-/*TODO*///	PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 | _flag_ );
-/*TODO*///	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 | _flag_ );
-/*TODO*///	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN );
+
+    public static void JOY_3BUTTONS(int _flag_) {
+            PORT_START();
+            PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_JOYSTICK_RIGHT | IPF_8WAY | _flag_ );
+            PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_JOYSTICK_LEFT  | IPF_8WAY | _flag_ );
+            PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_JOYSTICK_DOWN  | IPF_8WAY | _flag_ );
+            PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_JOYSTICK_UP    | IPF_8WAY | _flag_ );
+            PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 | _flag_ );
+            PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON2 | _flag_ );
+            PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON3 | _flag_ );
+            PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN );
+    }
 
     public static void JOY_2BUTTONS(int _flag_) {
             PORT_START();
@@ -192,31 +193,32 @@ public static int BITSWAP(int _x,int _f,int _e,int _d,int _c,int _b,int _a,int _
             PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNKNOWN );
     }
 
-/*TODO*////* IN4 - Coinage DSWs */
-/*TODO*/////	1]	01-41 02-31 03-21 07-11 06-12 05-13 04-14 00-FC	* 2
-/*TODO*/////	2]	04-31 02-21 07-11 03-12 05-13 01-14 06-15 00-FC
-/*TODO*/////		00-41 20-31 10-21 38-11 18-12 28-13 08-14 30-15
-/*TODO*///
-/*TODO*///
-/*TODO*///#define COINAGE_6BITS 
-/*TODO*///	PORT_DIPNAME( 0x07, 0x07, DEF_STR( "Coin_A") );
-/*TODO*///	PORT_DIPSETTING(    0x04, DEF_STR( "3C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x02, DEF_STR( "2C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x07, DEF_STR( "1C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x03, DEF_STR( "1C_2C") );
-/*TODO*///	PORT_DIPSETTING(    0x05, DEF_STR( "1C_3C") );
-/*TODO*///	PORT_DIPSETTING(    0x01, DEF_STR( "1C_4C") );
-/*TODO*///	PORT_DIPSETTING(    0x06, DEF_STR( "1C_5C") );
-/*TODO*///	PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
-/*TODO*///	PORT_DIPNAME( 0x38, 0x38, DEF_STR( "Coin_B") );
-/*TODO*///	PORT_DIPSETTING(    0x00, DEF_STR( "4C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x20, DEF_STR( "3C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x10, DEF_STR( "2C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x38, DEF_STR( "1C_1C") );
-/*TODO*///	PORT_DIPSETTING(    0x18, DEF_STR( "1C_2C") );
-/*TODO*///	PORT_DIPSETTING(    0x28, DEF_STR( "1C_3C") );
-/*TODO*///	PORT_DIPSETTING(    0x08, DEF_STR( "1C_4C") );
-/*TODO*///	PORT_DIPSETTING(    0x30, DEF_STR( "1C_5C") );
+/* IN4 - Coinage DSWs */
+//	1]	01-41 02-31 03-21 07-11 06-12 05-13 04-14 00-FC	* 2
+//	2]	04-31 02-21 07-11 03-12 05-13 01-14 06-15 00-FC
+//		00-41 20-31 10-21 38-11 18-12 28-13 08-14 30-15
+
+
+    public static void COINAGE_6BITS() {
+            PORT_DIPNAME( 0x07, 0x07, DEF_STR( "Coin_A") );
+            PORT_DIPSETTING(    0x04, DEF_STR( "3C_1C") );
+            PORT_DIPSETTING(    0x02, DEF_STR( "2C_1C") );
+            PORT_DIPSETTING(    0x07, DEF_STR( "1C_1C") );
+            PORT_DIPSETTING(    0x03, DEF_STR( "1C_2C") );
+            PORT_DIPSETTING(    0x05, DEF_STR( "1C_3C") );
+            PORT_DIPSETTING(    0x01, DEF_STR( "1C_4C") );
+            PORT_DIPSETTING(    0x06, DEF_STR( "1C_5C") );
+            PORT_DIPSETTING(    0x00, DEF_STR( "Free_Play") );
+            PORT_DIPNAME( 0x38, 0x38, DEF_STR( "Coin_B") );
+            PORT_DIPSETTING(    0x00, DEF_STR( "4C_1C") );
+            PORT_DIPSETTING(    0x20, DEF_STR( "3C_1C") );
+            PORT_DIPSETTING(    0x10, DEF_STR( "2C_1C") );
+            PORT_DIPSETTING(    0x38, DEF_STR( "1C_1C") );
+            PORT_DIPSETTING(    0x18, DEF_STR( "1C_2C") );
+            PORT_DIPSETTING(    0x28, DEF_STR( "1C_3C") );
+            PORT_DIPSETTING(    0x08, DEF_STR( "1C_4C") );
+            PORT_DIPSETTING(    0x30, DEF_STR( "1C_5C") );
+    }
 
     public static void COINAGE_6BITS_2() { 
             PORT_DIPNAME( 0x07, 0x07, DEF_STR( "Coin_A") );

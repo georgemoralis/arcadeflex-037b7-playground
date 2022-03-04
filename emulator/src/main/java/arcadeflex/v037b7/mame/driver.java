@@ -2879,11 +2879,11 @@ public class driver {
         /*TODO*///	driver_p47j )		/* (c) 1988 (Japan) */
         /*TODO*///	driver_kickoff )	/* (c) 1988 (Japan) */
         /*TODO*///	driver_tshingen )	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_astyanax )	/* (c) 1989 */
+        driver_astyanax, 	/* (c) 1989 */
         /*TODO*///	driver_lordofk )	/* (c) 1989 (Japan) */
-        /*TODO*///	driver_hachoo )	/* (c) 1989 */
+        driver_hachoo, 	/* (c) 1989 */
         /*TODO*///	driver_plusalph )	/* (c) 1989 */
-        /*TODO*///	driver_stdragon )	/* (c) 1989 */
+        driver_stdragon, 	/* (c) 1989 */
         /*TODO*///	driver_iganinju )	/* (c) 1989 (Japan) */
         /*TODO*///	driver_rodland )	/* (c) 1990 */
         /*TODO*///	driver_rodlandj )	/* (c) 1990 (Japan) */

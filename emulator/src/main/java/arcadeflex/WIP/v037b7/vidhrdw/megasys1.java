@@ -208,10 +208,13 @@ actual code sent to the hardware.
  */ 
 package arcadeflex.WIP.v037b7.vidhrdw;
 
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_astyanax;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_lomakai;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_hachoo;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.ms_soundlatch_w;
 import static arcadeflex.WIP.v037b7.drivers.megasys1H.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;
+import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays.UShortArray;
@@ -846,40 +849,41 @@ public class megasys1
 /*TODO*///			default:		SHOW_WRITE_ERROR("vreg %04X <- %04X",offset,data);
 /*TODO*///		}
 /*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///								Sprites Drawing
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*	 Draw sprites in the given bitmap. Priority may be:
-/*TODO*///	
-/*TODO*///	 0	Draw sprites whose priority bit is 0
-/*TODO*///	 1	Draw sprites whose priority bit is 1
-/*TODO*///	-1	Draw sprites regardless of their priority
-/*TODO*///	
-/*TODO*///	 Sprite Data:
-/*TODO*///	
-/*TODO*///		Offset		Data
-/*TODO*///	
-/*TODO*///	 	00-07						?
-/*TODO*///		08 		fed- ---- ---- ----	?
-/*TODO*///				---c ---- ---- ----	mosaic sol.	(?)
-/*TODO*///				---- ba98 ---- ----	mosaic		(?)
-/*TODO*///				---- ---- 7--- ----	y flip
-/*TODO*///				---- ---- -6-- ----	x flip
-/*TODO*///				---- ---- --45 ----	?
-/*TODO*///				---- ---- ---- 3210	color code (bit 3 = priority)
-/*TODO*///		0A		X position
-/*TODO*///		0C		Y position
-/*TODO*///		0E		Code											*/
+	
+	
+	
+	/***************************************************************************
+	
+								Sprites Drawing
+	
+	***************************************************************************/
+	
+	
+	/*	 Draw sprites in the given bitmap. Priority may be:
+	
+	 0	Draw sprites whose priority bit is 0
+	 1	Draw sprites whose priority bit is 1
+	-1	Draw sprites regardless of their priority
+	
+	 Sprite Data:
+	
+		Offset		Data
+	
+	 	00-07						?
+		08 		fed- ---- ---- ----	?
+				---c ---- ---- ----	mosaic sol.	(?)
+				---- ba98 ---- ----	mosaic		(?)
+				---- ---- 7--- ----	y flip
+				---- ---- -6-- ----	x flip
+				---- ---- --45 ----	?
+				---- ---- ---- 3210	color code (bit 3 = priority)
+		0A		X position
+		0C		Y position
+		0E		Code											*/
 	
 	static void draw_sprites(osd_bitmap bitmap, int priority)
 	{
+            
 	int color,code,sx,sy,flipx,flipy,attr,sprite,offs,color_mask;
 	
 	/* objram: 0x100*4 entries		spritedata: 0x80 entries */
@@ -1075,59 +1079,53 @@ public class megasys1
 	
 	
 	
-/*TODO*///	/***************************************************************************
-/*TODO*///							Convert the Priority Prom
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	struct priority
-/*TODO*///	{
-/*TODO*///		struct GameDriver *driver;
-/*TODO*///		int priorities[16];
-/*TODO*///	};
-/*TODO*///	
+	/***************************************************************************
+							Convert the Priority Prom
+	***************************************************************************/
+	
+	public static class priority
+	{
+		GameDriver driver;
+		int[] priorities = new int[16];
+
+                public priority(GameDriver driver, int[] priorities) {
+                    this.driver = driver;
+                    this.priorities = priorities;
+                }                               
+	};
+	
 	static int[] megasys1_layers_order = new int[16];
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	extern struct GameDriver driver_64street;
-/*TODO*///	extern struct GameDriver driver_astyanax;
-/*TODO*///	extern struct GameDriver driver_bigstrik;
-/*TODO*///	extern struct GameDriver driver_chimerab;
-/*TODO*///	extern struct GameDriver driver_cybattlr;
-/*TODO*///	extern struct GameDriver driver_hachoo;
-/*TODO*///	extern struct GameDriver driver_iganinju;
-/*TODO*///	extern struct GameDriver driver_kickoff;
-/*TODO*///	extern struct GameDriver driver_soldamj;
-/*TODO*///	extern struct GameDriver driver_tshingen;
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///		Layers order encoded as an int like: 0x01234, where
-/*TODO*///	
-/*TODO*///		0:	Scroll 0
-/*TODO*///		1:	Scroll 1
-/*TODO*///		2:	Scroll 2
-/*TODO*///		3:	Sprites with color 0-7
-/*TODO*///			(*every sprite*, if sprite splitting is not active)
-/*TODO*///		4:	Sprites with color 8-f
-/*TODO*///		f:	empty placeholder (we can't use 0!)
-/*TODO*///	
-/*TODO*///		and the bottom layer is on the left (e.g. 0).
-/*TODO*///	
-/*TODO*///		The special value 0xfffff means that the order is either unknown
-/*TODO*///		or no simple stack of layers can account for the values in the prom.
-/*TODO*///		(the default value, 0x04132, will be used in those cases)
-/*TODO*///	
-/*TODO*///	*/
-/*TODO*///	
-/*TODO*///	static struct priority priorities[] =
-/*TODO*///	{
+	
+	/*
+		Layers order encoded as an int like: 0x01234, where
+	
+		0:	Scroll 0
+		1:	Scroll 1
+		2:	Scroll 2
+		3:	Sprites with color 0-7
+			(*every sprite*, if sprite splitting is not active)
+		4:	Sprites with color 8-f
+		f:	empty placeholder (we can't use 0!)
+	
+		and the bottom layer is on the left (e.g. 0).
+	
+		The special value 0xfffff means that the order is either unknown
+		or no simple stack of layers can account for the values in the prom.
+		(the default value, 0x04132, will be used in those cases)
+	
+	*/
+	
+	static priority priorities[] =
+	{
 /*TODO*///		{	&driver_64street,
 /*TODO*///			{ 0xfffff,0x03142,0xfffff,0x04132,0xfffff,0x04132,0xfffff,0xfffff,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
 /*TODO*///		},
-/*TODO*///		{	&driver_astyanax,
-/*TODO*///			{ 0x04132,0x03142,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
+		new priority (	
+                        driver_astyanax,
+			new int[]{ 0x04132,0x03142,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                ),
 /*TODO*///		{	&driver_bigstrik,	/* like 64street ? */
 /*TODO*///			{ 0xfffff,0x03142,0xfffff,0x04132,0xfffff,0x04132,0xfffff,0xfffff,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
@@ -1140,10 +1138,10 @@ public class megasys1
 /*TODO*///			{ 0x04132,0xfffff,0xfffff,0xfffff,0x14032,0xfffff,0xfffff,0xfffff,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0x04132 }
 /*TODO*///		},
-/*TODO*///		{	&driver_hachoo,
-/*TODO*///			{ 0x24130,0x01423,0xfffff,0x02413,0x04132,0xfffff,0x24130,0x13240,
-/*TODO*///			  0x24103,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
+                        new priority(	driver_hachoo,
+			new int[]{ 0x24130,0x01423,0xfffff,0x02413,0x04132,0xfffff,0x24130,0x13240,
+			  0x24103,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                        ),
 /*TODO*///		{	&driver_iganinju,
 /*TODO*///			{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0xfffff,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
@@ -1160,8 +1158,8 @@ public class megasys1
 /*TODO*///			{ 0x04132,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
 /*TODO*///		},
-/*TODO*///		{	0	}	// end of list: use the prom's data
-/*TODO*///	};
+		null	// end of list: use the prom's data
+	};
 /*TODO*///	
 /*TODO*///	
 /*TODO*///	/*
@@ -1210,162 +1208,162 @@ public class megasys1
 /*TODO*///	
 	public static VhConvertColorPromPtr megasys1_convert_prom = new VhConvertColorPromPtr() {
             @Override
-            public void handler(char[] palette, char[] colortable, UBytePtr color_prom) {
-/*TODO*///		int pri_code, offset, i, order;
-/*TODO*///	
-/*TODO*///		/* First check if we have an hand-crafted priority scheme
-/*TODO*///		   available (this should happen only if no good dump
-/*TODO*///		   of the prom is known) */
-/*TODO*///	
-/*TODO*///		i = 0;
-/*TODO*///		while (	priorities[i].driver &&
-/*TODO*///				priorities[i].driver != Machine.gamedrv &&
-/*TODO*///				priorities[i].driver != Machine.gamedrv.clone_of)
-/*TODO*///			i++;
-/*TODO*///	
-/*TODO*///		if (priorities[i].driver)
-/*TODO*///		{
-/*TODO*///			memcpy (megasys1_layers_order, priorities[i].priorities, 16 * sizeof(int));
-/*TODO*///	
-/*TODO*///			logerror("WARNING: using an hand-crafted priorities schemen");
-/*TODO*///	
-/*TODO*///			return;
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* Otherwise, perform the conversion from the prom itself */
-/*TODO*///	
-/*TODO*///		for (pri_code = 0; pri_code < 0x10 ; pri_code++)	// 16 priority codes
-/*TODO*///		{
-/*TODO*///			int layers_order[2];	// 2 layers orders (split sprites on/off)
-/*TODO*///	
-/*TODO*///			for (offset = 0; offset < 2; offset ++)
-/*TODO*///			{
-/*TODO*///				int enable_mask = 0xf;	// start with every layer enabled
-/*TODO*///	
-/*TODO*///				layers_order[offset] = 0xfffff;
-/*TODO*///	
-/*TODO*///				do
-/*TODO*///				{
-/*TODO*///					int top = prom[pri_code * 0x20 + offset + enable_mask * 2] & 3;	// this must be the top layer
-/*TODO*///					int top_mask = 1 << top;
-/*TODO*///	
-/*TODO*///					int	result = 0;		// result of the feasibility check for this layer
-/*TODO*///	
-/*TODO*///					for (i = 0; i < 0x10 ; i++)	// every combination of opaque and transparent pens
-/*TODO*///					{
-/*TODO*///						int opacity	=	i & enable_mask;	// only consider active layers
-/*TODO*///						int layer	=	prom[pri_code * 0x20 + offset + opacity * 2];
-/*TODO*///	
-/*TODO*///						if (opacity != 0)
-/*TODO*///						{
-/*TODO*///							if ((opacity & top_mask) != 0)
-/*TODO*///							{
-/*TODO*///								if (layer != top )	result |= 1; 	// error: opaque pens aren't always opaque!
-/*TODO*///							}
-/*TODO*///							else
-/*TODO*///							{
-/*TODO*///								if (layer == top)	result |= 2;	// transparent pen is opaque
-/*TODO*///								else				result |= 4;	// transparent pen is transparent
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///	
-/*TODO*///					/*	note: 3210 means that layer 0 is the bottom layer
-/*TODO*///						(the order is reversed in the hand-crafted data) */
-/*TODO*///	
-/*TODO*///					layers_order[offset] = ( (layers_order[offset] << 4) | top ) & 0xfffff;
-/*TODO*///					enable_mask &= ~top_mask;
-/*TODO*///	
-/*TODO*///					if ((result & 1) != 0)
-/*TODO*///					{
-/*TODO*///						logerror("WARNING, pri $%X split %d - layer %d's opaque pens not totally opaquen",pri_code,offset,top);
-/*TODO*///	
-/*TODO*///						layers_order[offset] = 0xfffff;
-/*TODO*///						break;
-/*TODO*///					}
-/*TODO*///	
-/*TODO*///					if  ((result & 6) == 6)
-/*TODO*///					{
-/*TODO*///						logerror("WARNING, pri $%X split %d - layer %d's transparent pens aren't always transparent nor always opaquen",pri_code,offset,top);
-/*TODO*///	
-/*TODO*///						layers_order[offset] = 0xfffff;
-/*TODO*///						break;
-/*TODO*///					}
-/*TODO*///	
-/*TODO*///					if (result == 2)	enable_mask = 0; // totally opaque top layer
-/*TODO*///	
-/*TODO*///				}	while (enable_mask);
-/*TODO*///	
-/*TODO*///	        }	// offset
-/*TODO*///	
-/*TODO*///			/* merge the two layers orders */
-/*TODO*///	
-/*TODO*///			order = 0xfffff;
-/*TODO*///	
-/*TODO*///			for (i = 5; i > 0 ; )	// 5 layers to write
-/*TODO*///			{
-/*TODO*///				int layer;
-/*TODO*///				int layer0 = layers_order[0] & 0x0f;
-/*TODO*///				int layer1 = layers_order[1] & 0x0f;
-/*TODO*///	
-/*TODO*///				if (layer0 != 3)	// 0,1,2 or f
-/*TODO*///				{
-/*TODO*///					if (layer1 == 3)
-/*TODO*///					{
-/*TODO*///						layer = 4;
-/*TODO*///						layers_order[0] <<= 4;	// layer1 won't change next loop
-/*TODO*///					}
-/*TODO*///					else
-/*TODO*///					{
-/*TODO*///						layer = layer0;
-/*TODO*///						if (layer0 != layer1)
-/*TODO*///						{
-/*TODO*///							logerror("WARNING, pri $%X - 'sprite splitting' does not simply split spritesn",pri_code);
-/*TODO*///	
-/*TODO*///							order = 0xfffff;
-/*TODO*///							break;
-/*TODO*///						}
-/*TODO*///	
-/*TODO*///					}
-/*TODO*///				}
-/*TODO*///				else	// layer0 = 3;
-/*TODO*///				{
-/*TODO*///					if (layer1 == 3)
-/*TODO*///					{
-/*TODO*///						layer = 0x43;			// 4 must always be present
-/*TODO*///						order <<= 4;
-/*TODO*///						i --;					// 2 layers written at once
-/*TODO*///					}
-/*TODO*///					else
-/*TODO*///					{
-/*TODO*///						layer = 3;
-/*TODO*///						layers_order[1] <<= 4;	// layer1 won't change next loop
-/*TODO*///					}
-/*TODO*///				}
-/*TODO*///	
-/*TODO*///				/* reverse the order now */
-/*TODO*///				order = (order << 4 ) | layer;
-/*TODO*///	
-/*TODO*///				i --;		// layer written
-/*TODO*///	
-/*TODO*///				layers_order[0] >>= 4;
-/*TODO*///				layers_order[1] >>= 4;
-/*TODO*///	
-/*TODO*///			}	// merging
-/*TODO*///	
-/*TODO*///			megasys1_layers_order[pri_code] = order & 0xfffff;	// at last!
-/*TODO*///	
-/*TODO*///		}	// pri_code
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+            public void handler(char[] palette, char[] colortable, UBytePtr prom) {
+		int pri_code, offset, i, order;
+	
+		/* First check if we have an hand-crafted priority scheme
+		   available (this should happen only if no good dump
+		   of the prom is known) */
+	
+		i = 0;
+		while (	priorities[i]!=null && 
+                        priorities[i].driver!=null &&
+				priorities[i].driver != Machine.gamedrv &&
+				priorities[i].driver != Machine.gamedrv.clone_of)
+			i++;
+	
+		if (priorities[i]!=null && priorities[i].driver != null)
+		{
+			memcpy (megasys1_layers_order, priorities[i].priorities, 16);
+	
+			logerror("WARNING: using an hand-crafted priorities schemen");
+	
+			return;
+		}
+	
+		/* Otherwise, perform the conversion from the prom itself */
+	
+		for (pri_code = 0; pri_code < 0x10 ; pri_code++)	// 16 priority codes
+		{
+			int[] layers_order = new int[2];	// 2 layers orders (split sprites on/off)
+	
+			for (offset = 0; offset < 2; offset ++)
+			{
+				int enable_mask = 0xf;	// start with every layer enabled
+	
+				layers_order[offset] = 0xfffff;
+	
+				do
+				{
+					int top = prom.read(pri_code * 0x20 + offset + enable_mask * 2) & 3;	// this must be the top layer
+					int top_mask = 1 << top;
+	
+					int	result = 0;		// result of the feasibility check for this layer
+	
+					for (i = 0; i < 0x10 ; i++)	// every combination of opaque and transparent pens
+					{
+						int opacity	=	i & enable_mask;	// only consider active layers
+						int layer	=	prom.read(pri_code * 0x20 + offset + opacity * 2);
+	
+						if (opacity != 0)
+						{
+							if ((opacity & top_mask) != 0)
+							{
+								if (layer != top )	result |= 1; 	// error: opaque pens aren't always opaque!
+							}
+							else
+							{
+								if (layer == top)	result |= 2;	// transparent pen is opaque
+								else				result |= 4;	// transparent pen is transparent
+							}
+						}
+					}
+	
+					/*	note: 3210 means that layer 0 is the bottom layer
+						(the order is reversed in the hand-crafted data) */
+	
+					layers_order[offset] = ( (layers_order[offset] << 4) | top ) & 0xfffff;
+					enable_mask &= ~top_mask;
+	
+					if ((result & 1) != 0)
+					{
+						logerror("WARNING, pri $%X split %d - layer %d's opaque pens not totally opaquen",pri_code,offset,top);
+	
+						layers_order[offset] = 0xfffff;
+						break;
+					}
+	
+					if  ((result & 6) == 6)
+					{
+						logerror("WARNING, pri $%X split %d - layer %d's transparent pens aren't always transparent nor always opaquen",pri_code,offset,top);
+	
+						layers_order[offset] = 0xfffff;
+						break;
+					}
+	
+					if (result == 2)	enable_mask = 0; // totally opaque top layer
+	
+				}	while (enable_mask != 0);
+	
+	        }	// offset
+	
+			/* merge the two layers orders */
+	
+			order = 0xfffff;
+	
+			for (i = 5; i > 0 ; )	// 5 layers to write
+			{
+				int layer;
+				int layer0 = layers_order[0] & 0x0f;
+				int layer1 = layers_order[1] & 0x0f;
+	
+				if (layer0 != 3)	// 0,1,2 or f
+				{
+					if (layer1 == 3)
+					{
+						layer = 4;
+						layers_order[0] <<= 4;	// layer1 won't change next loop
+					}
+					else
+					{
+						layer = layer0;
+						if (layer0 != layer1)
+						{
+							logerror("WARNING, pri $%X - 'sprite splitting' does not simply split spritesn",pri_code);
+	
+							order = 0xfffff;
+							break;
+						}
+	
+					}
+				}
+				else	// layer0 = 3;
+				{
+					if (layer1 == 3)
+					{
+						layer = 0x43;			// 4 must always be present
+						order <<= 4;
+						i --;					// 2 layers written at once
+					}
+					else
+					{
+						layer = 3;
+						layers_order[1] <<= 4;	// layer1 won't change next loop
+					}
+				}
+	
+				/* reverse the order now */
+				order = (order << 4 ) | layer;
+	
+				i --;		// layer written
+	
+				layers_order[0] >>= 4;
+				layers_order[1] >>= 4;
+	
+			}	// merging
+	
+			megasys1_layers_order[pri_code] = order & 0xfffff;	// at last!
+	
+		}	// pri_code
+	
+	
+	
 /*TODO*///	#if 0
 /*TODO*///		/* log the priority schemes */
 /*TODO*///		for (i = 0; i < 16; i++)
 /*TODO*///			logerror("PROM %X] %05xn", i, megasys1_layers_order[i]);
 /*TODO*///	#endif
-/*TODO*///	
-/*TODO*///	                
+
             }
         };
         
