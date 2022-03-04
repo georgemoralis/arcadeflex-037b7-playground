@@ -144,6 +144,7 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
+import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 
 public class megasys1
 {
@@ -1323,7 +1324,94 @@ public class megasys1
 /*TODO*///	/* OSC:	8,12,7 MHz */
 /*TODO*///	MEGASYS1_GAME(	edf, B,0x060000,0x07ffff,
 /*TODO*///					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	
+	
+	static MemoryReadAddress readmem_edf[] =
+	{
+		new MemoryReadAddress( 0x000000, 0x03ffff, MRA_ROM					),
+		new MemoryReadAddress( 0x080000, 0x0bffff, MRA_ROM					),
+		new MemoryReadAddress( 0x060000, 0x07ffff,	MRA_BANK1			),
+		new MemoryReadAddress( 0x044000, 0x044fff, MRA_BANK2					),
+		new MemoryReadAddress( 0x048000, 0x0487ff, paletteram_word_r			),
+		new MemoryReadAddress( 0x04e000, 0x04ffff, MRA_BANK3					),
+		new MemoryReadAddress( 0x050000, 0x053fff, megasys1_scrollram_0_r	),
+		new MemoryReadAddress( 0x054000, 0x057fff, megasys1_scrollram_1_r	),
+		new MemoryReadAddress( 0x058000, 0x05bfff, megasys1_scrollram_2_r	),
+		new MemoryReadAddress( 0x0e0000, 0x0e0001, ip_select_r				),
+		new MemoryReadAddress( -1 )
+	};
+	static MemoryWriteAddress writemem_edf[] =
+	{
+	 	new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM											),
+		new MemoryWriteAddress( 0x080000, 0x0bffff, MWA_ROM											),
+		new MemoryWriteAddress( 0x060000, 0x07ffff, MWA_BANK1,			megasys1_ram			),
+		new MemoryWriteAddress( 0x044000, 0x0443ff, megasys1_vregs_A_w,		megasys1_vregs			),
+		new MemoryWriteAddress( 0x048000, 0x0487ff, paletteram_RRRRGGGGBBBBRGBx_word_w, paletteram	),
+		new MemoryWriteAddress( 0x04e000, 0x04ffff, MWA_BANK3,				megasys1_objectram		),
+		new MemoryWriteAddress( 0x050000, 0x053fff, megasys1_scrollram_0_w ,	megasys1_scrollram_0	),
+		new MemoryWriteAddress( 0x054000, 0x057fff, megasys1_scrollram_1_w ,	megasys1_scrollram_1	),
+		new MemoryWriteAddress( 0x058000, 0x05bfff, megasys1_scrollram_2_w ,	megasys1_scrollram_2	),
+		new MemoryWriteAddress( 0x0e0000, 0x0e0001, ip_select_w										),
+		new MemoryWriteAddress( -1 )
+	};        
+
+	static YM2151interface ym2151_interface_edf = new YM2151interface
+	( 
+		1, 
+		STD_FM_CLOCK, 
+		new int[] { YM3012_VOL(80,MIXER_PAN_LEFT,80,MIXER_PAN_RIGHT) }, 
+		new WriteYmHandlerPtr[] { null } 
+	); 
+	 
+	static OKIM6295interface okim6295_interface_edf = new OKIM6295interface
+	( 
+		2, 
+		new int[] {STD_OKI_CLOCK, STD_OKI_CLOCK},
+		new int[] { REGION_SOUND1, REGION_SOUND2 }, 
+		new int[] { 30, 30 } 
+	); 
+	 
+	static MachineDriver machine_driver_edf = new MachineDriver
+	( 
+		new MachineCPU[] { 
+			new MachineCPU( 
+				CPU_M68000, 
+				12000000, 
+				readmem_edf,writemem_edf,null,null, 
+				interrupt_B,INTERRUPT_NUM_B 
+			), 
+			new MachineCPU( 
+				CPU_M68000 | CPU_AUDIO_CPU, 
+				8000000, 
+				sound_readmem_B,sound_writemem_B,null,null, 
+				sound_interrupt,SOUND_INTERRUPT_NUM
+			), 
+		}, 
+		60, DEFAULT_60HZ_VBLANK_DURATION, 
+		1, 
+		megasys1_init_machine, 
+		/* video hardware */ 
+		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ), 
+		gfxdecodeinfo_B, 
+		1024, 1024, 
+		megasys1_convert_prom, 
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE, 
+		null, 
+		megasys1_vh_start, 
+		null, 
+		megasys1_vh_screenrefresh, 
+		/* sound hardware */ 
+		0,0,0,0, 
+		new MachineSound[] { 
+			new MachineSound( 
+				SOUND_YM2151, 
+				ym2151_interface_edf 
+			),
+			new MachineSound(
+				SOUND_OKIM6295, 
+				okim6295_interface_edf 
+			) 
+		} 
+	);        
 /*TODO*///	/* OSC:	4,7,12 MHz */
 /*TODO*///	MEGASYS1_GAME(	hachoo, A,0x0f0000,0x0fffff,
 /*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
@@ -1806,11 +1894,185 @@ public class megasys1
 /*TODO*///	/* OSC:	? */
 /*TODO*///	MEGASYS1_GAME(	plusalph, A,0x0f0000,0x0fffff,
 /*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	
+	static MemoryReadAddress readmem_plusalph[] =
+	{ 
+		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
+		new MemoryReadAddress( 0x0f0000, 0x0fffff, MRA_BANK1				), 
+		new MemoryReadAddress( 0x080000, 0x080001, coins_r					), 
+		new MemoryReadAddress( 0x080002, 0x080003, player1_r					), 
+		new MemoryReadAddress( 0x080004, 0x080005, player2_r					), 
+		new MemoryReadAddress( 0x080006, 0x080007, dsw_r						), 
+		new MemoryReadAddress( 0x080008, 0x080009, soundlatch2_r				), /* from sound cpu */ 
+		new MemoryReadAddress( 0x084000, 0x084fff, MRA_BANK2					), 
+		new MemoryReadAddress( 0x088000, 0x0887ff, paletteram_word_r			), 
+		new MemoryReadAddress( 0x08e000, 0x08ffff, MRA_BANK3					), 
+		new MemoryReadAddress( 0x090000, 0x093fff, megasys1_scrollram_0_r	), 
+		new MemoryReadAddress( 0x094000, 0x097fff, megasys1_scrollram_1_r	), 
+		new MemoryReadAddress( 0x098000, 0x09bfff, megasys1_scrollram_2_r	), 
+		new MemoryReadAddress( -1 ) 
+	}; 
+	static MemoryWriteAddress writemem_plusalph[] =
+	{ 
+	 	new MemoryWriteAddress( 0x000000, 0x05ffff, MWA_ROM											), 
+		new MemoryWriteAddress( 0x0f0000, 0x0fffff, MWA_BANK1,			megasys1_ram			), 
+		new MemoryWriteAddress( 0x084000, 0x0843ff, megasys1_vregs_A_w,		megasys1_vregs			), 
+		new MemoryWriteAddress( 0x088000, 0x0887ff, paletteram_RRRRGGGGBBBBRGBx_word_w, paletteram	), 
+		new MemoryWriteAddress( 0x08e000, 0x08ffff, MWA_BANK3,				megasys1_objectram		), 
+		new MemoryWriteAddress( 0x090000, 0x093fff, megasys1_scrollram_0_w,	megasys1_scrollram_0/*,0*/	), 
+		new MemoryWriteAddress( 0x094000, 0x097fff, megasys1_scrollram_1_w,	megasys1_scrollram_1/*,0*/	), 
+		new MemoryWriteAddress( 0x098000, 0x09bfff, megasys1_scrollram_2_w,	megasys1_scrollram_2/*,0*/	), 
+		new MemoryWriteAddress( -1 ) 
+	};        
+	static YM2151interface ym2151_interface_plusalph = new YM2151interface
+	( 
+		1, 
+		STD_FM_CLOCK, 
+		new int[] { YM3012_VOL(80,MIXER_PAN_LEFT,80,MIXER_PAN_RIGHT) }, 
+		new WriteYmHandlerPtr[] { null } 
+	); 
+	 
+	static OKIM6295interface okim6295_interface_plusalph = new OKIM6295interface
+	( 
+		2, 
+		new int[] {STD_OKI_CLOCK, STD_OKI_CLOCK},
+		new int[] { REGION_SOUND1, REGION_SOUND2 }, 
+		new int[] { 30, 30 } 
+	); 
+	 
+	static MachineDriver machine_driver_plusalph = new MachineDriver
+	( 
+		new MachineCPU[] { 
+			new MachineCPU( 
+				CPU_M68000, 
+				12000000, 
+				readmem_plusalph,writemem_plusalph,null,null, 
+				interrupt_A,INTERRUPT_NUM_A 
+			), 
+			new MachineCPU( 
+				CPU_M68000 | CPU_AUDIO_CPU, 
+				7000000, 
+				sound_readmem_A,sound_writemem_A,null,null, 
+				sound_interrupt,SOUND_INTERRUPT_NUM
+			), 
+		}, 
+		60, DEFAULT_60HZ_VBLANK_DURATION, 
+		1, 
+		megasys1_init_machine, 
+		/* video hardware */ 
+		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ), 
+		gfxdecodeinfo_A, 
+		1024, 1024, 
+		megasys1_convert_prom, 
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE, 
+		null, 
+		megasys1_vh_start, 
+		null, 
+		megasys1_vh_screenrefresh, 
+		/* sound hardware */ 
+		0,0,0,0, 
+		new MachineSound[] { 
+			new MachineSound( 
+				SOUND_YM2151, 
+				ym2151_interface_plusalph 
+			),
+			new MachineSound(
+				SOUND_OKIM6295, 
+				okim6295_interface_plusalph
+			) 
+		} 
+	);        
 /*TODO*///	/* OSC:	4,12,7 MHz */
 /*TODO*///	MEGASYS1_GAME(	rodland, A,0x0f0000,0x0fffff,
 /*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	
+
+	static MemoryReadAddress readmem_rodland[] =
+	{ 
+		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
+		new MemoryReadAddress( 0x0f0000, 0x0fffff, MRA_BANK1				), 
+		new MemoryReadAddress( 0x080000, 0x080001, coins_r					), 
+		new MemoryReadAddress( 0x080002, 0x080003, player1_r					), 
+		new MemoryReadAddress( 0x080004, 0x080005, player2_r					), 
+		new MemoryReadAddress( 0x080006, 0x080007, dsw_r						), 
+		new MemoryReadAddress( 0x080008, 0x080009, soundlatch2_r				), /* from sound cpu */ 
+		new MemoryReadAddress( 0x084000, 0x084fff, MRA_BANK2					), 
+		new MemoryReadAddress( 0x088000, 0x0887ff, paletteram_word_r			), 
+		new MemoryReadAddress( 0x08e000, 0x08ffff, MRA_BANK3					), 
+		new MemoryReadAddress( 0x090000, 0x093fff, megasys1_scrollram_0_r	), 
+		new MemoryReadAddress( 0x094000, 0x097fff, megasys1_scrollram_1_r	), 
+		new MemoryReadAddress( 0x098000, 0x09bfff, megasys1_scrollram_2_r	), 
+		new MemoryReadAddress( -1 ) 
+	}; 
+	static MemoryWriteAddress writemem_rodland[] =
+	{ 
+	 	new MemoryWriteAddress( 0x000000, 0x05ffff, MWA_ROM											), 
+		new MemoryWriteAddress( 0x0f0000, 0x0fffff, MWA_BANK1,			megasys1_ram			), 
+		new MemoryWriteAddress( 0x084000, 0x0843ff, megasys1_vregs_A_w,		megasys1_vregs			), 
+		new MemoryWriteAddress( 0x088000, 0x0887ff, paletteram_RRRRGGGGBBBBRGBx_word_w, paletteram	), 
+		new MemoryWriteAddress( 0x08e000, 0x08ffff, MWA_BANK3,				megasys1_objectram		), 
+		new MemoryWriteAddress( 0x090000, 0x093fff, megasys1_scrollram_0_w,	megasys1_scrollram_0/*,0*/	), 
+		new MemoryWriteAddress( 0x094000, 0x097fff, megasys1_scrollram_1_w,	megasys1_scrollram_1/*,0*/	), 
+		new MemoryWriteAddress( 0x098000, 0x09bfff, megasys1_scrollram_2_w,	megasys1_scrollram_2/*,0*/	), 
+		new MemoryWriteAddress( -1 ) 
+	};
+        
+	static YM2151interface ym2151_interface_rodland = new YM2151interface
+	( 
+		1, 
+		STD_FM_CLOCK, 
+		new int[] { YM3012_VOL(80,MIXER_PAN_LEFT,80,MIXER_PAN_RIGHT) }, 
+		new WriteYmHandlerPtr[] { null } 
+	); 
+	 
+	static OKIM6295interface okim6295_interface_rodland = new OKIM6295interface
+	( 
+		2, 
+		new int[] {STD_OKI_CLOCK, STD_OKI_CLOCK},
+		new int[] { REGION_SOUND1, REGION_SOUND2 }, 
+		new int[] { 30, 30 } 
+	); 
+	 
+	static MachineDriver machine_driver_rodland = new MachineDriver
+	( 
+		new MachineCPU[] { 
+			new MachineCPU( 
+				CPU_M68000, 
+				12000000, 
+				readmem_rodland,writemem_rodland,null,null, 
+				interrupt_A,INTERRUPT_NUM_A 
+			), 
+			new MachineCPU( 
+				CPU_M68000 | CPU_AUDIO_CPU, 
+				7000000, 
+				sound_readmem_A,sound_writemem_A,null,null, 
+				sound_interrupt,SOUND_INTERRUPT_NUM
+			), 
+		}, 
+		60, DEFAULT_60HZ_VBLANK_DURATION, 
+		1, 
+		megasys1_init_machine, 
+		/* video hardware */ 
+		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ), 
+		gfxdecodeinfo_A, 
+		1024, 1024, 
+		megasys1_convert_prom, 
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE, 
+		null, 
+		megasys1_vh_start, 
+		null, 
+		megasys1_vh_screenrefresh, 
+		/* sound hardware */ 
+		0,0,0,0, 
+		new MachineSound[] { 
+			new MachineSound( 
+				SOUND_YM2151, 
+				ym2151_interface_rodland
+			),
+			new MachineSound(
+				SOUND_OKIM6295, 
+				okim6295_interface_rodland
+			) 
+		} 
+	);	
         
         
 /*TODO*///	/* OSC:	? */
@@ -1915,7 +2177,95 @@ public class megasys1
 /*TODO*///	/* OSC:	? */
 /*TODO*///	MEGASYS1_GAME(	soldamj, A,0x0f0000,0x0fffff,
 /*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	
+        
+	static MemoryReadAddress readmem_soldamj[] =
+	{ 
+		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
+		new MemoryReadAddress( 0x0f0000, 0x0fffff, MRA_BANK1				), 
+		new MemoryReadAddress( 0x080000, 0x080001, coins_r					), 
+		new MemoryReadAddress( 0x080002, 0x080003, player1_r					), 
+		new MemoryReadAddress( 0x080004, 0x080005, player2_r					), 
+		new MemoryReadAddress( 0x080006, 0x080007, dsw_r						), 
+		new MemoryReadAddress( 0x080008, 0x080009, soundlatch2_r				), /* from sound cpu */ 
+		new MemoryReadAddress( 0x084000, 0x084fff, MRA_BANK2					), 
+		new MemoryReadAddress( 0x088000, 0x0887ff, paletteram_word_r			), 
+		new MemoryReadAddress( 0x08e000, 0x08ffff, MRA_BANK3					), 
+		new MemoryReadAddress( 0x090000, 0x093fff, megasys1_scrollram_0_r	), 
+		new MemoryReadAddress( 0x094000, 0x097fff, megasys1_scrollram_1_r	), 
+		new MemoryReadAddress( 0x098000, 0x09bfff, megasys1_scrollram_2_r	), 
+		new MemoryReadAddress( -1 ) 
+	}; 
+	static MemoryWriteAddress writemem_soldamj[] =
+	{ 
+	 	new MemoryWriteAddress( 0x000000, 0x05ffff, MWA_ROM											), 
+		new MemoryWriteAddress( 0x0f0000, 0x0fffff, MWA_BANK1,			megasys1_ram			), 
+		new MemoryWriteAddress( 0x084000, 0x0843ff, megasys1_vregs_A_w,		megasys1_vregs			), 
+		new MemoryWriteAddress( 0x088000, 0x0887ff, paletteram_RRRRGGGGBBBBRGBx_word_w, paletteram	), 
+		new MemoryWriteAddress( 0x08e000, 0x08ffff, MWA_BANK3,				megasys1_objectram		), 
+		new MemoryWriteAddress( 0x090000, 0x093fff, megasys1_scrollram_0_w,	megasys1_scrollram_0/*,0*/	), 
+		new MemoryWriteAddress( 0x094000, 0x097fff, megasys1_scrollram_1_w,	megasys1_scrollram_1/*,0*/	), 
+		new MemoryWriteAddress( 0x098000, 0x09bfff, megasys1_scrollram_2_w,	megasys1_scrollram_2/*,0*/	), 
+		new MemoryWriteAddress( -1 ) 
+	};
+        
+	static YM2151interface ym2151_interface_soldamj = new YM2151interface
+	( 
+		1, 
+		STD_FM_CLOCK, 
+		new int[] { YM3012_VOL(80,MIXER_PAN_LEFT,80,MIXER_PAN_RIGHT) }, 
+		new WriteYmHandlerPtr[] { null } 
+	); 
+	 
+	static OKIM6295interface okim6295_interface_soldamj = new OKIM6295interface
+	( 
+		2, 
+		new int[] {STD_OKI_CLOCK, STD_OKI_CLOCK},
+		new int[] { REGION_SOUND1, REGION_SOUND2 }, 
+		new int[] { 30, 30 } 
+	); 
+	 
+	static MachineDriver machine_driver_soldamj = new MachineDriver
+	( 
+		new MachineCPU[] { 
+			new MachineCPU( 
+				CPU_M68000, 
+				12000000, 
+				readmem_soldamj,writemem_soldamj,null,null, 
+				interrupt_A,INTERRUPT_NUM_A 
+			), 
+			new MachineCPU( 
+				CPU_M68000 | CPU_AUDIO_CPU, 
+				7000000, 
+				sound_readmem_A,sound_writemem_A,null,null, 
+				sound_interrupt,SOUND_INTERRUPT_NUM
+			), 
+		}, 
+		60, DEFAULT_60HZ_VBLANK_DURATION, 
+		1, 
+		megasys1_init_machine, 
+		/* video hardware */ 
+		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ), 
+		gfxdecodeinfo_A, 
+		1024, 1024, 
+		megasys1_convert_prom, 
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE, 
+		null, 
+		megasys1_vh_start, 
+		null, 
+		megasys1_vh_screenrefresh, 
+		/* sound hardware */ 
+		0,0,0,0, 
+		new MachineSound[] { 
+			new MachineSound( 
+				SOUND_YM2151, 
+				ym2151_interface_soldamj 
+			),
+			new MachineSound(
+				SOUND_OKIM6295, 
+				okim6295_interface_soldamj
+			) 
+		} 
+	);
 /*TODO*///	
 /*TODO*///	/* OSC:	? */
 /*TODO*///	MEGASYS1_GAME(	tshingen, A, 0x0f0000, 0x0fffff,
@@ -2806,108 +3156,108 @@ public class megasys1
 /*TODO*///		ip_select_values[3] = 0x54;
 /*TODO*///		ip_select_values[4] = 0x55;
 /*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///							 [ Earth Defense Force ]
-/*TODO*///	
-/*TODO*///	interrupts:	2,3]	543C>	move.w  $e0000.l,	$60da6.l
-/*TODO*///								move.w  #$ffff,		$60da8.l
-/*TODO*///				4,5,6]	5928 +	move.w	#$ffff,		$60010.l
-/*TODO*///	
-/*TODO*///	89e			(a7)+ . 44000.w & 6000e.w
-/*TODO*///	8cc			(a7)+ . 44204.w ; 4420c.w ; 4400c.w
-/*TODO*///	fc0			(a7)+ . 58000 (string)
-/*TODO*///	
-/*TODO*///	616f4.w		*** lives ***
-/*TODO*///	60d8a.w		*** level(1..) ***
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_edf = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0xc0000, REGION_CPU1 );	/* Main CPU Code: 00000-3ffff & 80000-bffff */
-/*TODO*///		ROM_LOAD_EVEN( "edf_05.rom",  0x000000, 0x020000, 0x105094d1 );
-/*TODO*///		ROM_CONTINUE (                0x080000 & ~1, 0x020000 | ROMFLAG_ALTERNATE );
-/*TODO*///		ROM_LOAD_ODD(  "edf_06.rom",  0x000000, 0x020000, 0x94da2f0c );
-/*TODO*///		ROM_CONTINUE (                0x080000 | 1, 0x020000 | ROMFLAG_ALTERNATE );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x40000, REGION_CPU2 );	/* Sound CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "edf_01.rom",  0x000000, 0x020000, 0x2290ea19 );
-/*TODO*///		ROM_LOAD_ODD(  "edf_02.rom",  0x000000, 0x020000, 0xce93643e );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
-/*TODO*///		ROM_LOAD( "edf_m04.rom",  0x000000, 0x080000, 0x6744f406 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
-/*TODO*///		ROM_LOAD( "edf_m05.rom",  0x000000, 0x080000, 0x6f47e456 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
-/*TODO*///		ROM_LOAD( "edf_09.rom",   0x000000, 0x020000, 0x96e38983 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
-/*TODO*///		ROM_LOAD( "edf_m03.rom",  0x000000, 0x080000, 0xef469449 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
-/*TODO*///		ROM_LOAD( "edf_m02.rom",  0x000000, 0x040000, 0xfc4281d2 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
-/*TODO*///		ROM_LOAD( "edf_m01.rom",  0x000000, 0x040000, 0x9149286b );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
-/*TODO*///		ROM_LOAD( "prom.14m",    0x0000, 0x0200, 0x1d877538 );
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static InputPortPtr input_ports_edf = new InputPortPtr(){ public void handler() { 
-/*TODO*///		COINS
-/*TODO*///	//	fire	unfold_weapons
-/*TODO*///		JOY_2BUTTONS(IPF_PLAYER1)
-/*TODO*///		RESERVE
-/*TODO*///		JOY_2BUTTONS(IPF_PLAYER2)
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN4 */
-/*TODO*///		COINAGE_6BITS
-/*TODO*///		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Demo_Sounds") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "On") );
-/*TODO*///		PORT_SERVICE( 0x80, IP_ACTIVE_LOW );
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN5 0x66007.b */
-/*TODO*///		PORT_DIPNAME( 0x07, 0x07, "DSW-B bits 2-0" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "0" );
-/*TODO*///		PORT_DIPSETTING(    0x01, "1" );
-/*TODO*///		PORT_DIPSETTING(    0x02, "2" );
-/*TODO*///		PORT_DIPSETTING(    0x03, "3" );
-/*TODO*///		PORT_DIPSETTING(    0x04, "4" );
-/*TODO*///		PORT_DIPSETTING(    0x05, "5" );
-/*TODO*///		PORT_DIPSETTING(    0x06, "6" );
-/*TODO*///		PORT_DIPSETTING(    0x07, "7" );
-/*TODO*///		PORT_DIPNAME( 0x08, 0x08, DEF_STR( "Lives") );
-/*TODO*///		PORT_DIPSETTING(    0x08, "3" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "4" );
-/*TODO*///		PORT_DIPNAME( 0x30, 0x30, DEF_STR( "Difficulty") );
-/*TODO*///		PORT_DIPSETTING(    0x00, "0" );
-/*TODO*///		PORT_DIPSETTING(    0x30, "1" );
-/*TODO*///		PORT_DIPSETTING(    0x10, "2" );
-/*TODO*///		PORT_DIPSETTING(    0x20, "3" );
-/*TODO*///		PORT_DIPNAME( 0x40, 0x40, "DSW-B bit 6" );
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );
-/*TODO*///		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///	
-/*TODO*///	INPUT_PORTS_END(); }}; 
-/*TODO*///	
-/*TODO*///	static public static InitDriverPtr init_edf = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		ip_select_values[0] = 0x20;
-/*TODO*///		ip_select_values[1] = 0x21;
-/*TODO*///		ip_select_values[2] = 0x22;
-/*TODO*///		ip_select_values[3] = 0x23;
-/*TODO*///		ip_select_values[4] = 0x24;
-/*TODO*///	} };
+	
+	
+	
+	/***************************************************************************
+	
+							 [ Earth Defense Force ]
+	
+	interrupts:	2,3]	543C>	move.w  $e0000.l,	$60da6.l
+								move.w  #$ffff,		$60da8.l
+				4,5,6]	5928 +	move.w	#$ffff,		$60010.l
+	
+	89e			(a7)+ . 44000.w & 6000e.w
+	8cc			(a7)+ . 44204.w ; 4420c.w ; 4400c.w
+	fc0			(a7)+ . 58000 (string)
+	
+	616f4.w		*** lives ***
+	60d8a.w		*** level(1..) ***
+	
+	***************************************************************************/
+	
+	static RomLoadPtr rom_edf = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0xc0000, REGION_CPU1 );	/* Main CPU Code: 00000-3ffff & 80000-bffff */
+		ROM_LOAD_EVEN( "edf_05.rom",  0x000000, 0x020000, 0x105094d1 );
+		ROM_CONTINUE (                0x080000 & ~1, 0x020000 | ROMFLAG_ALTERNATE );
+		ROM_LOAD_ODD(  "edf_06.rom",  0x000000, 0x020000, 0x94da2f0c );
+		ROM_CONTINUE (                0x080000 | 1, 0x020000 | ROMFLAG_ALTERNATE );
+	
+		ROM_REGION( 0x40000, REGION_CPU2 );	/* Sound CPU Code */
+		ROM_LOAD_EVEN( "edf_01.rom",  0x000000, 0x020000, 0x2290ea19 );
+		ROM_LOAD_ODD(  "edf_02.rom",  0x000000, 0x020000, 0xce93643e );
+	
+		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
+		ROM_LOAD( "edf_m04.rom",  0x000000, 0x080000, 0x6744f406 );
+	
+		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
+		ROM_LOAD( "edf_m05.rom",  0x000000, 0x080000, 0x6f47e456 );
+	
+		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
+		ROM_LOAD( "edf_09.rom",   0x000000, 0x020000, 0x96e38983 );
+	
+		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
+		ROM_LOAD( "edf_m03.rom",  0x000000, 0x080000, 0xef469449 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
+		ROM_LOAD( "edf_m02.rom",  0x000000, 0x040000, 0xfc4281d2 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
+		ROM_LOAD( "edf_m01.rom",  0x000000, 0x040000, 0x9149286b );
+	
+		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
+		ROM_LOAD( "prom.14m",    0x0000, 0x0200, 0x1d877538 );
+	ROM_END(); }}; 
+	
+	static InputPortPtr input_ports_edf = new InputPortPtr(){ public void handler() { 
+		COINS();
+	//	fire	unfold_weapons
+		JOY_2BUTTONS(IPF_PLAYER1);
+		RESERVE();
+		JOY_2BUTTONS(IPF_PLAYER2);
+	
+		PORT_START(); 			/* IN4 */
+		COINAGE_6BITS();
+		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Demo_Sounds") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x40, DEF_STR( "On") );
+		PORT_SERVICE( 0x80, IP_ACTIVE_LOW );
+	
+		PORT_START(); 			/* IN5 0x66007.b */
+		PORT_DIPNAME( 0x07, 0x07, "DSW-B bits 2-0" );
+		PORT_DIPSETTING(    0x00, "0" );
+		PORT_DIPSETTING(    0x01, "1" );
+		PORT_DIPSETTING(    0x02, "2" );
+		PORT_DIPSETTING(    0x03, "3" );
+		PORT_DIPSETTING(    0x04, "4" );
+		PORT_DIPSETTING(    0x05, "5" );
+		PORT_DIPSETTING(    0x06, "6" );
+		PORT_DIPSETTING(    0x07, "7" );
+		PORT_DIPNAME( 0x08, 0x08, DEF_STR( "Lives") );
+		PORT_DIPSETTING(    0x08, "3" );
+		PORT_DIPSETTING(    0x00, "4" );
+		PORT_DIPNAME( 0x30, 0x30, DEF_STR( "Difficulty") );
+		PORT_DIPSETTING(    0x00, "0" );
+		PORT_DIPSETTING(    0x30, "1" );
+		PORT_DIPSETTING(    0x10, "2" );
+		PORT_DIPSETTING(    0x20, "3" );
+		PORT_DIPNAME( 0x40, 0x40, "DSW-B bit 6" );
+		PORT_DIPSETTING(    0x40, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );
+		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+	
+	INPUT_PORTS_END(); }}; 
+	
+	public static InitDriverPtr init_edf = new InitDriverPtr() { public void handler() 
+	{
+		ip_select_values[0] = 0x20;
+		ip_select_values[1] = 0x21;
+		ip_select_values[2] = 0x22;
+		ip_select_values[3] = 0x23;
+		ip_select_values[4] = 0x24;
+	} };
 	
 	
 	
@@ -3754,328 +4104,328 @@ public class megasys1
 /*TODO*///	
 /*TODO*///		cpu_cause_interrupt(0,4);
 /*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///								[ Plus Alpha ]
-/*TODO*///							  (aka Flight Alpha)
-/*TODO*///	
-/*TODO*///	f2ef8.w		bombs
-/*TODO*///	f309e.w		*** lives       ***
-/*TODO*///	f30a4.l		*** score (BCD) ***
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_plusalph = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x60000, REGION_CPU1 );	/* Main CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "pa-rom2.bin", 0x000000, 0x020000, 0x33244799 );
-/*TODO*///		ROM_LOAD_ODD(  "pa-rom1.bin", 0x000000, 0x020000, 0xa32fdcae );
-/*TODO*///		ROM_LOAD_EVEN( "pa-rom3.bin", 0x040000, 0x010000, 0x1b739835 );
-/*TODO*///		ROM_LOAD_ODD(  "pa-rom4.bin", 0x040000, 0x010000, 0xff760e80 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x20000, REGION_CPU2 );	/* Sound CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "pa-rom5.bin", 0x000000, 0x010000, 0xddc2739b );
-/*TODO*///		ROM_LOAD_ODD(  "pa-rom6.bin", 0x000000, 0x010000, 0xf6f8a167 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
-/*TODO*///		ROM_LOAD( "pa-rom11.bin", 0x000000, 0x020000, 0xeb709ae7 );
-/*TODO*///		ROM_LOAD( "pa-rom12.bin", 0x020000, 0x020000, 0xcacbc350 );
-/*TODO*///		ROM_LOAD( "pa-rom13.bin", 0x040000, 0x020000, 0xfad093dd );
-/*TODO*///		ROM_LOAD( "pa-rom14.bin", 0x060000, 0x020000, 0xd3676cd1 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
-/*TODO*///		ROM_LOAD( "pa-rom15.bin", 0x000000, 0x020000, 0x8787735b );
-/*TODO*///		ROM_LOAD( "pa-rom16.bin", 0x020000, 0x020000, 0xa06b813b );
-/*TODO*///		ROM_LOAD( "pa-rom17.bin", 0x040000, 0x020000, 0xc6b38a4b );
-/*TODO*///		/* empty place */
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
-/*TODO*///		ROM_LOAD( "pa-rom19.bin", 0x000000, 0x010000, 0x39ef193c );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
-/*TODO*///		ROM_LOAD( "pa-rom20.bin", 0x000000, 0x020000, 0x86c557a8 );
-/*TODO*///		ROM_LOAD( "pa-rom21.bin", 0x020000, 0x020000, 0x81140a88 );
-/*TODO*///		ROM_LOAD( "pa-rom22.bin", 0x040000, 0x020000, 0x97e39886 );
-/*TODO*///		ROM_LOAD( "pa-rom23.bin", 0x060000, 0x020000, 0x0383fb65 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
-/*TODO*///		ROM_LOAD( "pa-rom9.bin",  0x000000, 0x020000, 0x065364bd );
-/*TODO*///		ROM_LOAD( "pa-rom10.bin", 0x020000, 0x020000, 0x395df3b2 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
-/*TODO*///		ROM_LOAD( "pa-rom7.bin",  0x000000, 0x020000, 0x9f5d800e );
-/*TODO*///		ROM_LOAD( "pa-rom8.bin",  0x020000, 0x020000, 0xae007750 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
-/*TODO*///		ROM_LOAD( "prom.14m",     0x0000, 0x0200, 0x1d877538 );
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static InputPortPtr input_ports_plusalph = new InputPortPtr(){ public void handler() { 
-/*TODO*///		COINS						/* IN0 0x80001.b */
-/*TODO*///	//	fire	bomb
-/*TODO*///		JOY_2BUTTONS(IPF_PLAYER1)	/* IN1 0x80003.b */
-/*TODO*///		RESERVE						/* IN2 0x80004.b */
-/*TODO*///		JOY_2BUTTONS(IPF_PLAYER2)	/* IN3 0x80005.b */
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN4 0x80006.b */
-/*TODO*///		COINAGE_6BITS
-/*TODO*///		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Demo_Sounds") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "On") );
-/*TODO*///		PORT_BITX(    0x80, 0x80, IPT_DIPSWITCH_NAME | IPF_CHEAT, "Freeze Screen", IP_KEY_NONE, IP_JOY_NONE );
-/*TODO*///		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN5 0x80007.b */
-/*TODO*///		PORT_DIPNAME( 0x03, 0x03, DEF_STR( "Lives") );
-/*TODO*///		PORT_DIPSETTING(    0x03, "3" );
-/*TODO*///		PORT_DIPSETTING(    0x02, "4" );
-/*TODO*///		PORT_DIPSETTING(    0x01, "5" );
-/*TODO*///		PORT_BITX( 0,       0x00, IPT_DIPSWITCH_SETTING | IPF_CHEAT, "Inifinite", IP_KEY_NONE, IP_JOY_NONE );
-/*TODO*///		PORT_DIPNAME( 0x04, 0x04, "Bombs" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "2" );
-/*TODO*///		PORT_DIPSETTING(    0x04, "3" );
-/*TODO*///		PORT_DIPNAME( 0x08, 0x08, DEF_STR( "Bonus_Life") );
-/*TODO*///		PORT_DIPSETTING(    0x08, "70k and every 130k");
-/*TODO*///		PORT_DIPSETTING(    0x00, "100k and every 200k");
-/*TODO*///		PORT_DIPNAME( 0x30, 0x30, "?Difficulty?" );
-/*TODO*///		PORT_DIPSETTING(    0x30, "3" );// 1
-/*TODO*///		PORT_DIPSETTING(    0x20, "2" );// 3
-/*TODO*///		PORT_DIPSETTING(    0x10, "1" );// 2
-/*TODO*///		PORT_DIPSETTING(    0x00, "0" );// 0
-/*TODO*///		PORT_DIPNAME( 0x40, 0x00, DEF_STR( "Cabinet") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "Upright") );
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "Cocktail") );
-/*TODO*///		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );
-/*TODO*///		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///	
-/*TODO*///	INPUT_PORTS_END(); }}; 
-/*TODO*///	
-/*TODO*///	static public static InitDriverPtr init_plusalph = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		UBytePtr RAM;
-/*TODO*///	
-/*TODO*///		astyanax_rom_decode(0);
-/*TODO*///	
-/*TODO*///		RAM  = memory_region(REGION_CPU1);
-/*TODO*///		WRITE_WORD(&RAM[0x0012b6],0x0000);	// protection
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///								[ RodLand ]
-/*TODO*///	
-/*TODO*///	(World version)
-/*TODO*///	interrupts:	1] 418.3864: rts	2] 420: move.w #-1,f0010; jsr 3866	3] rte
-/*TODO*///	
-/*TODO*///	213da	print test error (20c12 = string address 0-4)
-/*TODO*///	
-/*TODO*///	f0018.84200	f0020.84208	f0028.84008
-/*TODO*///	f001c.84202	f0024.8420a	f002c.8400a
-/*TODO*///	f0012.84204	f0014.8420c	f0016.8400c
-/*TODO*///	
-/*TODO*///	7fe		d0.w . 84000.w & f000e.w
-/*TODO*///	81a		d0/d1/d2 & $D . 84204 / 8420c /8400c
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_rodland = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x60000, REGION_CPU1 );	/* Main CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "rl_02.rom", 0x000000, 0x020000, 0xc7e00593 );
-/*TODO*///		ROM_LOAD_ODD(  "rl_01.rom", 0x000000, 0x020000, 0x2e748ca1 );
-/*TODO*///		ROM_LOAD_EVEN( "rl_03.rom", 0x040000, 0x010000, 0x62fdf6d7 );
-/*TODO*///		ROM_LOAD_ODD(  "rl_04.rom", 0x040000, 0x010000, 0x44163c86 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x20000, REGION_CPU2 );	/* Sound CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "rl_05.rom", 0x000000, 0x010000, 0xc1617c28 );
-/*TODO*///		ROM_LOAD_ODD(  "rl_06.rom", 0x000000, 0x010000, 0x663392b2 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
-/*TODO*///		ROM_LOAD( "rl_23.rom", 0x000000, 0x020000, 0xac60e771 );
-/*TODO*///		ROM_CONTINUE(          0x030000, 0x010000             );
-/*TODO*///		ROM_CONTINUE(          0x050000, 0x010000             );
-/*TODO*///		ROM_CONTINUE(          0x020000, 0x010000             );
-/*TODO*///		ROM_CONTINUE(          0x040000, 0x010000             );
-/*TODO*///		ROM_CONTINUE(          0x060000, 0x020000             );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
-/*TODO*///		ROM_LOAD( "rl_18.rom", 0x000000, 0x080000, 0xf3b30ca6 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
-/*TODO*///		ROM_LOAD( "rl_19.rom", 0x000000, 0x020000, 0x1b718e2a );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
-/*TODO*///		ROM_LOAD( "rl_14.rom", 0x000000, 0x080000, 0x08d01bf4 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
-/*TODO*///		ROM_LOAD( "rl_10.rom", 0x000000, 0x040000, 0xe1d1cd99 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
-/*TODO*///		ROM_LOAD( "rl_08.rom", 0x000000, 0x040000, 0x8a49d3a7 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
-/*TODO*///		ROM_LOAD( "rl.bin",    0x0000, 0x0200, 0x8914e72d );
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_rodlandj = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x60000, REGION_CPU1 );	/* Main CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "rl19.bin", 0x000000, 0x010000, 0x028de21f );
-/*TODO*///		ROM_LOAD_ODD(  "rl17.bin", 0x000000, 0x010000, 0x9c720046 );
-/*TODO*///		ROM_LOAD_EVEN( "rl20.bin", 0x020000, 0x010000, 0x3f536d07 );
-/*TODO*///		ROM_LOAD_ODD(  "rl18.bin", 0x020000, 0x010000, 0x5aa61717 );
-/*TODO*///		ROM_LOAD_EVEN( "rl12.bin", 0x040000, 0x010000, 0xc5b1075f );// ~ rl_03.rom
-/*TODO*///		ROM_LOAD_ODD(  "rl11.bin", 0x040000, 0x010000, 0x9ec61048 );// ~ rl_04.rom
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x20000, REGION_CPU2 );	/* Sound CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "rl02.bin", 0x000000, 0x010000, 0xd26eae8f );
-/*TODO*///		ROM_LOAD_ODD(  "rl01.bin", 0x000000, 0x010000, 0x04cf24bc );
-/*TODO*///	
-/*TODO*///		// bg RL_23 = 27, 28, 29b, 29a, 31a?, 30?, ?, 31b?
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
-/*TODO*///		ROM_LOAD( "rl27.bin",  0x000000, 0x010000, 0x673a5986 );
-/*TODO*///		ROM_LOAD( "rl28.bin",  0x010000, 0x010000, 0x523a731d );
-/*TODO*///		ROM_LOAD( "rl26.bin",  0x020000, 0x010000, 0x4d0a5c97 );
-/*TODO*///		ROM_LOAD( "rl29a.bin", 0x030000, 0x010000, 0x9fd628f1 );
-/*TODO*///		ROM_LOAD( "rl29b.bin", 0x040000, 0x010000, 0x2279cb76 );
-/*TODO*///		ROM_LOAD( "rl30.bin",  0x050000, 0x010000, 0xb155f39e );
-/*TODO*///		ROM_LOAD( "rl31a.bin", 0x060000, 0x010000, 0xa9bc5b84 );
-/*TODO*///		ROM_LOAD( "rl31b.bin", 0x070000, 0x010000, 0xfb2faa69 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
-/*TODO*///		ROM_LOAD( "rl21.bin",  0x000000, 0x010000, 0x32fc0bc6 );// bg = RL_18
-/*TODO*///		ROM_LOAD( "rl22.bin",  0x010000, 0x010000, 0x0969daa9 );
-/*TODO*///		ROM_LOAD( "rl13.bin",  0x020000, 0x010000, 0x1203cdf6 );
-/*TODO*///		ROM_LOAD( "rl14.bin",  0x030000, 0x010000, 0xd53e094b );
-/*TODO*///		ROM_LOAD( "rl24.bin",  0x040000, 0x010000, 0xb04343e6 );
-/*TODO*///		ROM_LOAD( "rl23.bin",  0x050000, 0x010000, 0x70aa7e2c );
-/*TODO*///		ROM_LOAD( "rl15.bin",  0x060000, 0x010000, 0x38ac846e );
-/*TODO*///		ROM_LOAD( "rl16.bin",  0x070000, 0x010000, 0x5e31f0b2 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
-/*TODO*///		ROM_LOAD( "rl25.bin",  0x000000, 0x010000, 0x4ca57cb6 );// txt = RL_19
-/*TODO*///		// Filled with pen 15 at startup
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
-/*TODO*///		ROM_LOAD( "rl04.bin",  0x000000, 0x010000, 0xcfcf9f97 );// sprites = RL_14
-/*TODO*///		ROM_LOAD( "rl05.bin",  0x010000, 0x010000, 0x38c05d15 );
-/*TODO*///		ROM_LOAD( "rl07.bin",  0x020000, 0x010000, 0xe117cb72 );
-/*TODO*///		ROM_LOAD( "rl08.bin",  0x030000, 0x010000, 0x2f9b40c3 );
-/*TODO*///		ROM_LOAD( "rl03.bin",  0x040000, 0x010000, 0xf6a88efd );
-/*TODO*///		ROM_LOAD( "rl06.bin",  0x050000, 0x010000, 0x90a78af1 );
-/*TODO*///		ROM_LOAD( "rl09.bin",  0x060000, 0x010000, 0x427a0908 );
-/*TODO*///		ROM_LOAD( "rl10.bin",  0x070000, 0x010000, 0x53cc2c11 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
-/*TODO*///		ROM_LOAD( "rl_10.rom", 0x000000, 0x040000, 0xe1d1cd99 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
-/*TODO*///		ROM_LOAD( "rl_08.rom", 0x000000, 0x040000, 0x8a49d3a7 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
-/*TODO*///		ROM_LOAD( "rl.bin",    0x0000, 0x0200, 0x8914e72d );
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static InputPortPtr input_ports_rodland = new InputPortPtr(){ public void handler() { 
-/*TODO*///	
-/*TODO*///		COINS						/* IN0 0x80001.b */
-/*TODO*///	//	fire	ladder
-/*TODO*///		JOY_2BUTTONS(IPF_PLAYER1)	/* IN1 0x80003.b */
-/*TODO*///		RESERVE						/* IN2 0x80004.b */
-/*TODO*///		JOY_2BUTTONS(IPF_PLAYER2)	/* IN3 0x80005.b */
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN4 0x80006.b */
-/*TODO*///		COINAGE_6BITS
-/*TODO*///		PORT_DIPNAME( 0x40, 0x00, DEF_STR( "Demo_Sounds") );
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///		PORT_SERVICE( 0x80, IP_ACTIVE_LOW );
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN5 0x80007.b */
-/*TODO*///		PORT_DIPNAME( 0x01, 0x01, DEF_STR( "Unknown") ); /* according to manual */
-/*TODO*///		PORT_DIPSETTING(    0x01, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///		PORT_DIPNAME( 0x02, 0x02, DEF_STR( "Unknown") ); /* according to manual */
-/*TODO*///		PORT_DIPSETTING(    0x02, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///		PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( "Lives") );
-/*TODO*///		PORT_DIPSETTING(    0x04, "2" );
-/*TODO*///		PORT_DIPSETTING(    0x0c, "3" );
-/*TODO*///		PORT_DIPSETTING(    0x08, "4" );
-/*TODO*///		PORT_BITX( 0,       0x00, IPT_DIPSWITCH_SETTING | IPF_CHEAT, "Inifinite", IP_KEY_NONE, IP_JOY_NONE );
-/*TODO*///		PORT_DIPNAME( 0x10, 0x10, "Default episode" );
-/*TODO*///		PORT_DIPSETTING(    0x10, "1" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "2" );
-/*TODO*///		PORT_DIPNAME( 0x60, 0x60, DEF_STR( "Difficulty") );
-/*TODO*///		PORT_DIPSETTING(    0x20, "Easy?" );
-/*TODO*///		PORT_DIPSETTING(    0x60, "Normal" );
-/*TODO*///		PORT_DIPSETTING(    0x40, "Hard?" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "Hardest?" );
-/*TODO*///		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );
-/*TODO*///		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///	
-/*TODO*///	INPUT_PORTS_END(); }}; 
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	void rodland_rom_decode(int cpu)
-/*TODO*///	{
-/*TODO*///		UBytePtr RAM	=	memory_region(REGION_CPU1+cpu);
-/*TODO*///		int i,			size	=	memory_region_length(REGION_CPU1+cpu);
-/*TODO*///		if (size > 0x40000)	size = 0x40000;
-/*TODO*///	
-/*TODO*///		for (i = 0 ; i < size ; i+=2)
-/*TODO*///		{
-/*TODO*///			int x,y;
-/*TODO*///	
-/*TODO*///			x = READ_WORD(&RAM[i]);
-/*TODO*///	
-/*TODO*///	// [0] d0a9 6ebf 5c72 3814	[1] 4567 0123 ba98 fedc
-/*TODO*///	// [2] fdb9 ce07 5318 a246	[3] 4512 ed3b a967 08fc
-/*TODO*///	#define BITSWAP_0	BITSWAP(x,0xd,0x0,0xa,0x9,0x6,0xe,0xb,0xf,0x5,0xc,0x7,0x2,0x3,0x8,0x1,0x4);
-/*TODO*///	#define BITSWAP_1	BITSWAP(x,0x4,0x5,0x6,0x7,0x0,0x1,0x2,0x3,0xb,0xa,0x9,0x8,0xf,0xe,0xd,0xc);
-/*TODO*///	#define	BITSWAP_2	BITSWAP(x,0xf,0xd,0xb,0x9,0xc,0xe,0x0,0x7,0x5,0x3,0x1,0x8,0xa,0x2,0x4,0x6);
-/*TODO*///	#define	BITSWAP_3	BITSWAP(x,0x4,0x5,0x1,0x2,0xe,0xd,0x3,0xb,0xa,0x9,0x6,0x7,0x0,0x8,0xf,0xc);
-/*TODO*///	
-/*TODO*///			if		(i < 0x08000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
-/*TODO*///			else if	(i < 0x10000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_2;} else {y = BITSWAP_3;} }
-/*TODO*///			else if	(i < 0x18000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
-/*TODO*///			else if	(i < 0x20000)	{ y = BITSWAP_1; }
-/*TODO*///			else 					{ y = BITSWAP_3; }
-/*TODO*///	
+	
+	
+	/***************************************************************************
+	
+								[ Plus Alpha ]
+							  (aka Flight Alpha)
+	
+	f2ef8.w		bombs
+	f309e.w		*** lives       ***
+	f30a4.l		*** score (BCD) ***
+	
+	***************************************************************************/
+	
+	static RomLoadPtr rom_plusalph = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x60000, REGION_CPU1 );	/* Main CPU Code */
+		ROM_LOAD_EVEN( "pa-rom2.bin", 0x000000, 0x020000, 0x33244799 );
+		ROM_LOAD_ODD(  "pa-rom1.bin", 0x000000, 0x020000, 0xa32fdcae );
+		ROM_LOAD_EVEN( "pa-rom3.bin", 0x040000, 0x010000, 0x1b739835 );
+		ROM_LOAD_ODD(  "pa-rom4.bin", 0x040000, 0x010000, 0xff760e80 );
+	
+		ROM_REGION( 0x20000, REGION_CPU2 );	/* Sound CPU Code */
+		ROM_LOAD_EVEN( "pa-rom5.bin", 0x000000, 0x010000, 0xddc2739b );
+		ROM_LOAD_ODD(  "pa-rom6.bin", 0x000000, 0x010000, 0xf6f8a167 );
+	
+		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
+		ROM_LOAD( "pa-rom11.bin", 0x000000, 0x020000, 0xeb709ae7 );
+		ROM_LOAD( "pa-rom12.bin", 0x020000, 0x020000, 0xcacbc350 );
+		ROM_LOAD( "pa-rom13.bin", 0x040000, 0x020000, 0xfad093dd );
+		ROM_LOAD( "pa-rom14.bin", 0x060000, 0x020000, 0xd3676cd1 );
+	
+		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
+		ROM_LOAD( "pa-rom15.bin", 0x000000, 0x020000, 0x8787735b );
+		ROM_LOAD( "pa-rom16.bin", 0x020000, 0x020000, 0xa06b813b );
+		ROM_LOAD( "pa-rom17.bin", 0x040000, 0x020000, 0xc6b38a4b );
+		/* empty place */
+	
+		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
+		ROM_LOAD( "pa-rom19.bin", 0x000000, 0x010000, 0x39ef193c );
+	
+		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
+		ROM_LOAD( "pa-rom20.bin", 0x000000, 0x020000, 0x86c557a8 );
+		ROM_LOAD( "pa-rom21.bin", 0x020000, 0x020000, 0x81140a88 );
+		ROM_LOAD( "pa-rom22.bin", 0x040000, 0x020000, 0x97e39886 );
+		ROM_LOAD( "pa-rom23.bin", 0x060000, 0x020000, 0x0383fb65 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
+		ROM_LOAD( "pa-rom9.bin",  0x000000, 0x020000, 0x065364bd );
+		ROM_LOAD( "pa-rom10.bin", 0x020000, 0x020000, 0x395df3b2 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
+		ROM_LOAD( "pa-rom7.bin",  0x000000, 0x020000, 0x9f5d800e );
+		ROM_LOAD( "pa-rom8.bin",  0x020000, 0x020000, 0xae007750 );
+	
+		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
+		ROM_LOAD( "prom.14m",     0x0000, 0x0200, 0x1d877538 );
+	ROM_END(); }}; 
+	
+	static InputPortPtr input_ports_plusalph = new InputPortPtr(){ public void handler() { 
+		COINS();						/* IN0 0x80001.b */
+	//	fire	bomb
+		JOY_2BUTTONS(IPF_PLAYER1);	/* IN1 0x80003.b */
+		RESERVE();						/* IN2 0x80004.b */
+		JOY_2BUTTONS(IPF_PLAYER2);	/* IN3 0x80005.b */
+	
+		PORT_START(); 			/* IN4 0x80006.b */
+		COINAGE_6BITS();
+		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Demo_Sounds") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x40, DEF_STR( "On") );
+		PORT_BITX(    0x80, 0x80, IPT_DIPSWITCH_NAME | IPF_CHEAT, "Freeze Screen", IP_KEY_NONE, IP_JOY_NONE );
+		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+	
+		PORT_START(); 			/* IN5 0x80007.b */
+		PORT_DIPNAME( 0x03, 0x03, DEF_STR( "Lives") );
+		PORT_DIPSETTING(    0x03, "3" );
+		PORT_DIPSETTING(    0x02, "4" );
+		PORT_DIPSETTING(    0x01, "5" );
+		PORT_BITX( 0,       0x00, IPT_DIPSWITCH_SETTING | IPF_CHEAT, "Inifinite", IP_KEY_NONE, IP_JOY_NONE );
+		PORT_DIPNAME( 0x04, 0x04, "Bombs" );
+		PORT_DIPSETTING(    0x00, "2" );
+		PORT_DIPSETTING(    0x04, "3" );
+		PORT_DIPNAME( 0x08, 0x08, DEF_STR( "Bonus_Life") );
+		PORT_DIPSETTING(    0x08, "70k and every 130k");
+		PORT_DIPSETTING(    0x00, "100k and every 200k");
+		PORT_DIPNAME( 0x30, 0x30, "?Difficulty?" );
+		PORT_DIPSETTING(    0x30, "3" );// 1
+		PORT_DIPSETTING(    0x20, "2" );// 3
+		PORT_DIPSETTING(    0x10, "1" );// 2
+		PORT_DIPSETTING(    0x00, "0" );// 0
+		PORT_DIPNAME( 0x40, 0x00, DEF_STR( "Cabinet") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "Upright") );
+		PORT_DIPSETTING(    0x40, DEF_STR( "Cocktail") );
+		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );
+		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+	
+	INPUT_PORTS_END(); }}; 
+	
+	public static InitDriverPtr init_plusalph = new InitDriverPtr() { public void handler() 
+	{
+		UBytePtr RAM;
+	
+		astyanax_rom_decode(0);
+	
+		RAM  = new UBytePtr(memory_region(REGION_CPU1));
+		RAM.WRITE_WORD(0x0012b6, 0x0000);	// protection
+	} };
+	
+	
+	/***************************************************************************
+	
+								[ RodLand ]
+	
+	(World version)
+	interrupts:	1] 418.3864: rts	2] 420: move.w #-1,f0010; jsr 3866	3] rte
+	
+	213da	print test error (20c12 = string address 0-4)
+	
+	f0018.84200	f0020.84208	f0028.84008
+	f001c.84202	f0024.8420a	f002c.8400a
+	f0012.84204	f0014.8420c	f0016.8400c
+	
+	7fe		d0.w . 84000.w & f000e.w
+	81a		d0/d1/d2 & $D . 84204 / 8420c /8400c
+	
+	***************************************************************************/
+	
+	static RomLoadPtr rom_rodland = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x60000, REGION_CPU1 );	/* Main CPU Code */
+		ROM_LOAD_EVEN( "rl_02.rom", 0x000000, 0x020000, 0xc7e00593 );
+		ROM_LOAD_ODD(  "rl_01.rom", 0x000000, 0x020000, 0x2e748ca1 );
+		ROM_LOAD_EVEN( "rl_03.rom", 0x040000, 0x010000, 0x62fdf6d7 );
+		ROM_LOAD_ODD(  "rl_04.rom", 0x040000, 0x010000, 0x44163c86 );
+	
+		ROM_REGION( 0x20000, REGION_CPU2 );	/* Sound CPU Code */
+		ROM_LOAD_EVEN( "rl_05.rom", 0x000000, 0x010000, 0xc1617c28 );
+		ROM_LOAD_ODD(  "rl_06.rom", 0x000000, 0x010000, 0x663392b2 );
+	
+		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
+		ROM_LOAD( "rl_23.rom", 0x000000, 0x020000, 0xac60e771 );
+		ROM_CONTINUE(          0x030000, 0x010000             );
+		ROM_CONTINUE(          0x050000, 0x010000             );
+		ROM_CONTINUE(          0x020000, 0x010000             );
+		ROM_CONTINUE(          0x040000, 0x010000             );
+		ROM_CONTINUE(          0x060000, 0x020000             );
+	
+		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
+		ROM_LOAD( "rl_18.rom", 0x000000, 0x080000, 0xf3b30ca6 );
+	
+		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
+		ROM_LOAD( "rl_19.rom", 0x000000, 0x020000, 0x1b718e2a );
+	
+		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
+		ROM_LOAD( "rl_14.rom", 0x000000, 0x080000, 0x08d01bf4 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
+		ROM_LOAD( "rl_10.rom", 0x000000, 0x040000, 0xe1d1cd99 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
+		ROM_LOAD( "rl_08.rom", 0x000000, 0x040000, 0x8a49d3a7 );
+	
+		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
+		ROM_LOAD( "rl.bin",    0x0000, 0x0200, 0x8914e72d );
+	ROM_END(); }}; 
+	
+	
+	static RomLoadPtr rom_rodlandj = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x60000, REGION_CPU1 );	/* Main CPU Code */
+		ROM_LOAD_EVEN( "rl19.bin", 0x000000, 0x010000, 0x028de21f );
+		ROM_LOAD_ODD(  "rl17.bin", 0x000000, 0x010000, 0x9c720046 );
+		ROM_LOAD_EVEN( "rl20.bin", 0x020000, 0x010000, 0x3f536d07 );
+		ROM_LOAD_ODD(  "rl18.bin", 0x020000, 0x010000, 0x5aa61717 );
+		ROM_LOAD_EVEN( "rl12.bin", 0x040000, 0x010000, 0xc5b1075f );// ~ rl_03.rom
+		ROM_LOAD_ODD(  "rl11.bin", 0x040000, 0x010000, 0x9ec61048 );// ~ rl_04.rom
+	
+		ROM_REGION( 0x20000, REGION_CPU2 );	/* Sound CPU Code */
+		ROM_LOAD_EVEN( "rl02.bin", 0x000000, 0x010000, 0xd26eae8f );
+		ROM_LOAD_ODD(  "rl01.bin", 0x000000, 0x010000, 0x04cf24bc );
+	
+		// bg RL_23 = 27, 28, 29b, 29a, 31a?, 30?, ?, 31b?
+		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
+		ROM_LOAD( "rl27.bin",  0x000000, 0x010000, 0x673a5986 );
+		ROM_LOAD( "rl28.bin",  0x010000, 0x010000, 0x523a731d );
+		ROM_LOAD( "rl26.bin",  0x020000, 0x010000, 0x4d0a5c97 );
+		ROM_LOAD( "rl29a.bin", 0x030000, 0x010000, 0x9fd628f1 );
+		ROM_LOAD( "rl29b.bin", 0x040000, 0x010000, 0x2279cb76 );
+		ROM_LOAD( "rl30.bin",  0x050000, 0x010000, 0xb155f39e );
+		ROM_LOAD( "rl31a.bin", 0x060000, 0x010000, 0xa9bc5b84 );
+		ROM_LOAD( "rl31b.bin", 0x070000, 0x010000, 0xfb2faa69 );
+	
+		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
+		ROM_LOAD( "rl21.bin",  0x000000, 0x010000, 0x32fc0bc6 );// bg = RL_18
+		ROM_LOAD( "rl22.bin",  0x010000, 0x010000, 0x0969daa9 );
+		ROM_LOAD( "rl13.bin",  0x020000, 0x010000, 0x1203cdf6 );
+		ROM_LOAD( "rl14.bin",  0x030000, 0x010000, 0xd53e094b );
+		ROM_LOAD( "rl24.bin",  0x040000, 0x010000, 0xb04343e6 );
+		ROM_LOAD( "rl23.bin",  0x050000, 0x010000, 0x70aa7e2c );
+		ROM_LOAD( "rl15.bin",  0x060000, 0x010000, 0x38ac846e );
+		ROM_LOAD( "rl16.bin",  0x070000, 0x010000, 0x5e31f0b2 );
+	
+		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
+		ROM_LOAD( "rl25.bin",  0x000000, 0x010000, 0x4ca57cb6 );// txt = RL_19
+		// Filled with pen 15 at startup
+	
+		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
+		ROM_LOAD( "rl04.bin",  0x000000, 0x010000, 0xcfcf9f97 );// sprites = RL_14
+		ROM_LOAD( "rl05.bin",  0x010000, 0x010000, 0x38c05d15 );
+		ROM_LOAD( "rl07.bin",  0x020000, 0x010000, 0xe117cb72 );
+		ROM_LOAD( "rl08.bin",  0x030000, 0x010000, 0x2f9b40c3 );
+		ROM_LOAD( "rl03.bin",  0x040000, 0x010000, 0xf6a88efd );
+		ROM_LOAD( "rl06.bin",  0x050000, 0x010000, 0x90a78af1 );
+		ROM_LOAD( "rl09.bin",  0x060000, 0x010000, 0x427a0908 );
+		ROM_LOAD( "rl10.bin",  0x070000, 0x010000, 0x53cc2c11 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND1 );	/* Samples */
+		ROM_LOAD( "rl_10.rom", 0x000000, 0x040000, 0xe1d1cd99 );
+	
+		ROM_REGION( 0x040000, REGION_SOUND2 );	/* Samples */
+		ROM_LOAD( "rl_08.rom", 0x000000, 0x040000, 0x8a49d3a7 );
+	
+		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
+		ROM_LOAD( "rl.bin",    0x0000, 0x0200, 0x8914e72d );
+	ROM_END(); }}; 
+	
+	
+	static InputPortPtr input_ports_rodland = new InputPortPtr(){ public void handler() { 
+	
+		COINS();						/* IN0 0x80001.b */
+	//	fire	ladder
+		JOY_2BUTTONS(IPF_PLAYER1);	/* IN1 0x80003.b */
+		RESERVE();						/* IN2 0x80004.b */
+		JOY_2BUTTONS(IPF_PLAYER2);	/* IN3 0x80005.b */
+	
+		PORT_START(); 			/* IN4 0x80006.b */
+		COINAGE_6BITS();
+		PORT_DIPNAME( 0x40, 0x00, DEF_STR( "Demo_Sounds") );
+		PORT_DIPSETTING(    0x40, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+		PORT_SERVICE( 0x80, IP_ACTIVE_LOW );
+	
+		PORT_START(); 			/* IN5 0x80007.b */
+		PORT_DIPNAME( 0x01, 0x01, DEF_STR( "Unknown") ); /* according to manual */
+		PORT_DIPSETTING(    0x01, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+		PORT_DIPNAME( 0x02, 0x02, DEF_STR( "Unknown") ); /* according to manual */
+		PORT_DIPSETTING(    0x02, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+		PORT_DIPNAME( 0x0c, 0x0c, DEF_STR( "Lives") );
+		PORT_DIPSETTING(    0x04, "2" );
+		PORT_DIPSETTING(    0x0c, "3" );
+		PORT_DIPSETTING(    0x08, "4" );
+		PORT_BITX( 0,       0x00, IPT_DIPSWITCH_SETTING | IPF_CHEAT, "Inifinite", IP_KEY_NONE, IP_JOY_NONE );
+		PORT_DIPNAME( 0x10, 0x10, "Default episode" );
+		PORT_DIPSETTING(    0x10, "1" );
+		PORT_DIPSETTING(    0x00, "2" );
+		PORT_DIPNAME( 0x60, 0x60, DEF_STR( "Difficulty") );
+		PORT_DIPSETTING(    0x20, "Easy?" );
+		PORT_DIPSETTING(    0x60, "Normal" );
+		PORT_DIPSETTING(    0x40, "Hard?" );
+		PORT_DIPSETTING(    0x00, "Hardest?" );
+		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );
+		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+	
+	INPUT_PORTS_END(); }}; 
+	
+	
+	static void rodland_rom_decode(int cpu)
+	{
+		UBytePtr RAM	=	new UBytePtr(memory_region(REGION_CPU1+cpu));
+		int i,			size	=	memory_region_length(REGION_CPU1+cpu);
+		if (size > 0x40000)	size = 0x40000;
+	
+		for (i = 0 ; i < size ; i+=2)
+		{
+			int x,y;
+	
+			x = RAM.READ_WORD(i);
+	
+	// [0] d0a9 6ebf 5c72 3814	[1] 4567 0123 ba98 fedc
+	// [2] fdb9 ce07 5318 a246	[3] 4512 ed3b a967 08fc
+	int BITSWAP_0 =	BITSWAP(x,0xd,0x0,0xa,0x9,0x6,0xe,0xb,0xf,0x5,0xc,0x7,0x2,0x3,0x8,0x1,0x4);
+	int BITSWAP_1 =	BITSWAP(x,0x4,0x5,0x6,0x7,0x0,0x1,0x2,0x3,0xb,0xa,0x9,0x8,0xf,0xe,0xd,0xc);
+	int BITSWAP_2 =	BITSWAP(x,0xf,0xd,0xb,0x9,0xc,0xe,0x0,0x7,0x5,0x3,0x1,0x8,0xa,0x2,0x4,0x6);
+	int BITSWAP_3 =	BITSWAP(x,0x4,0x5,0x1,0x2,0xe,0xd,0x3,0xb,0xa,0x9,0x6,0x7,0x0,0x8,0xf,0xc);
+	
+			if		(i < 0x08000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
+			else if	(i < 0x10000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_2;} else {y = BITSWAP_3;} }
+			else if	(i < 0x18000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
+			else if	(i < 0x20000)	{ y = BITSWAP_1; }
+			else 					{ y = BITSWAP_3; }
+	
 /*TODO*///	#undef	BITSWAP_0
 /*TODO*///	#undef	BITSWAP_1
 /*TODO*///	#undef	BITSWAP_2
 /*TODO*///	#undef	BITSWAP_3
-/*TODO*///	
-/*TODO*///			WRITE_WORD(&RAM[i],y);
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static public static InitDriverPtr init_rodland = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		UBytePtr RAM = memory_region(REGION_GFX3);	// scroll 2
-/*TODO*///	
-/*TODO*///		/* Second half of the text gfx should be all FF's, not 0's
-/*TODO*///		   (is this right ? Otherwise the subtitle is wrong) */
-/*TODO*///		memset( &RAM[0x10000], 0xFF , 0x10000);
-/*TODO*///	
-/*TODO*///		rodland_rom_decode(0);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	static public static InitDriverPtr init_rodlandj = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		UBytePtr RAM = memory_region(REGION_GFX3);	// scroll 2
-/*TODO*///	
-/*TODO*///		/* Second half of the text gfx should be all FF's, not 0's
-/*TODO*///		   (is this right ? Otherwise the subtitle is wrong) */
-/*TODO*///		memset( &RAM[0x10000], 0xFF , 0x10000);
-/*TODO*///	} };
+	
+			RAM.WRITE_WORD(i, y);
+		}
+	}
+	
+	
+	public static InitDriverPtr init_rodland = new InitDriverPtr() { public void handler() 
+	{
+		UBytePtr RAM = new UBytePtr(memory_region(REGION_GFX3));	// scroll 2
+	
+		/* Second half of the text gfx should be all FF's, not 0's
+		   (is this right ? Otherwise the subtitle is wrong) */
+		memset( new UBytePtr(RAM, 0x10000), 0xFF , 0x10000);
+	
+		rodland_rom_decode(0);
+	} };
+	
+	public static InitDriverPtr init_rodlandj = new InitDriverPtr() { public void handler() 
+	{
+		UBytePtr RAM = new UBytePtr(memory_region(REGION_GFX3));	// scroll 2
+	
+		/* Second half of the text gfx should be all FF's, not 0's
+		   (is this right ? Otherwise the subtitle is wrong) */
+		memset( new UBytePtr(RAM, 0x10000), 0xFF , 0x10000);
+	} };
 	
 	
 	/***************************************************************************
@@ -4402,7 +4752,7 @@ public class megasys1
 /*TODO*///	public static GameDriver driver_bigstrik	   = new GameDriver("1992"	,"bigstrik"	,"megasys1.java"	,rom_bigstrik,null	,machine_driver_bigstrik	,input_ports_bigstrik	,init_bigstrik	,ROT0	,	"Jaleco", "Big Striker" )
 /*TODO*///	public static GameDriver driver_chimerab	   = new GameDriver("1993"	,"chimerab"	,"megasys1.java"	,rom_chimerab,null	,machine_driver_chimerab	,input_ports_chimerab	,init_chimerab	,ROT0	,	"Jaleco", "Chimera Beast" )
 /*TODO*///	public static GameDriver driver_cybattlr	   = new GameDriver("1993"	,"cybattlr"	,"megasys1.java"	,rom_cybattlr,null	,machine_driver_cybattlr	,input_ports_cybattlr	,init_cybattlr	,ROT90	,	"Jaleco", "Cybattler" )
-/*TODO*///	public static GameDriver driver_edf	   = new GameDriver("1991"	,"edf"	,"megasys1.java"	,rom_edf,null	,machine_driver_edf	,input_ports_edf	,init_edf	,ROT0	,	"Jaleco", "Earth Defense Force" )
+	public static GameDriver driver_edf	   = new GameDriver("1991"	,"edf"	,"megasys1.java"	,rom_edf,null	,machine_driver_edf	,input_ports_edf	,init_edf	,ROT0	,	"Jaleco", "Earth Defense Force" );
 	public static GameDriver driver_hachoo	   = new GameDriver("1989"	,"hachoo"	,"megasys1.java"	,rom_hachoo,null	,machine_driver_hachoo	,input_ports_hachoo	,init_hachoo	,ROT0	,	"Jaleco", "Hachoo!" );
 	public static GameDriver driver_iganinju	   = new GameDriver("1988"	,"iganinju"	,"megasys1.java"	,rom_iganinju,null	,machine_driver_iganinju	,input_ports_iganinju	,init_iganinju	,ROT0	,	"Jaleco", "Iga Ninjyutsuden (Japan)" );
 	public static GameDriver driver_kickoff	   = new GameDriver("1988"	,"kickoff"	,"megasys1.java"	,rom_kickoff,null	,machine_driver_kickoff	,input_ports_kickoff	,null	,ROT0	,	"Jaleco", "Kick Off (Japan)" );
@@ -4411,10 +4761,10 @@ public class megasys1
         public static GameDriver driver_p47	   = new GameDriver("1988"	,"p47"	,"megasys1.java"	,rom_p47,null	,machine_driver_p47	,input_ports_p47	,null	,ROT0	,	"Jaleco", "P-47 - The Phantom Fighter (World)" );
 	public static GameDriver driver_p47j	   = new GameDriver("1988"	,"p47j"	,"megasys1.java"	,rom_p47j,driver_p47	,machine_driver_p47	,input_ports_p47	,null	,ROT0	,	"Jaleco", "P-47 - The Freedom Fighter (Japan)" );
 /*TODO*///	public static GameDriver driver_peekaboo	   = new GameDriver("1993"	,"peekaboo"	,"megasys1.java"	,rom_peekaboo,null	,machine_driver_peekaboo	,input_ports_peekaboo	,null	,ROT0	,	"Jaleco", "Peek-a-Boo!" )
-/*TODO*///	public static GameDriver driver_plusalph	   = new GameDriver("1989"	,"plusalph"	,"megasys1.java"	,rom_plusalph,null	,machine_driver_plusalph	,input_ports_plusalph	,init_plusalph	,ROT270	,	"Jaleco", "Plus Alpha" )
-/*TODO*///	public static GameDriver driver_rodland	   = new GameDriver("1990"	,"rodland"	,"megasys1.java"	,rom_rodland,null	,machine_driver_rodland	,input_ports_rodland	,init_rodland	,ROT0	,	"Jaleco", "RodLand (World)" )
-/*TODO*///	public static GameDriver driver_rodlandj	   = new GameDriver("1990"	,"rodlandj"	,"megasys1.java"	,rom_rodlandj,driver_rodland	,machine_driver_rodland	,input_ports_rodland	,init_rodlandj	,ROT0	,	"Jaleco", "RodLand (Japan)" )
+        public static GameDriver driver_plusalph	   = new GameDriver("1989"	,"plusalph"	,"megasys1.java"	,rom_plusalph,null	,machine_driver_plusalph	,input_ports_plusalph	,init_plusalph	,ROT270	,	"Jaleco", "Plus Alpha" );
+        public static GameDriver driver_rodland	   = new GameDriver("1990"	,"rodland"	,"megasys1.java"	,rom_rodland,null	,machine_driver_rodland	,input_ports_rodland	,init_rodland	,ROT0	,	"Jaleco", "RodLand (World)" );
+        public static GameDriver driver_rodlandj	   = new GameDriver("1990"	,"rodlandj"	,"megasys1.java"	,rom_rodlandj,driver_rodland	,machine_driver_rodland	,input_ports_rodland	,init_rodlandj	,ROT0	,	"Jaleco", "RodLand (Japan)" );
 	public static GameDriver driver_stdragon	   = new GameDriver("1989"	,"stdragon"	,"megasys1.java"	,rom_stdragon,null	,machine_driver_stdragon	,input_ports_stdragon	,init_stdragon	,ROT0	,	"Jaleco", "Saint Dragon" );
-/*TODO*///	public static GameDriver driver_soldamj	   = new GameDriver("1992"	,"soldamj"	,"megasys1.java"	,rom_soldamj,null	,machine_driver_soldamj	,input_ports_soldamj	,init_soldam	,ROT0	,	"Jaleco", "Soldam (Japan)" );
+	public static GameDriver driver_soldamj	   = new GameDriver("1992"	,"soldamj"	,"megasys1.java"	,rom_soldamj,null	,machine_driver_soldamj	,input_ports_soldamj	,init_soldam	,ROT0	,	"Jaleco", "Soldam (Japan)" );
 /*TODO*///	public static GameDriver driver_tshingen	   = new GameDriver("1988"	,"tshingen"	,"megasys1.java"	,rom_tshingen,null	,machine_driver_tshingen	,input_ports_tshingen	,init_tshingen	,ROT0	,	"Jaleco", "Takeda Shingen (Japan)" )
 }

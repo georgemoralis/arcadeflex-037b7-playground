@@ -213,6 +213,7 @@ import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_lomakai;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_hachoo;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_iganinju;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_kickoff;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_soldamj;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.ms_soundlatch_w;
 import static arcadeflex.WIP.v037b7.drivers.megasys1H.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;
@@ -308,10 +309,10 @@ public class megasys1
 		megasys1_8x8_scroll_1_factor = 1;	megasys1_16x16_scroll_1_factor = 4;
 		megasys1_8x8_scroll_2_factor = 1;	megasys1_16x16_scroll_2_factor = 4;
 	
-/*TODO*///		if (Machine.gamedrv == driver_soldamj)
-/*TODO*///		{
-/*TODO*///			megasys1_8x8_scroll_1_factor = 4;	megasys1_16x16_scroll_1_factor = 4;
-/*TODO*///		}
+		if (Machine.gamedrv == driver_soldamj)
+		{
+			megasys1_8x8_scroll_1_factor = 4;	megasys1_16x16_scroll_1_factor = 4;
+		}
 	
 		hardware_type_z = 0;
 		if (Machine.gamedrv			==	driver_lomakai ||
@@ -1152,62 +1153,62 @@ public class megasys1
 			new int[]{ 0x04132,0x02413,0x03142,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
 			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
                         ),
-/*TODO*///		{	&driver_soldamj,
-/*TODO*///			{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0x20413,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
+                        new priority(	driver_soldamj,
+                                new int[]{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0x20413,
+                                  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                        ),
 /*TODO*///		{	&driver_tshingen,
 /*TODO*///			{ 0x04132,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
 /*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
 /*TODO*///		},
 		null	// end of list: use the prom's data
 	};
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*
-/*TODO*///		Convert the 512 bytes in the Priority Prom into 16 ints, encoding
-/*TODO*///		the layers order for 16 selectable priority schemes.
-/*TODO*///	
-/*TODO*///		INPUT (to the video chip):
-/*TODO*///	
-/*TODO*///			4 pixels: 3 layers(012) + 1 sprite (3)
-/*TODO*///			(there are low and high priority sprites which
-/*TODO*///			are split when the "split sprites" bit is set)
-/*TODO*///	
-/*TODO*///		addr =	( (low pri sprite & split sprites ) << 0 ) +
-/*TODO*///				( (pixel 0 is enabled and opaque ) << 1 ) +
-/*TODO*///				( (pixel 1 is enabled and opaque ) << 2 ) +
-/*TODO*///				( (pixel 2 is enabled and opaque ) << 3 ) +
-/*TODO*///				( (pixel 3 is enabled and opaque ) << 4 ) +
-/*TODO*///				( (layers_enable bits 11-8  ) << 5 )
-/*TODO*///	
-/*TODO*///		OUTPUT (to video):
-/*TODO*///			1 pixel, the one from layer: PROM[addr] (layer can be 0-3)
-/*TODO*///	
-/*TODO*///		This scheme can generate a wealth of funky priority schemes
-/*TODO*///		while we can account for just a simple stack of transparent
-/*TODO*///		layers like: 01324. That is: bottom layer is 0, then 1, then
-/*TODO*///		sprites (low priority sprites if sprite splitting is active,
-/*TODO*///		every sprite if not) then layer 2 and high priority sprites
-/*TODO*///		(only if sprite splitting is active).
-/*TODO*///	
-/*TODO*///		Hence, during the conversion process we make sure each of the
-/*TODO*///		16 priority scheme in the prom is a "simple" one like the above
-/*TODO*///		and log a warning otherwise. The feasibility criterion is such:
-/*TODO*///	
-/*TODO*///		the opaque pens of the top layer must be above any other layer.
-/*TODO*///		The transparent pens of the top layer must be either totally
-/*TODO*///		opaque or totally transparent with respects to the other layers:
-/*TODO*///		when the bit relative to the top layer is not set, the top layer's
-/*TODO*///		code must be either always absent (transparent case) or always
-/*TODO*///		present (opaque case) in the prom.
-/*TODO*///	
-/*TODO*///		NOTE: This can't account for orders starting like: 030..
-/*TODO*///		as found in peekaboo's prom. That's where sprites go below
-/*TODO*///		the bottom layer's opaque pens, but above its transparent
-/*TODO*///		pens.
-/*TODO*///	*/
-/*TODO*///	
+	
+	
+	/*
+		Convert the 512 bytes in the Priority Prom into 16 ints, encoding
+		the layers order for 16 selectable priority schemes.
+	
+		INPUT (to the video chip):
+	
+			4 pixels: 3 layers(012) + 1 sprite (3)
+			(there are low and high priority sprites which
+			are split when the "split sprites" bit is set)
+	
+		addr =	( (low pri sprite & split sprites ) << 0 ) +
+				( (pixel 0 is enabled and opaque ) << 1 ) +
+				( (pixel 1 is enabled and opaque ) << 2 ) +
+				( (pixel 2 is enabled and opaque ) << 3 ) +
+				( (pixel 3 is enabled and opaque ) << 4 ) +
+				( (layers_enable bits 11-8  ) << 5 )
+	
+		OUTPUT (to video):
+			1 pixel, the one from layer: PROM[addr] (layer can be 0-3)
+	
+		This scheme can generate a wealth of funky priority schemes
+		while we can account for just a simple stack of transparent
+		layers like: 01324. That is: bottom layer is 0, then 1, then
+		sprites (low priority sprites if sprite splitting is active,
+		every sprite if not) then layer 2 and high priority sprites
+		(only if sprite splitting is active).
+	
+		Hence, during the conversion process we make sure each of the
+		16 priority scheme in the prom is a "simple" one like the above
+		and log a warning otherwise. The feasibility criterion is such:
+	
+		the opaque pens of the top layer must be above any other layer.
+		The transparent pens of the top layer must be either totally
+		opaque or totally transparent with respects to the other layers:
+		when the bit relative to the top layer is not set, the top layer's
+		code must be either always absent (transparent case) or always
+		present (opaque case) in the prom.
+	
+		NOTE: This can't account for orders starting like: 030..
+		as found in peekaboo's prom. That's where sprites go below
+		the bottom layer's opaque pens, but above its transparent
+		pens.
+	*/
+	
 	public static VhConvertColorPromPtr megasys1_convert_prom = new VhConvertColorPromPtr() {
             @Override
             public void handler(char[] palette, char[] colortable, UBytePtr prom) {

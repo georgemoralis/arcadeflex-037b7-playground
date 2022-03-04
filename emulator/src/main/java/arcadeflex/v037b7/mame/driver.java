@@ -2882,21 +2882,21 @@ public class driver {
         driver_astyanax, 	/* (c) 1989 */
         /*TODO*///	driver_lordofk )	/* (c) 1989 (Japan) */
         driver_hachoo, 	/* (c) 1989 */
-        /*TODO*///	driver_plusalph )	/* (c) 1989 */
+        driver_plusalph, 	/* (c) 1989 */
         driver_stdragon, 	/* (c) 1989 */
         driver_iganinju, 	/* (c) 1989 (Japan) */
-        /*TODO*///	driver_rodland )	/* (c) 1990 */
-        /*TODO*///	driver_rodlandj )	/* (c) 1990 (Japan) */
+        driver_rodland, 	/* (c) 1990 */
+        driver_rodlandj, 	/* (c) 1990 (Japan) */
         /*TODO*///	driver_64street )	/* (c) 1991 */
         /*TODO*///	driver_64streej )	/* (c) 1991 (Japan) */
-        /*TODO*///	driver_edf )		/* (c) 1991 */
+        driver_edf, 		/* (c) 1991 */
         driver_avspirit, 	/* (c) 1991 */
         driver_phantasm, 	/* (c) 1991 (Japan) */
         /*TODO*///	driver_bigstrik )	/* (c) 1992 */
         /*TODO*///	driver_chimerab )	/* (c) 1993 */
         /*TODO*///	driver_cybattlr )	/* (c) 1993 */
         /*TODO*///	driver_peekaboo )	/* (c) 1993 */
-        /*TODO*///	driver_soldamj )	/* (c) 1992 (Japan) */
+        driver_soldamj, 	/* (c) 1992 (Japan) */
         /*TODO*///
         /*TODO*///	/* Video System Co. games */
         /*TODO*///	driver_rabiolep )	/* (c) 1987 V-System Co. (Japan) */
