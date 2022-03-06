@@ -2874,11 +2874,11 @@ public class driver {
         
         /* Jaleco Mega System 1 games */
         driver_lomakai, 	/* (c) 1988 (World) */
-        /*TODO*///	driver_makaiden )	/* (c) 1988 (Japan) */
+        driver_makaiden, 	/* (c) 1988 (Japan) */
         driver_p47, 		/* (c) 1988 */
         driver_p47j, 		/* (c) 1988 (Japan) */
         driver_kickoff, 	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_tshingen )	/* (c) 1988 (Japan) */
+        driver_tshingen, 	/* (c) 1988 (Japan) */
         driver_astyanax, 	/* (c) 1989 */
         /*TODO*///	driver_lordofk )	/* (c) 1989 (Japan) */
         driver_hachoo, 	/* (c) 1989 */
@@ -2887,17 +2887,17 @@ public class driver {
         driver_iganinju, 	/* (c) 1989 (Japan) */
         driver_rodland, 	/* (c) 1990 */
         driver_rodlandj, 	/* (c) 1990 (Japan) */
-        /*TODO*///	driver_64street )	/* (c) 1991 */
-        /*TODO*///	driver_64streej )	/* (c) 1991 (Japan) */
+        driver_64street, 	/* (c) 1991 */
+        driver_64streej, 	/* (c) 1991 (Japan) */
         driver_edf, 		/* (c) 1991 */
         driver_avspirit, 	/* (c) 1991 */
         driver_phantasm, 	/* (c) 1991 (Japan) */
-        /*TODO*///	driver_bigstrik )	/* (c) 1992 */
-        /*TODO*///	driver_chimerab )	/* (c) 1993 */
-        /*TODO*///	driver_cybattlr )	/* (c) 1993 */
+        driver_bigstrik, 	/* (c) 1992 */
+        driver_chimerab, 	/* (c) 1993 */
+        driver_cybattlr, 	/* (c) 1993 */
         /*TODO*///	driver_peekaboo )	/* (c) 1993 */
         driver_soldamj, 	/* (c) 1992 (Japan) */
-        /*TODO*///
+        
         /*TODO*///	/* Video System Co. games */
         /*TODO*///	driver_rabiolep )	/* (c) 1987 V-System Co. (Japan) */
         /*TODO*///	driver_rpunch )	/* (c) 1987 V-System Co. + Bally/Midway/Sente license (US) */

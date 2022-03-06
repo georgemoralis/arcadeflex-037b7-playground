@@ -208,12 +208,17 @@ actual code sent to the hardware.
  */ 
 package arcadeflex.WIP.v037b7.vidhrdw;
 
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_64street;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_astyanax;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_bigstrik;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_chimerab;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_cybattlr;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_lomakai;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_hachoo;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_iganinju;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_kickoff;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_soldamj;
+import static arcadeflex.WIP.v037b7.drivers.megasys1.driver_tshingen;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.ms_soundlatch_w;
 import static arcadeflex.WIP.v037b7.drivers.megasys1H.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_clearbitmap;
@@ -235,6 +240,7 @@ import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
 import static arcadeflex.v037b7.mame.paletteH.*;
+import static arcadeflex.v037b7.mame.sndintrf.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.spriteH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.spriteC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
@@ -769,60 +775,93 @@ public class megasys1
 	
 	
 	
-/*TODO*///	/* Used by MS1-C only */
-/*TODO*///	public static ReadHandlerPtr megasys1_vregs_C_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		switch (offset)
-/*TODO*///		{
-/*TODO*///			case 0x8000:	return soundlatch2_r(0);
-/*TODO*///			default:		return READ_WORD(&megasys1_vregs[offset]);
-/*TODO*///		}
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr megasys1_vregs_C_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///	int old_data, new_data;
-/*TODO*///	
-/*TODO*///		old_data = READ_WORD(&megasys1_vregs[offset]);
-/*TODO*///		COMBINE_WORD_MEM(&megasys1_vregs[offset],data);
-/*TODO*///		new_data  = READ_WORD(&megasys1_vregs[offset]);
-/*TODO*///	
-/*TODO*///		switch (offset)
-/*TODO*///		{
-/*TODO*///			case 0x2000+0 :	MEGASYS1_VREG_SCROLL(0,x)	break;
-/*TODO*///			case 0x2000+2 :	MEGASYS1_VREG_SCROLL(0,y)	break;
-/*TODO*///			case 0x2000+4 :	MEGASYS1_VREG_FLAG(0)		break;
-/*TODO*///	
-/*TODO*///			case 0x2008+0 :	MEGASYS1_VREG_SCROLL(1,x)	break;
-/*TODO*///			case 0x2008+2 :	MEGASYS1_VREG_SCROLL(1,y)	break;
-/*TODO*///			case 0x2008+4 :	MEGASYS1_VREG_FLAG(1)		break;
-/*TODO*///	
-/*TODO*///			case 0x2100+0 :	MEGASYS1_VREG_SCROLL(2,x)	break;
-/*TODO*///			case 0x2100+2 :	MEGASYS1_VREG_SCROLL(2,y)	break;
-/*TODO*///			case 0x2100+4 :	MEGASYS1_VREG_FLAG(2)		break;
-/*TODO*///	
-/*TODO*///			case 0x2108   :	megasys1_sprite_bank   = new_data;	break;
-/*TODO*///			case 0x2200   :	megasys1_sprite_flag   = new_data;	break;
-/*TODO*///			case 0x2208   : megasys1_active_layers = new_data;	break;
-/*TODO*///	
-/*TODO*///			case 0x2308   :	megasys1_screen_flag = new_data;
-/*TODO*///							if ((new_data & 0x10) != 0)
-/*TODO*///								cpu_set_reset_line(1,ASSERT_LINE);
-/*TODO*///							else
-/*TODO*///								cpu_set_reset_line(1,CLEAR_LINE);
-/*TODO*///							break;
-/*TODO*///	
-/*TODO*///			case 0x8000   :	/* Cybattler reads sound latch on irq 2 */
-/*TODO*///							ms_soundlatch_w(0,new_data);
-/*TODO*///							cpu_cause_interrupt(1,2);
-/*TODO*///							break;
-/*TODO*///	
-/*TODO*///			default:		SHOW_WRITE_ERROR("vreg %04X <- %04X",offset,data);
-/*TODO*///		}
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+	/* Used by MS1-C only */
+	public static ReadHandlerPtr megasys1_vregs_C_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		switch (offset)
+		{
+			case 0x8000:	return soundlatch2_r.handler(0);
+			default:		return megasys1_vregs.READ_WORD(offset);
+		}
+	} };
+	
+	public static WriteHandlerPtr megasys1_vregs_C_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+	int old_data, new_data;
+	
+		old_data = megasys1_vregs.READ_WORD(offset);
+		COMBINE_WORD_MEM(megasys1_vregs,offset,data);
+		new_data  = megasys1_vregs.READ_WORD(offset);
+	
+		switch (offset)
+		{
+			case 0x2000+0 :	
+                            //MEGASYS1_VREG_SCROLL(0,x)	
+                            megasys1_scrollx[0] = new_data;
+                        break;
+			case 0x2000+2 :	
+                            //MEGASYS1_VREG_SCROLL(0,y)	
+                            megasys1_scrolly[0] = new_data;
+                        break;
+			case 0x2000+4 :	
+                            //MEGASYS1_VREG_FLAG(0)		
+                            megasys1_scroll_0_flag_w(new_data); 
+                                if (megasys1_tmap_0 == null) 
+                                    SHOW_WRITE_ERROR("vreg %04X <- %04X NO MEMORY FOR SCREEN",offset,data);
+                        break;
+	
+			case 0x2008+0 :                            
+                            //MEGASYS1_VREG_SCROLL(1,x)	
+                            megasys1_scrollx[1] = new_data;
+                        break;
+			case 0x2008+2 :	
+                            //MEGASYS1_VREG_SCROLL(1,y)	
+                            megasys1_scrolly[1] = new_data;
+                        break;
+			case 0x2008+4 :	
+                            //MEGASYS1_VREG_FLAG(1)
+                            megasys1_scroll_1_flag_w(new_data); 
+                                if (megasys1_tmap_1 == null) 
+                                    SHOW_WRITE_ERROR("vreg %04X <- %04X NO MEMORY FOR SCREEN",offset,data);
+                        break;
+	
+			case 0x2100+0 :	
+                            //MEGASYS1_VREG_SCROLL(2,x)	
+                            megasys1_scrollx[2] = new_data;
+                        break;
+			case 0x2100+2 :	
+                            //MEGASYS1_VREG_SCROLL(2,y)	
+                            megasys1_scrolly[2] = new_data;
+                        break;
+			case 0x2100+4 :	
+                            //MEGASYS1_VREG_FLAG(2)
+                            megasys1_scroll_2_flag_w(new_data); 
+                                if (megasys1_tmap_2 == null) 
+                                    SHOW_WRITE_ERROR("vreg %04X <- %04X NO MEMORY FOR SCREEN",offset,data);
+                        break;
+	
+			case 0x2108   :	megasys1_sprite_bank   = new_data;	break;
+			case 0x2200   :	megasys1_sprite_flag   = new_data;	break;
+			case 0x2208   : megasys1_active_layers = new_data;	break;
+	
+			case 0x2308   :	megasys1_screen_flag = new_data;
+							if ((new_data & 0x10) != 0)
+								cpu_set_reset_line(1,ASSERT_LINE);
+							else
+								cpu_set_reset_line(1,CLEAR_LINE);
+							break;
+	
+			case 0x8000   :	/* Cybattler reads sound latch on irq 2 */
+							ms_soundlatch_w.handler(0,new_data);
+							cpu_cause_interrupt(1,2);
+							break;
+	
+			default:		SHOW_WRITE_ERROR("vreg %04X <- %04X",offset,data);
+		}
+	} };
+	
+	
+	
 /*TODO*///	/* Used by MS1-D only */
 /*TODO*///	public static WriteHandlerPtr megasys1_vregs_D_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 /*TODO*///	{
@@ -1120,27 +1159,31 @@ public class megasys1
 	
 	static priority priorities[] =
 	{
-/*TODO*///		{	&driver_64street,
-/*TODO*///			{ 0xfffff,0x03142,0xfffff,0x04132,0xfffff,0x04132,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
+                new priority (
+                        driver_64street,
+			new int[]{ 0xfffff,0x03142,0xfffff,0x04132,0xfffff,0x04132,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                ),
 		new priority (	
                         driver_astyanax,
 			new int[]{ 0x04132,0x03142,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
 			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
                 ),
-/*TODO*///		{	&driver_bigstrik,	/* like 64street ? */
-/*TODO*///			{ 0xfffff,0x03142,0xfffff,0x04132,0xfffff,0x04132,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
-/*TODO*///		{	&driver_chimerab,
-/*TODO*///			{ 0x14032,0x04132,0x14032,0x04132,0xfffff,0xfffff,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0x01324,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
-/*TODO*///		{	&driver_cybattlr,
-/*TODO*///			{ 0x04132,0xfffff,0xfffff,0xfffff,0x14032,0xfffff,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0x04132 }
-/*TODO*///		},
+		new priority (
+                        driver_bigstrik,	/* like 64street ? */
+			new int[]{ 0xfffff,0x03142,0xfffff,0x04132,0xfffff,0x04132,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+		),
+		new priority (
+                        driver_chimerab,
+			new int[]{ 0x14032,0x04132,0x14032,0x04132,0xfffff,0xfffff,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0x01324,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+		),
+		new priority (	
+                        driver_cybattlr,
+			new int[]{ 0x04132,0xfffff,0xfffff,0xfffff,0x14032,0xfffff,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0x04132 }
+                ),
                         new priority(	driver_hachoo,
 			new int[]{ 0x24130,0x01423,0xfffff,0x02413,0x04132,0xfffff,0x24130,0x13240,
 			  0x24103,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
@@ -1157,10 +1200,10 @@ public class megasys1
                                 new int[]{ 0x04132,0xfffff,0xfffff,0x01423,0xfffff,0xfffff,0xfffff,0x20413,
                                   0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
                         ),
-/*TODO*///		{	&driver_tshingen,
-/*TODO*///			{ 0x04132,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
-/*TODO*///			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
-/*TODO*///		},
+                        new priority(	driver_tshingen,
+			new int[]{ 0x04132,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,
+			  0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff,0xfffff }
+                        ),
 		null	// end of list: use the prom's data
 	};
 	
