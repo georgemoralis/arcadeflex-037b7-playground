@@ -227,6 +227,7 @@ import static arcadeflex.WIP.v037b7.drivers.cps1.*;
 import static arcadeflex.WIP.v037b7.drivers.thunderj.*;
 import static arcadeflex.WIP.v037b7.drivers.wecleman.*;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.*;
+import static arcadeflex.WIP.v037b7.drivers.cischeat.*;
 
 public class driver {
 
@@ -2869,8 +2870,8 @@ public class driver {
         /*TODO*///	driver_ginganin )	/* (c) 1987 Jaleco */
         driver_skyfox,/* (c) 1987 Jaleco + Nichibutsu USA license */
         driver_exerizrb,/* bootleg */
-        /*TODO*///	driver_cischeat )	/* (c) 1990 Jaleco */
-        /*TODO*///	driver_f1gpstar )	/* (c) 1991 Jaleco */
+        driver_cischeat, 	/* (c) 1990 Jaleco */
+        driver_f1gpstar, 	/* (c) 1991 Jaleco */
         
         /* Jaleco Mega System 1 games */
         driver_lomakai, 	/* (c) 1988 (World) */

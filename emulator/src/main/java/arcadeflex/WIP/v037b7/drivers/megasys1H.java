@@ -6,6 +6,7 @@ import static arcadeflex.v037b7.mame.inptport.*;
 import static arcadeflex.v037b7.mame.inptportH.*;
 import static gr.codebb.arcadeflex.common.libc.cstdio.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
+import static arcadeflex.v037b7.mame.usrintrf.usrintf_showmessage;
 
 public class megasys1H {
 /***************************************************************************
@@ -286,14 +287,14 @@ public static int BITSWAP(int _x,int _f,int _e,int _d,int _c,int _b,int _a,int _
 /*TODO*///
 /*TODO*///
 /*TODO*///#ifdef MAME_DEBUG
-/*TODO*///#define SHOW_READ_ERROR(_format_,_offset_)
-/*TODO*///{
-/*TODO*///	char buf[80];
-/*TODO*///	sprintf(buf,_format_,_offset_);
-/*TODO*///	usrintf_showmessage(buf);
-/*TODO*///	logerror("CPU #0 PC %06X : Warning, %sn",cpu_get_pc(), buf); 
-/*TODO*///}
-/*TODO*///
+    public static void SHOW_READ_ERROR(String _format_, int _offset_)
+    {
+            String buf="";
+            buf=sprintf(_format_,_offset_);
+            usrintf_showmessage(buf);
+            logerror("CPU #0 PC %06X : Warning, %sn",cpu_get_pc(), buf); 
+    }
+
 /*TODO*///#define SHOW_WRITE_ERROR(_format_,_offset_,_data_)
 /*TODO*///{
 /*TODO*///	char buf[80];
