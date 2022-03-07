@@ -2960,7 +2960,7 @@ public class system16
 
 	public static InitDriverPtr init_auraila = new InitDriverPtr() { public void handler() 
 	{
-		UBytePtr rom = memory_region(REGION_CPU1);
+		UBytePtr rom = new UBytePtr(memory_region(REGION_CPU1));
 		int diff = 0x40000;	/* place decrypted opcodes in a empty hole */
 	
 		init_aurail.handler();

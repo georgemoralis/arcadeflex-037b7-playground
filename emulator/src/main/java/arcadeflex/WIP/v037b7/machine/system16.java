@@ -41,7 +41,9 @@ public class system16
 	
 			decode_offset = ((data >> 8) & 0xfc ) | ((data >> 5) & 0x2 ) | ((data >> 3) & 0x1 );
 	
-			data^= decrypt_data[mask][256+decode_offset];
+			data^= decrypt_data[mask][decode_offset];
+                        
+                        data &= 0xffff;
 	
 	//		if(decrypt_data[mask*256+decode_offset] == 0xffff)
 	//			logerror("Decrypt Error: Offset=%5x\n",offset);

@@ -127,8 +127,8 @@ public class cischeat
 	/* 32 colour codes for the tiles */
 	public static VhStartPtr cischeat_vh_start = new VhStartPtr() { public int handler() 
 	{
-                cischeat_roadram[0]=new UBytePtr(10124 * 1024);
-                cischeat_roadram[1]=new UBytePtr(10124 * 1024);
+                cischeat_roadram[0]=new UBytePtr(1024 * 1024);
+                cischeat_roadram[1]=new UBytePtr(1024 * 1024);
                 
 		if (megasys1_vh_start.handler() == 0)
 		{
@@ -147,6 +147,9 @@ public class cischeat
 	/* 16 colour codes for the tiles */
 	public static VhStartPtr f1gpstar_vh_start = new VhStartPtr() { public int handler() 
 	{
+                cischeat_roadram[0]=new UBytePtr(1024 * 1024);
+                cischeat_roadram[1]=new UBytePtr(1024 * 1024);
+                
 		if (megasys1_vh_start.handler() == 0)
 		{
 		 	megasys1_bits_per_color_code = 4;
@@ -491,6 +494,7 @@ public class cischeat
 	//	int total_color_codes		=	gfx.total_color_codes;
 		int color_codes_start		=	gfx.color_codes_start;
 		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
+                
 	
 		int min_y = Machine.visible_area. min_y;
 		int max_y = Machine.visible_area. max_y;
@@ -530,8 +534,9 @@ public class cischeat
 		int curr_code,sx,sy;
 		int min_priority, max_priority;
 	
-		rectangle rect		=	new rectangle(Machine.visible_area);
+		rectangle rect		=	Machine.visible_area;
 		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
+                roadram.offset=0;
 		GfxElement gfx		=	Machine.gfx[(road_num & 1)!=0?4:3];
 	
 		int min_y = rect.min_y;
@@ -629,12 +634,10 @@ public class cischeat
 		int[] pen_usage		=	Machine.gfx[gfx_num].pen_usage;
 	//	int total_color_codes		=	gfx.total_color_codes;
 		int color_codes_start		=	gfx.color_codes_start;
-                if (cischeat_roadram[0]==null){
-                    cischeat_roadram[0]=new UBytePtr(1024*1024);
-                    cischeat_roadram[1]=new UBytePtr(1024*1024);
-                }
                     
 		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
+                
+                roadram.offset=0;
 	
 		int min_y = Machine.visible_area.min_y;
 		int max_y = Machine.visible_area.max_y;
@@ -674,8 +677,9 @@ public class cischeat
 		int xstart;
 		int min_priority, max_priority;
 	
-		rectangle rect		=	new rectangle(Machine.visible_area);
+		rectangle rect		=	Machine.visible_area;
 		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
+                roadram.offset=0;
 		GfxElement gfx		=	Machine.gfx[(road_num & 1)!=0?4:3];
 	
 		int min_y = rect.min_y;
@@ -721,6 +725,8 @@ public class cischeat
 			/* let's approximate to the nearest greater integer value
 			   to avoid holes in between tiles */
 			xscale += (1<<16)/TILE_SIZE;
+                        
+                        //System.out.println(transparency);
 	
 			/* Draw the line */
 			for (sx = xstart ; sx <= max_x ; sx += xdim)

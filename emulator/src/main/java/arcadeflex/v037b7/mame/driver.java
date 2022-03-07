@@ -228,6 +228,7 @@ import static arcadeflex.WIP.v037b7.drivers.thunderj.*;
 import static arcadeflex.WIP.v037b7.drivers.wecleman.*;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.*;
 import static arcadeflex.WIP.v037b7.drivers.cischeat.*;
+import static arcadeflex.WIP.v037b7.drivers.dec0.*;
 
 public class driver {
 
@@ -2035,27 +2036,27 @@ public class driver {
         /*RELEASE*////*TESTDRIVER*/ driver_wndrplnt, /* (c) 1987 Data East Corporation (Japan) */
         driver_chelnov, /* (c) 1988 Data East USA (US) */
         driver_chelnovj, /* (c) 1988 Data East Corporation (Japan) */
-        /*TODO*////* the following ones all run on similar hardware */
-        /*TODO*///	driver_hbarrel )	/* (c) 1987 Data East USA (US) */
-        /*TODO*///	driver_hbarrelw )	/* (c) 1987 Data East Corporation (World) */
-        /*TODO*///	driver_baddudes )	/* (c) 1988 Data East USA (US) */
-        /*TODO*///	driver_drgninja )	/* (c) 1988 Data East Corporation (Japan) */
+        /* the following ones all run on similar hardware */
+        	driver_hbarrel, 	/* (c) 1987 Data East USA (US) */
+        	driver_hbarrelw, 	/* (c) 1987 Data East Corporation (World) */
+        	driver_baddudes, 	/* (c) 1988 Data East USA (US) */
+        	driver_drgninja, 	/* (c) 1988 Data East Corporation (Japan) */
         /*TODO*///TESTdriver_birdtry )	/* (c) 1988 Data East Corporation (Japan) */
-        /*TODO*///	driver_robocop )	/* (c) 1988 Data East Corporation (World) */
-        /*TODO*///	driver_robocopu )	/* (c) 1988 Data East USA (US) */
-        /*TODO*///	driver_robocpu0 )	/* (c) 1988 Data East USA (US) */
-        /*TODO*///	driver_robocopb )	/* bootleg */
-        /*TODO*///	driver_hippodrm )	/* (c) 1989 Data East USA (US) */
-        /*TODO*///	driver_ffantasy )	/* (c) 1989 Data East Corporation (Japan) */
-        /*TODO*///	driver_slyspy )	/* (c) 1989 Data East USA (US) */
-        /*TODO*///	driver_slyspy2 )	/* (c) 1989 Data East USA (US) */
-        /*TODO*///	driver_secretag )	/* (c) 1989 Data East Corporation (World) */
+        	driver_robocop, 	/* (c) 1988 Data East Corporation (World) */
+        	driver_robocopu, 	/* (c) 1988 Data East USA (US) */
+        	driver_robocpu0, 	/* (c) 1988 Data East USA (US) */
+        	driver_robocopb, 	/* bootleg */
+        	driver_hippodrm, 	/* (c) 1989 Data East USA (US) */
+        	driver_ffantasy, 	/* (c) 1989 Data East Corporation (Japan) */
+        	driver_slyspy, 	/* (c) 1989 Data East USA (US) */
+        	driver_slyspy2, 	/* (c) 1989 Data East USA (US) */
+        	driver_secretag, 	/* (c) 1989 Data East Corporation (World) */
         /*TODO*///TESTdriver_secretab )	/* bootleg */
-        /*TODO*///	driver_midres )	/* (c) 1989 Data East Corporation (World) */
-        /*TODO*///	driver_midresu )	/* (c) 1989 Data East USA (US) */
-        /*TODO*///	driver_midresj )	/* (c) 1989 Data East Corporation (Japan) */
-        /*TODO*///	driver_bouldash )	/* (c) 1990 Data East Corporation */
-        /*TODO*////* end of similar hardware */
+        	driver_midres, 	/* (c) 1989 Data East Corporation (World) */
+        	driver_midresu, 	/* (c) 1989 Data East USA (US) */
+        	driver_midresj, 	/* (c) 1989 Data East Corporation (Japan) */
+        	driver_bouldash, 	/* (c) 1990 Data East Corporation */
+        /* end of similar hardware */
         /*TODO*///	driver_stadhero )	/* (c) 1988 Data East Corporation (Japan) */
         /*TODO*///	driver_madmotor )	/* (c) [1989] Mitchell */
         /*TODO*///	/* All these games have a unique code stamped on the mask roms */

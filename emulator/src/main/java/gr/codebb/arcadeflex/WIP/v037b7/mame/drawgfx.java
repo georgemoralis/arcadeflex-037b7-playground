@@ -1284,11 +1284,14 @@ public class drawgfx {
 
                         /* case 1: TRANSPARENCY_PEN */
                         if (transparency == TRANSPARENCY_PEN) {
+                            
                             if (pri_buffer != null) {
                                 for (y = sy; y < ey; y++) {
                                     UBytePtr source = new UBytePtr(gfx.gfxdata, (source_base + (y_index >> 16)) * gfx.line_modulo);
-                                    UBytePtr dest = dest_bmp.line[y];
-                                    UBytePtr pri = pri_buffer.line[y];
+                                    UBytePtr dest = new UBytePtr(dest_bmp.line[y]);
+                                    dest.offset=0;
+                                    UBytePtr pri = new UBytePtr(pri_buffer.line[y]);
+                                    pri.offset=0;
 
                                     int x, x_index = x_index_base;
                                     for (x = sx; x < ex; x++) {
@@ -1307,7 +1310,7 @@ public class drawgfx {
                             } else {
                                 for (y = sy; y < ey; y++) {
                                     UBytePtr source = new UBytePtr(gfx.gfxdata, (source_base + (y_index >> 16)) * gfx.line_modulo);
-                                    UBytePtr dest = dest_bmp.line[y];
+                                    UBytePtr dest = new UBytePtr(dest_bmp.line[y]);
 
                                     int x, x_index = x_index_base;
                                     for (x = sx; x < ex; x++) {
@@ -1375,8 +1378,8 @@ public class drawgfx {
                             if (pri_buffer != null) {
                                 for (y = sy; y < ey; y++) {
                                     UBytePtr source = new UBytePtr(gfx.gfxdata, (source_base + (y_index >> 16)) * gfx.line_modulo);
-                                    UBytePtr dest = dest_bmp.line[y];
-                                    UBytePtr pri = pri_buffer.line[y];
+                                    UBytePtr dest = new UBytePtr(dest_bmp.line[y]);
+                                    UBytePtr pri = new UBytePtr(pri_buffer.line[y]);
 
                                     int x, x_index = x_index_base;
                                     for (x = sx; x < ex; x++) {
@@ -1395,7 +1398,7 @@ public class drawgfx {
                             } else {
                                 for (y = sy; y < ey; y++) {
                                     UBytePtr source = new UBytePtr(gfx.gfxdata, (source_base + (y_index >> 16)) * gfx.line_modulo);
-                                    UBytePtr dest = dest_bmp.line[y];
+                                    UBytePtr dest = new UBytePtr(dest_bmp.line[y]);
 
                                     int x, x_index = x_index_base;
                                     for (x = sx; x < ex; x++) {

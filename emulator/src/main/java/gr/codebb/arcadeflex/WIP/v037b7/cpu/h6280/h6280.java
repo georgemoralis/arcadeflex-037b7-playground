@@ -1800,7 +1800,7 @@ public class h6280 extends cpu_interface {
     static opcode h6280_000 = new opcode() {
         public void handler() {
             /*TODO*///            h6280_ICount[0] -= 8;BRK;
-            throw new UnsupportedOperationException("Not supported yet.");
+            //throw new UnsupportedOperationException("Not supported yet.");
         }
     }; // 8 BRK
     static opcode h6280_020 = new opcode() {
