@@ -629,6 +629,11 @@ public class cischeat
 		int[] pen_usage		=	Machine.gfx[gfx_num].pen_usage;
 	//	int total_color_codes		=	gfx.total_color_codes;
 		int color_codes_start		=	gfx.color_codes_start;
+                if (cischeat_roadram[0]==null){
+                    cischeat_roadram[0]=new UBytePtr(1024*1024);
+                    cischeat_roadram[1]=new UBytePtr(1024*1024);
+                }
+                    
 		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
 	
 		int min_y = Machine.visible_area.min_y;
