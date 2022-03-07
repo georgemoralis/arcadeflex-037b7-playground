@@ -144,7 +144,8 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 import static arcadeflex.v037b7.sound.okim6295.*;
 import static arcadeflex.v037b7.sound.okim6295H.*;
 import static arcadeflex.v037b7.vidhrdw.generic.*;
-import static gr.codebb.arcadeflex.common.libc.cstring.memset;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.paletteram_RRRRRGGGGGBBBBBx_word_w;
+import static gr.codebb.arcadeflex.common.libc.cstring.*;
 
 public class megasys1
 {
@@ -156,14 +157,6 @@ public class megasys1
 	/* Variables only used here: */
 	static int ip_select;
         static int[] ip_select_values = new int[5];
-
-/*TODO*///	/* Variables defined in vidhrdw: */
-/*TODO*///	
-/*TODO*///	/* Functions defined in vidhrdw: */
-/*TODO*///	void megasys1_convert_prom(UBytePtr palette, unsigned short *colortable,const UBytePtr prom);
-	
-	
-	
 	
 	public static InitMachinePtr megasys1_init_machine = new InitMachinePtr() { public void handler() 
 	{
@@ -206,13 +199,6 @@ public class megasys1
 
 	static int INTERRUPT_NUM_Z		= INTERRUPT_NUM_A;
 	static InterruptPtr interrupt_Z = interrupt_A;
-/*TODO*///	
-/*TODO*///	
-
-/*TODO*///	
-/*TODO*///	#define MEMORYMAP_Z		MEMORYMAP_A
-/*TODO*///	
-	
 	
 	/***************************************************************************
 								[ Main CPU - System B ]
@@ -273,124 +259,6 @@ public class megasys1
 		ip_select = COMBINE_WORD(ip_select,data);
 		cpu_cause_interrupt(0,2);
 	} };
-	
-	
-/*TODO*///	#define MEMORYMAP_B(_shortname_,_ram_start_,_ram_end_) 
-/*TODO*///	static MemoryReadAddress readmem_##_shortname_[] =
-/*TODO*///	{
-/*TODO*///		new MemoryReadAddress( 0x000000, 0x03ffff, MRA_ROM					),
-/*TODO*///		new MemoryReadAddress( 0x080000, 0x0bffff, MRA_ROM					),
-/*TODO*///		new MemoryReadAddress( _ram_start_, _ram_end_,	MRA_BANK1			),
-/*TODO*///		new MemoryReadAddress( 0x044000, 0x044fff, MRA_BANK2					),
-/*TODO*///		new MemoryReadAddress( 0x048000, 0x0487ff, paletteram_word_r			),
-/*TODO*///		new MemoryReadAddress( 0x04e000, 0x04ffff, MRA_BANK3					),
-/*TODO*///		new MemoryReadAddress( 0x050000, 0x053fff, megasys1_scrollram_0_r	),
-/*TODO*///		new MemoryReadAddress( 0x054000, 0x057fff, megasys1_scrollram_1_r	),
-/*TODO*///		new MemoryReadAddress( 0x058000, 0x05bfff, megasys1_scrollram_2_r	),
-/*TODO*///		new MemoryReadAddress( 0x0e0000, 0x0e0001, ip_select_r				),
-/*TODO*///		new MemoryReadAddress( -1 )
-/*TODO*///	};
-/*TODO*///	static MemoryWriteAddress writemem_##_shortname_[] =
-/*TODO*///	{
-/*TODO*///	 	new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM											),
-/*TODO*///		new MemoryWriteAddress( 0x080000, 0x0bffff, MWA_ROM											),
-/*TODO*///		new MemoryWriteAddress( _ram_start_, _ram_end_, MWA_BANK1,			megasys1_ram			),
-/*TODO*///		new MemoryWriteAddress( 0x044000, 0x0443ff, megasys1_vregs_A_w,		megasys1_vregs			),
-/*TODO*///		new MemoryWriteAddress( 0x048000, 0x0487ff, paletteram_RRRRGGGGBBBBRGBx_word_w, paletteram	),
-/*TODO*///		new MemoryWriteAddress( 0x04e000, 0x04ffff, MWA_BANK3,				megasys1_objectram		),
-/*TODO*///		new MemoryWriteAddress( 0x050000, 0x053fff, megasys1_scrollram_0_w ,	megasys1_scrollram_0	),
-/*TODO*///		new MemoryWriteAddress( 0x054000, 0x057fff, megasys1_scrollram_1_w ,	megasys1_scrollram_1	),
-/*TODO*///		new MemoryWriteAddress( 0x058000, 0x05bfff, megasys1_scrollram_2_w ,	megasys1_scrollram_2	),
-/*TODO*///		new MemoryWriteAddress( 0x0e0000, 0x0e0001, ip_select_w										),
-/*TODO*///		new MemoryWriteAddress( -1 )
-/*TODO*///	};
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///								[ Main CPU - System C ]
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	#define INTERRUPT_NUM_C	INTERRUPT_NUM_B
-/*TODO*///	#define interrupt_C		interrupt_B
-/*TODO*///	
-/*TODO*///	#define MEMORYMAP_C(_shortname_,_ram_start_,_ram_end_) 
-/*TODO*///	static MemoryReadAddress readmem_##_shortname_[] =
-/*TODO*///	{
-/*TODO*///		new MemoryReadAddress( 0x000000, 0x07ffff, MRA_ROM					), 
-/*TODO*///		new MemoryReadAddress( _ram_start_, _ram_end_, MRA_BANK1				), 
-/*TODO*///		new MemoryReadAddress( 0x0c0000, 0x0cffff, megasys1_vregs_C_r		), 
-/*TODO*///		new MemoryReadAddress( 0x0d2000, 0x0d3fff, MRA_BANK3					), 
-/*TODO*///		new MemoryReadAddress( 0x0e0000, 0x0e3fff, megasys1_scrollram_0_r	), 
-/*TODO*///		new MemoryReadAddress( 0x0e8000, 0x0ebfff, megasys1_scrollram_1_r	), 
-/*TODO*///		new MemoryReadAddress( 0x0f0000, 0x0f3fff, megasys1_scrollram_2_r	), 
-/*TODO*///		new MemoryReadAddress( 0x0f8000, 0x0f87ff, paletteram_word_r			), 
-/*TODO*///		new MemoryReadAddress( 0x0d8000, 0x0d8001, ip_select_r				), 
-/*TODO*///		new MemoryReadAddress( -1 ) 
-/*TODO*///	}; 
-/*TODO*///	static MemoryWriteAddress writemem_##_shortname_[] =
-/*TODO*///	{ 
-/*TODO*///	 	new MemoryWriteAddress( 0x000000, 0x07ffff, MWA_ROM											), 
-/*TODO*///		new MemoryWriteAddress( _ram_start_, _ram_end_, MWA_BANK1,			megasys1_ram			), 
-/*TODO*///		new MemoryWriteAddress( 0x0c0000, 0x0cffff, megasys1_vregs_C_w,		megasys1_vregs			), 
-/*TODO*///		new MemoryWriteAddress( 0x0d2000, 0x0d3fff, MWA_BANK3,				megasys1_objectram		), 
-/*TODO*///		new MemoryWriteAddress( 0x0e0000, 0x0e3fff, megasys1_scrollram_0_w,	megasys1_scrollram_0	), 
-/*TODO*///		new MemoryWriteAddress( 0x0e8000, 0x0ebfff, megasys1_scrollram_1_w,	megasys1_scrollram_1	), 
-/*TODO*///		new MemoryWriteAddress( 0x0f0000, 0x0f3fff, megasys1_scrollram_2_w,	megasys1_scrollram_2	), 
-/*TODO*///		new MemoryWriteAddress( 0x0f8000, 0x0f87ff, paletteram_RRRRGGGGBBBBRGBx_word_w, paletteram	), 
-/*TODO*///		new MemoryWriteAddress( 0x0d8000, 0x0d8001, ip_select_w										), 
-/*TODO*///		new MemoryWriteAddress( -1 ) 
-/*TODO*///	};
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///								[ Main CPU - System D ]
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	#define INTERRUPT_NUM_D		1
-/*TODO*///	int interrupt_D(void)
-/*TODO*///	{
-/*TODO*///		return 2;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	#define MEMORYMAP_D(_shortname_,_ram_start_,_ram_end_) 
-/*TODO*///	static MemoryReadAddress readmem_##_shortname_[] =
-/*TODO*///	{ 
-/*TODO*///		new MemoryReadAddress( 0x000000, 0x03ffff, MRA_ROM						), 
-/*TODO*///		new MemoryReadAddress( _ram_start_, _ram_end_, MRA_BANK1					), 
-/*TODO*///		new MemoryReadAddress( 0x0c0000, 0x0c9fff, MRA_BANK2						), 
-/*TODO*///		new MemoryReadAddress( 0x0ca000, 0x0cbfff, MRA_BANK3						), 
-/*TODO*///		new MemoryReadAddress( 0x0d0000, 0x0d3fff, MRA_BANK4						), 
-/*TODO*///		new MemoryReadAddress( 0x0d4000, 0x0d7fff, MRA_BANK5						), 
-/*TODO*///		new MemoryReadAddress( 0x0d8000, 0x0d87ff, paletteram_word_r				), 
-/*TODO*///		new MemoryReadAddress( 0x0db000, 0x0db7ff, paletteram_word_r				), 
-/*TODO*///		new MemoryReadAddress( 0x0e0000, 0x0e0001, dsw_r							), 
-/*TODO*///		new MemoryReadAddress( 0x0e8000, 0x0ebfff, MRA_BANK7						), 
-/*TODO*///		new MemoryReadAddress( 0x0f0000, 0x0f0001, coins_r						), /* Coins + P1P2 Buttons */ 
-/*TODO*///		new MemoryReadAddress( 0x0f8000, 0x0f8001, OKIM6295_status_0_r			), 
-/*TODO*///		new MemoryReadAddress( 0x100000, 0x100001, protection_##_shortname_##_r	), /* Protection */ 
-/*TODO*///		new MemoryReadAddress( -1 ) 
-/*TODO*///	}; 
-/*TODO*///	static MemoryWriteAddress writemem_##_shortname_[] =
-/*TODO*///	{ 
-/*TODO*///	 	new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM											), 
-/*TODO*///		new MemoryWriteAddress( _ram_start_, _ram_end_, MWA_BANK1,			megasys1_ram			), 
-/*TODO*///		new MemoryWriteAddress( 0x0c0000, 0x0c9fff, megasys1_vregs_D_w,		megasys1_vregs			), 
-/*TODO*///		new MemoryWriteAddress( 0x0ca000, 0x0cbfff, MWA_BANK3, 				megasys1_objectram		), 
-/*TODO*///		new MemoryWriteAddress( 0x0d0000, 0x0d3fff, megasys1_scrollram_1_w,	megasys1_scrollram_1	), 
-/*TODO*///		new MemoryWriteAddress( 0x0d4000, 0x0d7fff, megasys1_scrollram_2_w,	megasys1_scrollram_2	), 
-/*TODO*///		new MemoryWriteAddress( 0x0d8000, 0x0d87ff, paletteram_RRRRRGGGGGBBBBBx_word_w				), 
-/*TODO*///		new MemoryWriteAddress( 0x0db000, 0x0db7ff, paletteram_RRRRRGGGGGBBBBBx_word_w, paletteram	), 
-/*TODO*///		new MemoryWriteAddress( 0x0e8000, 0x0ebfff, megasys1_scrollram_0_w,	megasys1_scrollram_0	), 
-/*TODO*///		new MemoryWriteAddress( 0x0f8000, 0x0f8001, ms_OKIM6295_data_0_w								), 
-/*TODO*///		new MemoryWriteAddress( 0x100000, 0x100001, protection_##_shortname_##_w						), /* Protection */ 
-/*TODO*///		new MemoryWriteAddress( -1 ) 
-/*TODO*///	};
-	
-	
 	
 	
 	/*
@@ -752,7 +620,7 @@ public class megasys1
 		new GfxDecodeInfo( -1 )
 	};
 	
-/*TODO*///	#define gfxdecodeinfo_B		gfxdecodeinfo_A
+//	#define gfxdecodeinfo_B		gfxdecodeinfo_A
 	
 	static GfxDecodeInfo gfxdecodeinfo_C[] =
 	{
@@ -772,144 +640,6 @@ public class megasys1
 		new GfxDecodeInfo( -1 )
 	};
 	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///								Machine Driver Macros
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///							[  Mega System 1 A,B and C ]
-/*TODO*///	
-/*TODO*///							  2x68000 2xM6295 1xYM2151
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	#define MEGASYS1_MACHINE(	_type_, 
-/*TODO*///								_shortname_,_main_clock_,_sound_clock_, 
-/*TODO*///								_fm_clock_,_oki1_clock_,_oki2_clock_) 
-/*TODO*///	static YM2151interface ym2151_interface_##_shortname_ = new YM2151interface
-/*TODO*///	( 
-/*TODO*///		1, 
-/*TODO*///		_fm_clock_, 
-/*TODO*///		new int[] { YM3012_VOL(80,MIXER_PAN_LEFT,80,MIXER_PAN_RIGHT) }, 
-/*TODO*///		new WriteYmHandlerPtr[] { 0 } 
-/*TODO*///	); 
-/*TODO*///	 
-/*TODO*///	static OKIM6295interface okim6295_interface_##_shortname_ = new OKIM6295interface
-/*TODO*///	( 
-/*TODO*///		2, 
-/*TODO*///		new int[] {_oki1_clock_, _oki2_clock_},
-/*TODO*///		new int[] { REGION_SOUND1, REGION_SOUND2 }, 
-/*TODO*///		new int[] { 30, 30 } 
-/*TODO*///	); 
-/*TODO*///	 
-/*TODO*///	static MachineDriver machine_driver_##_shortname_ = new MachineDriver
-/*TODO*///	( 
-/*TODO*///		new MachineCPU[] { 
-/*TODO*///			new MachineCPU( 
-/*TODO*///				CPU_M68000, 
-/*TODO*///				_main_clock_, 
-/*TODO*///				readmem_##_shortname_,writemem_##_shortname_,null,null, 
-/*TODO*///				interrupt_##_type_,INTERRUPT_NUM_##_type_ 
-/*TODO*///			), 
-/*TODO*///			new MachineCPU( 
-/*TODO*///				CPU_M68000 | CPU_AUDIO_CPU, 
-/*TODO*///				_sound_clock_, 
-/*TODO*///				sound_readmem_##_type_,sound_writemem_##_type_,null,null, 
-/*TODO*///				sound_interrupt,SOUND_INTERRUPT_NUM, 
-/*TODO*///			), 
-/*TODO*///		}, 
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION, 
-/*TODO*///		1, 
-/*TODO*///		megasys1_init_machine, 
-/*TODO*///		/* video hardware */ 
-/*TODO*///		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ), 
-/*TODO*///		gfxdecodeinfo_##_type_, 
-/*TODO*///		1024, 1024, 
-/*TODO*///		megasys1_convert_prom, 
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE, 
-/*TODO*///		null, 
-/*TODO*///		megasys1_vh_start, 
-/*TODO*///		null, 
-/*TODO*///		megasys1_vh_screenrefresh, 
-/*TODO*///		/* sound hardware */ 
-/*TODO*///		0,0,0,0, 
-/*TODO*///		new MachineSound[] { 
-/*TODO*///			new MachineSound( 
-/*TODO*///				SOUND_YM2151, 
-/*TODO*///				ym2151_interface_##_shortname_ 
-/*TODO*///			),
-/*TODO*///			new MachineSound(
-/*TODO*///				SOUND_OKIM6295, 
-/*TODO*///				okim6295_interface_##_shortname_ 
-/*TODO*///			) 
-/*TODO*///		} 
-/*TODO*///	);
-/*TODO*///	
-/*TODO*///	#define MEGASYS1_MACHINE_A	MEGASYS1_MACHINE
-/*TODO*///	#define MEGASYS1_MACHINE_B	MEGASYS1_MACHINE
-/*TODO*///	#define MEGASYS1_MACHINE_C	MEGASYS1_MACHINE
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///								[ Mega System 1 D ]
-/*TODO*///	
-/*TODO*///								  1x68000 1xM6295
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	#define MEGASYS1_MACHINE_D(	_type_, 
-/*TODO*///								_shortname_,_main_clock_,_sound_clock_, 
-/*TODO*///								_fm_clock_,_oki1_clock_,_oki2_clock_) 
-/*TODO*///	static OKIM6295interface okim6295_interface_##_shortname_ = new OKIM6295interface
-/*TODO*///	( 
-/*TODO*///		1, 
-/*TODO*///		new int[] {_oki1_clock_},
-/*TODO*///		new int[] { REGION_SOUND1 }, 
-/*TODO*///		new int[] { 100 } 
-/*TODO*///	); 
-/*TODO*///	 
-/*TODO*///	static MachineDriver machine_driver_##_shortname_ = new MachineDriver
-/*TODO*///	( 
-/*TODO*///		new MachineCPU[] {
-/*TODO*///			new MachineCPU(
-/*TODO*///				CPU_M68000,
-/*TODO*///				_main_clock_, 
-/*TODO*///				readmem_##_shortname_,writemem_##_shortname_,null,null, 
-/*TODO*///				interrupt_##_type_,INTERRUPT_NUM_##_type_ 
-/*TODO*///			) 
-/*TODO*///		},
-/*TODO*///		60,DEFAULT_60HZ_VBLANK_DURATION,
-/*TODO*///		1,
-/*TODO*///		megasys1_init_machine,
-/*TODO*///		/* video hardware */ 
-/*TODO*///		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ),
-/*TODO*///		gfxdecodeinfo_##_type_,
-/*TODO*///		1024, 1024,
-/*TODO*///		megasys1_convert_prom,
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,
-/*TODO*///		null,
-/*TODO*///		megasys1_vh_start,
-/*TODO*///		null,
-/*TODO*///		megasys1_vh_screenrefresh,
-/*TODO*///		/* sound hardware */ 
-/*TODO*///		0,0,0,0,
-/*TODO*///		new MachineSound[] { 
-/*TODO*///			new MachineSound(
-/*TODO*///				SOUND_OKIM6295, 
-/*TODO*///				okim6295_interface_##_shortname_ 
-/*TODO*///			) 
-/*TODO*///		}
-/*TODO*///	);
-/*TODO*///	
-/*TODO*///	
-	
-	
 	/***************************************************************************
 	
 								[  Mega System 1 Z ]
@@ -925,65 +655,6 @@ public class megasys1
                 cpu_set_irq_line(1,0,irq!=0 ? ASSERT_LINE : CLEAR_LINE);
             }
         };
-        
-/*TODO*///	
-/*TODO*///	#define MEGASYS1_MACHINE_Z(	_type_, 
-/*TODO*///								_shortname_,_main_clock_,_sound_clock_, 
-/*TODO*///								_fm_clock_,_oki1_clock_,_oki2_clock_) 
-/*TODO*///	static YM2203interface ym2203_interface_##_shortname_ = new YM2203interface
-/*TODO*///	( 
-/*TODO*///		1, 
-/*TODO*///		_fm_clock_, 
-/*TODO*///		new int[] { YM2203_VOL(50,50) }, 
-/*TODO*///		new ReadHandlerPtr[] { 0 }, 
-/*TODO*///		new ReadHandlerPtr[] { 0 }, 
-/*TODO*///		new WriteHandlerPtr[] { 0	}, 
-/*TODO*///		new WriteHandlerPtr[] { 0 }, 
-/*TODO*///		new WriteYmHandlerPtr[] { irq_handler } 
-/*TODO*///	); 
-/*TODO*///	
-/*TODO*///	static MachineDriver machine_driver_##_shortname_ = new MachineDriver
-/*TODO*///	(
-/*TODO*///		new MachineCPU[] {
-/*TODO*///			new MachineCPU(
-/*TODO*///				CPU_M68000,
-/*TODO*///				_main_clock_, 
-/*TODO*///				readmem_##_shortname_,writemem_##_shortname_,null,null, 
-/*TODO*///				interrupt_##_type_,INTERRUPT_NUM_##_type_ 
-/*TODO*///			),
-/*TODO*///			new MachineCPU(
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,
-/*TODO*///				_sound_clock_, 
-/*TODO*///				sound_readmem_z80,sound_writemem_z80,sound_readport,sound_writeport,
-/*TODO*///				ignore_interrupt,1	/* irq generated by YM2203 */	
-/*TODO*///			),
-/*TODO*///		},
-/*TODO*///		60,DEFAULT_60HZ_VBLANK_DURATION,
-/*TODO*///		1,
-/*TODO*///		null,
-/*TODO*///		/* video hardware */ 
-/*TODO*///		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ),
-/*TODO*///		gfxdecodeinfo_Z,
-/*TODO*///		256*3, 256*3,
-/*TODO*///		null	/*megasys1_convert_prom*/,
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,
-/*TODO*///		null,
-/*TODO*///		megasys1_vh_start,
-/*TODO*///		null,
-/*TODO*///		megasys1_vh_screenrefresh,
-/*TODO*///		/* sound hardware */ 
-/*TODO*///		0,0,0,0,
-/*TODO*///		new MachineSound[] {
-/*TODO*///			new MachineSound( 
-/*TODO*///				SOUND_YM2203, 
-/*TODO*///				ym2203_interface_##_shortname_ 
-/*TODO*///			),
-/*TODO*///		}
-/*TODO*///	);
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-	
 	
 	/***************************************************************************
 	
@@ -1109,12 +780,9 @@ public class megasys1
 			) 
 		} 
 	);        
-/*TODO*///	/* OSC:	? */
-/*TODO*///	MEGASYS1_GAME(	astyanax, A,0xff0000,0xffffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	#define MEGASYS1_MACHINE(	_type_, 
-/*TODO*///								_shortname_,_main_clock_,_sound_clock_, 
-/*TODO*///								_fm_clock_,_oki1_clock_,_oki2_clock_) 
+	/* OSC:	? */
+//	MEGASYS1_GAME(	astyanax, A,0xff0000,0xffffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	static YM2151interface ym2151_interface_astyanax = new YM2151interface
 	( 
 		1, 
@@ -1205,10 +873,9 @@ public class megasys1
 		} 
 	);
         
-/*TODO*///	
-/*TODO*///	/* OSC:	8,12,7 MHz */
-/*TODO*///	MEGASYS1_GAME(	avspirit, B,0x070000,0x07ffff,
-/*TODO*///					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	/* OSC:	8,12,7 MHz */
+//	MEGASYS1_GAME(	avspirit, B,0x070000,0x07ffff,
+
 	static YM2151interface ym2151_interface_avspirit = new YM2151interface
 	( 
 		1, 
@@ -1296,11 +963,11 @@ public class megasys1
 			) 
 		} 
 	);        
-/*TODO*///	
-/*TODO*///	/* This is a clone of Avenging Spirit but runs on different hardware */
-/*TODO*///	/* OSC: same as avspirit(8,12,7 MHz)? (Music tempo driven by timers of the 2151) */
-/*TODO*///	MEGASYS1_GAME(	phantasm, A,0xff0000,0xffffff,
-/*TODO*///					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	
+	/* This is a clone of Avenging Spirit but runs on different hardware */
+	/* OSC: same as avspirit(8,12,7 MHz)? (Music tempo driven by timers of the 2151) */
+//	MEGASYS1_GAME(	phantasm, A,0xff0000,0xffffff,
+//					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	
 	static YM2151interface ym2151_interface_phantasm = new YM2151interface
 	( 
@@ -1480,9 +1147,9 @@ public class megasys1
 		} 
 	);
         
-//	/* OSC:	? */
+	/* OSC:	? */
 //	MEGASYS1_GAME(	chimerab, C,0xff0000,0xffffff,
-/*TODO*///					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+//					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	static MemoryReadAddress readmem_chimerab[] =
 	{
 		new MemoryReadAddress( 0x000000, 0x07ffff, MRA_ROM					), 
@@ -1659,9 +1326,9 @@ public class megasys1
 		} 
 	);
         
-/*TODO*///	/* OSC:	8,12,7 MHz */
-/*TODO*///	MEGASYS1_GAME(	edf, B,0x060000,0x07ffff,
-/*TODO*///					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	/* OSC:	8,12,7 MHz */
+//	MEGASYS1_GAME(	edf, B,0x060000,0x07ffff,
+//					12000000,8000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	
 	static MemoryReadAddress readmem_edf[] =
 	{
@@ -1750,9 +1417,9 @@ public class megasys1
 			) 
 		} 
 	);        
-/*TODO*///	/* OSC:	4,7,12 MHz */
-/*TODO*///	MEGASYS1_GAME(	hachoo, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	/* OSC:	4,7,12 MHz */
+//	MEGASYS1_GAME(	hachoo, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 
 	static YM2151interface ym2151_interface_hachoo = new YM2151interface
 	( 
@@ -1843,10 +1510,10 @@ public class megasys1
 		} 
 	);
         
-/*TODO*///	/* OSC:	? */
-/*TODO*///	MEGASYS1_GAME(	iganinju, A,0x0f0000,0x0fffff,
-/*TODO*///					7000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	// This game doesn't work properly: it severely slows down (and gets worse bumping the clock)
+	/* OSC:	? */
+//	MEGASYS1_GAME(	iganinju, A,0x0f0000,0x0fffff,
+//					7000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	// This game doesn't work properly: it severely slows down (and gets worse bumping the clock)
 	static YM2151interface ym2151_interface_iganinju = new YM2151interface
 	( 
 		1, 
@@ -1936,9 +1603,9 @@ public class megasys1
 		} 
 	);        
 
-/*TODO*///	/* OSC:	4, 7, 12 MHz */
-/*TODO*///	MEGASYS1_GAME(	kickoff, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	/* OSC:	4, 7, 12 MHz */
+//	MEGASYS1_GAME(	kickoff, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	
 	static YM2151interface ym2151_interface_kickoff = new YM2151interface
 	( 
@@ -2133,8 +1800,8 @@ public class megasys1
 	 used on a few other games (e.g. Astyanax). It is coded MB8842 with an MB8843 ROM
 	 daughter card. Changing the ROM card changes the game.
 	*/
-/*TODO*///	MEGASYS1_GAME(	p47, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+//	MEGASYS1_GAME(	p47, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	static YM2151interface ym2151_interface_p47 = new YM2151interface
 	( 
 		1, 
@@ -2224,58 +1891,139 @@ public class megasys1
 		} 
 	);
         
-/*TODO*///	/* OSC:	? */
-/*TODO*///	/* KLOV: Jaleco board no. PB-92127A. Main CPU: Motorola 68000P10 */
-/*TODO*///	MEGASYS1_GAME(	peekaboo, D,0x1f0000,0x1fffff,
-/*TODO*///					10000000,0,	0,12000,0 )	// 1 cpu, no fm, 1 oki
-/*TODO*///	
-/*TODO*///	/***************************************************************************
-/*TODO*///								[ Main CPU - System D ]
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	#define INTERRUPT_NUM_D		1
-/*TODO*///	int interrupt_D(void)
-/*TODO*///	{
-/*TODO*///		return 2;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	#define MEMORYMAP_D(_shortname_,_ram_start_,_ram_end_) 
-/*TODO*///	static MemoryReadAddress readmem_##_shortname_[] =
-/*TODO*///	{ 
-/*TODO*///		new MemoryReadAddress( 0x000000, 0x03ffff, MRA_ROM						), 
-/*TODO*///		new MemoryReadAddress( _ram_start_, _ram_end_, MRA_BANK1					), 
-/*TODO*///		new MemoryReadAddress( 0x0c0000, 0x0c9fff, MRA_BANK2						), 
-/*TODO*///		new MemoryReadAddress( 0x0ca000, 0x0cbfff, MRA_BANK3						), 
-/*TODO*///		new MemoryReadAddress( 0x0d0000, 0x0d3fff, MRA_BANK4						), 
-/*TODO*///		new MemoryReadAddress( 0x0d4000, 0x0d7fff, MRA_BANK5						), 
-/*TODO*///		new MemoryReadAddress( 0x0d8000, 0x0d87ff, paletteram_word_r				), 
-/*TODO*///		new MemoryReadAddress( 0x0db000, 0x0db7ff, paletteram_word_r				), 
-/*TODO*///		new MemoryReadAddress( 0x0e0000, 0x0e0001, dsw_r							), 
-/*TODO*///		new MemoryReadAddress( 0x0e8000, 0x0ebfff, MRA_BANK7						), 
-/*TODO*///		new MemoryReadAddress( 0x0f0000, 0x0f0001, coins_r						), /* Coins + P1P2 Buttons */ 
-/*TODO*///		new MemoryReadAddress( 0x0f8000, 0x0f8001, OKIM6295_status_0_r			), 
-/*TODO*///		new MemoryReadAddress( 0x100000, 0x100001, protection_##_shortname_##_r	), /* Protection */ 
-/*TODO*///		new MemoryReadAddress( -1 ) 
-/*TODO*///	}; 
-/*TODO*///	static MemoryWriteAddress writemem_##_shortname_[] =
-/*TODO*///	{ 
-/*TODO*///	 	new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM											), 
-/*TODO*///		new MemoryWriteAddress( _ram_start_, _ram_end_, MWA_BANK1,			megasys1_ram			), 
-/*TODO*///		new MemoryWriteAddress( 0x0c0000, 0x0c9fff, megasys1_vregs_D_w,		megasys1_vregs			), 
-/*TODO*///		new MemoryWriteAddress( 0x0ca000, 0x0cbfff, MWA_BANK3, 				megasys1_objectram		), 
-/*TODO*///		new MemoryWriteAddress( 0x0d0000, 0x0d3fff, megasys1_scrollram_1_w,	megasys1_scrollram_1	), 
-/*TODO*///		new MemoryWriteAddress( 0x0d4000, 0x0d7fff, megasys1_scrollram_2_w,	megasys1_scrollram_2	), 
-/*TODO*///		new MemoryWriteAddress( 0x0d8000, 0x0d87ff, paletteram_RRRRRGGGGGBBBBBx_word_w				), 
-/*TODO*///		new MemoryWriteAddress( 0x0db000, 0x0db7ff, paletteram_RRRRRGGGGGBBBBBx_word_w, paletteram	), 
-/*TODO*///		new MemoryWriteAddress( 0x0e8000, 0x0ebfff, megasys1_scrollram_0_w,	megasys1_scrollram_0	), 
-/*TODO*///		new MemoryWriteAddress( 0x0f8000, 0x0f8001, ms_OKIM6295_data_0_w								), 
-/*TODO*///		new MemoryWriteAddress( 0x100000, 0x100001, protection_##_shortname_##_w						), /* Protection */ 
-/*TODO*///		new MemoryWriteAddress( -1 ) 
-/*TODO*///	};
+	/* OSC:	? */
+	/* KLOV: Jaleco board no. PB-92127A. Main CPU: Motorola 68000P10 */
+//	MEGASYS1_GAME(	peekaboo, D,0x1f0000,0x1fffff,
+//					10000000,0,	0,12000,0 )	// 1 cpu, no fm, 1 oki
+
+	/***************************************************************************
+								[ Main CPU - System D ]
+	***************************************************************************/
+	
+	static int INTERRUPT_NUM_D		= 1;
+	static InterruptPtr interrupt_D = new InterruptPtr() {
+            @Override
+            public int handler() {
+                return 2;
+            }
+        };
         
-/*TODO*///	/* OSC:	? */
-/*TODO*///	MEGASYS1_GAME(	plusalph, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+        static int protection_val;
+	
+	/* Read the input ports, through a protection device */
+	public static ReadHandlerPtr protection_peekaboo_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		switch (protection_val)
+		{
+			case 0x02:	return 0x03;
+			case 0x51:	return player1_r.handler(0);
+			case 0x52:	return player2_r.handler(0);
+			default:	return protection_val;
+		}
+	} };
+        
+        static int bank;
+        
+	public static WriteHandlerPtr protection_peekaboo_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		
+		protection_val = data;
+	
+		if ((protection_val & 0x90) == 0x90)
+		{
+			UBytePtr RAM = new UBytePtr(memory_region(okim6295_interface_peekaboo.region[0]));
+			int new_bank = (protection_val & 0x7) % 7;
+	
+			if (bank != new_bank)
+			{
+				memcpy(new UBytePtr(RAM, 0x20000),new UBytePtr(RAM, 0x40000 + 0x20000*new_bank),0x20000);
+				bank = new_bank;
+			}
+		}
+	
+		cpu_cause_interrupt(0,4);
+	} };
+	
+//	#define MEMORYMAP_D(_shortname_,_ram_start_,_ram_end_) 
+	static MemoryReadAddress readmem_peekaboo[] =
+	{ 
+		new MemoryReadAddress( 0x000000, 0x03ffff, MRA_ROM						), 
+		new MemoryReadAddress( 0x1f0000, 0x1fffff, MRA_BANK1					), 
+		new MemoryReadAddress( 0x0c0000, 0x0c9fff, MRA_BANK2						), 
+		new MemoryReadAddress( 0x0ca000, 0x0cbfff, MRA_BANK3						), 
+		new MemoryReadAddress( 0x0d0000, 0x0d3fff, MRA_BANK4						), 
+		new MemoryReadAddress( 0x0d4000, 0x0d7fff, MRA_BANK5						), 
+		new MemoryReadAddress( 0x0d8000, 0x0d87ff, paletteram_word_r				), 
+		new MemoryReadAddress( 0x0db000, 0x0db7ff, paletteram_word_r				), 
+		new MemoryReadAddress( 0x0e0000, 0x0e0001, dsw_r							), 
+		new MemoryReadAddress( 0x0e8000, 0x0ebfff, MRA_BANK7						), 
+		new MemoryReadAddress( 0x0f0000, 0x0f0001, coins_r						), /* Coins + P1P2 Buttons */ 
+		new MemoryReadAddress( 0x0f8000, 0x0f8001, OKIM6295_status_0_r			), 
+		new MemoryReadAddress( 0x100000, 0x100001, protection_peekaboo_r	), /* Protection */ 
+		new MemoryReadAddress( -1 ) 
+	}; 
+	static MemoryWriteAddress writemem_peekaboo[] =
+	{ 
+	 	new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM											), 
+		new MemoryWriteAddress( 0x1f0000, 0x1fffff, MWA_BANK1,			megasys1_ram			), 
+		new MemoryWriteAddress( 0x0c0000, 0x0c9fff, megasys1_vregs_D_w,		megasys1_vregs			), 
+		new MemoryWriteAddress( 0x0ca000, 0x0cbfff, MWA_BANK3, 				megasys1_objectram		), 
+		new MemoryWriteAddress( 0x0d0000, 0x0d3fff, megasys1_scrollram_1_w,	megasys1_scrollram_1	), 
+		new MemoryWriteAddress( 0x0d4000, 0x0d7fff, megasys1_scrollram_2_w,	megasys1_scrollram_2	), 
+		new MemoryWriteAddress( 0x0d8000, 0x0d87ff, paletteram_RRRRRGGGGGBBBBBx_word_w				), 
+		new MemoryWriteAddress( 0x0db000, 0x0db7ff, paletteram_RRRRRGGGGGBBBBBx_word_w, paletteram	), 
+		new MemoryWriteAddress( 0x0e8000, 0x0ebfff, megasys1_scrollram_0_w,	megasys1_scrollram_0	), 
+		new MemoryWriteAddress( 0x0f8000, 0x0f8001, ms_OKIM6295_data_0_w								), 
+		new MemoryWriteAddress( 0x100000, 0x100001, protection_peekaboo_w						), /* Protection */ 
+		new MemoryWriteAddress( -1 ) 
+	};
+        
+	static OKIM6295interface okim6295_interface_peekaboo = new OKIM6295interface
+	( 
+		1, 
+		new int[] {12000},
+		new int[] { REGION_SOUND1 }, 
+		new int[] { 100 } 
+	); 
+	 
+	static MachineDriver machine_driver_peekaboo = new MachineDriver
+	( 
+		new MachineCPU[] {
+			new MachineCPU(
+				CPU_M68000,
+				10000000, 
+				readmem_peekaboo,writemem_peekaboo,null,null, 
+				interrupt_D,INTERRUPT_NUM_D
+			) 
+		},
+		60,DEFAULT_60HZ_VBLANK_DURATION,
+		1,
+		megasys1_init_machine,
+		/* video hardware */ 
+		256, 256,new rectangle( 0, 256-1, 0+16, 256-16-1 ),
+		gfxdecodeinfo_D,
+		1024, 1024,
+		megasys1_convert_prom,
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,
+		null,
+		megasys1_vh_start,
+		null,
+		megasys1_vh_screenrefresh,
+		/* sound hardware */ 
+		0,0,0,0,
+		new MachineSound[] { 
+			new MachineSound(
+				SOUND_OKIM6295, 
+				okim6295_interface_peekaboo
+			) 
+		}
+	);
+	
+	
+        
+        	/* OSC:	? */
+//	MEGASYS1_GAME(	plusalph, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	static MemoryReadAddress readmem_plusalph[] =
 	{ 
 		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
@@ -2363,9 +2111,9 @@ public class megasys1
 			) 
 		} 
 	);        
-/*TODO*///	/* OSC:	4,12,7 MHz */
-/*TODO*///	MEGASYS1_GAME(	rodland, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+	/* OSC:	4,12,7 MHz */
+//	MEGASYS1_GAME(	rodland, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 
 	static MemoryReadAddress readmem_rodland[] =
 	{ 
@@ -2457,12 +2205,9 @@ public class megasys1
 	);	
         
         
-/*TODO*///	/* OSC:	? */
-/*TODO*///	MEGASYS1_GAME(	stdragon, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	#define MEGASYS1_MACHINE(	_type_, 
-/*TODO*///								_shortname_,_main_clock_,_sound_clock_, 
-/*TODO*///								_fm_clock_,_oki1_clock_,_oki2_clock_) 
+	/* OSC:	? */
+//	MEGASYS1_GAME(	stdragon, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	static YM2151interface ym2151_interface_stdragon = new YM2151interface
 	( 
 		1, 
@@ -2479,7 +2224,7 @@ public class megasys1
 		new int[] { 30, 30 } 
 	); 
         
-        /*TODO*///	#define MEMORYMAP_A(_shortname_,_ram_start_,_ram_end_) 
+        //	#define MEMORYMAP_A(_shortname_,_ram_start_,_ram_end_) 
 	static MemoryReadAddress readmem_stdragon[] =
 	{ 
 		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
@@ -2554,12 +2299,11 @@ public class megasys1
 	);
 
         
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/* OSC:	? */
-/*TODO*///	MEGASYS1_GAME(	soldamj, A,0x0f0000,0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-        
+	
+	
+	/* OSC:	? */
+//	MEGASYS1_GAME(	soldamj, A,0x0f0000,0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
 	static MemoryReadAddress readmem_soldamj[] =
 	{ 
 		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
@@ -2648,11 +2392,11 @@ public class megasys1
 			) 
 		} 
 	);
-/*TODO*///	
-/*TODO*///	/* OSC:	? */
-/*TODO*///	MEGASYS1_GAME(	tshingen, A, 0x0f0000, 0x0fffff,
-/*TODO*///					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
-/*TODO*///	#define MEMORYMAP_A(_shortname_,_ram_start_,_ram_end_) 
+	
+	/* OSC:	? */
+//	MEGASYS1_GAME(	tshingen, A, 0x0f0000, 0x0fffff,
+//					12000000,7000000,STD_FM_CLOCK,STD_OKI_CLOCK,STD_OKI_CLOCK )
+//	#define MEMORYMAP_A(_shortname_,_ram_start_,_ram_end_) 
 	static MemoryReadAddress readmem_tshingen[] =
 	{ 
 		new MemoryReadAddress( 0x000000, 0x05ffff, MRA_ROM					), 
@@ -2946,17 +2690,17 @@ public class megasys1
 	ROM_END(); }}; 
 	
 	
-/*TODO*///	static RomLoadPtr rom_lordofk = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x80000, REGION_CPU1 );	/* Main CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "lokj02.bin", 0x00000, 0x20000, 0x0d7f9b4a );
-/*TODO*///		ROM_LOAD_ODD(  "lokj01.bin", 0x00000, 0x20000, 0xbed3cb93 );
-/*TODO*///		ROM_LOAD_EVEN( "lokj03.bin", 0x40000, 0x20000, 0xd8702c91 );
-/*TODO*///		ROM_LOAD_ODD(  "lokj04.bin", 0x40000, 0x20000, 0xeccbf8c9 );
-/*TODO*///	
-/*TODO*///		ASTYANAX_ROM_LOAD
-/*TODO*///	
-/*TODO*///	ROM_END(); }}; 
+	static RomLoadPtr rom_lordofk = new RomLoadPtr(){ public void handler(){ 
+	
+		ROM_REGION( 0x80000, REGION_CPU1 );	/* Main CPU Code */
+		ROM_LOAD_EVEN( "lokj02.bin", 0x00000, 0x20000, 0x0d7f9b4a );
+		ROM_LOAD_ODD(  "lokj01.bin", 0x00000, 0x20000, 0xbed3cb93 );
+		ROM_LOAD_EVEN( "lokj03.bin", 0x40000, 0x20000, 0xd8702c91 );
+		ROM_LOAD_ODD(  "lokj04.bin", 0x40000, 0x20000, 0xeccbf8c9 );
+	
+		ASTYANAX_ROM_LOAD();
+	
+	ROM_END(); }}; 
 	
 	
 	static InputPortPtr input_ports_astyanax = new InputPortPtr(){ public void handler() { 
@@ -3045,10 +2789,6 @@ public class megasys1
 			else if	(i < 0x18000)	{ if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
 			else if	(i < 0x20000)	{ y = BITSWAP_1; }
 			else 					{ y = BITSWAP_2; }
-	
-/*TODO*///	#undef	BITSWAP_0
-/*TODO*///	#undef	BITSWAP_1
-/*TODO*///	#undef	BITSWAP_2
 	
 			RAM.WRITE_WORD(i, y);
 		}
@@ -3253,10 +2993,6 @@ public class megasys1
 			else if	(i < 0x18000)	{ if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
 			else if	(i < 0x20000)	{ y = BITSWAP_1; }
 			else 					{ y = BITSWAP_2; }
-	
-/*TODO*///	#undef	BITSWAP_0
-/*TODO*///	#undef	BITSWAP_1
-/*TODO*///	#undef	BITSWAP_2
 	
 			RAM.WRITE_WORD(i, y);
 		}
@@ -3840,8 +3576,8 @@ public class megasys1
 	
 	
 	
-/*TODO*///	/* There's another revision, but it's a bad dump (top half of the code is FF) */
-/*TODO*///	/* There's the priority PROM 82s131.14m in there, all FFs though :( */
+	/* There's another revision, but it's a bad dump (top half of the code is FF) */
+	/* There's the priority PROM 82s131.14m in there, all FFs though :( */
 /*TODO*///	#if 0
 /*TODO*///	static RomLoadPtr rom_hachoo1 = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///	
@@ -4365,214 +4101,182 @@ public class megasys1
 	
 	
 	
-/*TODO*///	/***************************************************************************
-/*TODO*///	
-/*TODO*///								[ Peek-a-Boo! ]
-/*TODO*///	
-/*TODO*///	interrupts:
-/*TODO*///		1] 		506>	rte
-/*TODO*///		2] 		50a>	move.w  #$ffff, $1f0006.l
-/*TODO*///						jsr     $46e0.l				rte
-/*TODO*///		3] 		51c>	rte
-/*TODO*///		4] 		520>	move.w  #$ffff, $1f000a.l	rte
-/*TODO*///		5-7]	53c>	rte
-/*TODO*///	
-/*TODO*///	3832	Show error (d7 = ram segment where error occurred)
-/*TODO*///			1 after d8000 ok. 3 after e0000&d0000 ok. 4 after ram&rom ok
-/*TODO*///	
-/*TODO*///	003E5E: 0000 3E72	[0]	Color Ram
-/*TODO*///	003E62: 0000 3E86	[1]	Video Ram
-/*TODO*///	003E66: 0000 3E9A	[2]	Sprite Ram
-/*TODO*///	003E6A: 0000 3EB0	[3]	Work Ram
-/*TODO*///	003E6E: 0000 3EC4	[4]	ROM
-/*TODO*///	
-/*TODO*///	000000-03ffff	rom (3f760 chksum)
-/*TODO*///	1f0000-1fffff	ram
-/*TODO*///	0d0000-0d3fff	text
-/*TODO*///	0d8000-0d87ff	palette (+200 = text palette)
-/*TODO*///	0e8000-0ebfff	layer
-/*TODO*///	0e0000-0e0001	2 dips, 1f003a<-!
-/*TODO*///	0f0000-0f0001	2 controls
-/*TODO*///	0f8000-0f8001	???
-/*TODO*///	
-/*TODO*///	010000-010001	protectionwatchdog;
-/*TODO*///		fb . fb
-/*TODO*///		9x .	0		watchdog reset?
-/*TODO*///				else	samples bank?
-/*TODO*///						$1ff010 = sample
-/*TODO*///						$1ff014 = bank = sample - $22 (33DC: 1 1 2 3 4 5 6 6 6 6)
-/*TODO*///							samples:	bank:
-/*TODO*///							$00-21		0
-/*TODO*///							$22-2b		1-6
-/*TODO*///	000000-01ffff
-/*TODO*///	020000-03ffff	banked
-/*TODO*///	
-/*TODO*///		51 . paddle p1
-/*TODO*///		52 . paddle p2
-/*TODO*///		4bba waits for 1f000a to go !0, then clears 1f000a (int 4)
-/*TODO*///		4bca waits (100000) & FF == 3
-/*TODO*///		sequence $81, $71, $67 written
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	Scroll x,y,ctrl:
-/*TODO*///	c2000<-1f0010		c2002<-1f0014		c2004<-1f000c
-/*TODO*///	
-/*TODO*///	Scroll x,y,ctrl:
-/*TODO*///	c2008<-1f0018		c200a<-1f001c		c200c<-1f000e
-/*TODO*///	
-/*TODO*///	Layers ctrl:
-/*TODO*///	c2208<-1f0024<<8 + 1f0026		c2308<-1f0022 | 1f002c
-/*TODO*///	
-/*TODO*///	Sprite bank + ??
-/*TODO*///	c2108<-1f005a + 1f0060 + 1f0062 + 1f0068
-/*TODO*///	
-/*TODO*///	Sprite ctrl:
-/*TODO*///	c2200<-0
-/*TODO*///	
-/*TODO*///	1f0000.w	routine index, table at $fae:
-/*TODO*///		0: 4E40
-/*TODO*///		1: 4EC2
-/*TODO*///		2: 4F2C
-/*TODO*///		3: 4F70
-/*TODO*///		4: 4FBC
-/*TODO*///		5: 533A
-/*TODO*///		6: 5382
-/*TODO*///		7: 556E
-/*TODO*///	
-/*TODO*///	1f003c/40	paddle p1/p2
-/*TODO*///	1f0260/4.l	*** p1/p2 score/10 (BCD) ***
-/*TODO*///	1f02e6/8.w	*** p1/p2 current lives ***
-/*TODO*///				Bonus lives:	20K  100K  250K  500K 1000K
-/*TODO*///	1f02ee		current player (0/1)
-/*TODO*///	1f0380		hi score
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	***************************************************************************/
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_peekaboo = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x40000, REGION_CPU1 );	/* 68000 CPU Code */
-/*TODO*///		ROM_LOAD_EVEN( "j3", 0x000000, 0x020000, 0xf5f4cf33 );
-/*TODO*///		ROM_LOAD_ODD(  "j2", 0x000000, 0x020000, 0x7b3d430d );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
-/*TODO*///		ROM_LOAD( "5",       0x000000, 0x080000, 0x34fa07bb );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
-/*TODO*///		ROM_LOAD( "4",       0x000000, 0x020000, 0xf037794b );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
-/*TODO*///		// Unused
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
-/*TODO*///		ROM_LOAD( "1",       0x000000, 0x080000, 0x5a444ecf );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x120000, REGION_SOUND1 );	/* Samples */
-/*TODO*///		ROM_LOAD( "peeksamp.124", 0x000000, 0x020000, 0xe1206fa8 );
-/*TODO*///		ROM_CONTINUE(             0x040000, 0x0e0000             );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
-/*TODO*///		ROM_LOAD( "priority.69",    0x000000, 0x200, 0xb40bff56 );
-/*TODO*///	
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static InputPortPtr input_ports_peekaboo = new InputPortPtr(){ public void handler() { 
-/*TODO*///	
-/*TODO*///		PORT_START(); 		/* IN0 - COINS + P1&P2 Buttons - .b */
-/*TODO*///		PORT_BIT(  0x0001, IP_ACTIVE_LOW, IPT_COIN3 );	// called "service"
-/*TODO*///		PORT_BIT(  0x0002, IP_ACTIVE_LOW, IPT_COIN4 );	// called "test"
-/*TODO*///		PORT_BIT(  0x0004, IP_ACTIVE_LOW, IPT_COIN1 );
-/*TODO*///		PORT_BIT(  0x0008, IP_ACTIVE_LOW, IPT_COIN2 );
-/*TODO*///		PORT_BIT(  0x0010, IP_ACTIVE_LOW, IPT_START1 );
-/*TODO*///		PORT_BIT(  0x0020, IP_ACTIVE_LOW, IPT_START2 );
-/*TODO*///		PORT_BIT(  0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN );
-/*TODO*///		PORT_BIT(  0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN );
-/*TODO*///		PORT_BIT(  0x0100, IP_ACTIVE_LOW, IPT_BUTTON1 );
-/*TODO*///		PORT_BIT(  0x0200, IP_ACTIVE_LOW, IPT_BUTTON2 );
-/*TODO*///		PORT_BIT(  0x0400, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER2 );
-/*TODO*///		PORT_BIT(  0x0800, IP_ACTIVE_LOW, IPT_BUTTON2 | IPF_PLAYER2 );
-/*TODO*///		PORT_BIT(  0x1000, IP_ACTIVE_LOW, IPT_BUTTON3 );	// called "stage clear"
-/*TODO*///		PORT_BIT(  0x2000, IP_ACTIVE_LOW, IPT_BUTTON4 );	// called "option"
-/*TODO*///		PORT_BIT(  0x4000, IP_ACTIVE_LOW, IPT_UNKNOWN );
-/*TODO*///		PORT_BIT(  0x8000, IP_ACTIVE_LOW, IPT_UNKNOWN );
-/*TODO*///	
-/*TODO*///	#define PEEKABOO_PADDLE(_FLAG_)	
-/*TODO*///		PORT_ANALOG( 0x00ff, 0x0080, IPT_PADDLE | _FLAG_, 50, 10, 0x0018, 0x00e0 );
-/*TODO*///	
-/*TODO*///		PORT_START();       	/* IN1 - paddle p1 */
-/*TODO*///		PEEKABOO_PADDLE(IPF_PLAYER1)
-/*TODO*///	
-/*TODO*///		RESERVE				/* IN2 - fake port */
-/*TODO*///		PORT_START();       	/* IN3 - paddle p2 */
-/*TODO*///		PEEKABOO_PADDLE(/*IPF_PLAYER2*/ IPF_COCKTAIL)
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN4 - DSW 1 - 1f003a.b<-e0000.b */
-/*TODO*///		COINAGE_6BITS_2
-/*TODO*///		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Demo_Sounds") );		// 1f0354<-
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "On") );
-/*TODO*///		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );		// 1f0022/6e<-!
-/*TODO*///		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///	
-/*TODO*///		PORT_START(); 			/* IN5 - DSW 2 - 1f003b.b<-e0001.b */
-/*TODO*///		PORT_DIPNAME( 0x03, 0x03, "Unknown 2-0&1" );			// 1f0358<-!
-/*TODO*///		PORT_DIPSETTING(    0x03, "3" );
-/*TODO*///		PORT_DIPSETTING(    0x02, "2" );
-/*TODO*///		PORT_DIPSETTING(    0x01, "1" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "0" );
-/*TODO*///		PORT_SERVICE( 0x04, IP_ACTIVE_LOW );
-/*TODO*///		PORT_DIPNAME( 0x08, 0x08, "Movement?" );				// 1f0392<-!
-/*TODO*///		PORT_DIPSETTING(    0x08, "Paddles" );
-/*TODO*///		PORT_DIPSETTING(    0x00, "Buttons" );
-/*TODO*///		PORT_DIPNAME( 0x30, 0x30, "Nudity" );				// 1f0356<-!
-/*TODO*///		PORT_DIPSETTING(    0x30, "Female and Male (Full); )
-/*TODO*///		PORT_DIPSETTING(    0x20, "Female (Full); )
-/*TODO*///		PORT_DIPSETTING(    0x10, "Female (Partial); )
-/*TODO*///		PORT_DIPSETTING(    0x00, "None" );
-/*TODO*///		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Cabinet") );			// 1f006a<-!
-/*TODO*///		PORT_DIPSETTING(    0x40, DEF_STR( "Upright") );
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "Cocktail") );
-/*TODO*///		PORT_DIPNAME( 0x80, 0x80, "(controls?);nknown 2-7" )	// 1f0074<-!
-/*TODO*///		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );	// num of controls?
-/*TODO*///		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
-/*TODO*///	
-/*TODO*///	INPUT_PORTS_END(); }}; 
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static int protection_val;
-/*TODO*///	
-/*TODO*///	/* Read the input ports, through a protection device */
-/*TODO*///	public static ReadHandlerPtr protection_peekaboo_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		switch (protection_val)
-/*TODO*///		{
-/*TODO*///			case 0x02:	return 0x03;
-/*TODO*///			case 0x51:	return player1_r(0);
-/*TODO*///			case 0x52:	return player2_r(0);
-/*TODO*///			default:	return protection_val;
-/*TODO*///		}
-/*TODO*///	} };
-/*TODO*///	public static WriteHandlerPtr protection_peekaboo_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		static int bank;
-/*TODO*///		protection_val = data;
-/*TODO*///	
-/*TODO*///		if ((protection_val & 0x90) == 0x90)
-/*TODO*///		{
-/*TODO*///			UBytePtr RAM = memory_region(okim6295_interface_peekaboo.region[0]);
-/*TODO*///			int new_bank = (protection_val & 0x7) % 7;
-/*TODO*///	
-/*TODO*///			if (bank != new_bank)
-/*TODO*///			{
-/*TODO*///				memcpy(&RAM[0x20000],&RAM[0x40000 + 0x20000*new_bank],0x20000);
-/*TODO*///				bank = new_bank;
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		cpu_cause_interrupt(0,4);
-/*TODO*///	} };
+	/***************************************************************************
+	
+								[ Peek-a-Boo! ]
+	
+	interrupts:
+		1] 		506>	rte
+		2] 		50a>	move.w  #$ffff, $1f0006.l
+						jsr     $46e0.l				rte
+		3] 		51c>	rte
+		4] 		520>	move.w  #$ffff, $1f000a.l	rte
+		5-7]	53c>	rte
+	
+	3832	Show error (d7 = ram segment where error occurred)
+			1 after d8000 ok. 3 after e0000&d0000 ok. 4 after ram&rom ok
+	
+	003E5E: 0000 3E72	[0]	Color Ram
+	003E62: 0000 3E86	[1]	Video Ram
+	003E66: 0000 3E9A	[2]	Sprite Ram
+	003E6A: 0000 3EB0	[3]	Work Ram
+	003E6E: 0000 3EC4	[4]	ROM
+	
+	000000-03ffff	rom (3f760 chksum)
+	1f0000-1fffff	ram
+	0d0000-0d3fff	text
+	0d8000-0d87ff	palette (+200 = text palette)
+	0e8000-0ebfff	layer
+	0e0000-0e0001	2 dips, 1f003a<-!
+	0f0000-0f0001	2 controls
+	0f8000-0f8001	???
+	
+	010000-010001	protectionwatchdog;
+		fb . fb
+		9x .	0		watchdog reset?
+				else	samples bank?
+						$1ff010 = sample
+						$1ff014 = bank = sample - $22 (33DC: 1 1 2 3 4 5 6 6 6 6)
+							samples:	bank:
+							$00-21		0
+							$22-2b		1-6
+	000000-01ffff
+	020000-03ffff	banked
+	
+		51 . paddle p1
+		52 . paddle p2
+		4bba waits for 1f000a to go !0, then clears 1f000a (int 4)
+		4bca waits (100000) & FF == 3
+		sequence $81, $71, $67 written
+	
+	
+	Scroll x,y,ctrl:
+	c2000<-1f0010		c2002<-1f0014		c2004<-1f000c
+	
+	Scroll x,y,ctrl:
+	c2008<-1f0018		c200a<-1f001c		c200c<-1f000e
+	
+	Layers ctrl:
+	c2208<-1f0024<<8 + 1f0026		c2308<-1f0022 | 1f002c
+	
+	Sprite bank + ??
+	c2108<-1f005a + 1f0060 + 1f0062 + 1f0068
+	
+	Sprite ctrl:
+	c2200<-0
+	
+	1f0000.w	routine index, table at $fae:
+		0: 4E40
+		1: 4EC2
+		2: 4F2C
+		3: 4F70
+		4: 4FBC
+		5: 533A
+		6: 5382
+		7: 556E
+	
+	1f003c/40	paddle p1/p2
+	1f0260/4.l	*** p1/p2 score/10 (BCD) ***
+	1f02e6/8.w	*** p1/p2 current lives ***
+				Bonus lives:	20K  100K  250K  500K 1000K
+	1f02ee		current player (0/1)
+	1f0380		hi score
+	
+	
+	***************************************************************************/
+	
+	static RomLoadPtr rom_peekaboo = new RomLoadPtr(){ public void handler(){ 
+	
+		ROM_REGION( 0x40000, REGION_CPU1 );	/* 68000 CPU Code */
+		ROM_LOAD_EVEN( "j3", 0x000000, 0x020000, 0xf5f4cf33 );
+		ROM_LOAD_ODD(  "j2", 0x000000, 0x020000, 0x7b3d430d );
+	
+		ROM_REGION( 0x080000, REGION_GFX1 | REGIONFLAG_DISPOSE );/* Scroll 0 */
+		ROM_LOAD( "5",       0x000000, 0x080000, 0x34fa07bb );
+	
+		ROM_REGION( 0x080000, REGION_GFX2 | REGIONFLAG_DISPOSE );/* Scroll 1 */
+		ROM_LOAD( "4",       0x000000, 0x020000, 0xf037794b );
+	
+		ROM_REGION( 0x020000, REGION_GFX3 | REGIONFLAG_DISPOSE );/* Scroll 2 */
+		// Unused
+	
+		ROM_REGION( 0x080000, REGION_GFX4 | REGIONFLAG_DISPOSE );/* Sprites */
+		ROM_LOAD( "1",       0x000000, 0x080000, 0x5a444ecf );
+	
+		ROM_REGION( 0x120000, REGION_SOUND1 );	/* Samples */
+		ROM_LOAD( "peeksamp.124", 0x000000, 0x020000, 0xe1206fa8 );
+		ROM_CONTINUE(             0x040000, 0x0e0000             );
+	
+		ROM_REGION( 0x0200, REGION_PROMS );	/* Priority PROM */
+		ROM_LOAD( "priority.69",    0x000000, 0x200, 0xb40bff56 );
+	
+	ROM_END(); }}; 
+        
+        static void PEEKABOO_PADDLE(int _FLAG_)	{
+		PORT_ANALOG( 0x00ff, 0x0080, IPT_PADDLE | _FLAG_, 50, 10, 0x0018, 0x00e0 );
+        }
+	
+	static InputPortPtr input_ports_peekaboo = new InputPortPtr(){ public void handler() { 
+	
+		PORT_START(); 		/* IN0 - COINS + P1&P2 Buttons - .b */
+		PORT_BIT(  0x0001, IP_ACTIVE_LOW, IPT_COIN3 );	// called "service"
+		PORT_BIT(  0x0002, IP_ACTIVE_LOW, IPT_COIN4 );	// called "test"
+		PORT_BIT(  0x0004, IP_ACTIVE_LOW, IPT_COIN1 );
+		PORT_BIT(  0x0008, IP_ACTIVE_LOW, IPT_COIN2 );
+		PORT_BIT(  0x0010, IP_ACTIVE_LOW, IPT_START1 );
+		PORT_BIT(  0x0020, IP_ACTIVE_LOW, IPT_START2 );
+		PORT_BIT(  0x0040, IP_ACTIVE_LOW, IPT_UNKNOWN );
+		PORT_BIT(  0x0080, IP_ACTIVE_LOW, IPT_UNKNOWN );
+		PORT_BIT(  0x0100, IP_ACTIVE_LOW, IPT_BUTTON1 );
+		PORT_BIT(  0x0200, IP_ACTIVE_LOW, IPT_BUTTON2 );
+		PORT_BIT(  0x0400, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER2 );
+		PORT_BIT(  0x0800, IP_ACTIVE_LOW, IPT_BUTTON2 | IPF_PLAYER2 );
+		PORT_BIT(  0x1000, IP_ACTIVE_LOW, IPT_BUTTON3 );	// called "stage clear"
+		PORT_BIT(  0x2000, IP_ACTIVE_LOW, IPT_BUTTON4 );	// called "option"
+		PORT_BIT(  0x4000, IP_ACTIVE_LOW, IPT_UNKNOWN );
+		PORT_BIT(  0x8000, IP_ACTIVE_LOW, IPT_UNKNOWN );
+	
+	
+	
+		PORT_START();       	/* IN1 - paddle p1 */
+		PEEKABOO_PADDLE(IPF_PLAYER1);
+	
+		RESERVE();				/* IN2 - fake port */
+		PORT_START();       	/* IN3 - paddle p2 */
+		PEEKABOO_PADDLE(/*IPF_PLAYER2*/ IPF_COCKTAIL);
+	
+		PORT_START(); 			/* IN4 - DSW 1 - 1f003a.b<-e0000.b */
+		COINAGE_6BITS_2();
+		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Demo_Sounds") );		// 1f0354<-
+		PORT_DIPSETTING(    0x00, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x40, DEF_STR( "On") );
+		PORT_DIPNAME( 0x80, 0x80, DEF_STR( "Flip_Screen") );		// 1f0022/6e<-!
+		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+	
+		PORT_START(); 			/* IN5 - DSW 2 - 1f003b.b<-e0001.b */
+		PORT_DIPNAME( 0x03, 0x03, "Unknown 2-0&1" );			// 1f0358<-!
+		PORT_DIPSETTING(    0x03, "3" );
+		PORT_DIPSETTING(    0x02, "2" );
+		PORT_DIPSETTING(    0x01, "1" );
+		PORT_DIPSETTING(    0x00, "0" );
+		PORT_SERVICE( 0x04, IP_ACTIVE_LOW );
+		PORT_DIPNAME( 0x08, 0x08, "Movement?" );				// 1f0392<-!
+		PORT_DIPSETTING(    0x08, "Paddles" );
+		PORT_DIPSETTING(    0x00, "Buttons" );
+		PORT_DIPNAME( 0x30, 0x30, "Nudity" );				// 1f0356<-!
+		PORT_DIPSETTING(    0x30, "Female and Male (Full)" );
+		PORT_DIPSETTING(    0x20, "Female (Full)" );
+		PORT_DIPSETTING(    0x10, "Female (Partial)" );
+		PORT_DIPSETTING(    0x00, "None" );
+		PORT_DIPNAME( 0x40, 0x40, DEF_STR( "Cabinet") );			// 1f006a<-!
+		PORT_DIPSETTING(    0x40, DEF_STR( "Upright") );
+		PORT_DIPSETTING(    0x00, DEF_STR( "Cocktail") );
+		PORT_DIPNAME( 0x80, 0x80, "(controls?);nknown 2-7" );	// 1f0074<-!
+		PORT_DIPSETTING(    0x80, DEF_STR( "Off") );	// num of controls?
+		PORT_DIPSETTING(    0x00, DEF_STR( "On") );
+	
+	INPUT_PORTS_END(); }}; 
 	
 	
 	/***************************************************************************
@@ -4865,11 +4569,6 @@ public class megasys1
 			else if	(i < 0x18000)	{	if ( (i | 0x248) != i ) {y = BITSWAP_0;} else {y = BITSWAP_1;} }
 			else if	(i < 0x20000)	{ y = BITSWAP_1; }
 			else 					{ y = BITSWAP_3; }
-	
-/*TODO*///	#undef	BITSWAP_0
-/*TODO*///	#undef	BITSWAP_1
-/*TODO*///	#undef	BITSWAP_2
-/*TODO*///	#undef	BITSWAP_3
 	
 			RAM.WRITE_WORD(i, y);
 		}
@@ -5215,7 +4914,7 @@ public class megasys1
 	public static GameDriver driver_64street	   = new GameDriver("1991"	,"64street"	,"megasys1.java"	,rom_64street,null	,machine_driver_64street	,input_ports_64street	,init_64street	,ROT0	,	"Jaleco", "64th. Street - A Detective Story (World)" );
 	public static GameDriver driver_64streej	   = new GameDriver("1991"	,"64streej"	,"megasys1.java"	,rom_64streej,driver_64street	,machine_driver_64street	,input_ports_64street	,init_64street	,ROT0	,	"Jaleco", "64th. Street - A Detective Story (Japan)" );
 	public static GameDriver driver_astyanax	   = new GameDriver("1989"	,"astyanax"	,"megasys1.java"	,rom_astyanax,null	,machine_driver_astyanax	,input_ports_astyanax	,init_astyanax	,ROT0_16BIT	,	"Jaleco", "The Astyanax" );
-/*TODO*///	public static GameDriver driver_lordofk	   = new GameDriver("1989"	,"lordofk"	,"megasys1.java"	,rom_lordofk,driver_astyanax	,machine_driver_astyanax	,input_ports_astyanax	,init_astyanax	,ROT0_16BIT	,	"Jaleco", "The Lord of King (Japan)" )
+        public static GameDriver driver_lordofk	   = new GameDriver("1989"	,"lordofk"	,"megasys1.java"	,rom_lordofk,driver_astyanax	,machine_driver_astyanax	,input_ports_astyanax	,init_astyanax	,ROT0_16BIT	,	"Jaleco", "The Lord of King (Japan)" );
 	public static GameDriver driver_avspirit	   = new GameDriver("1991"	,"avspirit"	,"megasys1.java"	,rom_avspirit,null	,machine_driver_avspirit	,input_ports_avspirit	,init_avspirit	,ROT0	,	"Jaleco", "Avenging Spirit" );
 	public static GameDriver driver_phantasm	   = new GameDriver("1990"	,"phantasm"	,"megasys1.java"	,rom_phantasm,driver_avspirit	,machine_driver_phantasm	,input_ports_phantasm	,init_phantasm	,ROT0	,	"Jaleco", "Phantasm (Japan)" );
 	public static GameDriver driver_bigstrik	   = new GameDriver("1992"	,"bigstrik"	,"megasys1.java"	,rom_bigstrik,null	,machine_driver_bigstrik	,input_ports_bigstrik	,init_bigstrik	,ROT0	,	"Jaleco", "Big Striker" );
@@ -5229,7 +4928,7 @@ public class megasys1
 	public static GameDriver driver_makaiden	   = new GameDriver("1988"	,"makaiden"	,"megasys1.java"	,rom_makaiden,driver_lomakai	,machine_driver_lomakai	,input_ports_lomakai	,null	,ROT0	,	"Jaleco", "Makai Densetsu (Japan)" );
         public static GameDriver driver_p47	   = new GameDriver("1988"	,"p47"	,"megasys1.java"	,rom_p47,null	,machine_driver_p47	,input_ports_p47	,null	,ROT0	,	"Jaleco", "P-47 - The Phantom Fighter (World)" );
 	public static GameDriver driver_p47j	   = new GameDriver("1988"	,"p47j"	,"megasys1.java"	,rom_p47j,driver_p47	,machine_driver_p47	,input_ports_p47	,null	,ROT0	,	"Jaleco", "P-47 - The Freedom Fighter (Japan)" );
-/*TODO*///	public static GameDriver driver_peekaboo	   = new GameDriver("1993"	,"peekaboo"	,"megasys1.java"	,rom_peekaboo,null	,machine_driver_peekaboo	,input_ports_peekaboo	,null	,ROT0	,	"Jaleco", "Peek-a-Boo!" )
+	public static GameDriver driver_peekaboo	   = new GameDriver("1993"	,"peekaboo"	,"megasys1.java"	,rom_peekaboo,null	,machine_driver_peekaboo	,input_ports_peekaboo	,null	,ROT0	,	"Jaleco", "Peek-a-Boo!" );
         public static GameDriver driver_plusalph	   = new GameDriver("1989"	,"plusalph"	,"megasys1.java"	,rom_plusalph,null	,machine_driver_plusalph	,input_ports_plusalph	,init_plusalph	,ROT270	,	"Jaleco", "Plus Alpha" );
         public static GameDriver driver_rodland	   = new GameDriver("1990"	,"rodland"	,"megasys1.java"	,rom_rodland,null	,machine_driver_rodland	,input_ports_rodland	,init_rodland	,ROT0	,	"Jaleco", "RodLand (World)" );
         public static GameDriver driver_rodlandj	   = new GameDriver("1990"	,"rodlandj"	,"megasys1.java"	,rom_rodlandj,driver_rodland	,machine_driver_rodland	,input_ports_rodland	,init_rodlandj	,ROT0	,	"Jaleco", "RodLand (Japan)" );

@@ -2880,7 +2880,7 @@ public class driver {
         driver_kickoff, 	/* (c) 1988 (Japan) */
         driver_tshingen, 	/* (c) 1988 (Japan) */
         driver_astyanax, 	/* (c) 1989 */
-        /*TODO*///	driver_lordofk )	/* (c) 1989 (Japan) */
+        driver_lordofk, 	/* (c) 1989 (Japan) */
         driver_hachoo, 	/* (c) 1989 */
         driver_plusalph, 	/* (c) 1989 */
         driver_stdragon, 	/* (c) 1989 */
@@ -2895,7 +2895,7 @@ public class driver {
         driver_bigstrik, 	/* (c) 1992 */
         driver_chimerab, 	/* (c) 1993 */
         driver_cybattlr, 	/* (c) 1993 */
-        /*TODO*///	driver_peekaboo )	/* (c) 1993 */
+        driver_peekaboo, 	/* (c) 1993 */
         driver_soldamj, 	/* (c) 1992 (Japan) */
         
         /*TODO*///	/* Video System Co. games */

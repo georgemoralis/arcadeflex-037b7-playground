@@ -253,14 +253,7 @@ import static arcadeflex.v037b7.vidhrdw.generic.*;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.drawgfx;
 
 public class megasys1
-{
-	
-	/* Variables only used here: */
-	
-	/* For debug purposes: */
-/*TODO*///	#ifdef MAME_DEBUG
-/*TODO*///	static int debugsprites;
-/*TODO*///	#endif
+{	
 	
 	/* Variables defined here, that have to be shared: */
 	static struct_tilemap megasys1_tmap_0, megasys1_tmap_1, megasys1_tmap_2;
@@ -862,35 +855,57 @@ public class megasys1
 	
 	
 	
-/*TODO*///	/* Used by MS1-D only */
-/*TODO*///	public static WriteHandlerPtr megasys1_vregs_D_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///	int old_data, new_data;
-/*TODO*///	
-/*TODO*///		old_data = READ_WORD(&megasys1_vregs[offset]);
-/*TODO*///		COMBINE_WORD_MEM(&megasys1_vregs[offset],data);
-/*TODO*///		new_data  = READ_WORD(&megasys1_vregs[offset]);
-/*TODO*///	
-/*TODO*///		switch (offset)
-/*TODO*///		{
-/*TODO*///			case 0x2000+0 :	MEGASYS1_VREG_SCROLL(0,x)	break;
-/*TODO*///			case 0x2000+2 :	MEGASYS1_VREG_SCROLL(0,y)	break;
-/*TODO*///			case 0x2000+4 :	MEGASYS1_VREG_FLAG(0)		break;
-/*TODO*///			case 0x2008+0 :	MEGASYS1_VREG_SCROLL(1,x)	break;
-/*TODO*///			case 0x2008+2 :	MEGASYS1_VREG_SCROLL(1,y)	break;
-/*TODO*///			case 0x2008+4 :	MEGASYS1_VREG_FLAG(1)		break;
-/*TODO*///	//		case 0x2100+0 :	MEGASYS1_VREG_SCROLL(2,x)	break;
-/*TODO*///	//		case 0x2100+2 :	MEGASYS1_VREG_SCROLL(2,y)	break;
-/*TODO*///	//		case 0x2100+4 :	MEGASYS1_VREG_FLAG(2)		break;
-/*TODO*///	
-/*TODO*///			case 0x2108   :	megasys1_sprite_bank	=	new_data;		break;
-/*TODO*///			case 0x2200   :	megasys1_sprite_flag	=	new_data;		break;
-/*TODO*///			case 0x2208   : megasys1_active_layers	=	new_data;		break;
-/*TODO*///			case 0x2308   :	megasys1_screen_flag	=	new_data;		break;
-/*TODO*///	
-/*TODO*///			default:		SHOW_WRITE_ERROR("vreg %04X <- %04X",offset,data);
-/*TODO*///		}
-/*TODO*///	} };
+	/* Used by MS1-D only */
+	public static WriteHandlerPtr megasys1_vregs_D_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+	int old_data, new_data;
+	
+		old_data = megasys1_vregs.READ_WORD(offset);
+		COMBINE_WORD_MEM(megasys1_vregs,offset,data);
+		new_data  = megasys1_vregs.READ_WORD(offset);
+	
+		switch (offset)
+		{
+			case 0x2000+0 :	
+                            //MEGASYS1_VREG_SCROLL(0,x)	
+                            megasys1_scrollx[0] = new_data;
+                        break;
+			case 0x2000+2 :	
+                            //MEGASYS1_VREG_SCROLL(0,y)	
+                            megasys1_scrolly[0] = new_data;
+                        break;
+			case 0x2000+4 :	
+                            //MEGASYS1_VREG_FLAG(0)		
+                            megasys1_scroll_0_flag_w(new_data); 
+                            if (megasys1_tmap_0 == null) 
+                                SHOW_WRITE_ERROR("vreg %04X <- %04X NO MEMORY FOR SCREEN",offset,data);
+                        break;
+			case 0x2008+0 :	
+                            //MEGASYS1_VREG_SCROLL(1,x)	
+                            megasys1_scrollx[1] = new_data;
+                        break;
+			case 0x2008+2 :	
+                            //MEGASYS1_VREG_SCROLL(1,y)	
+                            megasys1_scrolly[1] = new_data;
+                        break;
+			case 0x2008+4 :	
+                            //MEGASYS1_VREG_FLAG(1)		
+                            megasys1_scroll_1_flag_w(new_data); 
+                            if (megasys1_tmap_1 == null) 
+                                SHOW_WRITE_ERROR("vreg %04X <- %04X NO MEMORY FOR SCREEN",offset,data);
+                        break;
+	//		case 0x2100+0 :	MEGASYS1_VREG_SCROLL(2,x)	break;
+	//		case 0x2100+2 :	MEGASYS1_VREG_SCROLL(2,y)	break;
+	//		case 0x2100+4 :	MEGASYS1_VREG_FLAG(2)		break;
+	
+			case 0x2108   :	megasys1_sprite_bank	=	new_data;		break;
+			case 0x2200   :	megasys1_sprite_flag	=	new_data;		break;
+			case 0x2208   : megasys1_active_layers	=	new_data;		break;
+			case 0x2308   :	megasys1_screen_flag	=	new_data;		break;
+	
+			default:		SHOW_WRITE_ERROR("vreg %04X <- %04X",offset,data);
+		}
+	} };
 	
 	
 	
