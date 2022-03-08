@@ -244,6 +244,8 @@ Self Test:
 package arcadeflex.WIP.v037b7.drivers;
 
 import static arcadeflex.WIP.v037b7.vidhrdw.wecleman.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_writemem24bew_word;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_readmem24bew_word;
 import static gr.codebb.arcadeflex.WIP.v037b7.sound.k007232.*;
 import static arcadeflex.common.libc.cstring.*;
 import arcadeflex.common.ptrLib.UBytePtr;
@@ -545,14 +547,14 @@ public class wecleman
 	
 	
 			/* Two minterms / blit modes are used */
-                        System.out.println("cpu_readmem24bew_word NOT IMPLEMENTED!!!!");
+                        //System.out.println("cpu_readmem24bew_word NOT IMPLEMENTED!!!!");
 			if (minterm != 2)
 			{
 				/* One single blit */
 				for ( ; size > 0 ; size--)
 				{
 					/* maybe slower than a memcpy but safer (and errors are logged) */
-/*TODO*///					cpu_writemem24bew_word(dest,cpu_readmem24bew_word(src));
+					cpu_writemem24bew_word(dest,cpu_readmem24bew_word(src));
                                         
 					src += 2;		dest += 2;
 				}
@@ -566,20 +568,20 @@ public class wecleman
 				int j;
 	
 					/* Read offset of source from the list of blits */
-/*TODO*///					int addr = src + cpu_readmem24bew_word( list + 2 );
+					int addr = src + cpu_readmem24bew_word( list + 2 );
 	
 					for (j = size; j > 0; j--)
 					{
-/*TODO*///						cpu_writemem24bew_word(dest,cpu_readmem24bew_word(addr));
+						cpu_writemem24bew_word(dest,cpu_readmem24bew_word(addr));
 						dest += 2;	
-/*TODO*///                                                addr += 2;
+                                                addr += 2;
 					}
 					dest += 16-size*2;	/* hack for the blit to Sprites RAM */
 					list +=  4;
 				}
 	
 				/* hack for the blit to Sprites RAM - Sprite list end-marker */
-/*TODO*///				cpu_writemem24bew_word(dest,0xFFFF);
+				cpu_writemem24bew_word(dest,0xFFFF);
 			}
 		} /* end blit */
 	} };
@@ -859,7 +861,7 @@ public class wecleman
 	public static WriteHandlerPtr wecleman_K007232_bank_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
 		K007232_bankswitch(0, new UBytePtr(memory_region(REGION_SOUND1)),
-							  memory_region((data & 1)!=0 ? REGION_SOUND1 : REGION_SOUND2) );
+							  new UBytePtr(memory_region((data & 1)!=0 ? REGION_SOUND1 : REGION_SOUND2)) );
 	} };
 	
 	static MemoryReadAddress wecleman_sound_readmem[] =
@@ -1380,7 +1382,7 @@ public class wecleman
 	public static InitMachinePtr wecleman_init_machine = new InitMachinePtr() { public void handler() 
 	{
 		K007232_bankswitch(0,	memory_region(REGION_SOUND1), /* the 2 channels use different ROMs */
-								memory_region(REGION_SOUND2) );
+								new UBytePtr(memory_region(REGION_SOUND2)) );
 	} };
 	
 	

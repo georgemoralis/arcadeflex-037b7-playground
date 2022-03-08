@@ -229,6 +229,7 @@ import static arcadeflex.WIP.v037b7.drivers.wecleman.*;
 import static arcadeflex.WIP.v037b7.drivers.megasys1.*;
 import static arcadeflex.WIP.v037b7.drivers.cischeat.*;
 import static arcadeflex.WIP.v037b7.drivers.dec0.*;
+import static arcadeflex.WIP.v037b7.drivers.twin16.*;
 
 public class driver {
 
@@ -2274,20 +2275,20 @@ public class driver {
         /*TODO*///	driver_twinbee )	/* GX412 (c) 1985 */
         /*TODO*///	driver_gradius )	/* GX456 (c) 1985 */
         /*TODO*///	driver_gwarrior )	/* GX578 (c) 1985 */
-        /*TODO*///
-        /*TODO*///	/* Konami "Twin 16" games */
-        /*TODO*///	driver_devilw )	/* GX687 (c) 1987 */
-        /*TODO*///	driver_darkadv )	/* GX687 (c) 1987 */
-        /*TODO*///	driver_majuu )		/* GX687 (c) 1987 (Japan) */
-        /*TODO*///	driver_vulcan )	/* GX785 (c) 1988 */
-        /*TODO*///	driver_gradius2 )	/* GX785 (c) 1988 (Japan) */
-        /*TODO*///	driver_grdius2a )	/* GX785 (c) 1988 (Japan) */
-        /*TODO*///	driver_grdius2b )	/* GX785 (c) 1988 (Japan) */
-        /*TODO*///	driver_cuebrick )	/* GX903 (c) 1989 */
-        /*TODO*///	driver_fround )	/* GX870 (c) 1988 */
-        /*TODO*///	driver_hpuncher )	/* GX870 (c) 1988 (Japan) */
-        /*TODO*///	driver_miaj )		/* GX808 (c) 1989 (Japan) */
-        /*TODO*///
+        
+        /* Konami "Twin 16" games */
+        driver_devilw, 	/* GX687 (c) 1987 */
+        driver_darkadv, 	/* GX687 (c) 1987 */
+        driver_majuu, 		/* GX687 (c) 1987 (Japan) */
+        driver_vulcan, 	/* GX785 (c) 1988 */
+        driver_gradius2, 	/* GX785 (c) 1988 (Japan) */
+        driver_grdius2a, 	/* GX785 (c) 1988 (Japan) */
+        driver_grdius2b, 	/* GX785 (c) 1988 (Japan) */
+        driver_cuebrick, 	/* GX903 (c) 1989 */
+        driver_fround, 	/* GX870 (c) 1988 */
+        driver_hpuncher, 	/* GX870 (c) 1988 (Japan) */
+        driver_miaj, 		/* GX808 (c) 1989 (Japan) */
+        
         /*TODO*///	/* Konami Gradius III board */
         /*TODO*///	driver_gradius3 )	/* GX945 (c) 1989 (Japan) */
         /*TODO*///	driver_grdius3a )	/* GX945 (c) 1989 (Asia) */

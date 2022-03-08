@@ -68,6 +68,16 @@ public class subArrays {
             this.memory = _buffer;
             this.offset = offset;
         }
+        
+        public UShortArray(UShortPtr buffer, int offset) {
+            int _longo = buffer.memory.length;
+            char[] _buffer = new char[_longo];
+            for (int _i = 0; _i < _longo; _i++) {
+                _buffer[_i] = (char) buffer.memory[_i];
+            }
+            this.memory = _buffer;
+            this.offset = offset + buffer.offset;
+        }
 
         public char read() {
             return memory[offset];

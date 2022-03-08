@@ -55,6 +55,12 @@ public class cstring {
       dst.write(mem, value);
     }
   }
+  
+  public static void memset(UShortPtr dst, int value, int size) {
+    for (int mem = 0; mem < size; mem++) {
+      dst.write(mem, (char) value);
+    }
+  }
 
   public static void memset(short[] dst, int value, int size) {
     for (int mem = 0; mem < size; mem++) {
@@ -124,6 +130,20 @@ public class cstring {
   }
 
   public static void memcpy(UBytePtr dst, UBytePtr src, int size) {
+    if (size == 0) return;
+    for (int i = 0; i < Math.min(size, src.memory.length); i++) {
+      dst.write(i, src.read(i));
+    }
+  }
+  
+  public static void memcpy(UShortPtr dst, UShortPtr src, int size) {
+    if (size == 0) return;
+    for (int i = 0; i < Math.min(size, src.memory.length); i++) {
+      dst.write(i, src.read(i));
+    }
+  }
+  
+  public static void memcpy(UShortArray dst, UShortArray src, int size) {
     if (size == 0) return;
     for (int i = 0; i < Math.min(size, src.memory.length); i++) {
       dst.write(i, src.read(i));

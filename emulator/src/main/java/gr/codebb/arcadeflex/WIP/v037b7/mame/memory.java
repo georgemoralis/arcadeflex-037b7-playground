@@ -91,7 +91,7 @@ public class memory {
     /*TODO*///READBYTE(cpu_readmem21,    TYPE_8BIT,	  21)
     /*TODO*///
     /*TODO*///READBYTE(cpu_readmem16bew, TYPE_16BIT_BE, 16BEW)
-    /*TODO*///#define READBYTE(name,type,abits)														\
+    /*TODO*///#define READBYTE(name,type,abits)														
     public static int cpu_readmem16bew(int address) {
         char u8_hw;
 
@@ -129,7 +129,7 @@ public class memory {
     }
 
     /*TODO*///READWORD(cpu_readmem16bew, TYPE_16BIT_BE, 16BEW, ALWAYS_ALIGNED)
-    /*TODO*///#define READWORD(name,type,abits,align) 												\
+    /*TODO*///#define READWORD(name,type,abits,align) 												
     public static int cpu_readmem16bew_word(int address) {
         char u8_hw;
 
@@ -285,183 +285,183 @@ public class memory {
     /*TODO*///***************************************************************************/
     /*TODO*///
     /*TODO*////* generic byte-sized write handler */
-    /*TODO*///#define WRITEBYTE(name,type,abits)														\
-    /*TODO*///void name(offs_t address,data_t data)													\
-    /*TODO*///{																						\
-    /*TODO*///	MHELE hw;																			\
-    /*TODO*///																						\
-    /*TODO*///	/* first-level lookup */															\
-    /*TODO*///	hw = cur_mwhard[(UINT32)address >> (ABITS2_##abits + ABITS_MIN_##abits)];			\
-    /*TODO*///																						\
-    /*TODO*///	/* for compatibility with setbankhandler, 8-bit systems must call handlers */		\
-    /*TODO*///	/* for banked memory reads/writes */												\
-    /*TODO*///	if (type == TYPE_8BIT && hw == HT_RAM)												\
-    /*TODO*///	{																					\
-    /*TODO*///		cpu_bankbase[HT_RAM][address] = data;											\
-    /*TODO*///		return; 																		\
-    /*TODO*///	}																					\
-    /*TODO*///	else if (type != TYPE_8BIT && hw <= HT_BANKMAX) 									\
-    /*TODO*///	{																					\
-    /*TODO*///		if (type == TYPE_16BIT_BE)														\
-    /*TODO*///			cpu_bankbase[hw][BYTE_XOR_BE(address) - memorywriteoffset[hw]] = data;		\
-    /*TODO*///		else if (type == TYPE_16BIT_LE) 												\
-    /*TODO*///			cpu_bankbase[hw][BYTE_XOR_LE(address) - memorywriteoffset[hw]] = data;		\
-    /*TODO*///		return; 																		\
-    /*TODO*///	}																					\
-    /*TODO*///																						\
-    /*TODO*///	/* second-level lookup */															\
-    /*TODO*///	if (hw >= MH_HARDMAX)																\
-    /*TODO*///	{																					\
-    /*TODO*///		hw -= MH_HARDMAX;																\
-    /*TODO*///		hw = writehardware[(hw << MH_SBITS) + (((UINT32)address >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))];	\
-    /*TODO*///																						\
-    /*TODO*///		/* for compatibility with setbankhandler, 8-bit systems must call handlers */	\
-    /*TODO*///		/* for banked memory reads/writes */											\
-    /*TODO*///		if (type == TYPE_8BIT && hw == HT_RAM)											\
-    /*TODO*///		{																				\
-    /*TODO*///			cpu_bankbase[HT_RAM][address] = data;										\
-    /*TODO*///			return; 																	\
-    /*TODO*///		}																				\
-    /*TODO*///		else if (type != TYPE_8BIT && hw <= HT_BANKMAX) 								\
-    /*TODO*///		{																				\
-    /*TODO*///			if (type == TYPE_16BIT_BE)													\
-    /*TODO*///				cpu_bankbase[hw][BYTE_XOR_BE(address) - memorywriteoffset[hw]] = data;	\
-    /*TODO*///			else if (type == TYPE_16BIT_LE) 											\
-    /*TODO*///				cpu_bankbase[hw][BYTE_XOR_LE(address) - memorywriteoffset[hw]] = data;	\
-    /*TODO*///			return; 																	\
-    /*TODO*///		}																				\
-    /*TODO*///	}																					\
-    /*TODO*///																						\
-    /*TODO*///	/* fall back to handler */															\
-    /*TODO*///	if (type != TYPE_8BIT)																\
-    /*TODO*///	{																					\
-    /*TODO*///		int shift = (address & 1) << 3; 												\
-    /*TODO*///		if (type == TYPE_16BIT_BE)														\
-    /*TODO*///			shift ^= 8; 																\
-    /*TODO*///		data = (0xff000000 >> shift) | ((data & 0xff) << shift);						\
-    /*TODO*///		address &= ~1;																	\
-    /*TODO*///	}																					\
-    /*TODO*///	(*memorywritehandler[hw])(address - memorywriteoffset[hw], data);					\
+    /*TODO*///#define WRITEBYTE(name,type,abits)														
+    /*TODO*///void name(offs_t address,data_t data)													
+    /*TODO*///{																						
+    /*TODO*///	MHELE hw;																			
+    /*TODO*///																						
+    /*TODO*///	/* first-level lookup */															
+    /*TODO*///	hw = cur_mwhard[(UINT32)address >> (ABITS2_##abits + ABITS_MIN_##abits)];			
+    /*TODO*///																						
+    /*TODO*///	/* for compatibility with setbankhandler, 8-bit systems must call handlers */		
+    /*TODO*///	/* for banked memory reads/writes */												
+    /*TODO*///	if (type == TYPE_8BIT && hw == HT_RAM)												
+    /*TODO*///	{																					
+    /*TODO*///		cpu_bankbase[HT_RAM][address] = data;											
+    /*TODO*///		return; 																		
+    /*TODO*///	}																					
+    /*TODO*///	else if (type != TYPE_8BIT && hw <= HT_BANKMAX) 									
+    /*TODO*///	{																					
+    /*TODO*///		if (type == TYPE_16BIT_BE)														
+    /*TODO*///			cpu_bankbase[hw][BYTE_XOR_BE(address) - memorywriteoffset[hw]] = data;		
+    /*TODO*///		else if (type == TYPE_16BIT_LE) 												
+    /*TODO*///			cpu_bankbase[hw][BYTE_XOR_LE(address) - memorywriteoffset[hw]] = data;		
+    /*TODO*///		return; 																		
+    /*TODO*///	}																					
+    /*TODO*///																						
+    /*TODO*///	/* second-level lookup */															
+    /*TODO*///	if (hw >= MH_HARDMAX)																
+    /*TODO*///	{																					
+    /*TODO*///		hw -= MH_HARDMAX;																
+    /*TODO*///		hw = writehardware[(hw << MH_SBITS) + (((UINT32)address >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))];	
+    /*TODO*///																						
+    /*TODO*///		/* for compatibility with setbankhandler, 8-bit systems must call handlers */	
+    /*TODO*///		/* for banked memory reads/writes */											
+    /*TODO*///		if (type == TYPE_8BIT && hw == HT_RAM)											
+    /*TODO*///		{																				
+    /*TODO*///			cpu_bankbase[HT_RAM][address] = data;										
+    /*TODO*///			return; 																	
+    /*TODO*///		}																				
+    /*TODO*///		else if (type != TYPE_8BIT && hw <= HT_BANKMAX) 								
+    /*TODO*///		{																				
+    /*TODO*///			if (type == TYPE_16BIT_BE)													
+    /*TODO*///				cpu_bankbase[hw][BYTE_XOR_BE(address) - memorywriteoffset[hw]] = data;	
+    /*TODO*///			else if (type == TYPE_16BIT_LE) 											
+    /*TODO*///				cpu_bankbase[hw][BYTE_XOR_LE(address) - memorywriteoffset[hw]] = data;	
+    /*TODO*///			return; 																	
+    /*TODO*///		}																				
+    /*TODO*///	}																					
+    /*TODO*///																						
+    /*TODO*///	/* fall back to handler */															
+    /*TODO*///	if (type != TYPE_8BIT)																
+    /*TODO*///	{																					
+    /*TODO*///		int shift = (address & 1) << 3; 												
+    /*TODO*///		if (type == TYPE_16BIT_BE)														
+    /*TODO*///			shift ^= 8; 																
+    /*TODO*///		data = (0xff000000 >> shift) | ((data & 0xff) << shift);						
+    /*TODO*///		address &= ~1;																	
+    /*TODO*///	}																					
+    /*TODO*///	(*memorywritehandler[hw])(address - memorywriteoffset[hw], data);					
     /*TODO*///}
     /*TODO*///
     /*TODO*////* generic word-sized write handler (16-bit aligned only!) */
-    /*TODO*///#define WRITEWORD(name,type,abits,align)												\
-    /*TODO*///void name##_word(offs_t address,data_t data)											\
-    /*TODO*///{																						\
-    /*TODO*///	MHELE hw;																			\
-    /*TODO*///																						\
-    /*TODO*///	/* only supports 16-bit memory systems */											\
-    /*TODO*///	if (type == TYPE_8BIT)																\
-    /*TODO*///		printf("Unsupported type for WRITEWORD macro!\n");                              \
-    /*TODO*///																						\
-    /*TODO*///	/* handle aligned case first */ 													\
-    /*TODO*///	if (align == ALWAYS_ALIGNED || !(address & 1))										\
-    /*TODO*///	{																					\
-    /*TODO*///		/* first-level lookup */														\
-    /*TODO*///		hw = cur_mwhard[(UINT32)address >> (ABITS2_##abits + ABITS_MIN_##abits)];		\
-    /*TODO*///		if (hw <= HT_BANKMAX)															\
-    /*TODO*///		{																				\
-    /*TODO*///			WRITE_WORD(&cpu_bankbase[hw][address - memorywriteoffset[hw]], data);		\
-    /*TODO*///			return; 																	\
-    /*TODO*///		}																				\
-    /*TODO*///																						\
-    /*TODO*///		/* second-level lookup */														\
-    /*TODO*///		if (hw >= MH_HARDMAX)															\
-    /*TODO*///		{																				\
-    /*TODO*///			hw -= MH_HARDMAX;															\
-    /*TODO*///			hw = writehardware[(hw << MH_SBITS) + (((UINT32)address >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))]; \
-    /*TODO*///			if (hw <= HT_BANKMAX)														\
-    /*TODO*///			{																			\
-    /*TODO*///				WRITE_WORD(&cpu_bankbase[hw][address - memorywriteoffset[hw]], data);	\
-    /*TODO*///				return; 																\
-    /*TODO*///			}																			\
-    /*TODO*///		}																				\
-    /*TODO*///																						\
-    /*TODO*///		/* fall back to handler */														\
-    /*TODO*///		(*memorywritehandler[hw])(address - memorywriteoffset[hw], data & 0xffff);		\
-    /*TODO*///	}																					\
-    /*TODO*///																						\
-    /*TODO*///	/* unaligned case */																\
-    /*TODO*///	else if (type == TYPE_16BIT_BE) 													\
-    /*TODO*///	{																					\
-    /*TODO*///		name(address, data >> 8);														\
-    /*TODO*///		name(address + 1, data & 0xff); 												\
-    /*TODO*///	}																					\
-    /*TODO*///	else if (type == TYPE_16BIT_LE) 													\
-    /*TODO*///	{																					\
-    /*TODO*///		name(address, data & 0xff); 													\
-    /*TODO*///		name(address + 1, data >> 8);													\
-    /*TODO*///	}																					\
+    /*TODO*///#define WRITEWORD(name,type,abits,align)												
+    /*TODO*///void name##_word(offs_t address,data_t data)											
+    /*TODO*///{																						
+    /*TODO*///	MHELE hw;																			
+    /*TODO*///																						
+    /*TODO*///	/* only supports 16-bit memory systems */											
+    /*TODO*///	if (type == TYPE_8BIT)																
+    /*TODO*///		printf("Unsupported type for WRITEWORD macro!n");                              
+    /*TODO*///																						
+    /*TODO*///	/* handle aligned case first */ 													
+    /*TODO*///	if (align == ALWAYS_ALIGNED || !(address & 1))										
+    /*TODO*///	{																					
+    /*TODO*///		/* first-level lookup */														
+    /*TODO*///		hw = cur_mwhard[(UINT32)address >> (ABITS2_##abits + ABITS_MIN_##abits)];		
+    /*TODO*///		if (hw <= HT_BANKMAX)															
+    /*TODO*///		{																				
+    /*TODO*///			WRITE_WORD(&cpu_bankbase[hw][address - memorywriteoffset[hw]], data);		
+    /*TODO*///			return; 																	
+    /*TODO*///		}																				
+    /*TODO*///																						
+    /*TODO*///		/* second-level lookup */														
+    /*TODO*///		if (hw >= MH_HARDMAX)															
+    /*TODO*///		{																				
+    /*TODO*///			hw -= MH_HARDMAX;															
+    /*TODO*///			hw = writehardware[(hw << MH_SBITS) + (((UINT32)address >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))]; 
+    /*TODO*///			if (hw <= HT_BANKMAX)														
+    /*TODO*///			{																			
+    /*TODO*///				WRITE_WORD(&cpu_bankbase[hw][address - memorywriteoffset[hw]], data);	
+    /*TODO*///				return; 																
+    /*TODO*///			}																			
+    /*TODO*///		}																				
+    /*TODO*///																						
+    /*TODO*///		/* fall back to handler */														
+    /*TODO*///		(*memorywritehandler[hw])(address - memorywriteoffset[hw], data & 0xffff);		
+    /*TODO*///	}																					
+    /*TODO*///																						
+    /*TODO*///	/* unaligned case */																
+    /*TODO*///	else if (type == TYPE_16BIT_BE) 													
+    /*TODO*///	{																					
+    /*TODO*///		name(address, data >> 8);														
+    /*TODO*///		name(address + 1, data & 0xff); 												
+    /*TODO*///	}																					
+    /*TODO*///	else if (type == TYPE_16BIT_LE) 													
+    /*TODO*///	{																					
+    /*TODO*///		name(address, data & 0xff); 													
+    /*TODO*///		name(address + 1, data >> 8);													
+    /*TODO*///	}																					
     /*TODO*///}
     /*TODO*///
     /*TODO*////* generic dword-sized write handler (16-bit aligned only!) */
-    /*TODO*///#define WRITELONG(name,type,abits,align)												\
-    /*TODO*///void name##_dword(offs_t address,data_t data)											\
-    /*TODO*///{																						\
-    /*TODO*///	UINT16 word1, word2;																\
-    /*TODO*///	MHELE hw1, hw2; 																	\
-    /*TODO*///																						\
-    /*TODO*///	/* only supports 16-bit memory systems */											\
-    /*TODO*///	if (type == TYPE_8BIT)																\
-    /*TODO*///		printf("Unsupported type for WRITEWORD macro!\n");                              \
-    /*TODO*///																						\
-    /*TODO*///	/* handle aligned case first */ 													\
-    /*TODO*///	if (align == ALWAYS_ALIGNED || !(address & 1))										\
-    /*TODO*///	{																					\
-    /*TODO*///		int address2 = (address + 2) & ADDRESS_MASK(abits); 							\
-    /*TODO*///																						\
-    /*TODO*///		/* first-level lookup */														\
-    /*TODO*///		hw1 = cur_mwhard[(UINT32)address >> (ABITS2_##abits + ABITS_MIN_##abits)];		\
-    /*TODO*///		hw2 = cur_mwhard[(UINT32)address2 >> (ABITS2_##abits + ABITS_MIN_##abits)]; 	\
-    /*TODO*///																						\
-    /*TODO*///		/* second-level lookup */														\
-    /*TODO*///		if (hw1 >= MH_HARDMAX)															\
-    /*TODO*///		{																				\
-    /*TODO*///			hw1 -= MH_HARDMAX;															\
-    /*TODO*///			hw1 = writehardware[(hw1 << MH_SBITS) + (((UINT32)address >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))]; \
-    /*TODO*///		}																				\
-    /*TODO*///		if (hw2 >= MH_HARDMAX)															\
-    /*TODO*///		{																				\
-    /*TODO*///			hw2 -= MH_HARDMAX;															\
-    /*TODO*///			hw2 = writehardware[(hw2 << MH_SBITS) + (((UINT32)address2 >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))];	\
-    /*TODO*///		}																				\
-    /*TODO*///																						\
-    /*TODO*///		/* extract words */ 															\
-    /*TODO*///		if (type == TYPE_16BIT_BE)														\
-    /*TODO*///		{																				\
-    /*TODO*///			word1 = data >> 16; 														\
-    /*TODO*///			word2 = data & 0xffff;														\
-    /*TODO*///		}																				\
-    /*TODO*///		else if (type == TYPE_16BIT_LE) 												\
-    /*TODO*///		{																				\
-    /*TODO*///			word1 = data & 0xffff;														\
-    /*TODO*///			word2 = data >> 16; 														\
-    /*TODO*///		}																				\
-    /*TODO*///																						\
-    /*TODO*///		/* process each word */ 														\
-    /*TODO*///		if (hw1 <= HT_BANKMAX)															\
-    /*TODO*///			WRITE_WORD(&cpu_bankbase[hw1][address - memorywriteoffset[hw1]], word1);	\
-    /*TODO*///		else																			\
-    /*TODO*///			(*memorywritehandler[hw1])(address - memorywriteoffset[hw1], word1);		\
-    /*TODO*///		if (hw2 <= HT_BANKMAX)															\
-    /*TODO*///			WRITE_WORD(&cpu_bankbase[hw2][address2 - memorywriteoffset[hw2]], word2);	\
-    /*TODO*///		else																			\
-    /*TODO*///			(*memorywritehandler[hw2])(address2 - memorywriteoffset[hw2], word2);		\
-    /*TODO*///	}																					\
-    /*TODO*///																						\
-    /*TODO*///	/* unaligned case */																\
-    /*TODO*///	else if (type == TYPE_16BIT_BE) 													\
-    /*TODO*///	{																					\
-    /*TODO*///		name(address, data >> 24);														\
-    /*TODO*///		name##_word(address + 1, (data >> 8) & 0xffff); 								\
-    /*TODO*///		name(address + 3, data & 0xff); 												\
-    /*TODO*///	}																					\
-    /*TODO*///	else if (type == TYPE_16BIT_LE) 													\
-    /*TODO*///	{																					\
-    /*TODO*///		name(address, data & 0xff); 													\
-    /*TODO*///		name##_word(address + 1, (data >> 8) & 0xffff); 								\
-    /*TODO*///		name(address + 3, data >> 24);													\
-    /*TODO*///	}																					\
+    /*TODO*///#define WRITELONG(name,type,abits,align)												
+    /*TODO*///void name##_dword(offs_t address,data_t data)											
+    /*TODO*///{																						
+    /*TODO*///	UINT16 word1, word2;																
+    /*TODO*///	MHELE hw1, hw2; 																	
+    /*TODO*///																						
+    /*TODO*///	/* only supports 16-bit memory systems */											
+    /*TODO*///	if (type == TYPE_8BIT)																
+    /*TODO*///		printf("Unsupported type for WRITEWORD macro!n");                              
+    /*TODO*///																						
+    /*TODO*///	/* handle aligned case first */ 													
+    /*TODO*///	if (align == ALWAYS_ALIGNED || !(address & 1))										
+    /*TODO*///	{																					
+    /*TODO*///		int address2 = (address + 2) & ADDRESS_MASK(abits); 							
+    /*TODO*///																						
+    /*TODO*///		/* first-level lookup */														
+    /*TODO*///		hw1 = cur_mwhard[(UINT32)address >> (ABITS2_##abits + ABITS_MIN_##abits)];		
+    /*TODO*///		hw2 = cur_mwhard[(UINT32)address2 >> (ABITS2_##abits + ABITS_MIN_##abits)]; 	
+    /*TODO*///																						
+    /*TODO*///		/* second-level lookup */														
+    /*TODO*///		if (hw1 >= MH_HARDMAX)															
+    /*TODO*///		{																				
+    /*TODO*///			hw1 -= MH_HARDMAX;															
+    /*TODO*///			hw1 = writehardware[(hw1 << MH_SBITS) + (((UINT32)address >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))]; 
+    /*TODO*///		}																				
+    /*TODO*///		if (hw2 >= MH_HARDMAX)															
+    /*TODO*///		{																				
+    /*TODO*///			hw2 -= MH_HARDMAX;															
+    /*TODO*///			hw2 = writehardware[(hw2 << MH_SBITS) + (((UINT32)address2 >> ABITS_MIN_##abits) & MHMASK(ABITS2_##abits))];	
+    /*TODO*///		}																				
+    /*TODO*///																						
+    /*TODO*///		/* extract words */ 															
+    /*TODO*///		if (type == TYPE_16BIT_BE)														
+    /*TODO*///		{																				
+    /*TODO*///			word1 = data >> 16; 														
+    /*TODO*///			word2 = data & 0xffff;														
+    /*TODO*///		}																				
+    /*TODO*///		else if (type == TYPE_16BIT_LE) 												
+    /*TODO*///		{																				
+    /*TODO*///			word1 = data & 0xffff;														
+    /*TODO*///			word2 = data >> 16; 														
+    /*TODO*///		}																				
+    /*TODO*///																						
+    /*TODO*///		/* process each word */ 														
+    /*TODO*///		if (hw1 <= HT_BANKMAX)															
+    /*TODO*///			WRITE_WORD(&cpu_bankbase[hw1][address - memorywriteoffset[hw1]], word1);	
+    /*TODO*///		else																			
+    /*TODO*///			(*memorywritehandler[hw1])(address - memorywriteoffset[hw1], word1);		
+    /*TODO*///		if (hw2 <= HT_BANKMAX)															
+    /*TODO*///			WRITE_WORD(&cpu_bankbase[hw2][address2 - memorywriteoffset[hw2]], word2);	
+    /*TODO*///		else																			
+    /*TODO*///			(*memorywritehandler[hw2])(address2 - memorywriteoffset[hw2], word2);		
+    /*TODO*///	}																					
+    /*TODO*///																						
+    /*TODO*///	/* unaligned case */																
+    /*TODO*///	else if (type == TYPE_16BIT_BE) 													
+    /*TODO*///	{																					
+    /*TODO*///		name(address, data >> 24);														
+    /*TODO*///		name##_word(address + 1, (data >> 8) & 0xffff); 								
+    /*TODO*///		name(address + 3, data & 0xff); 												
+    /*TODO*///	}																					
+    /*TODO*///	else if (type == TYPE_16BIT_LE) 													
+    /*TODO*///	{																					
+    /*TODO*///		name(address, data & 0xff); 													
+    /*TODO*///		name##_word(address + 1, (data >> 8) & 0xffff); 								
+    /*TODO*///		name(address + 3, data >> 24);													
+    /*TODO*///	}																					
     /*TODO*///}
     /*TODO*///
     /*TODO*///
@@ -527,7 +527,7 @@ public class memory {
 /*TODO*///WRITEBYTE(cpu_writemem20,	 TYPE_8BIT, 	20)
 /*TODO*///WRITEBYTE(cpu_writemem21,	 TYPE_8BIT, 	21)
     //WRITEBYTE(cpu_writemem16bew, TYPE_16BIT_BE, 16BEW)
-    /*TODO*///#define WRITEBYTE(name,type,abits)														\
+    /*TODO*///#define WRITEBYTE(name,type,abits)														
     public static void cpu_writemem16bew(int address, int data) {
         char u8_hw;
 
@@ -564,6 +564,38 @@ public class memory {
             (memorywritehandler[u8_hw]).handler(address - memorywriteoffset[u8_hw], data);
         }
     }
+    
+    public static void cpu_writemem24bew_word(int address, int data) {
+        char u8_hw;
+
+        /* only supports 16-bit memory systems */
+        if (TYPE_16BIT_BE == TYPE_8BIT) {
+            printf("Unsupported type for WRITEWORD macro!n");
+        }
+
+        /* handle aligned case first */
+ /* first-level lookup */
+        u8_hw = u8_cur_mwhard[address >>> (ABITS2_24BEW + ABITS_MIN_24BEW)];
+        if (u8_hw <= HT_BANKMAX) {
+            cpu_bankbase[u8_hw].WRITE_WORD(address - memorywriteoffset[u8_hw], data);
+            return;
+        }
+
+        /* second-level lookup */
+        if (u8_hw >= MH_HARDMAX) {
+            u8_hw -= MH_HARDMAX;
+            u8_hw = u8_writehardware[(u8_hw << MH_SBITS) + ((address >>> ABITS_MIN_24BEW) & MHMASK(ABITS2_24BEW))];
+            if (u8_hw <= HT_BANKMAX) {
+                cpu_bankbase[u8_hw].WRITE_WORD(address - memorywriteoffset[u8_hw], data);
+                return;
+            }
+        }
+
+        /* fall back to handler */
+        (memorywritehandler[u8_hw]).handler(address - memorywriteoffset[u8_hw], data & 0xffff);
+
+    }
+    
 
     //WRITEWORD(cpu_writemem16bew, TYPE_16BIT_BE, 16BEW, ALWAYS_ALIGNED)
     //#define WRITEWORD(name,type,abits,align)												
@@ -596,6 +628,35 @@ public class memory {
         /* fall back to handler */
         (memorywritehandler[u8_hw]).handler(address - memorywriteoffset[u8_hw], data & 0xffff);
 
+    }
+    
+    public static int cpu_readmem24bew_word(int address) {
+        char u8_hw;
+
+        /* handle aligned case first */
+ /* first-level lookup */
+        u8_hw = (char) (u8_cur_mrhard[/*(UINT32)*/address >>> (ABITS2_24BEW + ABITS_MIN_24BEW)]);
+
+        if (u8_hw <= HT_BANKMAX) {
+            //System.out.println(memoryreadoffset[u8_hw]);
+            //System.out.println(address - memoryreadoffset[u8_hw]);
+            //System.out.println(cpu_bankbase[u8_hw]);
+            return cpu_bankbase[u8_hw].READ_WORD((address - memoryreadoffset[u8_hw])&0x3ffff);
+        }
+
+        /* second-level lookup */
+        if (u8_hw >= MH_HARDMAX) {
+            u8_hw -= MH_HARDMAX;
+            u8_hw = (char) (u8_readhardware[(u8_hw << MH_SBITS) + ((/*(UINT32)*/address >>> ABITS_MIN_24BEW) & MHMASK(ABITS2_24BEW))]);
+            if (u8_hw <= HT_BANKMAX) {
+                return cpu_bankbase[u8_hw].READ_WORD(address - memoryreadoffset[u8_hw]);
+            }
+        }
+
+        /* fall back to handler */
+        return (memoryreadhandler[u8_hw]).handler(address - memoryreadoffset[u8_hw]);
+        /*+++++++++++++++++++++++++++++++++++++*/
+        
     }
 
     public static void cpu_writemem24(int address, int data) {
@@ -768,7 +829,7 @@ public class memory {
 /*TODO*///	}																					
 /*TODO*///																						
 /*TODO*///	/* do not support on callback memory region */										
-/*TODO*///	logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/o\n",              
+/*TODO*///	logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/on",              
 /*TODO*///				cpu_getactivecpu(),cpu_get_pc());										
 /*TODO*///}
 /*TODO*///
@@ -801,7 +862,7 @@ public class memory {
             }
 
             /* do not support on callback memory region */
-            logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/o\n",
+            logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/on",
                     cpu_getactivecpu(), cpu_get_pc());
 
         }
@@ -835,7 +896,7 @@ public class memory {
             }
 
             /* do not support on callback memory region */
-            logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/o\n",
+            logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/on",
                     cpu_getactivecpu(), cpu_get_pc());
 
         }
@@ -873,7 +934,7 @@ public class memory {
             }
 
             /* do not support on callback memory region */
-            logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/o\n",
+            logerror("CPU #%d PC %04x: warning - op-code execute on mapped i/on",
                     cpu_getactivecpu(), cpu_get_pc());
         }
     };
@@ -905,7 +966,7 @@ public class memory {
             }
 
             /* do not support on callback memory region */
-            printf("CPU #%d PC %04x: warning - op-code execute on mapped i/o\n", cpu_getactivecpu(), cpu_get_pc());
+            printf("CPU #%d PC %04x: warning - op-code execute on mapped i/on", cpu_getactivecpu(), cpu_get_pc());
         }
     };
 
