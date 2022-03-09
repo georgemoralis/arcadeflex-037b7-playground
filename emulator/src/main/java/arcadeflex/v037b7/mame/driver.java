@@ -230,10 +230,13 @@ import static arcadeflex.WIP.v037b7.drivers.megasys1.*;
 import static arcadeflex.WIP.v037b7.drivers.cischeat.*;
 import static arcadeflex.WIP.v037b7.drivers.dec0.*;
 import static arcadeflex.WIP.v037b7.drivers.twin16.*;
+import static arcadeflex.WIP.v037b16.drivers.wwfsstar.*;
+import static arcadeflex.WIP.v037b7.drivers.ddragon3.*;
 
 public class driver {
 
     public static GameDriver drivers[] = {
+        driver_wwfsstar,
         /* "Pacman hardware" games */
         driver_pacman, /* (c) 1980 Namco */
         driver_pacmanjp, /* (c) 1980 Namco */
@@ -2652,12 +2655,12 @@ public class driver {
         /*TODO*///	/* TA-0024 WWF Superstars */
         /*TODO*///	/* TA-0025 Champ V'Ball */
         /*TODO*///	driver_ddragon2 )	/* TA-0026 (c) 1988 */
-        /*TODO*///	driver_ctribe )	/* TA-0028 (c) 1990 (US) */
-        /*TODO*///	driver_ctribeb )	/* bootleg */
+        driver_ctribe, 	/* TA-0028 (c) 1990 (US) */
+        driver_ctribeb, 	/* bootleg */
         driver_blockout,	/* TA-0029 (c) 1989 + California Dreams */
         driver_blckout2,	/* TA-0029 (c) 1989 + California Dreams */
-        /*TODO*///	driver_ddragon3 )	/* TA-0030 (c) 1990 */
-        /*TODO*///	driver_ddrago3b )	/* bootleg */
+        driver_ddragon3, 	/* TA-0030 (c) 1990 */
+        driver_ddrago3b, 	/* bootleg */
         /*TODO*///	/* TA-0031 WWF Wrestlefest */
         /*TODO*///
         /* Stern "Berzerk hardware" games */
