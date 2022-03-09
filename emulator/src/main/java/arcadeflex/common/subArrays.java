@@ -187,6 +187,11 @@ public class subArrays {
         public void write(int value) {
             buffer[offset] = value;
         }
+        
+        public void writeinc(int value) {
+            buffer[offset] = value;
+            inc();
+        }
 
         public void write(int index, int value) {
             buffer[index + offset] = value;

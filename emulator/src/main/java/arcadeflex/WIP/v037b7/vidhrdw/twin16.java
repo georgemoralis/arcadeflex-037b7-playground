@@ -26,7 +26,9 @@ import static arcadeflex.WIP.v037b7.drivers.twin16.twin16_tile_gfx_ram;
 import static arcadeflex.common.libc.expressions.NOT;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
-import arcadeflex.common.subArrays.UShortArray;
+import arcadeflex.common.subArrays;
+//import arcadeflex.common.subArrays.UShortPtr;
+//import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
@@ -48,7 +50,7 @@ public class twin16
 	static int need_process_spriteram;
 	static int gfx_bank;
 	static UBytePtr scrollx=new UBytePtr(3*2), scrolly=new UBytePtr(3*2);
-	static int video_register;
+	static UBytePtr video_register = new UBytePtr(2);
 	
 	//enum {
 		static int TWIN16_SCREEN_FLIPY		= 0x01;	/* ? breaks devils world text layer */
@@ -74,8 +76,8 @@ public class twin16
 	public static WriteHandlerPtr twin16_video_register_w = new WriteHandlerPtr() {public void handler(int offset, int data){
 		switch( offset ){
 			case 0x0: 
-                            //COMBINE_WORD_MEM( video_register, 0, data ); 
-                            COMBINE_WORD( video_register, data );
+                            COMBINE_WORD_MEM( video_register, 0, data ); 
+                            //COMBINE_WORD( video_register, data );
                             break;
 			case 0x2: COMBINE_WORD_MEM( scrollx, 0, data ); break;
 			case 0x4: COMBINE_WORD_MEM( scrolly, 0, data ); break;
@@ -100,7 +102,7 @@ public class twin16
 		int tile_flipx = 0;
 		int tile_flipy = 0;
 		//if ((video_register & TWIN16_SCREEN_FLIPY) != 0) tile_flipy = !tile_flipy;
-		if ((video_register & TWIN16_SCREEN_FLIPX) != 0) tile_flipx = tile_flipx!=0?0:1;
+		if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPX) != 0) tile_flipx = tile_flipx!=0?0:1;
 	
 		for( i=0; i<64*64; i++ ){
 			int code = source.read(i);
@@ -108,8 +110,8 @@ public class twin16
 			int sx = (i%64)*8;
 			int sy = (i/64)*8;
 	
-			if ((video_register & TWIN16_SCREEN_FLIPY) != 0) sy = 256-8 - sy;
-			if ((video_register & TWIN16_SCREEN_FLIPX) != 0) sx = 320-8 - sx;
+			if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPY) != 0) sy = 256-8 - sy;
+			if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPX) != 0) sx = 320-8 - sx;
 	
 			drawgfx( bitmap, Machine.gfx[0],
 				code&0x1ff, /* tile number */
@@ -124,19 +126,19 @@ public class twin16
 	
 	static void draw_sprite( /* slow slow slow, but it's ok for now */
 		osd_bitmap bitmap,
-		UShortArray pen_data,
-		UShortArray pal_data,
+		UShortPtr pen_data,
+		UShortPtr pal_data,
 		int xpos, int ypos,
 		int width, int height,
 		int flipx, int flipy ){
-	
+	//System.out.println("Draw Sprite");
 		int x,y;
 		if( xpos>=320 ) xpos -= 512;
 		if( ypos>=256 ) ypos -= 512;
 	
 		if( xpos+width>=0 && xpos<320 && ypos+height>16 && ypos<256-16 )
 		{
-			if (bitmap.depth == 16)
+			if (false &&(bitmap.depth == 16))
 			{
 				for( y=0; y<height; y++ )
 				{
@@ -255,55 +257,62 @@ public class twin16
 		while( source.offset<finish.offset ){
 			int attributes = source.read(3);
 			int code = source.read(0);
-	
+                        	
 			if( code!=0xffff && (attributes&0x8000)!=0 && (attributes&0x4000)==pri ){
+                            //System.out.println("IN!");
 				int xpos = source.read(1);
 				int ypos = source.read(2);
 	
-				UShortArray pal_data = new UShortArray(Machine.pens, ((attributes&0xf)+0x10)*16);
+				UShortPtr pal_data = new UShortPtr(Machine.pens, ((attributes&0xf)+0x10)*16);
 				int height	= 16<<((attributes>>6)&0x3);
 				int width	= 16<<((attributes>>4)&0x3);
-				UShortArray pen_data = null;
+				UShortPtr pen_data = null;
 				int flipy = attributes&0x0200;
 				int flipx = attributes&0x0100;
 	
 				if (twin16_custom_vidhrdw != 0){
-					pen_data = new UShortArray(twin16_gfx_rom, 0x80000);
+                                    //System.out.println("x");
+					pen_data = new UShortPtr(twin16_gfx_rom, 0x80000);
 				}
 				else {
 					switch( (code>>12)&0x3 ){ /* bank select */
 						case 0:
-						pen_data = new UShortArray(twin16_gfx_rom, 0);
+						pen_data = new UShortPtr(twin16_gfx_rom, 0);
 						break;
 	
 						case 1:
-						pen_data = new UShortArray(twin16_gfx_rom, 0x40000);
+						pen_data = new UShortPtr(twin16_gfx_rom, 0x40000);
 						break;
 	
 						case 2:
-						pen_data = new UShortArray(twin16_gfx_rom, 0x80000);
+						pen_data = new UShortPtr(twin16_gfx_rom, 0x80000);
 						if ((code & 0x4000) != 0) pen_data.inc(0x40000);
 						break;
 	
 						case 3:
-						pen_data = new UShortArray(twin16_sprite_gfx_ram);
+						pen_data = new UShortPtr(twin16_sprite_gfx_ram);
 						break;
 					}
 					code &= 0xfff;
 				}
 				pen_data.inc(code*0x40);
+                                
+                                //System.out.println("a");
 	
-				if ((video_register & TWIN16_SCREEN_FLIPY) != 0){
+				if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPY) != 0){
 					ypos = 256-ypos-height;
 					flipy = NOT(flipy);
 				}
-				if ((video_register & TWIN16_SCREEN_FLIPX) != 0){
+				if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPX) != 0){
 					xpos = 320-xpos-width;
 					flipx = NOT(flipx);
 				}
 	
+                                //System.out.println("b");
+                                
 				//if( sprite_which==count || !keyboard_pressed( KEYCODE_B ) )
 				draw_sprite( bitmap, pen_data, pal_data, xpos, ypos, width, height, flipx, flipy );
+                                //System.out.println("c");
 			}
 				count++;
 			source.inc(4);
@@ -325,15 +334,17 @@ public class twin16
 	}
 	
 	static void draw_layer( osd_bitmap bitmap, int opaque ){
-		UShortArray gfx_base;
+            //System.out.println("depth="+bitmap.depth);
+		UShortPtr gfx_base;
 		UShortPtr source = new UShortPtr(videoram);
+                videoram.offset=0;
 		int i, y1, y2, yd;
 		int[] bank_table = new int[4];
 		int dx, dy, palette;
 		int tile_flipx = 0; // video_register&TWIN16_TILE_FLIPX;
-		int tile_flipy = video_register&TWIN16_TILE_FLIPY;
+		int tile_flipy = video_register.READ_WORD()&TWIN16_TILE_FLIPY;
 	
-		if( ((video_register&TWIN16_PLANE_ORDER)!=0?1:0) != opaque ){
+		if( ((video_register.READ_WORD()&TWIN16_PLANE_ORDER)!=0?1:0) != opaque ){
 			source.inc(0x1000);
 			dx = scrollx.read(2);
 			dy = scrolly.read(2);
@@ -347,26 +358,26 @@ public class twin16
 		}
 	
 		if (twin16_custom_vidhrdw != 0){
-			gfx_base = new UShortArray(twin16_gfx_rom);
+			gfx_base = new UShortPtr(twin16_gfx_rom);
 			bank_table[3] = (gfx_bank>>(4*3))&0xf;
 			bank_table[2] = (gfx_bank>>(4*2))&0xf;
 			bank_table[1] = (gfx_bank>>(4*1))&0xf;
 			bank_table[0] = (gfx_bank>>(4*0))&0xf;
 		}
 		else {
-			gfx_base = new UShortArray(twin16_tile_gfx_ram);
+			gfx_base = new UShortPtr(twin16_tile_gfx_ram);
 			bank_table[0] = 0;
 			bank_table[1] = 1;
 			bank_table[2] = 2;
 			bank_table[3] = 3;
 		}
 	
-		if ((video_register & TWIN16_SCREEN_FLIPX) != 0){
+		if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPX) != 0){
 			dx = 256-dx-64;
 			tile_flipx = NOT(tile_flipx);
 		}
 	
-		if ((video_register & TWIN16_SCREEN_FLIPY) != 0){
+		if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPY) != 0){
 			dy = 256-dy;
 			tile_flipy = NOT(tile_flipy);
 		}
@@ -383,8 +394,8 @@ public class twin16
 			int sy = (i/64)*8;
 			int xpos,ypos;
 	
-			if ((video_register & TWIN16_SCREEN_FLIPX) != 0) sx = 63*8 - sx;
-			if ((video_register & TWIN16_SCREEN_FLIPY) != 0) sy = 63*8 - sy;
+			if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPX) != 0) sx = 63*8 - sx;
+			if ((video_register.READ_WORD() & TWIN16_SCREEN_FLIPY) != 0) sy = 63*8 - sy;
 	
 			xpos = (sx-dx)&0x1ff;
 			ypos = (sy-dy)&0x1ff;
@@ -398,9 +409,9 @@ public class twin16
 					---xx-----------	tile bank
 					-----xxxxxxxxxxx	tile number
 				*/
-				UShortArray gfx_data = new UShortArray(gfx_base, (code&0x7ff)*16 + bank_table[(code>>11)&0x3]*0x8000);
+                                UShortPtr gfx_data = new UShortPtr(gfx_base, (code&0x7ff)*16 + bank_table[(code>>11)&0x3]*0x8000);
 				int color = (code>>13);
-				UShortArray pal_data = new UShortArray(Machine.pens, 16*(0x20+color+8*palette));
+				UShortPtr pal_data = new UShortPtr(Machine.pens, 16*(0x20+color+8*palette));
 	
 				{
 					int y;
@@ -430,6 +441,7 @@ public class twin16
 							}
 							else
 							{
+                                                            System.out.println("a");
 								for( y=y1; y!=y2; y+=yd )
 								{
 									UBytePtr dest = new UBytePtr(bitmap.line[ypos+y], xpos);
@@ -473,6 +485,7 @@ public class twin16
 							}
 							else
 							{
+                                                            System.out.println("b");
 								for( y=y1; y!=y2; y+=yd )
 								{
 									UShortPtr dest = new UShortPtr(bitmap.line[ypos+y], xpos);
@@ -506,19 +519,20 @@ public class twin16
 								{
 									UShortPtr dest = new UShortPtr(bitmap.line[ypos+y], xpos);
 									data = gfx_data.readinc();
-                                                                        dest.writeinc(0, pal_data.read((data>>4*3)&0xf));
-									dest.writeinc(0, pal_data.read((data>>4*2)&0xf));
-									dest.writeinc(0, pal_data.read((data>>4*1)&0xf));
-									dest.writeinc(0, pal_data.read((data>>4*0)&0xf));
+                                                                        dest.writeinc(pal_data.read((data>>4*3)&0xf));
+									dest.writeinc(pal_data.read((data>>4*2)&0xf));
+									dest.writeinc(pal_data.read((data>>4*1)&0xf));
+									dest.writeinc(pal_data.read((data>>4*0)&0xf));
 									data = gfx_data.readinc();
-									dest.writeinc(0, pal_data.read((data>>4*3)&0xf));
-									dest.writeinc(0, pal_data.read((data>>4*2)&0xf));
-									dest.writeinc(0, pal_data.read((data>>4*1)&0xf));
-									dest.writeinc(0, pal_data.read((data>>4*0)&0xf));
+									dest.writeinc(pal_data.read((data>>4*3)&0xf));
+									dest.writeinc(pal_data.read((data>>4*2)&0xf));
+									dest.writeinc(pal_data.read((data>>4*1)&0xf));
+									dest.writeinc(pal_data.read((data>>4*0)&0xf));
 								}
 							}
 							else
 							{
+                                                            //System.out.println("c");
 								for( y=y1; y!=y2; y+=yd )
 								{
 									UBytePtr dest = new UBytePtr(bitmap.line[ypos+y], xpos);
@@ -562,6 +576,7 @@ public class twin16
 							}
 							else
 							{
+                                                            //System.out.println("e");
 								for( y=y1; y!=y2; y+=yd )
 								{
 									UBytePtr dest = new UBytePtr(bitmap.line[ypos+y], xpos);

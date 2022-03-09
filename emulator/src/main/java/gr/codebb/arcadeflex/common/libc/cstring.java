@@ -1,6 +1,7 @@
 package gr.codebb.arcadeflex.common.libc;
 
 import arcadeflex.common.ptrLib.*;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 
 /** @author shadow */
@@ -51,6 +52,12 @@ public class cstring {
   }
   
   public static void memset(UShortArray dst, int value, int size) {
+    for (int mem = 0; mem < size; mem++) {
+      dst.write(mem, value);
+    }
+  }
+  
+  public static void memset(IntSubArray dst, int value, int size) {
     for (int mem = 0; mem < size; mem++) {
       dst.write(mem, value);
     }

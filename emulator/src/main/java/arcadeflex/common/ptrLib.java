@@ -347,6 +347,10 @@ public class ptrLib {
             memory[offset + index * 2 + 1] = (char) ((value >> 8) & 0xFF);
         }
         
+        public void writeinc(char value) {
+            writeinc(0, value);
+        }
+        
         public void writeinc(int index, char value) {
             memory[offset + index * 2] = (char) (value & 0xFF);
             memory[offset + index * 2 + 1] = (char) ((value >> 8) & 0xFF);

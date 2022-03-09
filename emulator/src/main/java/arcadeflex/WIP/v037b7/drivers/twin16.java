@@ -95,8 +95,8 @@ public class twin16
 	public static UBytePtr twin16_fixram = new UBytePtr(); /* text layer */
 	
 	static int twin16_CPUA_register, twin16_CPUB_register;
-	static int CPUA_IRQ_ENABLE = (twin16_CPUA_register&0x20);
-	static int CPUB_IRQ_ENABLE = (twin16_CPUB_register&0x02);
+	static int CPUA_IRQ_ENABLE(){ return (twin16_CPUA_register&0x20); }
+	static int CPUB_IRQ_ENABLE() { return (twin16_CPUB_register&0x02); }
 	
 	static int twin16_soundlatch;
 	static int twin16_sound_command;
@@ -218,12 +218,12 @@ public class twin16
 	
 	public static InterruptPtr CPUA_interrupt = new InterruptPtr() { public int handler() 
 	{
-		return CPUA_IRQ_ENABLE!=0?MC68000_IRQ_5:MC68000_INT_NONE;
+		return CPUA_IRQ_ENABLE()!=0?MC68000_IRQ_5:MC68000_INT_NONE;
 	} };
 	
 	public static InterruptPtr CPUB_interrupt = new InterruptPtr() { public int handler() 
 	{
-		return CPUB_IRQ_ENABLE!=0?MC68000_IRQ_5:MC68000_INT_NONE;
+		return CPUB_IRQ_ENABLE()!=0?MC68000_IRQ_5:MC68000_INT_NONE;
 	} };
         
 	static int k;
