@@ -232,6 +232,7 @@ import static arcadeflex.WIP.v037b7.drivers.dec0.*;
 import static arcadeflex.WIP.v037b7.drivers.twin16.*;
 import static arcadeflex.WIP.v037b16.drivers.wwfsstar.*;
 import static arcadeflex.WIP.v037b7.drivers.ddragon3.*;
+import static arcadeflex.WIP.v037b7.drivers.nemesis.*;
 
 public class driver {
 
@@ -2265,19 +2266,19 @@ public class driver {
         /*TODO*///TESTdriver_chqflag )	/* GX717 (c) 1988 */
         /*TODO*///TESTdriver_chqflagj )	/* GX717 (c) 1988 (Japan) */
         /*TODO*///	driver_ultraman )	/* GX910 (c) 1991 Banpresto/Bandai */
-        /*TODO*///
-        /*TODO*///	/* Konami "Nemesis hardware" games */
-        /*TODO*///	driver_nemesis )	/* GX456 (c) 1985 */
-        /*TODO*///	driver_nemesuk )	/* GX456 (c) 1985 */
-        /*TODO*///	driver_konamigt )	/* GX561 (c) 1985 */
-        /*TODO*///	driver_salamand )	/* GX587 (c) 1986 */
-        /*TODO*///	driver_lifefrce )	/* GX587 (c) 1986 */
-        /*TODO*///	driver_lifefrcj )	/* GX587 (c) 1986 */
-        /*TODO*///	/* GX400 BIOS based games */
-        /*TODO*///	driver_rf2 )		/* GX561 (c) 1985 */
-        /*TODO*///	driver_twinbee )	/* GX412 (c) 1985 */
-        /*TODO*///	driver_gradius )	/* GX456 (c) 1985 */
-        /*TODO*///	driver_gwarrior )	/* GX578 (c) 1985 */
+      
+        	/* Konami "Nemesis hardware" games */
+        	driver_nemesis, 	/* GX456 (c) 1985 */
+        	driver_nemesuk, 	/* GX456 (c) 1985 */
+        	driver_konamigt, 	/* GX561 (c) 1985 */
+        	driver_salamand, 	/* GX587 (c) 1986 */
+        	driver_lifefrce, 	/* GX587 (c) 1986 */
+        	driver_lifefrcj, 	/* GX587 (c) 1986 */
+        	/* GX400 BIOS based games */
+        	driver_rf2, 		/* GX561 (c) 1985 */
+        	driver_twinbee, 	/* GX412 (c) 1985 */
+        	driver_gradius, 	/* GX456 (c) 1985 */
+        	driver_gwarrior, 	/* GX578 (c) 1985 */
         
         /* Konami "Twin 16" games */
         driver_devilw, 	/* GX687 (c) 1987 */

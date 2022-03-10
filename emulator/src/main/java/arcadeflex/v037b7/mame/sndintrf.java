@@ -39,6 +39,7 @@ import arcadeflex.v037b7.sound.cem3394;
 import arcadeflex.v037b7.sound.namco;
 import arcadeflex.v037b7.sound.rf5c68;
 import arcadeflex.v037b7.sound._2612intf;
+import arcadeflex.v037b7.sound.k005289;
 import arcadeflex.v037b7.sound.qsound;
 import arcadeflex.v037b7.sound.segapcm;
 //to be orgnanized
@@ -351,19 +352,7 @@ public class sndintrf {
         new MSM5205(),
         new upd7759(),
         new hc55516(),
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_K005289)
-        /*TODO*///    {
-        /*TODO*///		SOUND_K005289,
-        /*TODO*///		"005289",
-        /*TODO*///		0,
-        /*TODO*///		0,
-        /*TODO*///		K005289_sh_start,
-        /*TODO*///		K005289_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		0
-        /*TODO*///	},
-        /*TODO*///#endif
+        new k005289(),        
         new k007232(),
         new Dummy_snd(),
         /*TODO*///#if (HAS_K051649)
