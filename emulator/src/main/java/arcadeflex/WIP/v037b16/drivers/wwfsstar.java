@@ -394,7 +394,7 @@ public class wwfsstar
 	static RomLoadPtr rom_wwfsstar = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x40000, REGION_CPU1/*, 0*/ );/* Main CPU  (68000) */
 		ROM_LOAD_EVEN( "24ac-04.34", 0x00000, 0x20000, 0xee9b850e );
-		ROM_LOAD_ODD( "24ad-04.35", 0x00001, 0x20000, 0x057c2eef );
+		ROM_LOAD_ODD( "24ad-04.35", 0x00000, 0x20000, 0x057c2eef );
 	
 		ROM_REGION( 0x10000, REGION_CPU2/*, 0*/ );/* Sound CPU (Z80)  */
 		ROM_LOAD( "b.12",    0x00000, 0x08000, 0x1e44f8aa );

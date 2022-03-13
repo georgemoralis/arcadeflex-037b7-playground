@@ -168,7 +168,7 @@ public class nemesis
 	{
 		int res;
 	
-		res = nemesis_characterram_gfx.READ_WORD(offset);
+		res = nemesis_characterram.READ_WORD(offset);
 	
 /*TODO*///		#ifdef LSB_FIRST
 		res = ((res & 0x00ff) << 8) | ((res & 0xff00) >> 8);
@@ -179,7 +179,7 @@ public class nemesis
 	
 	public static WriteHandlerPtr nemesis_characterram_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
-		int oldword = nemesis_characterram_gfx.READ_WORD(offset);
+		int oldword = nemesis_characterram.READ_WORD(offset);
 		int newword;
 	
 		COMBINE_WORD_MEM(nemesis_characterram,offset,data);	/* this is need so that twinbee can run code in the

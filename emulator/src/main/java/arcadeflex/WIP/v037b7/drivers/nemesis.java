@@ -270,7 +270,7 @@ public class nemesis
 		new MemoryWriteAddress( 0x05c800, 0x05c801, watchdog_reset_w ),	/* probably */
 	
 		new MemoryWriteAddress( 0x05e000, 0x05e001, nemesis_irq_enable_w ),	/* Nemesis */
-		new MemoryWriteAddress( 0x05e002, 0x05e003, nemesis_irq_enable_w ),	/* Konami GT */
+		new MemoryWriteAddress( 0x05e002, 0x05e003, konamigt_irq_enable_w ),	/* Konami GT */
 		new MemoryWriteAddress( 0x05e004, 0x05e005, MWA_NOP),	/* bit 8 of the word probably triggers IRQ on sound board */
 		new MemoryWriteAddress( 0x060000, 0x067fff, MWA_BANK6, ram ),	/* WORK RAM */
 		new MemoryWriteAddress( -1 )  /* end of table */

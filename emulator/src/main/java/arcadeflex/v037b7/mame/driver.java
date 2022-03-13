@@ -233,6 +233,7 @@ import static arcadeflex.WIP.v037b7.drivers.twin16.*;
 import static arcadeflex.WIP.v037b16.drivers.wwfsstar.*;
 import static arcadeflex.WIP.v037b7.drivers.ddragon3.*;
 import static arcadeflex.WIP.v037b7.drivers.nemesis.*;
+import static arcadeflex.WIP.v037b7.drivers.taito_f2.*;
 
 public class driver {
 
@@ -1143,9 +1144,9 @@ public class driver {
         driver_qzshowby, /* D72 (c) 1993 Taito Corporation (Japan) */
         driver_spacedx, /* D89 (c) 1994 Taito Corporation (Japan) */
         driver_silentd, /* ??? (c) 1992 Taito Corporation Japan (World) */
-        /*TODO*///
-        /*TODO*///	/* Taito F2 games */
-        /*TODO*///	driver_finalb )	/* B82 (c) 1988 Taito Corporation Japan (World) */
+       
+        /* Taito F2 games */
+        driver_finalb, 	/* B82 (c) 1988 Taito Corporation Japan (World) */
         /*TODO*///	driver_finalbj )	/* B82 (c) 1988 Taito Corporation (Japan) */
         /*TODO*///	driver_dondokod )	/* B95 (c) 1989 Taito Corporation (Japan) */
         /*TODO*///	driver_megab )		/* C11 (c) 1989 Taito Corporation Japan (World) */
@@ -1184,15 +1185,15 @@ public class driver {
         /*TODO*///	driver_yesnoj )	/* D20 (c) 1992 Taito Corporation (Japan) */
         /*TODO*///	driver_deadconx )	/* D28 (c) 1992 Taito Corporation Japan (World) */
         /*TODO*///	driver_deadconj )	/* D28 (c) 1992 Taito Corporation (Japan) */
-        /*TODO*///	driver_dinorex )	/* D39 (c) 1992 Taito Corporation Japan (World) */
+        driver_dinorex, 	/* D39 (c) 1992 Taito Corporation Japan (World) */
         /*TODO*///	driver_dinorexj )	/* D39 (c) 1992 Taito Corporation (Japan) */
         /*TODO*///	driver_dinorexu )	/* D39 (c) 1992 Taito America Corporation (US) */
         /*TODO*///	driver_qjinsei )	/* D48 (c) 1992 Taito Corporation (Japan) */
         /*TODO*///	driver_qcrayon )	/* D55 (c) 1993 Taito Corporation (Japan) */
         /*TODO*///	driver_qcrayon2 )	/* D63 (c) 1993 Taito Corporation (Japan) */
-        /*TODO*///	driver_driftout )	/* (c) 1991 Visco */
+        driver_driftout, 	/* (c) 1991 Visco */
         /*TODO*///	driver_driveout )	/* bootleg */
-        /*TODO*///
+        
         /*TODO*///	/* Toaplan games */
         /*TODO*///	driver_tigerh )	/* GX-551 [not a Konami board!] */
         /*TODO*///	driver_tigerh2 )	/* GX-551 [not a Konami board!] */
