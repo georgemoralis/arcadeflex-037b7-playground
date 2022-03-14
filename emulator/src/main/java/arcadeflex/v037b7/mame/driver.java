@@ -1147,52 +1147,52 @@ public class driver {
        
         /* Taito F2 games */
         driver_finalb, 	/* B82 (c) 1988 Taito Corporation Japan (World) */
-        /*TODO*///	driver_finalbj )	/* B82 (c) 1988 Taito Corporation (Japan) */
-        /*TODO*///	driver_dondokod )	/* B95 (c) 1989 Taito Corporation (Japan) */
-        /*TODO*///	driver_megab )		/* C11 (c) 1989 Taito Corporation Japan (World) */
-        /*TODO*///	driver_megabj )	/* C11 (c) 1989 Taito Corporation (Japan) */
-        /*TODO*///	driver_thundfox )	/* C28 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_cameltry )	/* C38 (c) 1989 Taito Corporation (Japan) */
-        /*TODO*///	driver_cameltru )	/* C38 (c) 1989 Taito America Corporation (US) */
-        /*TODO*///	driver_qtorimon )	/* C41 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_liquidk )	/* C49 (c) 1990 Taito Corporation Japan (World) */
-        /*TODO*///	driver_liquidku )	/* C49 (c) 1990 Taito America Corporation (US) */
-        /*TODO*///	driver_mizubaku )	/* C49 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_quizhq )	/* C53 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_ssi )		/* C64 (c) 1990 Taito Corporation Japan (World) */
-        /*TODO*///	driver_majest12 )	/* C64 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_gunfront )	/* C71 (c) 1990 Taito Corporation Japan (World) */
-        /*TODO*///	driver_gunfronj )	/* C71 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_growl )		/* C74 (c) 1990 Taito Corporation Japan (World) */
-        /*TODO*///	driver_growlu )	/* C74 (c) 1990 Taito America Corporation (US) */
-        /*TODO*///	driver_runark )	/* C74 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_mjnquest )	/* C77 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_mjnquesb )	/* C77 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_footchmp )	/* C80 (c) 1990 Taito Corporation Japan (World) */
-        /*TODO*///	driver_hthero )	/* C80 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_euroch92 )	/*     (c) 1992 Taito Corporation Japan (World) */
-        /*TODO*///	driver_koshien )	/* C81 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_yuyugogo )	/* C83 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_ninjak )	/* C85 (c) 1990 Taito Corporation Japan (World) */
-        /*TODO*///	driver_ninjakj )	/* C85 (c) 1990 Taito Corporation (Japan) */
-        /*TODO*///	driver_solfigtr )	/* C91 (c) 1991 Taito Corporation Japan (World) */
-        /*TODO*///	driver_qzquest )	/* C92 (c) 1991 Taito Corporation (Japan) */
-        /*TODO*///	driver_pulirula )	/* C98 (c) 1991 Taito Corporation Japan (World) */
-        /*TODO*///	driver_pulirulj )	/* C98 (c) 1991 Taito Corporation (Japan) */
-        /*TODO*///	driver_metalb )	/* D16? (c) 1991 Taito Corporation Japan (World) */
-        /*TODO*///	driver_metalbj )	/* D12 (c) 1991 Taito Corporation (Japan) */
-        /*TODO*///	driver_qzchikyu )	/* D19 (c) 1991 Taito Corporation (Japan) */
-        /*TODO*///	driver_yesnoj )	/* D20 (c) 1992 Taito Corporation (Japan) */
-        /*TODO*///	driver_deadconx )	/* D28 (c) 1992 Taito Corporation Japan (World) */
-        /*TODO*///	driver_deadconj )	/* D28 (c) 1992 Taito Corporation (Japan) */
+        driver_finalbj, 	/* B82 (c) 1988 Taito Corporation (Japan) */
+        driver_dondokod, 	/* B95 (c) 1989 Taito Corporation (Japan) */
+        driver_megab, 		/* C11 (c) 1989 Taito Corporation Japan (World) */
+        driver_megabj, 	/* C11 (c) 1989 Taito Corporation (Japan) */
+        driver_thundfox, 	/* C28 (c) 1990 Taito Corporation (Japan) */
+        driver_cameltry, 	/* C38 (c) 1989 Taito Corporation (Japan) */
+        driver_cameltru, 	/* C38 (c) 1989 Taito America Corporation (US) */
+        driver_qtorimon, 	/* C41 (c) 1990 Taito Corporation (Japan) */
+        driver_liquidk, 	/* C49 (c) 1990 Taito Corporation Japan (World) */
+        driver_liquidku, 	/* C49 (c) 1990 Taito America Corporation (US) */
+        driver_mizubaku, 	/* C49 (c) 1990 Taito Corporation (Japan) */
+        driver_quizhq, 	/* C53 (c) 1990 Taito Corporation (Japan) */
+        driver_ssi, 		/* C64 (c) 1990 Taito Corporation Japan (World) */
+        driver_majest12, 	/* C64 (c) 1990 Taito Corporation (Japan) */
+        driver_gunfront, 	/* C71 (c) 1990 Taito Corporation Japan (World) */
+        driver_gunfronj, 	/* C71 (c) 1990 Taito Corporation (Japan) */
+        driver_growl, 		/* C74 (c) 1990 Taito Corporation Japan (World) */
+        driver_growlu, 	/* C74 (c) 1990 Taito America Corporation (US) */
+        driver_runark, 	/* C74 (c) 1990 Taito Corporation (Japan) */
+        driver_mjnquest, 	/* C77 (c) 1990 Taito Corporation (Japan) */
+        driver_mjnquesb, 	/* C77 (c) 1990 Taito Corporation (Japan) */
+        driver_footchmp, 	/* C80 (c) 1990 Taito Corporation Japan (World) */
+        driver_hthero, 	/* C80 (c) 1990 Taito Corporation (Japan) */
+        driver_euroch92, 	/*     (c) 1992 Taito Corporation Japan (World) */
+        driver_koshien,	/* C81 (c) 1990 Taito Corporation (Japan) */
+        driver_yuyugogo,	/* C83 (c) 1990 Taito Corporation (Japan) */
+        driver_ninjak,	/* C85 (c) 1990 Taito Corporation Japan (World) */
+        driver_ninjakj,	/* C85 (c) 1990 Taito Corporation (Japan) */
+        driver_solfigtr,	/* C91 (c) 1991 Taito Corporation Japan (World) */
+        driver_qzquest,	/* C92 (c) 1991 Taito Corporation (Japan) */
+        driver_pulirula,	/* C98 (c) 1991 Taito Corporation Japan (World) */
+        driver_pulirulj,	/* C98 (c) 1991 Taito Corporation (Japan) */
+        driver_metalb,	/* D16? (c) 1991 Taito Corporation Japan (World) */
+        driver_metalbj,	/* D12 (c) 1991 Taito Corporation (Japan) */
+        driver_qzchikyu,	/* D19 (c) 1991 Taito Corporation (Japan) */
+        driver_yesnoj,	/* D20 (c) 1992 Taito Corporation (Japan) */
+        driver_deadconx,	/* D28 (c) 1992 Taito Corporation Japan (World) */
+        driver_deadconj,	/* D28 (c) 1992 Taito Corporation (Japan) */
         driver_dinorex, 	/* D39 (c) 1992 Taito Corporation Japan (World) */
-        /*TODO*///	driver_dinorexj )	/* D39 (c) 1992 Taito Corporation (Japan) */
-        /*TODO*///	driver_dinorexu )	/* D39 (c) 1992 Taito America Corporation (US) */
-        /*TODO*///	driver_qjinsei )	/* D48 (c) 1992 Taito Corporation (Japan) */
-        /*TODO*///	driver_qcrayon )	/* D55 (c) 1993 Taito Corporation (Japan) */
-        /*TODO*///	driver_qcrayon2 )	/* D63 (c) 1993 Taito Corporation (Japan) */
+        driver_dinorexj,	/* D39 (c) 1992 Taito Corporation (Japan) */
+        driver_dinorexu,	/* D39 (c) 1992 Taito America Corporation (US) */
+        driver_qjinsei,	/* D48 (c) 1992 Taito Corporation (Japan) */
+        driver_qcrayon,	/* D55 (c) 1993 Taito Corporation (Japan) */
+        driver_qcrayon2,	/* D63 (c) 1993 Taito Corporation (Japan) */
         driver_driftout, 	/* (c) 1991 Visco */
-        /*TODO*///	driver_driveout )	/* bootleg */
+        driver_driveout,	/* bootleg */
         
         /*TODO*///	/* Toaplan games */
         /*TODO*///	driver_tigerh )	/* GX-551 [not a Konami board!] */

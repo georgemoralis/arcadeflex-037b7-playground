@@ -5261,1108 +5261,1108 @@ public class taito_f2
 
 /*TODO*///	//MACHINE_DRIVER( dondokod, 0,       4096,		pivot,    dondokod, taitof2_pri_roz, partial_buffer_delayed )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_dondokod = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				dondokod_readmem, dondokod_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		pivot_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_eof_callback,													
+		taitof2_dondokod_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_roz_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( megab,    0,       4096,		taitof2,  3p,       taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_megab = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				megab_readmem,megab_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_3p_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( thundfox, 0,       4096,		thundfox, thundfox, thundfox,        partial_buffer_delayed_thundfox )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_thundfox = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				thundfox_readmem, thundfox_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		thundfox_gfxdecodeinfo,															
+		4096, 4096,
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_thundfox_eof_callback,													
+		taitof2_thundfox_vh_start,													
+		taitof2_vh_stop,																
+		thundfox_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( cameltry, 0,       4096,		pivot,    dondokod, taitof2_pri_roz, no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_cameltry = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				cameltry_readmem, cameltry_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		pivot_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_dondokod_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_roz_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( qtorimon, 0,       4096,		yuyugogo, default,  taitof2,         partial_buffer_delayed )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_qtorimon = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				qtorimon_readmem, qtorimon_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		yuyugogo_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_eof_callback,													
+		taitof2_default_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( liquidk,  0,       4096,		taitof2,  3p,       taitof2_pri,     partial_buffer_delayed )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_liquidk = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				liquidk_readmem, liquidk_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_eof_callback,													
+		taitof2_3p_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( quizhq,   0,       4096,		yuyugogo, default,  taitof2,         partial_buffer_delayed )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_quizhq = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				quizhq_readmem, quizhq_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		yuyugogo_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_eof_callback,													
+		taitof2_default_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( ssi,      0,       4096,		taitof2,  ssi,      ssi,             partial_buffer_delayed )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_ssi = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				ssi_readmem, ssi_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_eof_callback,
+		taitof2_ssi_vh_start,													
+		taitof2_vh_stop,																
+		ssi_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( gunfront, 0,       4096,		taitof2,  gunfront, taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_gunfront = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				gunfront_readmem, gunfront_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4906, 4906,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_gunfront_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( growl,    0,       4096,		taitof2,  growl,    taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_growl = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				growl_readmem, growl_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_growl_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( mjnquest, 0,       4096,		taitof2,  mjnquest, taitof2,         no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_mjnquest = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				mjnquest_readmem, mjnquest_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_mjnquest_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( footchmp, 0,       4096,		deadconx, footchmp, deadconx,        no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_footchmp = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				footchmp_readmem, footchmp_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		deadconx_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_deadconx_vh_start,													
+		taitof2_vh_stop,																
+		deadconx_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( hthero,   0,       4096,		deadconx, hthero,   deadconx,        no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_hthero = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				footchmp_readmem, footchmp_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		deadconx_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_hthero_vh_start,													
+		taitof2_vh_stop,																
+		deadconx_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( koshien,  0,       4096,		taitof2,  3p_buf,   taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_koshien = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				koshien_readmem, koshien_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_3p_buf_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( yuyugogo, qcrayon, 4096,		yuyugogo, yuyugogo, yesnoj,          no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_yuyugogo = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				yuyugogo_readmem, yuyugogo_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		init_machine_qcrayon,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		yuyugogo_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_yuyugogo_vh_start,													
+		taitof2_vh_stop,																
+		yesnoj_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( ninjak,   0,       4096,		taitof2,  ninjak,   taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_ninjak = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				ninjak_readmem, ninjak_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_ninjak_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( solfigtr, 0,       4096,		taitof2,  3p_buf,   taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_solfigtr = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				solfigtr_readmem, solfigtr_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_3p_buf_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( qzquest,  0,       4096,		taitof2,  default,  taitof2,         partial_buffer_delayed )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_qzquest = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				qzquest_readmem, qzquest_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_partial_buffer_delayed_eof_callback,													
+		taitof2_default_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( pulirula, 0,       4096,		pivot,    pulirula, taitof2_pri_roz, no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_pulirula = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				pulirula_readmem, pulirula_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		pivot_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_pulirula_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_roz_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( metalb,   0,       8192,		deadconx, metalb,   metalb,          no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_metalb = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				metalb_readmem, metalb_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		deadconx_gfxdecodeinfo,															
+		8192, 8192,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_metalb_vh_start,													
+		taitof2_vh_stop,																
+		metalb_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( qzchikyu, 0,       4096,		taitof2,  default,  taitof2,         no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_qzchikyu = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				qzchikyu_readmem, qzchikyu_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_default_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( yesnoj,   0,       4096,		yuyugogo, yesnoj,   yesnoj,          no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_yesnoj = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				yesnoj_readmem, yesnoj_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		yuyugogo_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_yesnoj_vh_start,													
+		taitof2_vh_stop,																
+		yesnoj_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( deadconx, 0,       4096,		deadconx, deadconx, deadconx,        no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_deadconx = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				deadconx_readmem, deadconx_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		deadconx_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_deadconx_vh_start,													
+		taitof2_vh_stop,																
+		deadconx_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( deadconj, 0,       4096,		deadconx, deadconj, deadconx,        no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_deadconj = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				deadconx_readmem, deadconx_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		deadconx_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_deadconj_vh_start,													
+		taitof2_vh_stop,																
+		deadconx_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( dinorex,  0,       4096,		taitof2,  dinorex,  taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
 	static MachineDriver machine_driver_dinorex = new MachineDriver
@@ -6411,141 +6411,141 @@ public class taito_f2
 
 /*TODO*///	//MACHINE_DRIVER( qjinsei,  0,       4096,		taitof2,  c,        taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_qjinsei = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				qjinsei_readmem, qjinsei_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		null,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_c_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( qcrayon,  qcrayon, 4096,		taitof2,  c,        taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
-/*TODO*///
+	static MachineDriver machine_driver_qcrayon = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				qcrayon_readmem, qcrayon_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		init_machine_qcrayon,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_c_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
+
 /*TODO*///	//MACHINE_DRIVER( qcrayon2, qcrayon, 4096,		taitof2,  c,        taitof2_pri,     no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
-/*TODO*///	static MachineDriver machine_driver_##NAME = new MachineDriver
-/*TODO*///	(																					
-/*TODO*///		/* basic machine hardware */													
-/*TODO*///		new MachineCPU[] {																				
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_M68000,																
-/*TODO*///				24000000/2,	/* 12 MHz */												
-/*TODO*///				NAME##_readmem, NAME##_writemem,null,null,									
-/*TODO*///				taitof2_interrupt,1														
-/*TODO*///			),																			
-/*TODO*///			new MachineCPU(																			
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU,												
-/*TODO*///				16000000/4,	/* 4 MHz */													
-/*TODO*///				sound_readmem, sound_writemem,null,null,										
-/*TODO*///				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
-/*TODO*///			)																			
-/*TODO*///		},																				
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
-/*TODO*///		1,																				
-/*TODO*///		init_machine_##INIT,															
-/*TODO*///																						
-/*TODO*///		/* video hardware */															
-/*TODO*///		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
-/*TODO*///																						
-/*TODO*///		GFX##_gfxdecodeinfo,															
-/*TODO*///		MAXCOLS, MAXCOLS,																		
-/*TODO*///		null,																				
-/*TODO*///																						
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
-/*TODO*///		taitof2_##EOF##_eof_callback,													
-/*TODO*///		taitof2_##VHSTART##_vh_start,													
-/*TODO*///		taitof2_vh_stop,																
-/*TODO*///		VHREFRESH##_vh_screenrefresh,													
-/*TODO*///																						
-/*TODO*///		/* sound hardware */															
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,													
-/*TODO*///		new MachineSound[] {																				
-/*TODO*///			new MachineSound(																			
-/*TODO*///				SOUND_YM2610,															
-/*TODO*///				ym2610_interface														
-/*TODO*///			)																			
-/*TODO*///		}																				
-/*TODO*///	);
+	static MachineDriver machine_driver_qcrayon2 = new MachineDriver
+	(																					
+		/* basic machine hardware */													
+		new MachineCPU[] {																				
+			new MachineCPU(																			
+				CPU_M68000,																
+				24000000/2,	/* 12 MHz */												
+				qcrayon2_readmem, qcrayon2_writemem,null,null,									
+				taitof2_interrupt,1														
+			),																			
+			new MachineCPU(																			
+				CPU_Z80 | CPU_AUDIO_CPU,												
+				16000000/4,	/* 4 MHz */													
+				sound_readmem, sound_writemem,null,null,										
+				ignore_interrupt,0	/* IRQs are triggered by the YM2610 */				
+			)																			
+		},																				
+		60, DEFAULT_60HZ_VBLANK_DURATION,	/* frames per second, vblank duration */	
+		1,																				
+		init_machine_qcrayon,															
+																						
+		/* video hardware */															
+		40*8, 32*8, new rectangle( 0*8, 40*8-1, 2*8, 30*8-1 ),										
+																						
+		taitof2_gfxdecodeinfo,															
+		4096, 4096,																		
+		null,																				
+																						
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,										
+		taitof2_no_buffer_eof_callback,													
+		taitof2_c_vh_start,													
+		taitof2_vh_stop,																
+		taitof2_pri_vh_screenrefresh,													
+																						
+		/* sound hardware */															
+		SOUND_SUPPORTS_STEREO,0,0,0,													
+		new MachineSound[] {																				
+			new MachineSound(																			
+				SOUND_YM2610,															
+				ym2610_interface														
+			)																			
+		}																				
+	);
 
 	//MACHINE_DRIVER( driftout, 0,       4096,		pivot,    driftout, taitof2_pri_roz, no_buffer )
 /*TODO*///	#define MACHINE_DRIVER(NAME,INIT,MAXCOLS,GFX,VHSTART,VHREFRESH,EOF)							
@@ -6691,27 +6691,27 @@ public class taito_f2
 	
 	static RomLoadPtr rom_megab = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x80000, REGION_CPU1 );    /* 256k for 68000 code */
-		ROM_LOAD_EVEN( "c11-07",    0x00000, 0x20000, 0x11d228b6 );
-		ROM_LOAD_ODD ( "c11-08",    0x00000, 0x20000, 0xa79d4dca );
-		ROM_LOAD_EVEN( "c11-06",    0x40000, 0x20000, 0x7c249894 );/* ?? */
-		ROM_LOAD_ODD ( "c11-11",    0x40000, 0x20000, 0x263ecbf9 );/* ?? */
+		ROM_LOAD_EVEN( "c11-07.55",    0x00000, 0x20000, 0x11d228b6 );
+		ROM_LOAD_ODD ( "c11-08.39",    0x00000, 0x20000, 0xa79d4dca );
+		ROM_LOAD_EVEN( "c11-06.54",    0x40000, 0x20000, 0x7c249894 );/* ?? */
+		ROM_LOAD_ODD ( "c11-11.38",    0x40000, 0x20000, 0x263ecbf9 );/* ?? */
 	
 		ROM_REGION( 0x100000, REGION_GFX1 | REGIONFLAG_DISPOSE );
-		ROM_LOAD( "c11-05", 0x000000, 0x080000, 0x733e6d8e );
+		ROM_LOAD( "c11-05.58", 0x000000, 0x080000, 0x733e6d8e );
 	
 		ROM_REGION( 0x100000, REGION_GFX2 | REGIONFLAG_DISPOSE );
-		ROM_LOAD_GFX_EVEN( "c11-03", 0x000000, 0x080000, 0x46718c7a );
-		ROM_LOAD_GFX_ODD ( "c11-04", 0x000000, 0x080000, 0x663f33cc );
+		ROM_LOAD_GFX_EVEN( "c11-03.32", 0x000000, 0x080000, 0x46718c7a );
+		ROM_LOAD_GFX_ODD ( "c11-04.31", 0x000000, 0x080000, 0x663f33cc );
 	
 		ROM_REGION( 0x1c000, REGION_CPU2 );     /* sound cpu */
-		ROM_LOAD( "c11-12", 0x00000, 0x04000, 0xb11094f1 );
+		ROM_LOAD( "c11-12.3", 0x00000, 0x04000, 0xb11094f1 );
 		ROM_CONTINUE(       0x10000, 0x0c000 );/* banked stuff */
 	
 		ROM_REGION( 0x80000, REGION_SOUND1 );/* ADPCM samples */
-		ROM_LOAD( "c11-01", 0x00000, 0x80000, 0xfd1ea532 );
+		ROM_LOAD( "c11-01.29", 0x00000, 0x80000, 0xfd1ea532 );
 	
 		ROM_REGION( 0x80000, REGION_SOUND2 );/* Delta-T samples */
-		ROM_LOAD( "c11-02", 0x00000, 0x80000, 0x451cc187 );
+		ROM_LOAD( "c11-02.30", 0x00000, 0x80000, 0x451cc187 );
 	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_megabj = new RomLoadPtr(){ public void handler(){ 
@@ -7813,50 +7813,50 @@ public class taito_f2
 	
 	
 	public static GameDriver driver_finalb	   = new GameDriver("1988"	,"finalb"	,"taito_f2.java"	,rom_finalb,null	,machine_driver_finalb	,input_ports_finalb	,init_finalb	,ROT0	,	"Taito Corporation Japan", "Final Blow (World)" );
-/*TODO*///	public static GameDriver driver_finalbj	   = new GameDriver("1988"	,"finalbj"	,"taito_f2.java"	,rom_finalbj,driver_finalb	,machine_driver_finalb	,input_ports_finalbj	,init_finalb	,ROT0	,	"Taito Corporation", "Final Blow (Japan)" )
-/*TODO*///	public static GameDriver driver_dondokod	   = new GameDriver("1989"	,"dondokod"	,"taito_f2.java"	,rom_dondokod,null	,machine_driver_dondokod	,input_ports_dondokod	,null	,ROT0	,	"Taito Corporation", "Don Doko Don (Japan)" )
-/*TODO*///	public static GameDriver driver_megab	   = new GameDriver("1989"	,"megab"	,"taito_f2.java"	,rom_megab,null	,machine_driver_megab	,input_ports_megab	,null	,ROT0	,	"Taito Corporation Japan", "Mega Blast (World)" )
-/*TODO*///	public static GameDriver driver_megabj	   = new GameDriver("1989"	,"megabj"	,"taito_f2.java"	,rom_megabj,driver_megab	,machine_driver_megab	,input_ports_megabj	,null	,ROT0	,	"Taito Corporation", "Mega Blast (Japan)" )
-/*TODO*///	public static GameDriver driver_thundfox	   = new GameDriver("1990"	,"thundfox"	,"taito_f2.java"	,rom_thundfox,null	,machine_driver_thundfox	,input_ports_thundfox	,null	,ROT0	,	"Taito Corporation", "Thunder Fox (Japan)" )
-/*TODO*///	public static GameDriver driver_cameltry	   = new GameDriver("1989"	,"cameltry"	,"taito_f2.java"	,rom_cameltry,null	,machine_driver_cameltry	,input_ports_cameltry	,null	,ROT0	,	"Taito Corporation", "Camel Try (Japan)"  )
-/*TODO*///	public static GameDriver driver_cameltru	   = new GameDriver("1989"	,"cameltru"	,"taito_f2.java"	,rom_cameltru,driver_cameltry	,machine_driver_cameltry	,input_ports_cameltry	,null	,ROT0	,	"Taito America Corporation", "Camel Try (US)" )
-/*TODO*///	public static GameDriver driver_qtorimon	   = new GameDriver("1990"	,"qtorimon"	,"taito_f2.java"	,rom_qtorimon,null	,machine_driver_qtorimon	,input_ports_qtorimon	,null	,ROT0	,	"Taito Corporation", "Quiz Torimonochou (Japan)" )
-/*TODO*///	public static GameDriver driver_liquidk	   = new GameDriver("1990"	,"liquidk"	,"taito_f2.java"	,rom_liquidk,null	,machine_driver_liquidk	,input_ports_liquidk	,null	,ROT0	,	"Taito Corporation Japan", "Liquid Kids (World)" )
-/*TODO*///	public static GameDriver driver_liquidku	   = new GameDriver("1990"	,"liquidku"	,"taito_f2.java"	,rom_liquidku,driver_liquidk	,machine_driver_liquidk	,input_ports_liquidk	,null	,ROT0	,	"Taito America Corporation", "Liquid Kids (US)" )
-/*TODO*///	public static GameDriver driver_mizubaku	   = new GameDriver("1990"	,"mizubaku"	,"taito_f2.java"	,rom_mizubaku,driver_liquidk	,machine_driver_liquidk	,input_ports_mizubaku	,null	,ROT0	,	"Taito Corporation", "Mizubaku Daibouken (Japan)" )
-/*TODO*///	public static GameDriver driver_quizhq	   = new GameDriver("1990"	,"quizhq"	,"taito_f2.java"	,rom_quizhq,null	,machine_driver_quizhq	,input_ports_quizhq	,null	,ROT0	,	"Taito Corporation", "Quiz HQ (Japan)" )
-/*TODO*///	public static GameDriver driver_ssi	   = new GameDriver("1990"	,"ssi"	,"taito_f2.java"	,rom_ssi,null	,machine_driver_ssi	,input_ports_ssi	,null	,ROT270	,	"Taito Corporation Japan", "Super Space Invaders '91 (World)" )
-/*TODO*///	public static GameDriver driver_majest12	   = new GameDriver("1990"	,"majest12"	,"taito_f2.java"	,rom_majest12,driver_ssi	,machine_driver_ssi	,input_ports_majest12	,null	,ROT270	,	"Taito Corporation", "Majestic Twelve - The Space Invaders Part IV (Japan)" )
-/*TODO*///	public static GameDriver driver_gunfront	   = new GameDriver("1990"	,"gunfront"	,"taito_f2.java"	,rom_gunfront,null	,machine_driver_gunfront	,input_ports_gunfront	,null	,ROT270	,	"Taito Corporation Japan", "Gun & Frontier (World)" )
-/*TODO*///	public static GameDriver driver_gunfronj	   = new GameDriver("1990"	,"gunfronj"	,"taito_f2.java"	,rom_gunfronj,driver_gunfront	,machine_driver_gunfront	,input_ports_gunfronj	,null	,ROT270	,	"Taito Corporation", "Gun Frontier (Japan)" )
-/*TODO*///	public static GameDriver driver_growl	   = new GameDriver("1990"	,"growl"	,"taito_f2.java"	,rom_growl,null	,machine_driver_growl	,input_ports_growl	,null	,ROT0	,	"Taito Corporation Japan", "Growl (World)" )
-/*TODO*///	public static GameDriver driver_growlu	   = new GameDriver("1990"	,"growlu"	,"taito_f2.java"	,rom_growlu,driver_growl	,machine_driver_growl	,input_ports_growl	,null	,ROT0	,	"Taito America Corporation", "Growl (US)" )
-/*TODO*///	public static GameDriver driver_runark	   = new GameDriver("1990"	,"runark"	,"taito_f2.java"	,rom_runark,driver_growl	,machine_driver_growl	,input_ports_runark	,null	,ROT0	,	"Taito Corporation", "Runark (Japan)" )
-/*TODO*///	public static GameDriver driver_mjnquest	   = new GameDriver("1990"	,"mjnquest"	,"taito_f2.java"	,rom_mjnquest,null	,machine_driver_mjnquest	,input_ports_mjnquest	,init_mjnquest	,ROT0	,	"Taito Corporation", "Mahjong Quest (Japan)" )
-/*TODO*///	public static GameDriver driver_mjnquesb	   = new GameDriver("1990"	,"mjnquesb"	,"taito_f2.java"	,rom_mjnquesb,driver_mjnquest	,machine_driver_mjnquest	,input_ports_mjnquest	,init_mjnquest	,ROT0	,	"Taito Corporation", "Mahjong Quest (No Nudity)" )
-/*TODO*///	public static GameDriver driver_footchmp	   = new GameDriver("1990"	,"footchmp"	,"taito_f2.java"	,rom_footchmp,null	,machine_driver_footchmp	,input_ports_footchmp	,null	,ROT0	,	"Taito Corporation Japan", "Football Champ (World)" )
-/*TODO*///	public static GameDriver driver_hthero	   = new GameDriver("1990"	,"hthero"	,"taito_f2.java"	,rom_hthero,driver_footchmp	,machine_driver_hthero	,input_ports_hthero	,null	,ROT0	,	"Taito Corporation", "Hat Trick Hero (Japan)" )
-/*TODO*///	public static GameDriver driver_euroch92	   = new GameDriver("1992"	,"euroch92"	,"taito_f2.java"	,rom_euroch92,driver_footchmp	,machine_driver_footchmp	,input_ports_footchmp	,null	,ROT0	,	"Taito Corporation Japan", "Euro Champ '92 (World)" )
-/*TODO*///	public static GameDriver driver_koshien	   = new GameDriver("1990"	,"koshien"	,"taito_f2.java"	,rom_koshien,null	,machine_driver_koshien	,input_ports_koshien	,null	,ROT0	,	"Taito Corporation", "Ah Eikou no Koshien (Japan)" )
-/*TODO*///	public static GameDriver driver_yuyugogo	   = new GameDriver("1990"	,"yuyugogo"	,"taito_f2.java"	,rom_yuyugogo,null	,machine_driver_yuyugogo	,input_ports_yuyugogo	,null	,ROT0	,	"Taito Corporation", "Yuuyu no Quiz de GO!GO! (Japan)" )
-/*TODO*///	public static GameDriver driver_ninjak	   = new GameDriver("1990"	,"ninjak"	,"taito_f2.java"	,rom_ninjak,null	,machine_driver_ninjak	,input_ports_ninjak	,null	,ROT0	,	"Taito Corporation Japan", "Ninja Kids (World)" )
-/*TODO*///	public static GameDriver driver_ninjakj	   = new GameDriver("1990"	,"ninjakj"	,"taito_f2.java"	,rom_ninjakj,driver_ninjak	,machine_driver_ninjak	,input_ports_ninjakj	,null	,ROT0	,	"Taito Corporation", "Ninja Kids (Japan)" )
-/*TODO*///	public static GameDriver driver_solfigtr	   = new GameDriver("1991"	,"solfigtr"	,"taito_f2.java"	,rom_solfigtr,null	,machine_driver_solfigtr	,input_ports_solfigtr	,null	,ROT0	,	"Taito Corporation Japan", "Solitary Fighter (World)" )
-/*TODO*///	public static GameDriver driver_qzquest	   = new GameDriver("1991"	,"qzquest"	,"taito_f2.java"	,rom_qzquest,null	,machine_driver_qzquest	,input_ports_	,init_qzquest	,0	,	ROT0,       "Taito Corporation", "Quiz Quest - Hime to Yuusha no Monogatari (Japan)" )
-/*TODO*///	public static GameDriver driver_pulirula	   = new GameDriver("1991"	,"pulirula"	,"taito_f2.java"	,rom_pulirula,null	,machine_driver_pulirula	,input_ports_pulirula	,null	,ROT0	,	"Taito Corporation Japan", "PuLiRuLa (World)" )
-/*TODO*///	public static GameDriver driver_pulirulj	   = new GameDriver("1991"	,"pulirulj"	,"taito_f2.java"	,rom_pulirulj,driver_pulirula	,machine_driver_pulirula	,input_ports_pulirulj	,null	,ROT0	,	"Taito Corporation", "PuLiRuLa (Japan)" )
-/*TODO*///	public static GameDriver driver_metalb	   = new GameDriver("1991"	,"metalb"	,"taito_f2.java"	,rom_metalb,null	,machine_driver_metalb	,input_ports_metalb	,null	,ROT0_16BIT	,	"Taito Corporation Japan", "Metal Black (World)" )
-/*TODO*///	public static GameDriver driver_metalbj	   = new GameDriver("1991"	,"metalbj"	,"taito_f2.java"	,rom_metalbj,driver_metalb	,machine_driver_metalb	,input_ports_metalbj	,null	,ROT0_16BIT	,	"Taito Corporation", "Metal Black (Japan)" )
-/*TODO*///	public static GameDriver driver_qzchikyu	   = new GameDriver("1991"	,"qzchikyu"	,"taito_f2.java"	,rom_qzchikyu,null	,machine_driver_qzchikyu	,input_ports_qzchikyu	,null	,ROT0	,	"Taito Corporation", "Quiz Chikyu Bouei Gun (Japan)" )
-/*TODO*///	public static GameDriver driver_yesnoj	   = new GameDriver("1992"	,"yesnoj"	,"taito_f2.java"	,rom_yesnoj,null	,machine_driver_yesnoj	,input_ports_yesnoj	,null	,ROT0	,	"Taito Corporation", "Yes/No Sinri Tokimeki Chart" )
-/*TODO*///	public static GameDriver driver_deadconx	   = new GameDriver("1992"	,"deadconx"	,"taito_f2.java"	,rom_deadconx,null	,machine_driver_deadconx	,input_ports_deadconx	,null	,ROT0	,	"Taito Corporation Japan", "Dead Connection (World)" )
-/*TODO*///	public static GameDriver driver_deadconj	   = new GameDriver("1992"	,"deadconj"	,"taito_f2.java"	,rom_deadconj,driver_deadconx	,machine_driver_deadconj	,input_ports_deadconj	,null	,ROT0	,	"Taito Corporation", "Dead Connection (Japan)" )
+	public static GameDriver driver_finalbj	   = new GameDriver("1988"	,"finalbj"	,"taito_f2.java"	,rom_finalbj,driver_finalb	,machine_driver_finalb	,input_ports_finalbj	,init_finalb	,ROT0	,	"Taito Corporation", "Final Blow (Japan)" );
+	public static GameDriver driver_dondokod	   = new GameDriver("1989"	,"dondokod"	,"taito_f2.java"	,rom_dondokod,null	,machine_driver_dondokod	,input_ports_dondokod	,null	,ROT0	,	"Taito Corporation", "Don Doko Don (Japan)" );
+	public static GameDriver driver_megab	   = new GameDriver("1989"	,"megab"	,"taito_f2.java"	,rom_megab,null	,machine_driver_megab	,input_ports_megab	,null	,ROT0	,	"Taito Corporation Japan", "Mega Blast (World)" );
+	public static GameDriver driver_megabj	   = new GameDriver("1989"	,"megabj"	,"taito_f2.java"	,rom_megabj,driver_megab	,machine_driver_megab	,input_ports_megabj	,null	,ROT0	,	"Taito Corporation", "Mega Blast (Japan)" );
+	public static GameDriver driver_thundfox	   = new GameDriver("1990"	,"thundfox"	,"taito_f2.java"	,rom_thundfox,null	,machine_driver_thundfox	,input_ports_thundfox	,null	,ROT0	,	"Taito Corporation", "Thunder Fox (Japan)" );
+	public static GameDriver driver_cameltry	   = new GameDriver("1989"	,"cameltry"	,"taito_f2.java"	,rom_cameltry,null	,machine_driver_cameltry	,input_ports_cameltry	,null	,ROT0	,	"Taito Corporation", "Camel Try (Japan)"  );
+	public static GameDriver driver_cameltru	   = new GameDriver("1989"	,"cameltru"	,"taito_f2.java"	,rom_cameltru,driver_cameltry	,machine_driver_cameltry	,input_ports_cameltry	,null	,ROT0	,	"Taito America Corporation", "Camel Try (US)" );
+	public static GameDriver driver_qtorimon	   = new GameDriver("1990"	,"qtorimon"	,"taito_f2.java"	,rom_qtorimon,null	,machine_driver_qtorimon	,input_ports_qtorimon	,null	,ROT0	,	"Taito Corporation", "Quiz Torimonochou (Japan)" );
+	public static GameDriver driver_liquidk	   = new GameDriver("1990"	,"liquidk"	,"taito_f2.java"	,rom_liquidk,null	,machine_driver_liquidk	,input_ports_liquidk	,null	,ROT0	,	"Taito Corporation Japan", "Liquid Kids (World)" );
+	public static GameDriver driver_liquidku	   = new GameDriver("1990"	,"liquidku"	,"taito_f2.java"	,rom_liquidku,driver_liquidk	,machine_driver_liquidk	,input_ports_liquidk	,null	,ROT0	,	"Taito America Corporation", "Liquid Kids (US)" );
+	public static GameDriver driver_mizubaku	   = new GameDriver("1990"	,"mizubaku"	,"taito_f2.java"	,rom_mizubaku,driver_liquidk	,machine_driver_liquidk	,input_ports_mizubaku	,null	,ROT0	,	"Taito Corporation", "Mizubaku Daibouken (Japan)" );
+	public static GameDriver driver_quizhq	   = new GameDriver("1990"	,"quizhq"	,"taito_f2.java"	,rom_quizhq,null	,machine_driver_quizhq	,input_ports_quizhq	,null	,ROT0	,	"Taito Corporation", "Quiz HQ (Japan)" );
+	public static GameDriver driver_ssi	   = new GameDriver("1990"	,"ssi"	,"taito_f2.java"	,rom_ssi,null	,machine_driver_ssi	,input_ports_ssi	,null	,ROT270	,	"Taito Corporation Japan", "Super Space Invaders '91 (World)" );
+	public static GameDriver driver_majest12	   = new GameDriver("1990"	,"majest12"	,"taito_f2.java"	,rom_majest12,driver_ssi	,machine_driver_ssi	,input_ports_majest12	,null	,ROT270	,	"Taito Corporation", "Majestic Twelve - The Space Invaders Part IV (Japan)" );
+        public static GameDriver driver_gunfront	   = new GameDriver("1990"	,"gunfront"	,"taito_f2.java"	,rom_gunfront,null	,machine_driver_gunfront	,input_ports_gunfront	,null	,ROT270	,	"Taito Corporation Japan", "Gun & Frontier (World)" );
+        public static GameDriver driver_gunfronj	   = new GameDriver("1990"	,"gunfronj"	,"taito_f2.java"	,rom_gunfronj,driver_gunfront	,machine_driver_gunfront	,input_ports_gunfronj	,null	,ROT270	,	"Taito Corporation", "Gun Frontier (Japan)" );
+	public static GameDriver driver_growl	   = new GameDriver("1990"	,"growl"	,"taito_f2.java"	,rom_growl,null	,machine_driver_growl	,input_ports_growl	,null	,ROT0	,	"Taito Corporation Japan", "Growl (World)" );
+	public static GameDriver driver_growlu	   = new GameDriver("1990"	,"growlu"	,"taito_f2.java"	,rom_growlu,driver_growl	,machine_driver_growl	,input_ports_growl	,null	,ROT0	,	"Taito America Corporation", "Growl (US)" );
+	public static GameDriver driver_runark	   = new GameDriver("1990"	,"runark"	,"taito_f2.java"	,rom_runark,driver_growl	,machine_driver_growl	,input_ports_runark	,null	,ROT0	,	"Taito Corporation", "Runark (Japan)" );
+	public static GameDriver driver_mjnquest	   = new GameDriver("1990"	,"mjnquest"	,"taito_f2.java"	,rom_mjnquest,null	,machine_driver_mjnquest	,input_ports_mjnquest	,init_mjnquest	,ROT0	,	"Taito Corporation", "Mahjong Quest (Japan)" );
+	public static GameDriver driver_mjnquesb	   = new GameDriver("1990"	,"mjnquesb"	,"taito_f2.java"	,rom_mjnquesb,driver_mjnquest	,machine_driver_mjnquest	,input_ports_mjnquest	,init_mjnquest	,ROT0	,	"Taito Corporation", "Mahjong Quest (No Nudity)" );
+	public static GameDriver driver_footchmp	   = new GameDriver("1990"	,"footchmp"	,"taito_f2.java"	,rom_footchmp,null	,machine_driver_footchmp	,input_ports_footchmp	,null	,ROT0	,	"Taito Corporation Japan", "Football Champ (World)" );
+	public static GameDriver driver_hthero	   = new GameDriver("1990"	,"hthero"	,"taito_f2.java"	,rom_hthero,driver_footchmp	,machine_driver_hthero	,input_ports_hthero	,null	,ROT0	,	"Taito Corporation", "Hat Trick Hero (Japan)" );
+	public static GameDriver driver_euroch92	   = new GameDriver("1992"	,"euroch92"	,"taito_f2.java"	,rom_euroch92,driver_footchmp	,machine_driver_footchmp	,input_ports_footchmp	,null	,ROT0	,	"Taito Corporation Japan", "Euro Champ '92 (World)" );
+	public static GameDriver driver_koshien	   = new GameDriver("1990"	,"koshien"	,"taito_f2.java"	,rom_koshien,null	,machine_driver_koshien	,input_ports_koshien	,null	,ROT0	,	"Taito Corporation", "Ah Eikou no Koshien (Japan)" );
+	public static GameDriver driver_yuyugogo	   = new GameDriver("1990"	,"yuyugogo"	,"taito_f2.java"	,rom_yuyugogo,null	,machine_driver_yuyugogo	,input_ports_yuyugogo	,null	,ROT0	,	"Taito Corporation", "Yuuyu no Quiz de GO!GO! (Japan)" );
+	public static GameDriver driver_ninjak	   = new GameDriver("1990"	,"ninjak"	,"taito_f2.java"	,rom_ninjak,null	,machine_driver_ninjak	,input_ports_ninjak	,null	,ROT0	,	"Taito Corporation Japan", "Ninja Kids (World)" );
+	public static GameDriver driver_ninjakj	   = new GameDriver("1990"	,"ninjakj"	,"taito_f2.java"	,rom_ninjakj,driver_ninjak	,machine_driver_ninjak	,input_ports_ninjakj	,null	,ROT0	,	"Taito Corporation", "Ninja Kids (Japan)" );
+	public static GameDriver driver_solfigtr	   = new GameDriver("1991"	,"solfigtr"	,"taito_f2.java"	,rom_solfigtr,null	,machine_driver_solfigtr	,input_ports_solfigtr	,null	,ROT0	,	"Taito Corporation Japan", "Solitary Fighter (World)" );
+	public static GameDriver driver_qzquest	   = new GameDriver("1991"	,"qzquest"	,"taito_f2.java"	,rom_qzquest,null	,machine_driver_qzquest	,input_ports_qzquest	/*,init_qzquest*/	,null	,	ROT0,       "Taito Corporation", "Quiz Quest - Hime to Yuusha no Monogatari (Japan)" );
+	public static GameDriver driver_pulirula	   = new GameDriver("1991"	,"pulirula"	,"taito_f2.java"	,rom_pulirula,null	,machine_driver_pulirula	,input_ports_pulirula	,null	,ROT0	,	"Taito Corporation Japan", "PuLiRuLa (World)" );
+	public static GameDriver driver_pulirulj	   = new GameDriver("1991"	,"pulirulj"	,"taito_f2.java"	,rom_pulirulj,driver_pulirula	,machine_driver_pulirula	,input_ports_pulirulj	,null	,ROT0	,	"Taito Corporation", "PuLiRuLa (Japan)" );
+	public static GameDriver driver_metalb	   = new GameDriver("1991"	,"metalb"	,"taito_f2.java"	,rom_metalb,null	,machine_driver_metalb	,input_ports_metalb	,null	,ROT0_16BIT	,	"Taito Corporation Japan", "Metal Black (World)" );
+	public static GameDriver driver_metalbj	   = new GameDriver("1991"	,"metalbj"	,"taito_f2.java"	,rom_metalbj,driver_metalb	,machine_driver_metalb	,input_ports_metalbj	,null	,ROT0_16BIT	,	"Taito Corporation", "Metal Black (Japan)" );
+	public static GameDriver driver_qzchikyu	   = new GameDriver("1991"	,"qzchikyu"	,"taito_f2.java"	,rom_qzchikyu,null	,machine_driver_qzchikyu	,input_ports_qzchikyu	,null	,ROT0	,	"Taito Corporation", "Quiz Chikyu Bouei Gun (Japan)" );
+	public static GameDriver driver_yesnoj	   = new GameDriver("1992"	,"yesnoj"	,"taito_f2.java"	,rom_yesnoj,null	,machine_driver_yesnoj	,input_ports_yesnoj	,null	,ROT0	,	"Taito Corporation", "Yes/No Sinri Tokimeki Chart" );
+	public static GameDriver driver_deadconx	   = new GameDriver("1992"	,"deadconx"	,"taito_f2.java"	,rom_deadconx,null	,machine_driver_deadconx	,input_ports_deadconx	,null	,ROT0	,	"Taito Corporation Japan", "Dead Connection (World)" );
+	public static GameDriver driver_deadconj	   = new GameDriver("1992"	,"deadconj"	,"taito_f2.java"	,rom_deadconj,driver_deadconx	,machine_driver_deadconj	,input_ports_deadconj	,null	,ROT0	,	"Taito Corporation", "Dead Connection (Japan)" );
 	public static GameDriver driver_dinorex	   = new GameDriver("1992"	,"dinorex"	,"taito_f2.java"	,rom_dinorex,null	,machine_driver_dinorex	,input_ports_dinorex	,null	,ROT0	,	"Taito Corporation Japan", "Dino Rex (World)" );
-/*TODO*///	public static GameDriver driver_dinorexj	   = new GameDriver("1992"	,"dinorexj"	,"taito_f2.java"	,rom_dinorexj,driver_dinorex	,machine_driver_dinorex	,input_ports_dinorexj	,null	,ROT0	,	"Taito Corporation", "Dino Rex (Japan)" )
-/*TODO*///	public static GameDriver driver_dinorexu	   = new GameDriver("1992"	,"dinorexu"	,"taito_f2.java"	,rom_dinorexu,driver_dinorex	,machine_driver_dinorex	,input_ports_dinorex	,null	,ROT0	,	"Taito America Corporation", "Dino Rex (US)" )
-/*TODO*///	public static GameDriver driver_qjinsei	   = new GameDriver("1992"	,"qjinsei"	,"taito_f2.java"	,rom_qjinsei,null	,machine_driver_qjinsei	,input_ports_qjinsei	,null	,ROT0	,	"Taito Corporation", "Quiz Jinsei Gekijoh (Japan)" )
-/*TODO*///	public static GameDriver driver_qcrayon	   = new GameDriver("1993"	,"qcrayon"	,"taito_f2.java"	,rom_qcrayon,null	,machine_driver_qcrayon	,input_ports_qcrayon	,null	,ROT0	,	"Taito Corporation", "Quiz Crayon Shinchan (Japan)" )
-/*TODO*///	public static GameDriver driver_qcrayon2	   = new GameDriver("1993"	,"qcrayon2"	,"taito_f2.java"	,rom_qcrayon2,null	,machine_driver_qcrayon2	,input_ports_qcrayon2	,null	,ROT0	,	"Taito Corporation", "Crayon Shinchan Orato Asobo (Japan)" )
+	public static GameDriver driver_dinorexj	   = new GameDriver("1992"	,"dinorexj"	,"taito_f2.java"	,rom_dinorexj,driver_dinorex	,machine_driver_dinorex	,input_ports_dinorexj	,null	,ROT0	,	"Taito Corporation", "Dino Rex (Japan)" );
+	public static GameDriver driver_dinorexu	   = new GameDriver("1992"	,"dinorexu"	,"taito_f2.java"	,rom_dinorexu,driver_dinorex	,machine_driver_dinorex	,input_ports_dinorex	,null	,ROT0	,	"Taito America Corporation", "Dino Rex (US)" );
+	public static GameDriver driver_qjinsei	   = new GameDriver("1992"	,"qjinsei"	,"taito_f2.java"	,rom_qjinsei,null	,machine_driver_qjinsei	,input_ports_qjinsei	,null	,ROT0	,	"Taito Corporation", "Quiz Jinsei Gekijoh (Japan)" );
+	public static GameDriver driver_qcrayon	   = new GameDriver("1993"	,"qcrayon"	,"taito_f2.java"	,rom_qcrayon,null	,machine_driver_qcrayon	,input_ports_qcrayon	,null	,ROT0	,	"Taito Corporation", "Quiz Crayon Shinchan (Japan)" );
+	public static GameDriver driver_qcrayon2	   = new GameDriver("1993"	,"qcrayon2"	,"taito_f2.java"	,rom_qcrayon2,null	,machine_driver_qcrayon2	,input_ports_qcrayon2	,null	,ROT0	,	"Taito Corporation", "Crayon Shinchan Orato Asobo (Japan)" );
 	public static GameDriver driver_driftout	   = new GameDriver("1991"	,"driftout"	,"taito_f2.java"	,rom_driftout,null	,machine_driver_driftout	,input_ports_driftout	,null	,ROT270	,	"Visco", "Drift Out (Japan)", GAME_NO_COCKTAIL );
-/*TODO*///	public static GameDriver driver_driveout	   = new GameDriver("1991"	,"driveout"	,"taito_f2.java"	,rom_driveout,driver_driftout	,machine_driver_driftout	,input_ports_driftout	,null	,ROT270	,	"bootleg", "Drive Out", GAME_NO_SOUND )
+	public static GameDriver driver_driveout	   = new GameDriver("1991"	,"driveout"	,"taito_f2.java"	,rom_driveout,driver_driftout	,machine_driver_driftout	,input_ports_driftout	,null	,ROT270	,	"bootleg", "Drive Out", GAME_NO_SOUND );
 }

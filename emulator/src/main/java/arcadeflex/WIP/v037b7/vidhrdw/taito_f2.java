@@ -267,9 +267,13 @@ public class taito_f2
 	
 	public static VhStartPtr taitof2_core_vh_start = new VhStartPtr() { public int handler() 
 	{
-		spriteram_delayed = new UShortArray (spriteram_size[0]);
+		spriteram_delayed = new UShortArray (spriteram_size[0] * 2);
 		spriteram_buffered = new UShortArray (spriteram_size[0] * 2);
 		spritelist = new tempsprite[0x400];
+                
+                for (int _i=0 ; _i<0x400 ; _i++)
+                    spritelist[_i] = new tempsprite();
+                
 		if (spriteram_delayed==null || spriteram_buffered==null || spritelist==null)
 			return 1;
 	
@@ -867,8 +871,8 @@ public class taito_f2
 				if (scroll1y >= 0x800) scroll1y -= 0x1000;   /* signed value */
 			}
 	
-			if (disabled != 0)
-				continue;
+/*TODO*///			if (disabled != 0)
+/*TODO*///				continue;
 	
 			spritedata = spriteram_buffered.read((offs+8)/2);
 	
@@ -1071,6 +1075,7 @@ public class taito_f2
 				}
 				else
 				{
+                                    //System.out.println("drawgfxzoom");
 					drawgfxzoom(bitmap,Machine.gfx[0],
 							sprite_ptr[_sprite_ptr].code,
 							sprite_ptr[_sprite_ptr].color,
@@ -1082,12 +1087,14 @@ public class taito_f2
 			}
 		}
 	
+                int _spritelist=0;
 	
 		/* this happens only if primsks != null */
-		while (sprite_ptr != spritelist)
+		while (_sprite_ptr != 0/*_spritelist*/)
 		{
 			_sprite_ptr--;
 	
+                        //System.out.println("pdrawgfxzoom");
 			pdrawgfxzoom(bitmap,Machine.gfx[0],
 					sprite_ptr[_sprite_ptr].code,
 					sprite_ptr[_sprite_ptr].color,
@@ -1097,6 +1104,8 @@ public class taito_f2
 					sprite_ptr[_sprite_ptr].zoomx,sprite_ptr[_sprite_ptr].zoomy,
 					sprite_ptr[_sprite_ptr].primask);
 		}
+                
+                spritelist=sprite_ptr;
 	}
 	
 	
@@ -1166,7 +1175,7 @@ public class taito_f2
 		prepare_sprites = 0;
 		memcpy(spriteram_buffered,spriteram_delayed,spriteram_size[0]);
 		for (i = 0;i < spriteram_size[0]/2;i += 4)
-			spriteram_buffered.write(i, (char) spriteram.READ_WORD(2*i));
+			spriteram_buffered.write(i, spriteram.READ_WORD(2*i));
 		memcpy(spriteram_delayed,spriteram,spriteram_size[0]);
 	} };
 	public static VhEofCallbackPtr taitof2_partial_buffer_delayed_thundfox_eof_callback = new VhEofCallbackPtr() { public void handler() 
@@ -1179,9 +1188,9 @@ public class taito_f2
 		memcpy(spriteram_buffered,spriteram_delayed,spriteram_size[0]);
 		for (i = 0;i < spriteram_size[0]/2;i += 8)
 		{
-			spriteram_buffered.write(i, (char) spriteram.READ_WORD(2*i));
-			spriteram_buffered.write(i+1, (char) spriteram.READ_WORD(2*(i+1)));
-			spriteram_buffered.write(i+4, (char) spriteram.READ_WORD(2*(i+4)));
+			spriteram_buffered.write(i, spriteram.READ_WORD(2*i));
+			spriteram_buffered.write(i+1, spriteram.READ_WORD(2*(i+1)));
+			spriteram_buffered.write(i+4, spriteram.READ_WORD(2*(i+4)));
 		}
 		memcpy(spriteram_delayed,spriteram,spriteram_size[0]);
 	} };

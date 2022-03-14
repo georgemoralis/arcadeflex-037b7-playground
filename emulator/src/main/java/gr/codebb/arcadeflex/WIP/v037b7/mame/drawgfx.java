@@ -1283,6 +1283,7 @@ public class drawgfx {
                         int y;
 
                         /* case 1: TRANSPARENCY_PEN */
+                        //System.out.println("ZZ-Transparency="+transparency);
                         if (transparency == TRANSPARENCY_PEN) {
                             
                             if (pri_buffer != null) {

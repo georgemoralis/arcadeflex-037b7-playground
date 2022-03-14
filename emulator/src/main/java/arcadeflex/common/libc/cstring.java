@@ -63,6 +63,18 @@ public class cstring {
             dst.write(i, src.read(i));
         }
     }
+    
+    public static void memcpy(ShortPtr dst, ShortPtr src, int size) {
+        for (int i = 0; i < Math.min(size, src.memory.length); i++) {
+            dst.write(i, src.read(i));
+        }
+    }
+    
+    public static void memcpy(ShortPtr dst, UBytePtr src, int size) {
+        for (int i = 0; i < Math.min(size, src.memory.length); i++) {
+            dst.write(i, (short) src.read(i));
+        }
+    }
 
     public static void memcpy(UBytePtr dst, int dstoffs, UBytePtr src, int srcoffs, int size) {
         for (int i = 0; i < Math.min(size, src.memory.length); i++) {

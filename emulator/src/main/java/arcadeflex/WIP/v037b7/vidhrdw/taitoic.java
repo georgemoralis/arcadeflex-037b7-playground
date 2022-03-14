@@ -177,7 +177,9 @@ package arcadeflex.WIP.v037b7.vidhrdw;
 
 import static arcadeflex.common.libc.cstring.*;
 import arcadeflex.common.ptrLib.UBytePtr;
+import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays.UShortArray;
+//import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
 import static arcadeflex.v037b7.mame.commonH.*;
@@ -1290,12 +1292,12 @@ public class taitoic
 	
 	
 	static int TC0110PCR_addr;
-	static UShortArray TC0110PCR_ram;
+	static UBytePtr TC0110PCR_ram;
 	static int TC0110PCR_RAM_SIZE = 0x2000;
 	
 	public static VhStartPtr TC0110PCR_vh_start = new VhStartPtr() { public int handler() 
 	{
-		TC0110PCR_ram = new UShortArray (TC0110PCR_RAM_SIZE);
+		TC0110PCR_ram = new UBytePtr (TC0110PCR_RAM_SIZE);
 	
 		if (TC0110PCR_ram==null) return 1;
 	
