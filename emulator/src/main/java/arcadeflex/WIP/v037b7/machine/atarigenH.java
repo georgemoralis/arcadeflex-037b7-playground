@@ -29,7 +29,7 @@ public class atarigenH
 
 	public static final int ATARI_CLOCK_14MHz	= 14318180;
 /*TODO*///	#define ATARI_CLOCK_20MHz	20000000
-/*TODO*///	#define ATARI_CLOCK_32MHz	32000000
+        public static final int ATARI_CLOCK_32MHz	= 32000000;
 /*TODO*///	#define ATARI_CLOCK_50MHz	50000000
 /*TODO*///	
 /*TODO*///	

@@ -785,14 +785,14 @@ public class atarijsa
 /*TODO*///		100,
 /*TODO*///		0
 /*TODO*///	};
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static POKEYinterface atarijsa_pokey_interface = new POKEYinterface
-/*TODO*///	(
-/*TODO*///		1,			/* 1 chip */
-/*TODO*///		ATARI_CLOCK_14MHz/8,
-/*TODO*///		new int[] { 40 },
-/*TODO*///	);
+	
+	
+	public static POKEYinterface atarijsa_pokey_interface = new POKEYinterface
+	(
+		1,			/* 1 chip */
+		ATARI_CLOCK_14MHz/8,
+		new int[] { 40 }
+	);
 	
 	
 	public static YM2151interface atarijsa_ym2151_interface_mono = new YM2151interface
@@ -804,13 +804,13 @@ public class atarijsa
 	);
 	
 	
-/*TODO*///	static YM2151interface atarijsa_ym2151_interface_stereo = new YM2151interface
-/*TODO*///	(
-/*TODO*///		1,			/* 1 chip */
-/*TODO*///		ATARI_CLOCK_14MHz/4,
-/*TODO*///		new int[] { YM3012_VOL(60,MIXER_PAN_LEFT,60,MIXER_PAN_RIGHT) },
-/*TODO*///		new WriteYmHandlerPtr[] { atarigen_ym2151_irq_gen }
-/*TODO*///	);
+	public static YM2151interface atarijsa_ym2151_interface_stereo = new YM2151interface
+	(
+		1,			/* 1 chip */
+		ATARI_CLOCK_14MHz/4,
+		new int[] { YM3012_VOL(60,MIXER_PAN_LEFT,60,MIXER_PAN_RIGHT) },
+		new WriteYmHandlerPtr[] { atarigen_ym2151_irq_gen }
+	);
 	
 	
 	public static YM2151interface atarijsa_ym2151_interface_stereo_swapped = new YM2151interface

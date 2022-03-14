@@ -234,6 +234,7 @@ import static arcadeflex.WIP.v037b16.drivers.wwfsstar.*;
 import static arcadeflex.WIP.v037b7.drivers.ddragon3.*;
 import static arcadeflex.WIP.v037b7.drivers.nemesis.*;
 import static arcadeflex.WIP.v037b7.drivers.taito_f2.*;
+import static arcadeflex.WIP.v037b7.drivers.toobin.*;
 
 public class driver {
 
@@ -2502,9 +2503,9 @@ public class driver {
         driver_atetrisb, /* bootleg */
         driver_atetcktl, /* (c) 1989 */
         driver_atetckt2, /* (c) 1989 */
-        /*TODO*///	driver_toobin )	/* (c) 1988 */
-        /*TODO*///	driver_toobin2 )	/* (c) 1988 */
-        /*TODO*///	driver_toobinp )	/* (c) 1988 */
+        driver_toobin, 	/* (c) 1988 */
+        driver_toobin2, 	/* (c) 1988 */
+        driver_toobinp, 	/* (c) 1988 */
         /*TODO*///	driver_vindictr )	/* (c) 1988 */
         driver_klax, /* (c) 1989 */
         driver_klax2, /* (c) 1989 */

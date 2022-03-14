@@ -871,8 +871,8 @@ public class taito_f2
 				if (scroll1y >= 0x800) scroll1y -= 0x1000;   /* signed value */
 			}
 	
-/*TODO*///			if (disabled != 0)
-/*TODO*///				continue;
+			if (disabled != 0)
+				continue;
 	
 			spritedata = spriteram_buffered.read((offs+8)/2);
 	

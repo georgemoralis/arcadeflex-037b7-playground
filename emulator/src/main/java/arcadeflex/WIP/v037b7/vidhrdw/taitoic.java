@@ -1314,7 +1314,7 @@ public class taitoic
 		switch (offset)
 		{
 			case 2:
-				return TC0110PCR_ram.read(TC0110PCR_addr);
+				return TC0110PCR_ram.READ_WORD(TC0110PCR_addr);
 	
 			default:
                                 logerror("PC %06x: warning - read TC0110PCR address %02x\n",cpu_get_pc(),offset);
@@ -1336,7 +1336,7 @@ public class taitoic
 				int r,g,b;   /* data = palette BGR value */
 	
 	
-				TC0110PCR_ram.write(TC0110PCR_addr, (char) (data & 0xffff));
+				TC0110PCR_ram.WRITE_WORD(TC0110PCR_addr, (char) (data & 0xffff));
 	
 				r = (data >>  0) & 0x1f;
 				g = (data >>  5) & 0x1f;
