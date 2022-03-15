@@ -15,7 +15,6 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*; 
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import arcadeflex.common.ptrLib.UBytePtr;
-import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays;
 import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
@@ -756,6 +755,7 @@ public class atarisy1
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
+                lookup_table.offset=state.param[0];
 		pf_overrender_data overrender_data = (pf_overrender_data) param;
 		osd_bitmap bitmap = overrender_data.bitmap;
 		int type = overrender_data.type;
