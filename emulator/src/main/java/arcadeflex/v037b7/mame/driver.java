@@ -235,6 +235,7 @@ import static arcadeflex.WIP.v037b7.drivers.ddragon3.*;
 import static arcadeflex.WIP.v037b7.drivers.nemesis.*;
 import static arcadeflex.WIP.v037b7.drivers.taito_f2.*;
 import static arcadeflex.WIP.v037b7.drivers.toobin.*;
+import static arcadeflex.WIP.v037b7.drivers.atarisy1.*;
 
 public class driver {
 
@@ -2475,11 +2476,11 @@ public class driver {
         /*TODO*///	driver_marble2 )	/* (c) 1984 */
         /*TODO*///	driver_marblea )	/* (c) 1984 */
         /*TODO*///	driver_peterpak )	/* (c) 1984 */
-        /*TODO*///	driver_indytemp )	/* (c) 1985 */
+        driver_indytemp, 	/* (c) 1985 */
         /*TODO*///	driver_indytem2 )	/* (c) 1985 */
         /*TODO*///	driver_indytem3 )	/* (c) 1985 */
         /*TODO*///	driver_indytem4 )	/* (c) 1985 */
-        /*TODO*///	driver_roadrunn )	/* (c) 1985 */
+        driver_roadrunn, 	/* (c) 1985 */
         /*TODO*///	driver_roadblst )	/* (c) 1986, 1987 */
         /*TODO*///
         /*TODO*///	/* Atari System 2 games */
