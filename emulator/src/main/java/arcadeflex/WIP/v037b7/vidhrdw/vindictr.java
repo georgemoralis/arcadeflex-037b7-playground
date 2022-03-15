@@ -1,60 +1,92 @@
 /***************************************************************************
 
-	Atari Gauntlet hardware
+	vidhrdw/vindictr.c
 
-****************************************************************************/
+	Functions to emulate the video hardware of the machine.
 
+****************************************************************************
+
+	Playfield encoding
+	------------------
+		1 16-bit word is used
+
+		Word 1:
+			Bit  15    = horizontal flip
+			Bits 13-15 = palette
+			Bits  0-12 = image index
+
+
+	Motion Object encoding
+	----------------------
+		4 16-bit words are used
+
+		Word 1:
+			Bits  0-14 = image index
+
+		Word 2:
+			Bits  7-15 = X position
+			Bits  0-3  = palette
+
+		Word 3:
+			Bits  7-14 = Y position
+			Bit   6    = horizontal flip
+			Bits  3-5  = width in tiles (ranges from 1-8)
+			Bits  0-2  = height in tiles (ranges from 1-8)
+
+		Word 4:
+			Bits  0-9  = link to the next image to display
+
+
+	Alpha layer encoding
+	--------------------
+		1 16-bit word is used
+
+		Word 1:
+			Bit  15    = transparent/opaque
+			Bit  10-13 = palette
+			Bits  0-9  = image index
+
+***************************************************************************/
 
 /*
  * ported to v0.37b7
  * using automatic conversion tool v0.01
  */ 
 package arcadeflex.WIP.v037b7.vidhrdw;
-
+        
 import static arcadeflex.WIP.v037b7.machine.atarigen.*;
-import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
-import static arcadeflex.common.ptrLib.*;
+import static arcadeflex.WIP.v037b7.machine.atarigenH.*;        
+import arcadeflex.common.ptrLib.UBytePtr;
+import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays;
 import arcadeflex.common.subArrays.IntSubArray;
-//import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
+import arcadeflex.v037b7.mame.drawgfxH;
+import static arcadeflex.v037b7.mame.drawgfxH.*;
+import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
-import static arcadeflex.v037b7.mame.drawgfxH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
-import static arcadeflex.v037b7.mame.memoryH.*;
-import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
+import static arcadeflex.v037b7.mame.palette.*;
 import static arcadeflex.v037b7.mame.paletteH.*;
-import static arcadeflex.v037b7.vidhrdw.generic.*;
-import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.*;
+import static arcadeflex.v037b7.mame.memory.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
+import arcadeflex.v056.mame.timer;
+import arcadeflex.v056.mame.timer.timer_callback;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
-import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyscrollbitmap;        
 
-
-public class gauntlet
+public class vindictr
 {
 	
-	public static final int XCHARS = 42;
-	public static final int YCHARS = 30;
+	static int XCHARS = 42;
+	static int YCHARS = 30;
 	
-	public static final int XDIM = (XCHARS*8);
-	public static final int YDIM = (YCHARS*8);
-	
-	
-	
-	/*************************************
-	 *
-	 *	Globals we own
-	 *
-	 *************************************/
-	
-	public static int vindctr2_screen_refresh;
-	
+	static int XDIM = (XCHARS*8);
+	static int YDIM = (YCHARS*8);
 	
 	
 	/*************************************
@@ -65,14 +97,11 @@ public class gauntlet
 	
 	public static class mo_data
 	{
-		public osd_bitmap bitmap;
-		public int color_xor;
+		osd_bitmap bitmap;
+		int color_xor;
 	};
 	
-	static atarigen_pf_state pf_state;
-	
-	static int playfield_color_base;
-	
+	static atarigen_pf_state pf_state = new atarigen_pf_state();
 	
 	
 	
@@ -82,29 +111,28 @@ public class gauntlet
 	 *
 	 *************************************/
 	
-	public static VhStartPtr gauntlet_vh_start = new VhStartPtr() { public int handler() 
+	public static VhStartPtr vindictr_vh_start = new VhStartPtr() { public int handler() 
 	{
 		atarigen_mo_desc mo_desc = new atarigen_mo_desc
 		(
 			1024,                /* maximum number of MO's */
-			2,                   /* number of bytes per MO entry */
-			0x800,               /* number of bytes between MO words */
-			3,                   /* ignore an entry if this word == 0xffff */
+			8,                   /* number of bytes per MO entry */
+			2,                   /* number of bytes between MO words */
+			0,                   /* ignore an entry if this word == 0xffff */
 			3, 0, 0x3ff,         /* link = (data[linkword] >> linkshift) & linkmask */
-			0,                    /* render in reverse link order */
-                        0
+			0                    /* reverse order */
 		);
 	
 		atarigen_pf_desc pf_desc = new atarigen_pf_desc
 		(
 			8, 8,				/* width/height of each tile */
-			64, 64, 0				/* number of tiles in each direction */
+			64, 64,				/* number of tiles in each direction */
+                        0
 		);
 	
 		/* reset statics */
 		//memset(&pf_state, 0, sizeof(pf_state));
                 pf_state = new atarigen_pf_state();
-		playfield_color_base = vindctr2_screen_refresh!=0 ? 0x10 : 0x18;
 	
 		/* initialize the playfield */
 		if (atarigen_pf_init(pf_desc) != 0)
@@ -128,51 +156,10 @@ public class gauntlet
 	 *
 	 *************************************/
 	
-	public static VhStopPtr gauntlet_vh_stop = new VhStopPtr() { public void handler() 
+	public static VhStopPtr vindictr_vh_stop = new VhStopPtr() { public void handler() 
 	{
 		atarigen_pf_free();
 		atarigen_mo_free();
-	} };
-	
-	
-	
-	/*************************************
-	 *
-	 *	Horizontal scroll register
-	 *
-	 *************************************/
-	
-	public static WriteHandlerPtr gauntlet_hscroll_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-	{
-		/* update memory */
-		int oldword = atarigen_hscroll.READ_WORD(offset);
-		int newword = COMBINE_WORD(oldword, data);
-		atarigen_hscroll.WRITE_WORD(offset, newword);
-	
-		/* update parameters */
-		pf_state.hscroll = newword & 0x1ff;
-		atarigen_pf_update(pf_state, cpu_getscanline());
-	} };
-	
-	
-	
-	/*************************************
-	 *
-	 *	Vertical scroll/PF bank register
-	 *
-	 *************************************/
-	
-	public static WriteHandlerPtr gauntlet_vscroll_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-	{
-		/* update memory */
-		int oldword = atarigen_vscroll.READ_WORD(offset);
-		int newword = COMBINE_WORD(oldword, data);
-		atarigen_vscroll.WRITE_WORD(offset, newword);
-	
-		/* update parameters */
-		pf_state.vscroll = (newword >> 7) & 0x1ff;
-		pf_state.param[0] = newword & 3;
-		atarigen_pf_update(pf_state, cpu_getscanline());
 	} };
 	
 	
@@ -183,10 +170,11 @@ public class gauntlet
 	 *
 	 *************************************/
 	
-	public static WriteHandlerPtr gauntlet_playfieldram_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	public static WriteHandlerPtr vindictr_playfieldram_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
 		int oldword = atarigen_playfieldram.READ_WORD(offset);
 		int newword = COMBINE_WORD(oldword, data);
+	
 		if (oldword != newword)
 		{
 			atarigen_playfieldram.WRITE_WORD(offset, newword);
@@ -198,18 +186,80 @@ public class gauntlet
 	
 	/*************************************
 	 *
+	 *	Palette RAM write handler
+	 *
+	 *************************************/
+	
+	public static WriteHandlerPtr vindictr_paletteram_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		int ztable[] =
+			{ 0x0, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11 };
+	
+		int oldword = paletteram.READ_WORD(offset);
+		int newword = COMBINE_WORD(oldword, data);
+		int i, r, g, b;
+	
+		paletteram.WRITE_WORD(offset, newword);
+	
+		i = ztable[(newword >> 12) & 15];
+		r = ((newword >> 8) & 15) * i;
+		g = ((newword >> 4) & 15) * i;
+		b = ((newword >> 0) & 15) * i;
+	
+		offset /= 2;
+		palette_change_color(offset, r, g, b);
+	} };
+	
+	
+	
+	/*************************************
+	 *
 	 *	Periodic scanline updater
 	 *
 	 *************************************/
 	
-	public static void gauntlet_scanline_update(int scanline)
-	{
-            //System.out.println(scanline);
-            //atarigen_alpharam.offset=0;
+	public static timer_callback vindictr_scanline_update = new timer_callback() {
+            @Override
+            public void handler(int scanline) {
+                UShortPtr base = new UShortPtr(atarigen_alpharam, ((scanline / 8) * 64 + XCHARS) * 2);
+		int x;
+	
+		/* update the playfield with the previous parameters */
+		atarigen_pf_update(pf_state, scanline);
+	
+		/* update the MOs from the SLIP table */
 		atarigen_mo_update_slip_512(new UBytePtr(atarigen_spriteram), pf_state.vscroll, scanline, new UBytePtr(atarigen_alpharam, 0xf80));
-	}
 	
+		/* update the current parameters */
+/*TODO*///		if ((UINT8 *)base < &atarigen_alpharam[0xf80])
+                    if (base.offset<4096)
+			for (x = XCHARS; x < 64; x++)
+			{
+				int data = base.readinc();
+				int command = data & 0x7e00;
 	
+				if (command == 0x7400)
+					pf_state.param[0] = data & 7;
+				else if (command == 0x7600)
+					pf_state.hscroll = data & 0x1ff;
+				else if (command == 0x7800)
+					;
+				else if (command == 0x7a00)
+					;
+				else if (command == 0x7c00)
+					;
+				else if (command == 0x7e00)
+				{
+					/* a new vscroll latches the offset into a counter; we must adjust for this */
+					int offset = scanline + 8;
+					if (offset >= 240)
+						offset -= 240;
+					pf_state.vscroll = (data - offset) & 0x1ff;
+				}
+			}
+            }
+        };
+        
 	
 	/*************************************
 	 *
@@ -217,7 +267,7 @@ public class gauntlet
 	 *
 	 *************************************/
 	
-	public static VhUpdatePtr gauntlet_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) 
+	public static VhUpdatePtr vindictr_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) 
 	{
 		/* update the palette, and mark things dirty */
 		if (update_palette() != null)
@@ -264,7 +314,7 @@ public class gauntlet
 	
 	static UBytePtr update_palette()
 	{
-		int[] pf_map=new int[32], al_map=new int[64], mo_map=new int[16];
+		int[] pf_map=new int[16], al_map=new int[64], mo_map=new int[16];
 		int i, j;
 	
 		/* reset color tracking */
@@ -297,7 +347,7 @@ public class gauntlet
 		/* rebuild the playfield palette */
 		for (i = 0; i < 16; i++)
 		{
-			int used = pf_map[i + 16];
+			int used = pf_map[i];
 			if (used != 0)
 				for (j = 0; j < 16; j++)
 					if ((used & (1 << j)) != 0)
@@ -343,7 +393,7 @@ public class gauntlet
 	static atarigen_pf_callback pf_color_callback = new atarigen_pf_callback() {
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
-                UShortArray usage = new UShortArray(Machine.gfx[0].pen_usage, state.param[0] * 0x1000);
+                IntSubArray usage = new IntSubArray(Machine.gfx[0].pen_usage, state.param[0] * 0x1000);
 		int[] colormap = (int[]) param;
 		int x, y;
 	
@@ -352,10 +402,10 @@ public class gauntlet
 			{
 				int offs = x * 64 + y;
 				int data = atarigen_playfieldram.READ_WORD(offs * 2);
-				int code = (data & 0xfff) ^ 0x800;
-				int color = playfield_color_base + ((data >> 12) & 7);
+				int code = data & 0xfff;
+				int color = (data >> 11) & 14;
 				colormap[color] |= usage.read(code);
-				colormap[color ^ 8] |= usage.read(code);
+				colormap[color ^ 1] |= usage.read(code);
 	
 				/* also mark unvisited tiles dirty */
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
@@ -385,10 +435,11 @@ public class gauntlet
 				int offs = x * 64 + y;
 				int data = atarigen_playfieldram.READ_WORD(offs * 2);
 	
+				/* update only if dirty */
 				if (atarigen_pf_dirty.read(offs) != bank)
 				{
-					int color = playfield_color_base + ((data >> 12) & 7);
-					int code = bank * 0x1000 + ((data & 0xfff) ^ 0x800);
+					int color = 16 + ((data >> 11) & 14);
+					int code = bank * 0x1000 + (data & 0xfff);
 					int hflip = data & 0x8000;
 	
 					drawgfx(atarigen_pf_bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, null, TRANSPARENCY_NONE, 0);
@@ -433,8 +484,8 @@ public class gauntlet
 			{
 				int offs = x * 64 + y;
 				int data = atarigen_playfieldram.READ_WORD(offs * 2);
-				int color = playfield_color_base + ((data >> 12) & 7);
-				int code = bank * 0x1000 + ((data & 0xfff) ^ 0x800);
+				int color = 16 + ((data >> 11) & 14);
+				int code = bank * 0x1000 + (data & 0xfff);
 				int hflip = data & 0x8000;
 				int sx = (8 * x - state.hscroll) & 0x1ff;
 				if (sx >= XDIM) sx -= 0x200;
@@ -446,7 +497,6 @@ public class gauntlet
         };
         
 	
-	
 	/*************************************
 	 *
 	 *	Motion object palette
@@ -456,9 +506,9 @@ public class gauntlet
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
             public void handler(UShortArray data, rectangle clip, Object param) {
-                int[] usage = Machine.gfx[0].pen_usage;
+                int usage[] = Machine.gfx[0].pen_usage;
 		int[] colormap = (int[]) param;
-		int code = (data.read(0) & 0x7fff) ^ 0x800;
+		int code = data.read(0) & 0x7fff;
 		int hsize = ((data.read(2) >> 3) & 7) + 1;
 		int vsize = (data.read(2) & 7) + 1;
 		int color = data.read(1) & 0x000f;
@@ -471,7 +521,7 @@ public class gauntlet
 		colormap[color] |= temp;
             }
         };
-        	
+        
 	
 	/*************************************
 	 *
@@ -484,13 +534,13 @@ public class gauntlet
             public void handler(UShortArray data, rectangle clip, Object param) {
                 GfxElement gfx = Machine.gfx[0];
 		int[] usage = gfx.pen_usage;
-		int total_usage = 0;
 		osd_bitmap bitmap = (osd_bitmap) param;
+		int total_usage = 0;
 		rectangle pf_clip = new rectangle();
 		int x, y, sx, sy;
 	
 		/* extract data from the various words */
-		int code = (data.read(0) & 0x7fff) ^ 0x800;
+		int code = data.read(0) & 0x7fff;
 		int color = data.read(1) & 0x000f;
 		int ypos = -pf_state.vscroll - (data.read(2) >> 7);
 		int hflip = data.read(2) & 0x0040;
@@ -549,7 +599,7 @@ public class gauntlet
 		{
 			mo_data modata = new mo_data();
 			modata.bitmap = bitmap;
-			modata.color_xor = (color == 0 && vindctr2_screen_refresh!=0) ? 0 : 8;
+			modata.color_xor = (color == 0) ? 0 : 1;
 			atarigen_pf_process(pf_overrender_callback, modata, pf_clip);
 		}
             }

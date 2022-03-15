@@ -139,6 +139,7 @@ import static arcadeflex.v037b7.mame.inptportH.*;
 import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.WIP.v037b7.vidhrdw.atarisy1.*;
+import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.subArrays.IntSubArray;
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
@@ -180,7 +181,7 @@ public class atarisy1
 	static int m6522_dra, m6522_drb;
 	static int[] m6522_regs = new int[16];
 	
-/*TODO*///	static UINT8 *marble_speedcheck;
+	static UBytePtr marble_speedcheck = new UBytePtr();
 	static int speedcheck_time1, speedcheck_time2;
 	
 	
@@ -493,36 +494,36 @@ public class atarisy1
 	
 	
 	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Speed cheats
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr marble_speedcheck_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		int result = READ_WORD(&marble_speedcheck[offset]);
-/*TODO*///	
-/*TODO*///		if (offset == 2 && result == 0)
-/*TODO*///		{
-/*TODO*///			int time = cpu_gettotalcycles();
-/*TODO*///			if (time - speedcheck_time1 < 100 && speedcheck_time1 - speedcheck_time2 < 100)
-/*TODO*///				cpu_spinuntil_int();
-/*TODO*///	
-/*TODO*///			speedcheck_time2 = speedcheck_time1;
-/*TODO*///			speedcheck_time1 = time;
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		return result;
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr marble_speedcheck_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		COMBINE_WORD_MEM(&marble_speedcheck[offset], data);
-/*TODO*///		speedcheck_time1 = cpu_gettotalcycles() - 1000;
-/*TODO*///		speedcheck_time2 = speedcheck_time1 - 1000;
-/*TODO*///	} };
+	/*************************************
+	 *
+	 *	Speed cheats
+	 *
+	 *************************************/
+	
+	public static ReadHandlerPtr marble_speedcheck_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		int result = marble_speedcheck.READ_WORD(offset);
+	
+		if (offset == 2 && result == 0)
+		{
+			int time = cpu_gettotalcycles();
+			if (time - speedcheck_time1 < 100 && speedcheck_time1 - speedcheck_time2 < 100)
+				cpu_spinuntil_int();
+	
+			speedcheck_time2 = speedcheck_time1;
+			speedcheck_time1 = time;
+		}
+	
+		return result;
+	} };
+	
+	
+	public static WriteHandlerPtr marble_speedcheck_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		COMBINE_WORD_MEM(marble_speedcheck,offset, data);
+		speedcheck_time1 = cpu_gettotalcycles() - 1000;
+		speedcheck_time2 = speedcheck_time1 - 1000;
+	} };
 	
 	
 	
@@ -989,71 +990,71 @@ public class atarisy1
 	}
 	
 	
-/*TODO*///	static void roadblst_rom_decode(void)
-/*TODO*///	{
-/*TODO*///		int i;
-/*TODO*///	
-/*TODO*///		/* ROMs 39+40 load the lower half at 10000 and the upper half at 50000 */
-/*TODO*///		/* ROMs 55+56 load the lower half at 20000 and the upper half at 60000 */
-/*TODO*///		/* However, we load 39+40 into 10000 and 20000, and 55+56 into 50000+60000 */
-/*TODO*///		/* We need to swap the memory at 20000 and 50000 */
-/*TODO*///		for (i = 0; i < 0x10000; i++)
-/*TODO*///		{
-/*TODO*///			int temp = memory_region(REGION_CPU1)[0x20000 + i];
-/*TODO*///			memory_region(REGION_CPU1)[0x20000 + i] = memory_region(REGION_CPU1)[0x50000 + i];
-/*TODO*///			memory_region(REGION_CPU1)[0x50000 + i] = temp;
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* invert the graphics bits on the playfield and motion objects */
-/*TODO*///		rom_decode();
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Driver initialization
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	static public static InitDriverPtr init_marble = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		atarigen_eeprom_default = NULL;
-/*TODO*///		atarigen_slapstic_init(0, 0x080000, 103);
-/*TODO*///	
-/*TODO*///		joystick_type = 0;	/* none */
-/*TODO*///		trackball_type = 1;	/* rotated */
-/*TODO*///	
-/*TODO*///		/* speed up the 6502 */
-/*TODO*///		atarigen_init_6502_speedup(1, 0x8108, 0x8120);
-/*TODO*///	
-/*TODO*///		/* speed up the 68010 */
-/*TODO*///		marble_speedcheck = install_mem_read_handler(0, 0x400014, 0x400015, marble_speedcheck_r);
-/*TODO*///		install_mem_write_handler(0, 0x400014, 0x400015, marble_speedcheck_w);
-/*TODO*///	
-/*TODO*///		/* display messages */
-/*TODO*///		atarigen_show_sound_message();
-/*TODO*///	
-/*TODO*///		rom_decode();
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	static public static InitDriverPtr init_peterpak = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		atarigen_eeprom_default = NULL;
-/*TODO*///		atarigen_slapstic_init(0, 0x080000, 107);
-/*TODO*///	
-/*TODO*///		joystick_type = 1;	/* digital */
-/*TODO*///		trackball_type = 0;	/* none */
-/*TODO*///	
-/*TODO*///		/* speed up the 6502 */
-/*TODO*///		atarigen_init_6502_speedup(1, 0x8101, 0x8119);
-/*TODO*///	
-/*TODO*///		/* display messages */
-/*TODO*///		atarigen_show_sound_message();
-/*TODO*///	
-/*TODO*///		rom_decode();
-/*TODO*///	} };
+	static void roadblst_rom_decode()
+	{
+		int i;
+	
+		/* ROMs 39+40 load the lower half at 10000 and the upper half at 50000 */
+		/* ROMs 55+56 load the lower half at 20000 and the upper half at 60000 */
+		/* However, we load 39+40 into 10000 and 20000, and 55+56 into 50000+60000 */
+		/* We need to swap the memory at 20000 and 50000 */
+		for (i = 0; i < 0x10000; i++)
+		{
+			int temp = memory_region(REGION_CPU1).read(0x20000 + i);
+			memory_region(REGION_CPU1).write(0x20000 + i, memory_region(REGION_CPU1).read(0x50000 + i));
+			memory_region(REGION_CPU1).write(0x50000 + i, temp);
+		}
+	
+		/* invert the graphics bits on the playfield and motion objects */
+		rom_decode();
+	}
+	
+	
+	
+	/*************************************
+	 *
+	 *	Driver initialization
+	 *
+	 *************************************/
+	
+	public static InitDriverPtr init_marble = new InitDriverPtr() { public void handler() 
+	{
+		atarigen_eeprom_default = null;
+		atarigen_slapstic_init(0, 0x080000, 103);
+	
+		joystick_type = 0;	/* none */
+		trackball_type = 1;	/* rotated */
+	
+		/* speed up the 6502 */
+		atarigen_init_6502_speedup(1, 0x8108, 0x8120);
+	
+		/* speed up the 68010 */
+		marble_speedcheck = install_mem_read_handler(0, 0x400014, 0x400015, marble_speedcheck_r);
+		install_mem_write_handler(0, 0x400014, 0x400015, marble_speedcheck_w);
+	
+		/* display messages */
+		atarigen_show_sound_message();
+	
+		rom_decode();
+	} };
+	
+	
+	public static InitDriverPtr init_peterpak = new InitDriverPtr() { public void handler() 
+	{
+		atarigen_eeprom_default = null;
+		atarigen_slapstic_init(0, 0x080000, 107);
+	
+		joystick_type = 1;	/* digital */
+		trackball_type = 0;	/* none */
+	
+		/* speed up the 6502 */
+		atarigen_init_6502_speedup(1, 0x8101, 0x8119);
+	
+		/* display messages */
+		atarigen_show_sound_message();
+	
+		rom_decode();
+	} };
 	
 	
 	public static InitDriverPtr init_indytemp = new InitDriverPtr() { public void handler() 
@@ -1095,22 +1096,22 @@ public class atarisy1
 	} };
 	
 	
-/*TODO*///	static public static InitDriverPtr init_roadblst = new InitDriverPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		atarigen_eeprom_default = NULL;
-/*TODO*///		atarigen_slapstic_init(0, 0x080000, 110);
-/*TODO*///	
-/*TODO*///		joystick_type = 3;	/* pedal */
-/*TODO*///		trackball_type = 2;	/* steering wheel */
-/*TODO*///	
-/*TODO*///		/* speed up the 6502 */
-/*TODO*///		atarigen_init_6502_speedup(1, 0x410b, 0x4123);
-/*TODO*///	
-/*TODO*///		/* display messages */
-/*TODO*///		atarigen_show_sound_message();
-/*TODO*///	
-/*TODO*///		roadblst_rom_decode();
-/*TODO*///	} };
+	public static InitDriverPtr init_roadblst = new InitDriverPtr() { public void handler() 
+	{
+		atarigen_eeprom_default = null;
+		atarigen_slapstic_init(0, 0x080000, 110);
+	
+		joystick_type = 3;	/* pedal */
+		trackball_type = 2;	/* steering wheel */
+	
+		/* speed up the 6502 */
+		atarigen_init_6502_speedup(1, 0x410b, 0x4123);
+	
+		/* display messages */
+		atarigen_show_sound_message();
+	
+		roadblst_rom_decode();
+	} };
 	
 	
 	
@@ -1599,14 +1600,14 @@ public class atarisy1
 	 *
 	 *************************************/
 	
-/*TODO*///	public static GameDriver driver_marble	   = new GameDriver("1984"	,"marble"	,"atarisy1.java"	,rom_marble,null	,machine_driver_atarisy1	,input_ports_marble	,init_marble	,ROT0	,	"Atari Games", "Marble Madness (set 1)" )
-/*TODO*///	public static GameDriver driver_marble2	   = new GameDriver("1984"	,"marble2"	,"atarisy1.java"	,rom_marble2,driver_marble	,machine_driver_atarisy1	,input_ports_marble	,init_marble	,ROT0	,	"Atari Games", "Marble Madness (set 2)" )
-/*TODO*///	public static GameDriver driver_marblea	   = new GameDriver("1984"	,"marblea"	,"atarisy1.java"	,rom_marblea,driver_marble	,machine_driver_atarisy1	,input_ports_marble	,init_marble	,ROT0	,	"Atari Games", "Marble Madness (set 3)" )
-/*TODO*///	public static GameDriver driver_peterpak	   = new GameDriver("1984"	,"peterpak"	,"atarisy1.java"	,rom_peterpak,null	,machine_driver_atarisy1	,input_ports_peterpak	,init_peterpak	,ROT0	,	"Atari Games", "Peter Pack-Rat" )
+	public static GameDriver driver_marble	   = new GameDriver("1984"	,"marble"	,"atarisy1.java"	,rom_marble,null	,machine_driver_atarisy1	,input_ports_marble	,init_marble	,ROT0	,	"Atari Games", "Marble Madness (set 1)" );
+	public static GameDriver driver_marble2	   = new GameDriver("1984"	,"marble2"	,"atarisy1.java"	,rom_marble2,driver_marble	,machine_driver_atarisy1	,input_ports_marble	,init_marble	,ROT0	,	"Atari Games", "Marble Madness (set 2)" );
+	public static GameDriver driver_marblea	   = new GameDriver("1984"	,"marblea"	,"atarisy1.java"	,rom_marblea,driver_marble	,machine_driver_atarisy1	,input_ports_marble	,init_marble	,ROT0	,	"Atari Games", "Marble Madness (set 3)" );
+	public static GameDriver driver_peterpak	   = new GameDriver("1984"	,"peterpak"	,"atarisy1.java"	,rom_peterpak,null	,machine_driver_atarisy1	,input_ports_peterpak	,init_peterpak	,ROT0	,	"Atari Games", "Peter Pack-Rat" );
 	public static GameDriver driver_indytemp	   = new GameDriver("1985"	,"indytemp"	,"atarisy1.java"	,rom_indytemp,null	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 1)" );
-/*TODO*///	public static GameDriver driver_indytem2	   = new GameDriver("1985"	,"indytem2"	,"atarisy1.java"	,rom_indytem2,driver_indytemp	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 2)" )
-/*TODO*///	public static GameDriver driver_indytem3	   = new GameDriver("1985"	,"indytem3"	,"atarisy1.java"	,rom_indytem3,driver_indytemp	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 3)" )
-/*TODO*///	public static GameDriver driver_indytem4	   = new GameDriver("1985"	,"indytem4"	,"atarisy1.java"	,rom_indytem4,driver_indytemp	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 4)" )
+	public static GameDriver driver_indytem2	   = new GameDriver("1985"	,"indytem2"	,"atarisy1.java"	,rom_indytem2,driver_indytemp	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 2)" );
+	public static GameDriver driver_indytem3	   = new GameDriver("1985"	,"indytem3"	,"atarisy1.java"	,rom_indytem3,driver_indytemp	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 3)" );
+	public static GameDriver driver_indytem4	   = new GameDriver("1985"	,"indytem4"	,"atarisy1.java"	,rom_indytem4,driver_indytemp	,machine_driver_atarisy1	,input_ports_indytemp	,init_indytemp	,ROT0	,	"Atari Games", "Indiana Jones and the Temple of Doom (set 4)" );
 	public static GameDriver driver_roadrunn	   = new GameDriver("1985"	,"roadrunn"	,"atarisy1.java"	,rom_roadrunn,null	,machine_driver_atarisy1	,input_ports_roadrunn	,init_roadrunn	,ROT0	,	"Atari Games", "Road Runner" );
-/*TODO*///	public static GameDriver driver_roadblst	   = new GameDriver("1987"	,"roadblst"	,"atarisy1.java"	,rom_roadblst,null	,machine_driver_atarisy1	,input_ports_roadblst	,init_roadblst	,ROT0	,	"Atari Games", "Road Blasters" )
+	public static GameDriver driver_roadblst	   = new GameDriver("1987"	,"roadblst"	,"atarisy1.java"	,rom_roadblst,null	,machine_driver_atarisy1	,input_ports_roadblst	,init_roadblst	,ROT0	,	"Atari Games", "Road Blasters" );
 }

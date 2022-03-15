@@ -236,6 +236,7 @@ import static arcadeflex.WIP.v037b7.drivers.nemesis.*;
 import static arcadeflex.WIP.v037b7.drivers.taito_f2.*;
 import static arcadeflex.WIP.v037b7.drivers.toobin.*;
 import static arcadeflex.WIP.v037b7.drivers.atarisy1.*;
+import static arcadeflex.WIP.v037b7.drivers.vindictr.*;
 
 public class driver {
 
@@ -2470,19 +2471,19 @@ public class driver {
         /*TODO*///	driver_cloak )		/* (c) 1983 */
         /*TODO*///	driver_cloud9 )	/* (c) 1983 */
         /*TODO*///	driver_jedi )		/* (c) 1984 */
-        /*TODO*///
-        /*TODO*///	/* Atari System 1 games */
-        /*TODO*///	driver_marble )	/* (c) 1984 */
-        /*TODO*///	driver_marble2 )	/* (c) 1984 */
-        /*TODO*///	driver_marblea )	/* (c) 1984 */
-        /*TODO*///	driver_peterpak )	/* (c) 1984 */
+        
+        /* Atari System 1 games */
+        driver_marble, 	/* (c) 1984 */
+        driver_marble2, 	/* (c) 1984 */
+        driver_marblea, 	/* (c) 1984 */
+        driver_peterpak, 	/* (c) 1984 */
         driver_indytemp, 	/* (c) 1985 */
-        /*TODO*///	driver_indytem2 )	/* (c) 1985 */
-        /*TODO*///	driver_indytem3 )	/* (c) 1985 */
-        /*TODO*///	driver_indytem4 )	/* (c) 1985 */
+        driver_indytem2, 	/* (c) 1985 */
+        driver_indytem3, 	/* (c) 1985 */
+        driver_indytem4, 	/* (c) 1985 */
         driver_roadrunn, 	/* (c) 1985 */
-        /*TODO*///	driver_roadblst )	/* (c) 1986, 1987 */
-        /*TODO*///
+        driver_roadblst, 	/* (c) 1986, 1987 */
+        
         /*TODO*///	/* Atari System 2 games */
         /*TODO*///	driver_paperboy )	/* (c) 1984 */
         /*TODO*///	driver_ssprint )	/* (c) 1986 */
@@ -2507,7 +2508,7 @@ public class driver {
         driver_toobin, 	/* (c) 1988 */
         driver_toobin2, 	/* (c) 1988 */
         driver_toobinp, 	/* (c) 1988 */
-        /*TODO*///	driver_vindictr )	/* (c) 1988 */
+        driver_vindictr, 	/* (c) 1988 */
         driver_klax, /* (c) 1989 */
         driver_klax2, /* (c) 1989 */
         driver_klax3, /* (c) 1989 */
