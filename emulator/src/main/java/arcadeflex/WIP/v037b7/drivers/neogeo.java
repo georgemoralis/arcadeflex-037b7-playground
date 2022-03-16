@@ -1194,32 +1194,32 @@ public class neogeo
 		ROM_LOAD_GFX_ODD ( "nam_c6.rom", 0x200000, 0x80000, 0xe62bed58 ); /* Plane 2,3 */
 	ROM_END(); }}; 
 	
-/*TODO*///	static RomLoadPtr rom_bstars = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "bpro_p1.rom", 0x000000, 0x080000, 0x3bc7790e );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "bpro_s1.rom", 0x1a7fd0c6 )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_64K( "bpro_m1.rom", 0x79a8f4c2 )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x200000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "bpro_v11.rom", 0x000000, 0x080000, 0xb7b925bd );
-/*TODO*///		ROM_LOAD( "bpro_v12.rom", 0x080000, 0x080000, 0x329f26fc );
-/*TODO*///		ROM_LOAD( "bpro_v13.rom", 0x100000, 0x080000, 0x0c39f3c8 );
-/*TODO*///		ROM_LOAD( "bpro_v14.rom", 0x180000, 0x080000, 0xc7e11c38 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x080000, REGION_SOUND2 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "bpro_v21.rom", 0x000000, 0x080000, 0x04a733d1 );
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x300000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bpro_c1.rom", 0x000000, 0x080000, 0xaaff2a45 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bpro_c2.rom", 0x000000, 0x080000, 0x3ba0f7e4 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bpro_c3.rom", 0x100000, 0x080000, 0x96f0fdfa )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bpro_c4.rom", 0x100000, 0x080000, 0x5fd87f2f )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bpro_c5.rom", 0x200000, 0x080000, 0x807ed83b )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bpro_c6.rom", 0x200000, 0x080000, 0x5a3cad41 )
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	static RomLoadPtr rom_bstars = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x100000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "bpro_p1.rom", 0x000000, 0x080000, 0x3bc7790e );
+	
+		NEO_SFIX_128K( "bpro_s1.rom", 0x1a7fd0c6 );
+	
+		NEO_BIOS_SOUND_64K( "bpro_m1.rom", 0x79a8f4c2 );
+	
+		ROM_REGION( 0x200000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "bpro_v11.rom", 0x000000, 0x080000, 0xb7b925bd );
+		ROM_LOAD( "bpro_v12.rom", 0x080000, 0x080000, 0x329f26fc );
+		ROM_LOAD( "bpro_v13.rom", 0x100000, 0x080000, 0x0c39f3c8 );
+		ROM_LOAD( "bpro_v14.rom", 0x180000, 0x080000, 0xc7e11c38 );
+	
+		ROM_REGION( 0x080000, REGION_SOUND2 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "bpro_v21.rom", 0x000000, 0x080000, 0x04a733d1 );
+	
+		ROM_REGION( 0x300000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "bpro_c1.rom", 0x000000, 0x080000, 0xaaff2a45 );
+		ROM_LOAD_GFX_ODD ( "bpro_c2.rom", 0x000000, 0x080000, 0x3ba0f7e4 );
+		ROM_LOAD_GFX_EVEN( "bpro_c3.rom", 0x100000, 0x080000, 0x96f0fdfa );
+		ROM_LOAD_GFX_ODD ( "bpro_c4.rom", 0x100000, 0x080000, 0x5fd87f2f );
+		ROM_LOAD_GFX_EVEN( "bpro_c5.rom", 0x200000, 0x080000, 0x807ed83b );
+		ROM_LOAD_GFX_ODD ( "bpro_c6.rom", 0x200000, 0x080000, 0x5a3cad41 );
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_tpgolf = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "topg_p1.rom", 0x000000, 0x080000, 0xf75549ba );
@@ -4581,7 +4581,7 @@ public class neogeo
 	
 	/* SNK */
 	public static GameDriver driver_nam1975	   = new GameDriver("1990"	,"nam1975"	,"neogeo.java"	,rom_nam1975,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"SNK", "NAM-1975" );
-/*TODO*///	public static GameDriver driver_bstars	   = new GameDriver("1990"	,"bstars"	,"neogeo.java"	,rom_bstars,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"SNK", "Baseball Stars Professional" )
+	public static GameDriver driver_bstars	   = new GameDriver("1990"	,"bstars"	,"neogeo.java"	,rom_bstars,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"SNK", "Baseball Stars Professional" );
 /*TODO*///	public static GameDriver driver_tpgolf	   = new GameDriver("1990"	,"tpgolf"	,"neogeo.java"	,rom_tpgolf,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"SNK", "Top Player's Golf" )
 /*TODO*///	public static GameDriver driver_mahretsu	   = new GameDriver("1990"	,"mahretsu"	,"neogeo.java"	,rom_mahretsu,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"SNK", "Mahjong Kyoretsuden" )
 /*TODO*///	public static GameDriver driver_ridhero	   = new GameDriver("1990"	,"ridhero"	,"neogeo.java"	,rom_ridhero,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_mgd2	,ROT0_16BIT	,	"SNK", "Riding Hero" )

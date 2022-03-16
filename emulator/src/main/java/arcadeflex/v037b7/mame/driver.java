@@ -3113,7 +3113,7 @@ public class driver {
         /* Neo Geo games */
         /* the four digits number is the game ID stored at address 0x0108 of the program ROM */
         driver_nam1975, 	/* 0001 (c) 1990 SNK */
-        /*TODO*///	driver_bstars )	/* 0002 (c) 1990 SNK */
+        driver_bstars, 	/* 0002 (c) 1990 SNK */
         /*TODO*///	driver_tpgolf )	/* 0003 (c) 1990 SNK */
         /*TODO*///	driver_mahretsu )	/* 0004 (c) 1990 SNK */
         /*TODO*///	driver_maglord )	/* 0005 (c) 1990 Alpha Denshi Co. */
