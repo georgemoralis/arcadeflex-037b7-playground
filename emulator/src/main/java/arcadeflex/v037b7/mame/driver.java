@@ -3180,7 +3180,7 @@ public class driver {
         /*TODO*///	driver_spinmast )	/* 0062 (c) 1993 Data East Corporation */
         /*TODO*///	driver_samsho2 )	/* 0063 (c) 1994 SNK */
         /*TODO*///	driver_wh2j )		/* 0064 (c) 1994 ADK / SNK */
-        /*TODO*///	driver_wjammers )	/* 0065 (c) 1994 Data East Corporation */
+        driver_wjammers, 	/* 0065 (c) 1994 Data East Corporation */
         driver_karnovr, 	/* 0066 (c) 1994 Data East Corporation */
         /*TODO*///	driver_gururin )	/* 0067 (c) 1994 Face */
         /*TODO*///	driver_pspikes2 )	/* 0068 (c) 1994 Video System Co. */
@@ -3208,7 +3208,7 @@ public class driver {
         /*TODO*///	driver_whp )		/* 0090 (c) 1995 ADK / SNK */
         /*TODO*///	/* 0091 */
         /*TODO*///	driver_kabukikl )	/* 0092 (c) 1995 Hudson */
-        /*TODO*///	driver_neobombe )	/* 0093 (c) 1997 Hudson */
+        driver_neobombe, 	/* 0093 (c) 1997 Hudson */
         /*TODO*///	driver_gowcaizr )	/* 0094 (c) 1995 Technos */
         /*TODO*///	driver_rbff1 )		/* 0095 (c) 1995 SNK */
         /*TODO*///	driver_aof3 )		/* 0096 (c) 1996 SNK */

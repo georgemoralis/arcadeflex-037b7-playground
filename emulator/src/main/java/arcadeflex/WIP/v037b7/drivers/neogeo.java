@@ -2653,29 +2653,29 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_EVEN( "wh2j_c7.rom", 0xc00000, 0x200000, 0x59d97215 ) /* Plane 0,1 */
 /*TODO*///		ROM_LOAD_GFX_ODD ( "wh2j_c8.rom", 0xc00000, 0x200000, 0xfc092367 ) /* Plane 0,1 */
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_wjammers = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "windj_p1.rom", 0x000000, 0x080000, 0xe81e7a31 );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "windj_s1.rom", 0x66cb96eb )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "windj_m1.rom", 0x52c23cfc )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x380000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "windj_v1.rom", 0x000000, 0x100000, 0xce8b3698 );
-/*TODO*///		ROM_LOAD( "windj_v2.rom", 0x100000, 0x100000, 0x659f9b96 );
-/*TODO*///		ROM_LOAD( "windj_v3.rom", 0x200000, 0x100000, 0x39f73061 );
-/*TODO*///		ROM_LOAD( "windj_v4.rom", 0x300000, 0x080000, 0x3740edde );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x400000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "windj_c1.rom", 0x000000, 0x100000, 0xc7650204 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "windj_c2.rom", 0x000000, 0x100000, 0xd9f3e71d )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "windj_c3.rom", 0x200000, 0x100000, 0x40986386 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "windj_c4.rom", 0x200000, 0x100000, 0x715e15ff )
-/*TODO*///	ROM_END(); }}; 
+	
+	static RomLoadPtr rom_wjammers = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x100000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "windj_p1.rom", 0x000000, 0x080000, 0xe81e7a31 );
+	
+		NEO_SFIX_128K( "windj_s1.rom", 0x66cb96eb );
+	
+		NEO_BIOS_SOUND_128K( "windj_m1.rom", 0x52c23cfc );
+	
+		ROM_REGION( 0x380000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "windj_v1.rom", 0x000000, 0x100000, 0xce8b3698 );
+		ROM_LOAD( "windj_v2.rom", 0x100000, 0x100000, 0x659f9b96 );
+		ROM_LOAD( "windj_v3.rom", 0x200000, 0x100000, 0x39f73061 );
+		ROM_LOAD( "windj_v4.rom", 0x300000, 0x080000, 0x3740edde );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x400000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "windj_c1.rom", 0x000000, 0x100000, 0xc7650204 );
+		ROM_LOAD_GFX_ODD ( "windj_c2.rom", 0x000000, 0x100000, 0xd9f3e71d );
+		ROM_LOAD_GFX_EVEN( "windj_c3.rom", 0x200000, 0x100000, 0x40986386 );
+		ROM_LOAD_GFX_ODD ( "windj_c4.rom", 0x200000, 0x100000, 0x715e15ff );
+	ROM_END(); }}; 
 	
 	static RomLoadPtr rom_karnovr = new RomLoadPtr(){ public void handler(){ 
 		ROM_REGION( 0x100000, REGION_CPU1 );
@@ -3199,31 +3199,31 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_ODD ( "klash_c4.rom", 0xc00000, 0x200000, 0xe1a8aa6a ) /* Plane 2,3 */
 /*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x800000, 0x200000, 0 )
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_neobombe = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "bombm_p1.rom", 0x000000, 0x100000, 0xa1a71d0d );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "bombm_s1.rom", 0x4b3fa119 )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "bombm_m1.rom", 0xe81e780b )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x600000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "bombm_v1.rom", 0x200000, 0x200000, 0x43057e99 );
-/*TODO*///		ROM_CONTINUE(             0x000000, 0x200000 );
-/*TODO*///		ROM_LOAD( "bombm_v2.rom", 0x400000, 0x200000, 0xa92b8b3d );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x900000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bombm_c1.rom", 0x400000, 0x200000, 0xb90ebed4 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bombm_c2.rom", 0x400000, 0x200000, 0x41e62b4f ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bombm_c3.rom", 0x800000, 0x080000, 0xe37578c5 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bombm_c4.rom", 0x800000, 0x080000, 0x59826783 ) /* Plane 2,3 */
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	
+	static RomLoadPtr rom_neobombe = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x100000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "bombm_p1.rom", 0x000000, 0x100000, 0xa1a71d0d );
+	
+		NEO_SFIX_128K( "bombm_s1.rom", 0x4b3fa119 );
+	
+		NEO_BIOS_SOUND_128K( "bombm_m1.rom", 0xe81e780b );
+	
+		ROM_REGION( 0x600000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "bombm_v1.rom", 0x200000, 0x200000, 0x43057e99 );
+		ROM_CONTINUE(             0x000000, 0x200000 );
+		ROM_LOAD( "bombm_v2.rom", 0x400000, 0x200000, 0xa92b8b3d );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x900000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "bombm_c1.rom", 0x400000, 0x200000, 0xb90ebed4 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "bombm_c2.rom", 0x400000, 0x200000, 0x41e62b4f ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x000000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "bombm_c3.rom", 0x800000, 0x080000, 0xe37578c5 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "bombm_c4.rom", 0x800000, 0x080000, 0x59826783 ); /* Plane 2,3 */
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_gowcaizr = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x200000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "vfgow_p1.rom", 0x100000, 0x100000, 0x33019545 );
@@ -4670,7 +4670,7 @@ public class neogeo
 
 /*TODO*///	/* Data East Corporation */
 /*TODO*///	public static GameDriver driver_spinmast	   = new GameDriver("1993"	,"spinmast"	,"neogeo.java"	,rom_spinmast,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Data East Corporation", "Spinmaster / Miracle Adventure" )
-/*TODO*///	public static GameDriver driver_wjammers	   = new GameDriver("1994"	,"wjammers"	,"neogeo.java"	,rom_wjammers,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Windjammers / Flying Power Disc" )
+	public static GameDriver driver_wjammers	   = new GameDriver("1994"	,"wjammers"	,"neogeo.java"	,rom_wjammers,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Windjammers / Flying Power Disc" );
 	public static GameDriver driver_karnovr	   = new GameDriver("1994"	,"karnovr"	,"neogeo.java"	,rom_karnovr,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite" );
 /*TODO*///	public static GameDriver driver_strhoop	   = new GameDriver("1994"	,"strhoop"	,"neogeo.java"	,rom_strhoop,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Street Hoop / Street Slam / Dunk Dream" )
 /*TODO*///	public static GameDriver driver_magdrop2	   = new GameDriver("1996"	,"magdrop2"	,"neogeo.java"	,rom_magdrop2,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Magical Drop II" )
@@ -4683,7 +4683,7 @@ public class neogeo
 /*TODO*///	/* Hudson Soft */
 /*TODO*///	public static GameDriver driver_panicbom	   = new GameDriver("1994"	,"panicbom"	,"neogeo.java"	,rom_panicbom,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Eighting / Hudson", "Panic Bomber" )
 /*TODO*///	public static GameDriver driver_kabukikl	   = new GameDriver("1995"	,"kabukikl"	,"neogeo.java"	,rom_kabukikl,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Hudson", "Kabuki Klash - Far East of Eden / Tengai Makyou Shinden - Far East of Eden" )
-/*TODO*///	public static GameDriver driver_neobombe	   = new GameDriver("1997"	,"neobombe"	,"neogeo.java"	,rom_neobombe,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Hudson", "Neo Bomberman" )
+	public static GameDriver driver_neobombe	   = new GameDriver("1997"	,"neobombe"	,"neogeo.java"	,rom_neobombe,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Hudson", "Neo Bomberman" );
 /*TODO*///	
 /*TODO*///	/* Monolith Corp. */
 /*TODO*///	public static GameDriver driver_minasan	   = new GameDriver("1990"	,"minasan"	,"neogeo.java"	,rom_minasan,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_mgd2	,ROT0	,	"Monolith Corp.", "Minnasanno Okagesamadesu" )

@@ -1609,9 +1609,9 @@ public class video {
         if (current_palette.read(3 * pen + 0) != red
                 || current_palette.read(3 * pen + 1) != green
                 || current_palette.read(3 * pen + 2) != blue) {
-            current_palette.write(3 * pen + 0, red & 0xFF);
-            current_palette.write(3 * pen + 1, green & 0xFF);
-            current_palette.write(3 * pen + 2, blue & 0xFF);
+            current_palette.write(3 * pen + 0, red );
+            current_palette.write(3 * pen + 1, green );
+            current_palette.write(3 * pen + 2, blue );
 
             dirtycolor[pen] = 1;
             dirtypalette = 1;
