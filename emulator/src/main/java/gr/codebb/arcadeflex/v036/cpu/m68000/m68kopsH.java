@@ -4328,12 +4328,27 @@ public class m68kopsH {
             throw new UnsupportedOperationException("Unimplemented");
         }
     };
+    
+    static void m68000_asr_ea_generic(long ea) {
+        long src = m68ki_read_16(ea);
+        long res = (src >>> 1) & 0xFFFFFFFFL;
+
+        if (GET_MSB_16(src) != 0) {
+            res = (res | 0x8000) & 0xFFFFFFFFL;
+        }
+
+        m68ki_write_16(ea, res);
+
+        m68k_cpu.n_flag = GET_MSB_16(res);
+        m68k_cpu.not_z_flag = res;
+        m68k_cpu.v_flag = 0;
+        m68k_cpu.c_flag = m68k_cpu.x_flag = src & 1;
+    }
+    
     public static opcode m68000_asr_ea_al = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+            m68000_asr_ea_generic(EA_AL());
+            USE_CLKS(8 + 12);
         }
     };
     public static opcode m68000_asl_s_8 = new opcode() {
@@ -23099,10 +23114,22 @@ public class m68kopsH {
     };
     public static opcode m68000_roxl_ea_di = new opcode() {
         public void handler() {
-            if (m68klog != null) {
-                fclose(m68klog);
-            }
-            throw new UnsupportedOperationException("Unimplemented");
+
+            long ea = EA_DI();
+            long src = m68ki_read_16(ea);
+
+            long tmp = ROL_17(src | ((m68k_cpu.x_flag != 0) ? 1 : 0 << 16), 1);
+            long res = MASK_OUT_ABOVE_16(tmp);
+
+            m68ki_write_16(ea, res);
+
+            m68k_cpu.n_flag = GET_MSB_16(res);
+            m68k_cpu.not_z_flag = res;
+            m68k_cpu.c_flag = GET_MSB_17(tmp);
+            m68k_cpu.x_flag = GET_MSB_17(tmp);
+            m68k_cpu.v_flag = 0;
+
+            USE_CLKS(8 + 8);
         }
     };
     public static opcode m68000_roxl_ea_ix = new opcode() {

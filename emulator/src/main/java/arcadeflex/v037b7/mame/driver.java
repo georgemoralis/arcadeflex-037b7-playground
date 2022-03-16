@@ -237,6 +237,7 @@ import static arcadeflex.WIP.v037b7.drivers.taito_f2.*;
 import static arcadeflex.WIP.v037b7.drivers.toobin.*;
 import static arcadeflex.WIP.v037b7.drivers.atarisy1.*;
 import static arcadeflex.WIP.v037b7.drivers.vindictr.*;
+import static arcadeflex.WIP.v037b7.drivers.neogeo.*;
 
 public class driver {
 
@@ -3108,10 +3109,10 @@ public class driver {
         /*TODO*///
         /*TODO*///
         /*TODO*///#endif /* NEOMAME */
-        /*TODO*///
-        /*TODO*///	/* Neo Geo games */
-        /*TODO*///	/* the four digits number is the game ID stored at address 0x0108 of the program ROM */
-        /*TODO*///	driver_nam1975 )	/* 0001 (c) 1990 SNK */
+        
+        /* Neo Geo games */
+        /* the four digits number is the game ID stored at address 0x0108 of the program ROM */
+        driver_nam1975, 	/* 0001 (c) 1990 SNK */
         /*TODO*///	driver_bstars )	/* 0002 (c) 1990 SNK */
         /*TODO*///	driver_tpgolf )	/* 0003 (c) 1990 SNK */
         /*TODO*///	driver_mahretsu )	/* 0004 (c) 1990 SNK */
@@ -3197,10 +3198,10 @@ public class driver {
         /*TODO*///	driver_quizkof )	/* 0080 (c) 1995 Saurus */
         /*TODO*///	driver_ssideki3 )	/* 0081 (c) 1995 SNK */
         /*TODO*///	driver_doubledr )	/* 0082 (c) 1995 Technos */
-        /*TODO*///	driver_pbobble )	/* 0083 (c) 1994 Taito */
+        driver_pbobble, 	/* 0083 (c) 1994 Taito */
         /*TODO*///	driver_kof95 )		/* 0084 (c) 1995 SNK */
         /*TODO*///	/* 0085 Shinsetsu Samurai Spirits Bushidoretsuden / Samurai Shodown RPG (CD only) */
-        /*TODO*///	driver_tws96 )		/* 0086 (c) 1996 Tecmo */
+        driver_tws96, 		/* 0086 (c) 1996 Tecmo */
         /*TODO*///	driver_samsho3 )	/* 0087 (c) 1995 SNK */
         /*TODO*///	driver_stakwin )	/* 0088 (c) 1995 Saurus */
         /*TODO*///	driver_pulstar )	/* 0089 (c) 1995 Aicom */

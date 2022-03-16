@@ -247,6 +247,12 @@ public class libc_old {
         }
         return 0;
     }
+    
+    public static void memcpy(char[] dst, IntPtr src, int size) {
+        for (int i = 0; i < size; i++) {
+            dst[i] = (char) (src.read(i) & 0xFF);//not sure about this
+        }
+    }
 
     public static void memcpy(char[] dst, char[] src, int size) {
         for (int i = 0; i < Math.min(size, src.length); i++) {
@@ -692,8 +698,9 @@ public class libc_old {
         public IntPtr(UBytePtr p) {
             set(p.memory, p.offset);
         }
-        public IntPtr(UBytePtr p,int b) {
-            set(p.memory, p.offset+b);
+
+        public IntPtr(UBytePtr cp, int b) {
+            set(cp.memory, cp.offset + b);
         }
 
         public void set(char[] input, int b) {
@@ -703,6 +710,10 @@ public class libc_old {
 
         public void inc() {
             base += 4;
+        }
+        public void inc(int offset)
+        {
+            base += (4*offset);
         }
 
         public void dec() {
@@ -723,6 +734,14 @@ public class libc_old {
                     | (((int) memory[base + 2]) << 16)
                     | (((int) memory[base + 3]) << 24);
             return myNumber;
+        }
+
+        public void write(int value) {
+
+            memory[base] = (char) (value & 0xFF);
+            memory[base + 1] = (char) ((value >> 8) & 0xFF);
+            memory[base + 2] = (char) ((value >> 16) & 0xFF);
+            memory[base + 3] = (char) ((value >> 24) & 0xFF);
         }
 
         public void or(int value) {
