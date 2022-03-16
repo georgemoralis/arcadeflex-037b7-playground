@@ -1148,38 +1148,40 @@ public class neogeo
 		screenrefresh(bitmap,Machine.visible_area);
 	} };
 	
-/*TODO*///	static int next_update_first_line;
-/*TODO*///	
-/*TODO*///	void neogeo_vh_raster_partial_refresh(struct osd_bitmap *bitmap,int current_line)
-/*TODO*///	{
-/*TODO*///		struct rectangle clip;
-/*TODO*///	
-/*TODO*///		if (current_line < next_update_first_line)
-/*TODO*///			next_update_first_line = 0;
-/*TODO*///	
-/*TODO*///		clip.min_x = Machine.visible_area.min_x;
-/*TODO*///		clip.max_x = Machine.visible_area.max_x;
-/*TODO*///		clip.min_y = next_update_first_line;
-/*TODO*///		clip.max_y = current_line;
-/*TODO*///		if (clip.min_y < Machine.visible_area.min_y)
-/*TODO*///			clip.min_y = Machine.visible_area.min_y;
-/*TODO*///		if (clip.max_y > Machine.visible_area.max_y)
-/*TODO*///			clip.max_y = Machine.visible_area.max_y;
-/*TODO*///	
-/*TODO*///		if (clip.max_y >= clip.min_y)
-/*TODO*///		{
-/*TODO*///	//logerror("refresh %d-%d\n",clip.min_y,clip.max_y);
-/*TODO*///			screenrefresh(bitmap,&clip);
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		next_update_first_line = current_line + 1;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	void neogeo_vh_raster_screenrefresh(struct osd_bitmap *bitmap,int full_refresh)
-/*TODO*///	{
-/*TODO*///	    /* Palette swap occured after last frame but before this one */
-/*TODO*///	    if (palette_swap_pending != 0) swap_palettes();
-/*TODO*///	    palette_recalc();
-/*TODO*///		/* no need to check the return code since we redraw everything each frame */
-/*TODO*///	}
+	static int next_update_first_line;
+	
+	public static void neogeo_vh_raster_partial_refresh(osd_bitmap bitmap,int current_line)
+	{
+		rectangle clip = new rectangle();
+	
+		if (current_line < next_update_first_line)
+			next_update_first_line = 0;
+	
+		clip.min_x = Machine.visible_area.min_x;
+		clip.max_x = Machine.visible_area.max_x;
+		clip.min_y = next_update_first_line;
+		clip.max_y = current_line;
+		if (clip.min_y < Machine.visible_area.min_y)
+			clip.min_y = Machine.visible_area.min_y;
+		if (clip.max_y > Machine.visible_area.max_y)
+			clip.max_y = Machine.visible_area.max_y;
+	
+		if (clip.max_y >= clip.min_y)
+		{
+	//logerror("refresh %d-%d\n",clip.min_y,clip.max_y);
+			screenrefresh(bitmap,clip);
+		}
+	
+		next_update_first_line = current_line + 1;
+	}
+	
+	public static VhUpdatePtr neogeo_vh_raster_screenrefresh = new VhUpdatePtr() { 
+            public void handler(osd_bitmap bitmap,int full_refresh) 
+            {
+                /* Palette swap occured after last frame but before this one */
+                if (palette_swap_pending != 0) swap_palettes();
+                palette_recalc();
+                    /* no need to check the return code since we redraw everything each frame */
+            }
+        };
 }

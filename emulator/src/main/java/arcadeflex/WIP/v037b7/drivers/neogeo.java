@@ -225,38 +225,16 @@ import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
+import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_skip_this_frame;
 
 public class neogeo
 {
-/*TODO*///	
-/*TODO*///	
+
+
 	static int RASTER_LINES = 261;	/* guess! */
-/*TODO*///	#define FIRST_VISIBLE_LINE 16
-/*TODO*///	#define LAST_VISIBLE_LINE 239
-/*TODO*///	#define RASTER_VBLANK_END (RASTER_LINES-(LAST_VISIBLE_LINE-FIRST_VISIBLE_LINE+1))
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	extern UBytePtr vidram;
-/*TODO*///	extern UBytePtr neogeo_ram;
-/*TODO*///	extern UBytePtr neogeo_sram;
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	extern int	memcard_status;
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/* from vidhrdw/neogeo.c */
-/*TODO*///	void neogeo_vh_raster_partial_refresh(struct osd_bitmap *bitmap,int current_line);
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/* debug, used to 'see' the locations mapped in ROM space */
-/*TODO*///	/* with the debugger */
-/*TODO*///	/* end debug */
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/* from machine/neogeo.c */
+        static int FIRST_VISIBLE_LINE = 16;
+        static int LAST_VISIBLE_LINE = 239;
+	static int RASTER_VBLANK_END = (RASTER_LINES-(LAST_VISIBLE_LINE-FIRST_VISIBLE_LINE+1));
 	
 	
 	/******************************************************************************/
@@ -293,54 +271,55 @@ public class neogeo
 	
 	static int irq2enable,irq2start,irq2repeat=1000,irq2control;
 	static int lastirq2line = 1000;
+        //static int fc=0;
+        static int raster_enable=1;
 
-/*TODO*///	public static InterruptPtr neogeo_raster_interrupt = new InterruptPtr() { public int handler() 
-/*TODO*///	{
-/*TODO*///		static int fc=0;
-/*TODO*///		int line = RASTER_LINES - cpu_getiloops();
-/*TODO*///	static int raster_enable=1;
-/*TODO*///	
-/*TODO*///		if (line == RASTER_LINES)	/* vblank */
-/*TODO*///		{
-/*TODO*///			if (keyboard_pressed_memory(KEYCODE_F1)) raster_enable ^= 1;
-/*TODO*///	
-/*TODO*///			lastirq2line = 1000;
-/*TODO*///	
-/*TODO*///			/* Add a timer tick to the pd4990a */
-/*TODO*///			addretrace();
-/*TODO*///	
-/*TODO*///			/* Animation counter, 1 once per frame is too fast, every 4 seems good */
-/*TODO*///			if  (fc >= neogeo_frame_counter_speed)
-/*TODO*///			{
-/*TODO*///				fc=0;
-/*TODO*///				neogeo_frame_counter++;
-/*TODO*///			}
-/*TODO*///			fc++;
-/*TODO*///	
-/*TODO*///			if (osd_skip_this_frame()==0)
-/*TODO*///				neogeo_vh_raster_partial_refresh(Machine.scrbitmap,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE-1);
-/*TODO*///	
-/*TODO*///			/* return a standard vblank interrupt */
-/*TODO*///	//logerror("trigger IRQ1n");
-/*TODO*///			return 1;      /* vertical blank */
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		if (irq2enable != 0)
-/*TODO*///		{
-/*TODO*///			if (line == irq2start || line == lastirq2line + irq2repeat)
-/*TODO*///			{
-/*TODO*///	//			logerror("trigger IRQ2 at raster line %d (screen line %d)n",line,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE);
-/*TODO*///				if (raster_enable && osd_skip_this_frame()==0)
-/*TODO*///					neogeo_vh_raster_partial_refresh(Machine.scrbitmap,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE-1);
-/*TODO*///	
-/*TODO*///				lastirq2line = line;
-/*TODO*///	
-/*TODO*///				return 2;
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		return 0;
-/*TODO*///	} };
+	public static InterruptPtr neogeo_raster_interrupt = new InterruptPtr() { public int handler() 
+	{		
+		int line = RASTER_LINES - cpu_getiloops();
+	
+	
+		if (line == RASTER_LINES)	/* vblank */
+		{
+			if (keyboard_pressed_memory(KEYCODE_F1) != 0) raster_enable ^= 1;
+	
+			lastirq2line = 1000;
+	
+			/* Add a timer tick to the pd4990a */
+			addretrace();
+	
+			/* Animation counter, 1 once per frame is too fast, every 4 seems good */
+			if  (fc >= neogeo_frame_counter_speed)
+			{
+				fc=0;
+				neogeo_frame_counter++;
+			}
+			fc++;
+	
+			if (osd_skip_this_frame()==0)
+				neogeo_vh_raster_partial_refresh(Machine.scrbitmap,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE-1);
+	
+			/* return a standard vblank interrupt */
+	//logerror("trigger IRQ1n");
+			return 1;      /* vertical blank */
+		}
+	
+		if (irq2enable != 0)
+		{
+			if (line == irq2start || line == lastirq2line + irq2repeat)
+			{
+	//			logerror("trigger IRQ2 at raster line %d (screen line %d)n",line,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE);
+				if (raster_enable!=0 && osd_skip_this_frame()==0)
+					neogeo_vh_raster_partial_refresh(Machine.scrbitmap,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE-1);
+	
+				lastirq2line = line;
+	
+				return 2;
+			}
+		}
+	
+		return 0;
+	} };
 	
 	
 	static int pending_command;
@@ -1100,48 +1079,48 @@ public class neogeo
 		neogeo_nvram_handler
 	);
 	
-/*TODO*///	static MachineDriver machine_driver_raster = new MachineDriver
-/*TODO*///	(
-/*TODO*///		new MachineCPU[] {
-/*TODO*///			new MachineCPU(
-/*TODO*///				CPU_M68000,
-/*TODO*///				12000000,
-/*TODO*///				neogeo_readmem,neogeo_writemem,null,null,
-/*TODO*///				neogeo_raster_interrupt,RASTER_LINES
-/*TODO*///			),
-/*TODO*///			new MachineCPU(
-/*TODO*///				CPU_Z80 | CPU_AUDIO_CPU | CPU_16BIT_PORT,
-/*TODO*///				6000000,
-/*TODO*///				sound_readmem,sound_writemem,neo_readio,neo_writeio,
-/*TODO*///				ignore_interrupt,0
-/*TODO*///			)
-/*TODO*///		},
-/*TODO*///		60, DEFAULT_60HZ_VBLANK_DURATION,
-/*TODO*///		1,
-/*TODO*///		neogeo_init_machine,
-/*TODO*///		40*8, 32*8, new rectangle( 1*8, 39*8-1, FIRST_VISIBLE_LINE, LAST_VISIBLE_LINE ),
-/*TODO*///		neogeo_mvs_gfxdecodeinfo,
-/*TODO*///		4096,4096,
-/*TODO*///		null,
-/*TODO*///	
-/*TODO*///		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,
-/*TODO*///		null,
-/*TODO*///		neogeo_mvs_vh_start,
-/*TODO*///		neogeo_vh_stop,
-/*TODO*///		neogeo_vh_raster_screenrefresh,
-/*TODO*///	
-/*TODO*///		/* sound hardware */
-/*TODO*///		SOUND_SUPPORTS_STEREO,0,0,0,
-/*TODO*///		new MachineSound[] {
-/*TODO*///			new MachineSound(
-/*TODO*///				SOUND_YM2610,
-/*TODO*///				neogeo_ym2610_interface,
-/*TODO*///			),
-/*TODO*///		},
-/*TODO*///	
-/*TODO*///		neogeo_nvram_handler
-/*TODO*///	);
-/*TODO*///	
+	static MachineDriver machine_driver_raster = new MachineDriver
+	(
+		new MachineCPU[] {
+			new MachineCPU(
+				CPU_M68000,
+				12000000,
+				neogeo_readmem,neogeo_writemem,null,null,
+				neogeo_raster_interrupt,RASTER_LINES
+			),
+			new MachineCPU(
+				CPU_Z80 | CPU_AUDIO_CPU | CPU_16BIT_PORT,
+				6000000,
+				sound_readmem,sound_writemem,neo_readio,neo_writeio,
+				ignore_interrupt,0
+			)
+		},
+		60, DEFAULT_60HZ_VBLANK_DURATION,
+		1,
+		neogeo_init_machine,
+		40*8, 32*8, new rectangle( 1*8, 39*8-1, FIRST_VISIBLE_LINE, LAST_VISIBLE_LINE ),
+		neogeo_mvs_gfxdecodeinfo,
+		4096,4096,
+		null,
+	
+		VIDEO_TYPE_RASTER | VIDEO_MODIFIES_PALETTE,
+		null,
+		neogeo_mvs_vh_start,
+		neogeo_vh_stop,
+		neogeo_vh_raster_screenrefresh,
+	
+		/* sound hardware */
+		SOUND_SUPPORTS_STEREO,0,0,0,
+		new MachineSound[] {
+			new MachineSound(
+				SOUND_YM2610,
+				neogeo_ym2610_interface
+			)
+		},
+	
+		neogeo_nvram_handler
+	);
+	
 /*TODO*///	/******************************************************************************/
 /*TODO*///	
 /*TODO*///	#define NEO_BIOS_SOUND_256K(name,sum) 
@@ -1150,13 +1129,14 @@ public class neogeo
 /*TODO*///		ROM_REGION( 0x40000, REGION_CPU2 );
 /*TODO*///		ROM_LOAD( "ng-sm1.rom", 0x00000, 0x20000, 0x97cf998b );/* we don't use the BIOS anyway... */ 
 /*TODO*///		ROM_LOAD( name,         0x00000, 0x40000, sum );/* so overwrite it with the real thing */
-/*TODO*///	
-/*TODO*///	#define NEO_BIOS_SOUND_128K(name,sum) 
-/*TODO*///		ROM_REGION( 0x20000, REGION_USER1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "neo-geo.rom", 0x00000, 0x020000, 0x9036d879 );
-/*TODO*///		ROM_REGION( 0x40000, REGION_CPU2 );
-/*TODO*///		ROM_LOAD( "ng-sm1.rom", 0x00000, 0x20000, 0x97cf998b );/* we don't use the BIOS anyway... */ 
-/*TODO*///		ROM_LOAD( name,         0x00000, 0x20000, sum );/* so overwrite it with the real thing */
+	
+	static void NEO_BIOS_SOUND_128K(String name, int sum) {
+		ROM_REGION( 0x20000, REGION_USER1 );
+		ROM_LOAD_WIDE_SWAP( "neo-geo.rom", 0x00000, 0x020000, 0x9036d879 );
+		ROM_REGION( 0x40000, REGION_CPU2 );
+		ROM_LOAD( "ng-sm1.rom", 0x00000, 0x20000, 0x97cf998b );/* we don't use the BIOS anyway... */ 
+		ROM_LOAD( name,         0x00000, 0x20000, sum );/* so overwrite it with the real thing */
+        }
 	
 	static void NEO_BIOS_SOUND_64K(String name, int sum) {
 		ROM_REGION( 0x20000, REGION_USER1 );
@@ -2696,29 +2676,29 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_EVEN( "windj_c3.rom", 0x200000, 0x100000, 0x40986386 )
 /*TODO*///		ROM_LOAD_GFX_ODD ( "windj_c4.rom", 0x200000, 0x100000, 0x715e15ff )
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_karnovr = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "karev_p1.rom", 0x000000, 0x100000, 0x8c86fd22 );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "karev_s1.rom", 0xbae5d5e5 )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "karev_m1.rom", 0x030beae4 )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x200000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "karev_v1.rom", 0x000000, 0x200000, 0x0b7ea37a );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0xc00000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "karev_c1.rom", 0x000000, 0x200000, 0x09dfe061 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "karev_c2.rom", 0x000000, 0x200000, 0xe0f6682a ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( "karev_c3.rom", 0x400000, 0x200000, 0xa673b4f7 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "karev_c4.rom", 0x400000, 0x200000, 0xcb3dc5f4 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( "karev_c5.rom", 0x800000, 0x200000, 0x9a28785d ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "karev_c6.rom", 0x800000, 0x200000, 0xc15c01ed ) /* Plane 2,3 */
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	
+	static RomLoadPtr rom_karnovr = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x100000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "karev_p1.rom", 0x000000, 0x100000, 0x8c86fd22 );
+	
+		NEO_SFIX_128K( "karev_s1.rom", 0xbae5d5e5 );
+	
+		NEO_BIOS_SOUND_128K( "karev_m1.rom", 0x030beae4 );
+	
+		ROM_REGION( 0x200000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "karev_v1.rom", 0x000000, 0x200000, 0x0b7ea37a );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0xc00000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "karev_c1.rom", 0x000000, 0x200000, 0x09dfe061 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "karev_c2.rom", 0x000000, 0x200000, 0xe0f6682a ); /* Plane 2,3 */
+		ROM_LOAD_GFX_EVEN( "karev_c3.rom", 0x400000, 0x200000, 0xa673b4f7 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "karev_c4.rom", 0x400000, 0x200000, 0xcb3dc5f4 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_EVEN( "karev_c5.rom", 0x800000, 0x200000, 0x9a28785d ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "karev_c6.rom", 0x800000, 0x200000, 0xc15c01ed ); /* Plane 2,3 */
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_gururin = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "gurin_p1.rom", 0x000000, 0x80000, 0x4cea8a49 );
@@ -3128,39 +3108,39 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_EVEN( "stakw_c3.rom", 0x400000, 0x200000, 0x8fa5a9eb ) /* Plane 0,1 */
 /*TODO*///		ROM_LOAD_GFX_ODD ( "stakw_c4.rom", 0x400000, 0x200000, 0x4604f0dc ) /* Plane 2,3 */
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_pulstar = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x300000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "pstar_p1.rom", 0x000000, 0x100000, 0x5e5847a2 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "pstar_p2.rom", 0x100000, 0x200000, 0x028b774c );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "pstar_s1.rom", 0xc79fc2c8 )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "pstar_m1.rom", 0xff3df7c7 )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "pstar_v1.rom", 0x000000, 0x400000, 0xb458ded2 );
-/*TODO*///		ROM_LOAD( "pstar_v2.rom", 0x400000, 0x400000, 0x9d2db551 );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x1c00000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "pstar_c1.rom", 0x0400000, 0x200000, 0x63020fc6 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x0000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "pstar_c2.rom", 0x0400000, 0x200000, 0x260e9d4d ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x0000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "pstar_c3.rom", 0x0c00000, 0x200000, 0x21ef41d7 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x0800000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "pstar_c4.rom", 0x0c00000, 0x200000, 0x3b9e288f ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x0800000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "pstar_c5.rom", 0x1400000, 0x200000, 0x6fe9259c ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x1000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "pstar_c6.rom", 0x1400000, 0x200000, 0xdc32f2b4 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x1000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "pstar_c7.rom", 0x1800000, 0x200000, 0x6a5618ca ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "pstar_c8.rom", 0x1800000, 0x200000, 0xa223572d ) /* Plane 2,3 */
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	
+	static RomLoadPtr rom_pulstar = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x300000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "pstar_p1.rom", 0x000000, 0x100000, 0x5e5847a2 );
+		ROM_LOAD_WIDE_SWAP( "pstar_p2.rom", 0x100000, 0x200000, 0x028b774c );
+	
+		NEO_SFIX_128K( "pstar_s1.rom", 0xc79fc2c8 );
+	
+		NEO_BIOS_SOUND_128K( "pstar_m1.rom", 0xff3df7c7 );
+	
+		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "pstar_v1.rom", 0x000000, 0x400000, 0xb458ded2 );
+		ROM_LOAD( "pstar_v2.rom", 0x400000, 0x400000, 0x9d2db551 );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x1c00000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "pstar_c1.rom", 0x0400000, 0x200000, 0x63020fc6 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x0000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "pstar_c2.rom", 0x0400000, 0x200000, 0x260e9d4d ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x0000000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "pstar_c3.rom", 0x0c00000, 0x200000, 0x21ef41d7 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x0800000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "pstar_c4.rom", 0x0c00000, 0x200000, 0x3b9e288f ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x0800000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "pstar_c5.rom", 0x1400000, 0x200000, 0x6fe9259c ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x1000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "pstar_c6.rom", 0x1400000, 0x200000, 0xdc32f2b4 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x1000000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "pstar_c7.rom", 0x1800000, 0x200000, 0x6a5618ca ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "pstar_c8.rom", 0x1800000, 0x200000, 0xa223572d ); /* Plane 2,3 */
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_whp = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x200000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "whp_p1.rom", 0x100000, 0x100000, 0xafaa4702 );
@@ -3360,57 +3340,57 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_EVEN( "sonw3_c3.rom", 0x800000, 0x200000, 0xc339fff5 ) /* Plane 0,1 */
 /*TODO*///		ROM_LOAD_GFX_ODD ( "sonw3_c4.rom", 0x800000, 0x200000, 0x84a40c6e ) /* Plane 2,3 */
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_turfmast = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x200000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "turfm_p1.rom",  0x100000, 0x100000, 0x28c83048 );
-/*TODO*///		ROM_CONTINUE(                        0x000000, 0x100000 | ROMFLAG_WIDE | ROMFLAG_SWAP);
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "turfm_s1.rom", 0x9a5402b2 )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "turfm_m1.rom", 0x9994ac00 )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "turfm_v1.rom", 0x000000, 0x200000, 0x00fd48d2 );
-/*TODO*///		ROM_LOAD( "turfm_v2.rom", 0x200000, 0x200000, 0x082acb31 );
-/*TODO*///		ROM_LOAD( "turfm_v3.rom", 0x400000, 0x200000, 0x7abca053 );
-/*TODO*///		ROM_LOAD( "turfm_v4.rom", 0x600000, 0x200000, 0x6c7b4902 );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x800000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "turfm_c1.rom", 0x400000, 0x200000, 0x8c6733f2 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "turfm_c2.rom", 0x400000, 0x200000, 0x596cc256 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x000000, 0x200000, 0 )
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_mslug = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x200000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "mslug_p1.rom", 0x100000, 0x100000, 0x08d8daa5 );
-/*TODO*///		ROM_CONTINUE(                       0x000000, 0x100000 | ROMFLAG_WIDE | ROMFLAG_SWAP );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "mslug_s1.rom", 0x2f55958d )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "mslug_m1.rom", 0xc28b3253 )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "mslug_v1.rom", 0x000000, 0x400000, 0x23d22ed1 );
-/*TODO*///		ROM_LOAD( "mslug_v2.rom", 0x400000, 0x400000, 0x472cf9db );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x1000000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "mslug_c1.rom", 0x400000, 0x200000, 0xd00bd152 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "mslug_c2.rom", 0x400000, 0x200000, 0xddff1dea ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "mslug_c3.rom", 0xc00000, 0x200000, 0xd3d5f9e5 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x800000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "mslug_c4.rom", 0xc00000, 0x200000, 0x5ac1d497 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x800000, 0x200000, 0 )
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	
+	static RomLoadPtr rom_turfmast = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x200000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "turfm_p1.rom",  0x100000, 0x100000, 0x28c83048 );
+		ROM_CONTINUE(                        0x000000, 0x100000 | ROMFLAG_WIDE | ROMFLAG_SWAP);
+	
+		NEO_SFIX_128K( "turfm_s1.rom", 0x9a5402b2 );
+	
+		NEO_BIOS_SOUND_128K( "turfm_m1.rom", 0x9994ac00 );
+	
+		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "turfm_v1.rom", 0x000000, 0x200000, 0x00fd48d2 );
+		ROM_LOAD( "turfm_v2.rom", 0x200000, 0x200000, 0x082acb31 );
+		ROM_LOAD( "turfm_v3.rom", 0x400000, 0x200000, 0x7abca053 );
+		ROM_LOAD( "turfm_v4.rom", 0x600000, 0x200000, 0x6c7b4902 );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x800000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "turfm_c1.rom", 0x400000, 0x200000, 0x8c6733f2 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "turfm_c2.rom", 0x400000, 0x200000, 0x596cc256 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x000000, 0x200000, 0 );
+	ROM_END(); }}; 
+	
+	static RomLoadPtr rom_mslug = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x200000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "mslug_p1.rom", 0x100000, 0x100000, 0x08d8daa5 );
+		ROM_CONTINUE(                       0x000000, 0x100000 | ROMFLAG_WIDE | ROMFLAG_SWAP );
+	
+		NEO_SFIX_128K( "mslug_s1.rom", 0x2f55958d );
+	
+		NEO_BIOS_SOUND_128K( "mslug_m1.rom", 0xc28b3253 );
+	
+		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "mslug_v1.rom", 0x000000, 0x400000, 0x23d22ed1 );
+		ROM_LOAD( "mslug_v2.rom", 0x400000, 0x400000, 0x472cf9db );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x1000000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "mslug_c1.rom", 0x400000, 0x200000, 0xd00bd152 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "mslug_c2.rom", 0x400000, 0x200000, 0xddff1dea ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x000000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "mslug_c3.rom", 0xc00000, 0x200000, 0xd3d5f9e5 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x800000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "mslug_c4.rom", 0xc00000, 0x200000, 0x5ac1d497 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x800000, 0x200000, 0 );
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_puzzledp = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x100000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "pdpon_p1.rom", 0x000000, 0x080000, 0x2b61415b );
@@ -4167,41 +4147,41 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_ODD ( "shock_c8.rom", 0x1c00000, 0x200000, 0xe8e890fb ) /* Plane 2,3 */
 /*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x1800000, 0x200000, 0 )
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_blazstar = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x300000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "bstar_p1.rom", 0x000000, 0x100000, 0x183682f8 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "bstar_p2.rom", 0x100000, 0x200000, 0x9a9f4154 );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "bstar_s1.rom", 0xd56cb498 )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "bstar_m1.rom", 0xd31a3aea )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "bstar_v1.rom", 0x000000, 0x400000, 0x1b8d5bf7 );
-/*TODO*///		ROM_LOAD( "bstar_v2.rom", 0x400000, 0x400000, 0x74cf0a70 );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x2000000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bstar_c1.rom", 0x0400000, 0x200000, 0x754744e0 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x0000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bstar_c2.rom", 0x0400000, 0x200000, 0xaf98c037 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x0000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bstar_c3.rom", 0x0c00000, 0x200000, 0x7b39b590 ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x0800000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bstar_c4.rom", 0x0c00000, 0x200000, 0x6e731b30 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x0800000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bstar_c5.rom", 0x1400000, 0x200000, 0x9ceb113b ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x1000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bstar_c6.rom", 0x1400000, 0x200000, 0x6a78e810 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x1000000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_EVEN( "bstar_c7.rom", 0x1c00000, 0x200000, 0x50d28eca ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( 0,              0x1800000, 0x200000, 0 )
-/*TODO*///		ROM_LOAD_GFX_ODD ( "bstar_c8.rom", 0x1c00000, 0x200000, 0xcdbbb7d7 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( 0,              0x1800000, 0x200000, 0 )
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	
+	static RomLoadPtr rom_blazstar = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x300000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "bstar_p1.rom", 0x000000, 0x100000, 0x183682f8 );
+		ROM_LOAD_WIDE_SWAP( "bstar_p2.rom", 0x100000, 0x200000, 0x9a9f4154 );
+	
+		NEO_SFIX_128K( "bstar_s1.rom", 0xd56cb498 );
+	
+		NEO_BIOS_SOUND_128K( "bstar_m1.rom", 0xd31a3aea );
+	
+		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "bstar_v1.rom", 0x000000, 0x400000, 0x1b8d5bf7 );
+		ROM_LOAD( "bstar_v2.rom", 0x400000, 0x400000, 0x74cf0a70 );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x2000000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "bstar_c1.rom", 0x0400000, 0x200000, 0x754744e0 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x0000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "bstar_c2.rom", 0x0400000, 0x200000, 0xaf98c037 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x0000000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "bstar_c3.rom", 0x0c00000, 0x200000, 0x7b39b590 ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x0800000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "bstar_c4.rom", 0x0c00000, 0x200000, 0x6e731b30 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x0800000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "bstar_c5.rom", 0x1400000, 0x200000, 0x9ceb113b ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x1000000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "bstar_c6.rom", 0x1400000, 0x200000, 0x6a78e810 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x1000000, 0x200000, 0 );
+		ROM_LOAD_GFX_EVEN( "bstar_c7.rom", 0x1c00000, 0x200000, 0x50d28eca ); /* Plane 0,1 */
+		ROM_LOAD_GFX_EVEN( null,              0x1800000, 0x200000, 0 );
+		ROM_LOAD_GFX_ODD ( "bstar_c8.rom", 0x1c00000, 0x200000, 0xcdbbb7d7 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_ODD ( null,              0x1800000, 0x200000, 0 );
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_rbff2 = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x500000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "rb2_p1.rom", 0x000000, 0x100000, 0xb6969780 );
@@ -4227,29 +4207,29 @@ public class neogeo
 /*TODO*///		ROM_LOAD_GFX_EVEN( "rb2_c5.rom", 0x2000000, 0x800000, 0x244dff5a ) /* Plane 0,1 */
 /*TODO*///		ROM_LOAD_GFX_ODD ( "rb2_c6.rom", 0x2000000, 0x800000, 0x4609e507 ) /* Plane 2,3 */
 /*TODO*///	ROM_END(); }}; 
-/*TODO*///	
-/*TODO*///	static RomLoadPtr rom_mslug2 = new RomLoadPtr(){ public void handler(){ 
-/*TODO*///		ROM_REGION( 0x300000, REGION_CPU1 );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "ms2_p1.rom", 0x000000, 0x100000, 0x2a53c5da );
-/*TODO*///		ROM_LOAD_WIDE_SWAP( "ms2_p2.rom", 0x100000, 0x200000, 0x38883f44 );
-/*TODO*///	
-/*TODO*///		NEO_SFIX_128K( "ms2_s1.rom",  0xf3d32f0f )
-/*TODO*///	
-/*TODO*///		NEO_BIOS_SOUND_128K( "ms2_m1.rom", 0x94520ebd )
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
-/*TODO*///		ROM_LOAD( "ms2_v1.rom", 0x000000, 0x400000, 0x99ec20e8 );
-/*TODO*///		ROM_LOAD( "ms2_v2.rom", 0x400000, 0x400000, 0xecb16799 );
-/*TODO*///	
-/*TODO*///		NO_DELTAT_REGION
-/*TODO*///	
-/*TODO*///		ROM_REGION( 0x2000000, REGION_GFX2 );
-/*TODO*///		ROM_LOAD_GFX_EVEN( "ms2_c1.rom", 0x0000000, 0x800000, 0x394b5e0d ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "ms2_c2.rom", 0x0000000, 0x800000, 0xe5806221 ) /* Plane 2,3 */
-/*TODO*///		ROM_LOAD_GFX_EVEN( "ms2_c3.rom", 0x1000000, 0x800000, 0x9f6bfa6f ) /* Plane 0,1 */
-/*TODO*///		ROM_LOAD_GFX_ODD ( "ms2_c4.rom", 0x1000000, 0x800000, 0x7d3e306f ) /* Plane 2,3 */
-/*TODO*///	ROM_END(); }}; 
-/*TODO*///	
+	
+	static RomLoadPtr rom_mslug2 = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x300000, REGION_CPU1 );
+		ROM_LOAD_WIDE_SWAP( "ms2_p1.rom", 0x000000, 0x100000, 0x2a53c5da );
+		ROM_LOAD_WIDE_SWAP( "ms2_p2.rom", 0x100000, 0x200000, 0x38883f44 );
+	
+		NEO_SFIX_128K( "ms2_s1.rom",  0xf3d32f0f );
+	
+		NEO_BIOS_SOUND_128K( "ms2_m1.rom", 0x94520ebd );
+	
+		ROM_REGION( 0x800000, REGION_SOUND1 | REGIONFLAG_SOUNDONLY );
+		ROM_LOAD( "ms2_v1.rom", 0x000000, 0x400000, 0x99ec20e8 );
+		ROM_LOAD( "ms2_v2.rom", 0x400000, 0x400000, 0xecb16799 );
+	
+		NO_DELTAT_REGION();
+	
+		ROM_REGION( 0x2000000, REGION_GFX2 );
+		ROM_LOAD_GFX_EVEN( "ms2_c1.rom", 0x0000000, 0x800000, 0x394b5e0d ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "ms2_c2.rom", 0x0000000, 0x800000, 0xe5806221 ); /* Plane 2,3 */
+		ROM_LOAD_GFX_EVEN( "ms2_c3.rom", 0x1000000, 0x800000, 0x9f6bfa6f ); /* Plane 0,1 */
+		ROM_LOAD_GFX_ODD ( "ms2_c4.rom", 0x1000000, 0x800000, 0x7d3e306f ); /* Plane 2,3 */
+	ROM_END(); }}; 
+	
 /*TODO*///	static RomLoadPtr rom_kof98 = new RomLoadPtr(){ public void handler(){ 
 /*TODO*///		ROM_REGION( 0x500000, REGION_CPU1 );
 /*TODO*///		ROM_LOAD_WIDE_SWAP( "kof98_p1.rom", 0x000000, 0x100000, 0x61ac868a );
@@ -4658,7 +4638,7 @@ public class neogeo
 /*TODO*///	public static GameDriver driver_lastblad	   = new GameDriver("1997"	,"lastblad"	,"neogeo.java"	,rom_lastblad,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "The Last Blade / Bakumatsu Roman - Gekkano Kenshi" )
 /*TODO*///	public static GameDriver driver_irrmaze	   = new GameDriver("1997"	,"irrmaze"	,"neogeo.java"	,rom_irrmaze,driver_neogeo	,machine_driver_neogeo	,input_ports_irrmaze	,init_neogeo	,ROT0	,	"SNK / Saurus", "The Irritating Maze / Ultra Denryu Iraira Bou" )
 /*TODO*///	public static GameDriver driver_rbff2	   = new GameDriver("1998"	,"rbff2"	,"neogeo.java"	,rom_rbff2,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "Real Bout Fatal Fury 2 - The Newcomers / Real Bout Garou Densetsu 2 - the newcomers" )
-/*TODO*///	public static GameDriver driver_mslug2	   = new GameDriver("1998"	,"mslug2"	,"neogeo.java"	,rom_mslug2,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "Metal Slug 2 - Super Vehicle-001/II" )
+	public static GameDriver driver_mslug2	   = new GameDriver("1998"	,"mslug2"	,"neogeo.java"	,rom_mslug2,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "Metal Slug 2 - Super Vehicle-001/II" );
 /*TODO*///	public static GameDriver driver_kof98	   = new GameDriver("1998"	,"kof98"	,"neogeo.java"	,rom_kof98,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "The King of Fighters '98 - The Slugfest / King of Fighters '98 - dream match never ends" )
 /*TODO*///	public static GameDriver driver_lastbld2	   = new GameDriver("1998"	,"lastbld2"	,"neogeo.java"	,rom_lastbld2,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "The Last Blade 2 / Bakumatsu Roman - Dai Ni Maku Gekkano Kenshi" )
 /*TODO*///	public static GameDriver driver_neocup98	   = new GameDriver("1998"	,"neocup98"	,"neogeo.java"	,rom_neocup98,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"SNK", "Neo-Geo Cup '98 - The Road to the Victory" )
@@ -4683,15 +4663,15 @@ public class neogeo
 /*TODO*///	public static GameDriver driver_overtop	   = new GameDriver("1996"	,"overtop"	,"neogeo.java"	,rom_overtop,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"ADK",              "Over Top" )
 /*TODO*///	public static GameDriver driver_ninjamas	   = new GameDriver("1996"	,"ninjamas"	,"neogeo.java"	,rom_ninjamas,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"ADK / SNK",        "Ninja Master's - haoh-ninpo-cho" )
 /*TODO*///	public static GameDriver driver_twinspri	   = new GameDriver("1996"	,"twinspri"	,"neogeo.java"	,rom_twinspri,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"ADK",              "Twinkle Star Sprites" )
-/*TODO*///	
-/*TODO*///	/* Aicom */
+	
+	/* Aicom */
 /*TODO*///	public static GameDriver driver_janshin	   = new GameDriver("1994"	,"janshin"	,"neogeo.java"	,rom_janshin,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Aicom", "Jyanshin Densetsu - Quest of Jongmaster" )
-/*TODO*///	public static GameDriver driver_pulstar	   = new GameDriver("1995"	,"pulstar"	,"neogeo.java"	,rom_pulstar,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Aicom", "Pulstar" )
-/*TODO*///	
+	public static GameDriver driver_pulstar	   = new GameDriver("1995"	,"pulstar"	,"neogeo.java"	,rom_pulstar,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Aicom", "Pulstar" );
+
 /*TODO*///	/* Data East Corporation */
 /*TODO*///	public static GameDriver driver_spinmast	   = new GameDriver("1993"	,"spinmast"	,"neogeo.java"	,rom_spinmast,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Data East Corporation", "Spinmaster / Miracle Adventure" )
 /*TODO*///	public static GameDriver driver_wjammers	   = new GameDriver("1994"	,"wjammers"	,"neogeo.java"	,rom_wjammers,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Windjammers / Flying Power Disc" )
-/*TODO*///	public static GameDriver driver_karnovr	   = new GameDriver("1994"	,"karnovr"	,"neogeo.java"	,rom_karnovr,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite" )
+	public static GameDriver driver_karnovr	   = new GameDriver("1994"	,"karnovr"	,"neogeo.java"	,rom_karnovr,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Data East Corporation", "Karnov's Revenge / Fighter's History Dynamite" );
 /*TODO*///	public static GameDriver driver_strhoop	   = new GameDriver("1994"	,"strhoop"	,"neogeo.java"	,rom_strhoop,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Street Hoop / Street Slam / Dunk Dream" )
 /*TODO*///	public static GameDriver driver_magdrop2	   = new GameDriver("1996"	,"magdrop2"	,"neogeo.java"	,rom_magdrop2,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Magical Drop II" )
 /*TODO*///	public static GameDriver driver_magdrop3	   = new GameDriver("1997"	,"magdrop3"	,"neogeo.java"	,rom_magdrop3,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Data East Corporation", "Magical Drop III" )
@@ -4708,11 +4688,11 @@ public class neogeo
 /*TODO*///	/* Monolith Corp. */
 /*TODO*///	public static GameDriver driver_minasan	   = new GameDriver("1990"	,"minasan"	,"neogeo.java"	,rom_minasan,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_mgd2	,ROT0	,	"Monolith Corp.", "Minnasanno Okagesamadesu" )
 /*TODO*///	public static GameDriver driver_bakatono	   = new GameDriver("1991"	,"bakatono"	,"neogeo.java"	,rom_bakatono,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_mgd2	,ROT0	,	"Monolith Corp.", "Bakatonosama Mahjong Manyuki" )
-/*TODO*///	
-/*TODO*///	/* Nazca */
-/*TODO*///	public static GameDriver driver_turfmast	   = new GameDriver("1996"	,"turfmast"	,"neogeo.java"	,rom_turfmast,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Nazca", "Neo Turf Masters / Big Tournament Golf" )
-/*TODO*///	public static GameDriver driver_mslug	   = new GameDriver("1996"	,"mslug"	,"neogeo.java"	,rom_mslug,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Nazca", "Metal Slug - Super Vehicle-001" )
-/*TODO*///	
+	
+	/* Nazca */
+	public static GameDriver driver_turfmast	   = new GameDriver("1996"	,"turfmast"	,"neogeo.java"	,rom_turfmast,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Nazca", "Neo Turf Masters / Big Tournament Golf" );
+	public static GameDriver driver_mslug	   = new GameDriver("1996"	,"mslug"	,"neogeo.java"	,rom_mslug,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Nazca", "Metal Slug - Super Vehicle-001" );
+	
 /*TODO*///	/* NMK */
 /*TODO*///	public static GameDriver driver_zedblade	   = new GameDriver("1994"	,"zedblade"	,"neogeo.java"	,rom_zedblade,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"NMK", "Zed Blade / Operation Ragnarok" )
 /*TODO*///	
@@ -4744,12 +4724,12 @@ public class neogeo
 /*TODO*///	public static GameDriver driver_doubledr	   = new GameDriver("1995"	,"doubledr"	,"neogeo.java"	,rom_doubledr,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Technos", "Double Dragon (Neo-Geo)" )
 /*TODO*///	public static GameDriver driver_gowcaizr	   = new GameDriver("1995"	,"gowcaizr"	,"neogeo.java"	,rom_gowcaizr,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Technos", "Voltage Fighter - Gowcaizer / Choujin Gakuen Gowcaizer")
 /*TODO*///	public static GameDriver driver_sdodgeb	   = new GameDriver("1996"	,"sdodgeb"	,"neogeo.java"	,rom_sdodgeb,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Technos", "Super Dodge Ball / Kunio no Nekketsu Toukyuu Densetsu" )
-/*TODO*///	
-/*TODO*///	/* Tecmo */
+	
+	/* Tecmo */
 	public static GameDriver driver_tws96	   = new GameDriver("1996"	,"tws96"	,"neogeo.java"	,rom_tws96,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Tecmo", "Tecmo World Soccer '96" );
-/*TODO*///	
-/*TODO*///	/* Yumekobo */
-/*TODO*///	public static GameDriver driver_blazstar	   = new GameDriver("1998"	,"blazstar"	,"neogeo.java"	,rom_blazstar,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Yumekobo", "Blazing Star" )
+	
+	/* Yumekobo */
+	public static GameDriver driver_blazstar	   = new GameDriver("1998"	,"blazstar"	,"neogeo.java"	,rom_blazstar,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Yumekobo", "Blazing Star" );
 /*TODO*///	
 /*TODO*///	/* Viccom */
 /*TODO*///	public static GameDriver driver_fightfev	   = new GameDriver("1994"	,"fightfev"	,"neogeo.java"	,rom_fightfev,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Viccom", "Fight Fever / Crystal Legacy" )

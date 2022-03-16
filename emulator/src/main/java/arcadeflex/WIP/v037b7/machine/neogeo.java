@@ -235,62 +235,117 @@ public class neogeo
 /*TODO*///	/******************************************************************************/
 /*TODO*///	#define NEO_CYCLE_R(name,pc,hit,other) public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	#define NEO_CYCLE_RX(name,pc,hit,other,xxx) public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {if(other==xxx) cpu_spinuntil_int(); return hit;} return other;} };
-/*TODO*///	
-/*TODO*///	NEO_CYCLE_R(puzzledp,0x12f2,1,								READ_WORD(&neogeo_ram[0x0000]))
-/*TODO*///	NEO_CYCLE_R(samsho4, 0xaffc,0,								READ_WORD(&neogeo_ram[0x830c]))
-/*TODO*///	NEO_CYCLE_R(karnovr, 0x5b56,0,								READ_WORD(&neogeo_ram[0x3466]))
-/*TODO*///	NEO_CYCLE_R(wjammers,0x1362e,READ_WORD(&neogeo_ram[0x5a])&0x7fff,READ_WORD(&neogeo_ram[0x005a]))
-/*TODO*///	NEO_CYCLE_R(strhoops,0x029a,0,								READ_WORD(&neogeo_ram[0x1200]))
-/*TODO*///	//NEO_CYCLE_R(magdrop3,0xa378,READ_WORD(&neogeo_ram[0x60])&0x7fff,READ_WORD(&neogeo_ram[0x0060]))
-/*TODO*///	NEO_CYCLE_R(neobombe,0x09f2,0xffff,							READ_WORD(&neogeo_ram[0x448c]))
-/*TODO*///	NEO_CYCLE_R(trally, 0x1295c,READ_WORD(&neogeo_ram[0x206])-1,READ_WORD(&neogeo_ram[0x0206]))
-/*TODO*///	//NEO_CYCLE_R(joyjoy,  0x122c,0xffff,							READ_WORD(&neogeo_ram[0x0554]))
-/*TODO*///	NEO_CYCLE_RX(blazstar,0x3b62,0xffff,							READ_WORD(&neogeo_ram[0x1000]),0)
-/*TODO*///	//NEO_CYCLE_R(ridhero, 0xedb0,0,								READ_WORD(&neogeo_ram[0x00ca]))
-/*TODO*///	NEO_CYCLE_R(cyberlip,0x2218,0x0f0f,							READ_WORD(&neogeo_ram[0x7bb4]))
-/*TODO*///	NEO_CYCLE_R(lbowling,0x37b0,0,								READ_WORD(&neogeo_ram[0x0098]))
-/*TODO*///	NEO_CYCLE_R(superspy,0x07ca,0xffff,							READ_WORD(&neogeo_ram[0x108c]))
-/*TODO*///	NEO_CYCLE_R(ttbb,    0x0a58,0xffff,							READ_WORD(&neogeo_ram[0x000e]))
-/*TODO*///	NEO_CYCLE_R(alpham2,0x076e,0xffff,							READ_WORD(&neogeo_ram[0xe2fe]))
-/*TODO*///	NEO_CYCLE_R(eightman,0x12fa,0xffff,							READ_WORD(&neogeo_ram[0x046e]))
-/*TODO*///	NEO_CYCLE_R(roboarmy,0x08e8,0,								READ_WORD(&neogeo_ram[0x4010]))
-/*TODO*///	NEO_CYCLE_R(fatfury1,0x133c,0,								READ_WORD(&neogeo_ram[0x4282]))
-/*TODO*///	NEO_CYCLE_R(burningf,0x0736,0xffff,							READ_WORD(&neogeo_ram[0x000e]))
-/*TODO*///	NEO_CYCLE_R(bstars,  0x133c,0,								READ_WORD(&neogeo_ram[0x000a]))
-/*TODO*///	NEO_CYCLE_R(kotm,    0x1284,0,								READ_WORD(&neogeo_ram[0x0020]))
-/*TODO*///	NEO_CYCLE_R(gpilots, 0x0474,0,								READ_WORD(&neogeo_ram[0xa682]))
-/*TODO*///	NEO_CYCLE_R(lresort, 0x256a,0,								READ_WORD(&neogeo_ram[0x4102]))
-/*TODO*///	NEO_CYCLE_R(fbfrenzy,0x07dc,0,								READ_WORD(&neogeo_ram[0x0020]))
-/*TODO*///	NEO_CYCLE_R(socbrawl,0xa8dc,0xffff,							READ_WORD(&neogeo_ram[0xb20c]))
-/*TODO*///	NEO_CYCLE_R(mutnat,  0x1456,0,								READ_WORD(&neogeo_ram[0x1042]))
-/*TODO*///	NEO_CYCLE_R(aof,     0x6798,0,								READ_WORD(&neogeo_ram[0x8100]))
-/*TODO*///	//NEO_CYCLE_R(countb,  0x16a2,0,								READ_WORD(&neogeo_ram[0x8002]))
-/*TODO*///	NEO_CYCLE_R(ncombat, 0xcb3e,0,								READ_WORD(&neogeo_ram[0x0206]))
-/*TODO*///	NEO_CYCLE_R(sengoku, 0x12f4,0,								READ_WORD(&neogeo_ram[0x0088]))
-/*TODO*///	//NEO_CYCLE_R(ncommand,0x11b44,0,								READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(wh1,     0xf62d4,0xffff,						READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(androdun,0x26d6,0xffff,							READ_WORD(&neogeo_ram[0x0080]))
-/*TODO*///	NEO_CYCLE_R(bjourney,0xe8aa,READ_WORD(&neogeo_ram[0x206])+1,READ_WORD(&neogeo_ram[0x0206]))
-/*TODO*///	NEO_CYCLE_R(maglord, 0xb16a,READ_WORD(&neogeo_ram[0x206])+1,READ_WORD(&neogeo_ram[0x0206]))
-/*TODO*///	//NEO_CYCLE_R(janshin, 0x06a0,0,								READ_WORD(&neogeo_ram[0x0026]))
-/*TODO*///	NEO_CYCLE_RX(pulstar, 0x2052,0xffff,							READ_WORD(&neogeo_ram[0x1000]),0)
-/*TODO*///	//NEO_CYCLE_R(mslug   ,0x200a,0xffff,							READ_WORD(&neogeo_ram[0x6ed8]))
-/*TODO*///	NEO_CYCLE_R(neodrift,0x0b76,0xffff,							READ_WORD(&neogeo_ram[0x0424]))
-/*TODO*///	NEO_CYCLE_R(spinmast,0x00f6,READ_WORD(&neogeo_ram[0xf0])+1,	READ_WORD(&neogeo_ram[0x00f0]))
-/*TODO*///	NEO_CYCLE_R(sonicwi2,0x1e6c8,0xffff,						READ_WORD(&neogeo_ram[0xe5b6]))
-/*TODO*///	NEO_CYCLE_R(sonicwi3,0x20bac,0xffff,						READ_WORD(&neogeo_ram[0xea2e]))
-/*TODO*///	NEO_CYCLE_R(goalx3,  0x5298,READ_WORD(&neogeo_ram[0x6])+1,	READ_WORD(&neogeo_ram[0x0006]))
-/*TODO*///	//NEO_CYCLE_R(turfmast,0xd5a8,0xffff,							READ_WORD(&neogeo_ram[0x2e54]))
-/*TODO*///	NEO_CYCLE_R(kabukikl,0x10b0,0,								READ_WORD(&neogeo_ram[0x428a]))
-/*TODO*///	NEO_CYCLE_R(panicbom,0x3ee6,0xffff,							READ_WORD(&neogeo_ram[0x009c]))
-/*TODO*///	NEO_CYCLE_R(wh2,     0x2063fc,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(wh2j,    0x109f4,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(aodk,    0xea62,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(whp,     0xeace,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(overtop, 0x1736,READ_WORD(&neogeo_ram[0x8202])+1,READ_WORD(&neogeo_ram[0x8202]))
-/*TODO*///	NEO_CYCLE_R(twinspri,0x492e,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
-/*TODO*///	NEO_CYCLE_R(stakwin, 0x0596,0xffff,							READ_WORD(&neogeo_ram[0x0b92]))
-/*TODO*///	NEO_CYCLE_R(shocktro,0xdd28,0,								READ_WORD(&neogeo_ram[0x8344]))
+	
+//	NEO_CYCLE_R(puzzledp,0x12f2,1,								READ_WORD(&neogeo_ram[0x0000]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(samsho4, 0xaffc,0,								READ_WORD(&neogeo_ram[0x830c]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(karnovr, 0x5b56,0,								READ_WORD(&neogeo_ram[0x3466]))
+        public static ReadHandlerPtr karnovr_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==0x5b56) {cpu_spinuntil_int(); return 0;} return neogeo_ram.READ_WORD(0x3466);} };
+//	NEO_CYCLE_R(wjammers,0x1362e,READ_WORD(&neogeo_ram[0x5a])&0x7fff,READ_WORD(&neogeo_ram[0x005a]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(strhoops,0x029a,0,								READ_WORD(&neogeo_ram[0x1200]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	//NEO_CYCLE_R(magdrop3,0xa378,READ_WORD(&neogeo_ram[0x60])&0x7fff,READ_WORD(&neogeo_ram[0x0060]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(neobombe,0x09f2,0xffff,							READ_WORD(&neogeo_ram[0x448c]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(trally, 0x1295c,READ_WORD(&neogeo_ram[0x206])-1,READ_WORD(&neogeo_ram[0x0206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	//NEO_CYCLE_R(joyjoy,  0x122c,0xffff,							READ_WORD(&neogeo_ram[0x0554]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_RX(blazstar,0x3b62,0xffff,							READ_WORD(&neogeo_ram[0x1000]),0)
+        public static ReadHandlerPtr blazstar_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==0x3b62) {if(neogeo_ram.READ_WORD(0x1000)==0) cpu_spinuntil_int(); return 0xffff;} return neogeo_ram.READ_WORD(0x1000);} };
+//	//NEO_CYCLE_R(ridhero, 0xedb0,0,								READ_WORD(&neogeo_ram[0x00ca]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(cyberlip,0x2218,0x0f0f,							READ_WORD(&neogeo_ram[0x7bb4]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(lbowling,0x37b0,0,								READ_WORD(&neogeo_ram[0x0098]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(superspy,0x07ca,0xffff,							READ_WORD(&neogeo_ram[0x108c]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(ttbb,    0x0a58,0xffff,							READ_WORD(&neogeo_ram[0x000e]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(alpham2,0x076e,0xffff,							READ_WORD(&neogeo_ram[0xe2fe]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(eightman,0x12fa,0xffff,							READ_WORD(&neogeo_ram[0x046e]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(roboarmy,0x08e8,0,								READ_WORD(&neogeo_ram[0x4010]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(fatfury1,0x133c,0,								READ_WORD(&neogeo_ram[0x4282]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(burningf,0x0736,0xffff,							READ_WORD(&neogeo_ram[0x000e]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(bstars,  0x133c,0,								READ_WORD(&neogeo_ram[0x000a]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(kotm,    0x1284,0,								READ_WORD(&neogeo_ram[0x0020]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(gpilots, 0x0474,0,								READ_WORD(&neogeo_ram[0xa682]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(lresort, 0x256a,0,								READ_WORD(&neogeo_ram[0x4102]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(fbfrenzy,0x07dc,0,								READ_WORD(&neogeo_ram[0x0020]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(socbrawl,0xa8dc,0xffff,							READ_WORD(&neogeo_ram[0xb20c]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(mutnat,  0x1456,0,								READ_WORD(&neogeo_ram[0x1042]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(aof,     0x6798,0,								READ_WORD(&neogeo_ram[0x8100]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	//NEO_CYCLE_R(countb,  0x16a2,0,								READ_WORD(&neogeo_ram[0x8002]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(ncombat, 0xcb3e,0,								READ_WORD(&neogeo_ram[0x0206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(sengoku, 0x12f4,0,								READ_WORD(&neogeo_ram[0x0088]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	//NEO_CYCLE_R(ncommand,0x11b44,0,								READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(wh1,     0xf62d4,0xffff,						READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(androdun,0x26d6,0xffff,							READ_WORD(&neogeo_ram[0x0080]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(bjourney,0xe8aa,READ_WORD(&neogeo_ram[0x206])+1,READ_WORD(&neogeo_ram[0x0206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(maglord, 0xb16a,READ_WORD(&neogeo_ram[0x206])+1,READ_WORD(&neogeo_ram[0x0206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	//NEO_CYCLE_R(janshin, 0x06a0,0,								READ_WORD(&neogeo_ram[0x0026]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_RX(pulstar, 0x2052,0xffff,							READ_WORD(&neogeo_ram[0x1000]),0)
+        public static ReadHandlerPtr pulstar_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==0x2052) {if(neogeo_ram.READ_WORD(0x1000)==0) cpu_spinuntil_int(); return 0xffff;} return neogeo_ram.READ_WORD(0x1000);} };
+	//NEO_CYCLE_R(mslug   ,0x200a,0xffff,							READ_WORD(&neogeo_ram[0x6ed8]))
+//        public static ReadHandlerPtr mslug_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==0x200a) {cpu_spinuntil_int(); return 0xffff;} return neogeo_ram.READ_WORD(0x6ed8);} };
+//	NEO_CYCLE_R(neodrift,0x0b76,0xffff,							READ_WORD(&neogeo_ram[0x0424]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(spinmast,0x00f6,READ_WORD(&neogeo_ram[0xf0])+1,	READ_WORD(&neogeo_ram[0x00f0]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(sonicwi2,0x1e6c8,0xffff,						READ_WORD(&neogeo_ram[0xe5b6]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(sonicwi3,0x20bac,0xffff,						READ_WORD(&neogeo_ram[0xea2e]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(goalx3,  0x5298,READ_WORD(&neogeo_ram[0x6])+1,	READ_WORD(&neogeo_ram[0x0006]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	//NEO_CYCLE_R(turfmast,0xd5a8,0xffff,							READ_WORD(&neogeo_ram[0x2e54]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(kabukikl,0x10b0,0,								READ_WORD(&neogeo_ram[0x428a]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(panicbom,0x3ee6,0xffff,							READ_WORD(&neogeo_ram[0x009c]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(wh2,     0x2063fc,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(wh2j,    0x109f4,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(aodk,    0xea62,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(whp,     0xeace,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(overtop, 0x1736,READ_WORD(&neogeo_ram[0x8202])+1,READ_WORD(&neogeo_ram[0x8202]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(twinspri,0x492e,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(stakwin, 0x0596,0xffff,							READ_WORD(&neogeo_ram[0x0b92]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
+//	NEO_CYCLE_R(shocktro,0xdd28,0,								READ_WORD(&neogeo_ram[0x8344]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
         //	NEO_CYCLE_R(tws96,   0x17f4,0xffff,							READ_WORD(&neogeo_ram[0x010e]))
         public static ReadHandlerPtr tws96_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==0x17f4) {cpu_spinuntil_int(); return 0xffff;} return neogeo_ram.READ_WORD(0x010e);} };
 /*TODO*///	//public static ReadHandlerPtr zedblade_cycle_r  = new ReadHandlerPtr() { public int handler(int offset)
@@ -300,8 +355,11 @@ public class neogeo
 /*TODO*///	//	return READ_WORD(&neogeo_ram[0x9004]);
 /*TODO*///	//} };
 /*TODO*///	//NEO_CYCLE_R(doubledr,0x3574,0,								READ_WORD(&neogeo_ram[0x1c30]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(galaxyfg,0x09ea,READ_WORD(&neogeo_ram[0x1858])+1,READ_WORD(&neogeo_ram[0x1858]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(wakuwak7,0x1a3c,READ_WORD(&neogeo_ram[0x0bd4])+1,READ_WORD(&neogeo_ram[0x0bd4]))
+        //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	public static ReadHandlerPtr mahretsu_cycle_r  = new ReadHandlerPtr() { public int handler(int offset)
 /*TODO*///	{
 /*TODO*///		int pc=cpu_get_pc();
@@ -311,44 +369,77 @@ public class neogeo
                 //NEO_CYCLE_R(nam1975, 0x0a1c,0xffff,							READ_WORD(&neogeo_ram[0x12e0]))
                 public static ReadHandlerPtr nam1975_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==0x0a1c) {cpu_spinuntil_int(); return 0xffff;} return neogeo_ram.READ_WORD(0x12e0);} };        
 /*TODO*///	NEO_CYCLE_R(tpgolf,  0x105c,0,								READ_WORD(&neogeo_ram[0x00a4]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(legendos,0x1864,0xffff,							READ_WORD(&neogeo_ram[0x0002]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	//NEO_CYCLE_R(viewpoin,0x0c16,0,								READ_WORD(&neogeo_ram[0x1216]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(fatfury2,0x10ea,0,								READ_WORD(&neogeo_ram[0x418c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(bstars2, 0x7e30,0xffff,							READ_WORD(&neogeo_ram[0x001c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(ssideki, 0x20b0,0xffff,							READ_WORD(&neogeo_ram[0x8c84]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(kotm2,   0x045a,0,								READ_WORD(&neogeo_ram[0x1000]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	public static ReadHandlerPtr samsho_cycle_r  = new ReadHandlerPtr() { public int handler(int offset)
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	{
 /*TODO*///		int pc=cpu_get_pc();
 /*TODO*///		if (pc==0x3580 || pc==0x0f84 ) {cpu_spinuntil_int(); return 0xffff;}
 /*TODO*///		return READ_WORD(&neogeo_ram[0x0a76]);
 /*TODO*///	} };
 /*TODO*///	NEO_CYCLE_R(fatfursp,0x10da,0,								READ_WORD(&neogeo_ram[0x418c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(fatfury3,0x9c50,0,								READ_WORD(&neogeo_ram[0x418c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(tophuntr,0x0ce0,0xffff,							READ_WORD(&neogeo_ram[0x008e]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(savagere,0x056e,0,								READ_WORD(&neogeo_ram[0x8404]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(aof2,    0x8c74,0,								READ_WORD(&neogeo_ram[0x8280]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	//NEO_CYCLE_R(ssideki2,0x7850,0xffff,							READ_WORD(&neogeo_ram[0x4292]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(samsho2, 0x1432,0xffff,							READ_WORD(&neogeo_ram[0x0a30]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(samsho3, 0x0858,0,								READ_WORD(&neogeo_ram[0x8408]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(kof95,   0x39474,0xffff,						READ_WORD(&neogeo_ram[0xa784]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(rbff1,   0x80a2,0,								READ_WORD(&neogeo_ram[0x418c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	//NEO_CYCLE_R(aof3,    0x15d6,0,								READ_WORD(&neogeo_ram[0x4ee8]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(ninjamas,0x2436,READ_WORD(&neogeo_ram[0x8206])+1,READ_WORD(&neogeo_ram[0x8206]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(kof96,   0x8fc4,0xffff,							READ_WORD(&neogeo_ram[0xa782]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(rbffspec,0x8704,0,								READ_WORD(&neogeo_ram[0x418c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(kizuna,  0x0840,0,								READ_WORD(&neogeo_ram[0x8808]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(kof97,   0x9c54,0xffff,							READ_WORD(&neogeo_ram[0xa784]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	//NEO_CYCLE_R(mslug2,  0x1656,0xffff,						READ_WORD(&neogeo_ram[0x008c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(rbff2,   0xc5d0,0,								READ_WORD(&neogeo_ram[0x418c]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(ragnagrd,0xc6c0,0,								READ_WORD(&neogeo_ram[0x0042]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(lastblad,0x1868,0xffff,							READ_WORD(&neogeo_ram[0x9d4e]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(gururin, 0x0604,0xffff,							READ_WORD(&neogeo_ram[0x1002]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	//NEO_CYCLE_R(magdrop2,0x1cf3a,0,								READ_WORD(&neogeo_ram[0x0064]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	//NEO_CYCLE_R(miexchng,0x,,READ_WORD(&neogeo_ram[0x]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	
 /*TODO*///	NEO_CYCLE_R(kof98,       0xa146,0xfff,  READ_WORD(&neogeo_ram[0xa784]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(marukodq,0x070e,0,          READ_WORD(&neogeo_ram[0x0210]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	public static ReadHandlerPtr minasan_cycle_r  = new ReadHandlerPtr() { public int handler(int offset)
 /*TODO*///	{
 /*TODO*///	        int mem;
@@ -363,6 +454,7 @@ public class neogeo
 /*TODO*///	        return READ_WORD(&neogeo_ram[0x00ca]);
 /*TODO*///	} };
 /*TODO*///	NEO_CYCLE_R(stakwin2,0x0b8c,0,          READ_WORD(&neogeo_ram[0x0002]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	public static ReadHandlerPtr bakatono_cycle_r  = new ReadHandlerPtr() { public int handler(int offset)
 /*TODO*///	{
 /*TODO*///	        int mem;
@@ -377,13 +469,21 @@ public class neogeo
 /*TODO*///	        return READ_WORD(&neogeo_ram[0x00fa]);
 /*TODO*///	} };
 /*TODO*///	NEO_CYCLE_R(quizkof,0x0450,0,           READ_WORD(&neogeo_ram[0x4464]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(quizdais,   0x0730,0,       READ_WORD(&neogeo_ram[0x59f2]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(quizdai2,   0x1afa,0xffff,  READ_WORD(&neogeo_ram[0x0960]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(popbounc,   0x1196,0xffff,  READ_WORD(&neogeo_ram[0x1008]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(sdodgeb,    0xc22e,0,       READ_WORD(&neogeo_ram[0x1104]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(shocktr2,   0xf410,0,       READ_WORD(&neogeo_ram[0x8348]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(figfever,   0x20c60,0,      READ_WORD(&neogeo_ram[0x8100]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	NEO_CYCLE_R(irrmaze,    0x104e,0,       READ_WORD(&neogeo_ram[0x4b6e]))
+                //public static ReadHandlerPtr name##_cycle_r  = new ReadHandlerPtr() { public int handler(int offset) {	if (cpu_get_pc()==pc) {cpu_spinuntil_int(); return hit;} return other;} };
 /*TODO*///	
 /*TODO*///	/******************************************************************************/
 /*TODO*///	/* Routines to speed up the sound processor AVDB 24-10-1998		      */
@@ -494,72 +594,72 @@ public class neogeo
 /*TODO*///		}
 /*TODO*///		return RAM[0xfb91];
 /*TODO*///	} };
-/*TODO*///	
-/*TODO*///	/******************************************************************************/
-/*TODO*///	
-/*TODO*///	static int prot_data;
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr fatfury2_protection_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		int res = (prot_data >> 24) & 0xff;
-/*TODO*///	
-/*TODO*///		switch (offset)
-/*TODO*///		{
-/*TODO*///			case 0x55550:
-/*TODO*///			case 0xffff0:
-/*TODO*///			case 0x00000:
-/*TODO*///			case 0xff000:
-/*TODO*///			case 0x36000:
-/*TODO*///			case 0x36008:
-/*TODO*///				return res;
-/*TODO*///	
-/*TODO*///			case 0x36004:
-/*TODO*///			case 0x3600c:
-/*TODO*///				return ((res & 0xf0) >> 4) | ((res & 0x0f) << 4);
-/*TODO*///	
-/*TODO*///			default:
-/*TODO*///	logerror("unknown protection read at pc %06x, offset %08x\n",cpu_get_pc(),offset);
-/*TODO*///				return 0;
-/*TODO*///		}
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr fatfury2_protection_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		switch (offset)
-/*TODO*///		{
-/*TODO*///			case 0x55552:	/* data == 0x5555; read back from 55550, ffff0, 00000, ff000 */
-/*TODO*///				prot_data = 0xff00ff00;
-/*TODO*///				break;
-/*TODO*///	
-/*TODO*///			case 0x56782:	/* data == 0x1234; read back from 36000 *or* 36004 */
-/*TODO*///				prot_data = 0xf05a3601;
-/*TODO*///				break;
-/*TODO*///	
-/*TODO*///			case 0x42812:	/* data == 0x1824; read back from 36008 *or* 3600c */
-/*TODO*///				prot_data = 0x81422418;
-/*TODO*///				break;
-/*TODO*///	
-/*TODO*///			case 0x55550:
-/*TODO*///			case 0xffff0:
-/*TODO*///			case 0xff000:
-/*TODO*///			case 0x36000:
-/*TODO*///			case 0x36004:
-/*TODO*///			case 0x36008:
-/*TODO*///			case 0x3600c:
-/*TODO*///				prot_data <<= 8;
-/*TODO*///				break;
-/*TODO*///	
-/*TODO*///			default:
-/*TODO*///	logerror("unknown protection write at pc %06x, offset %08x, data %02x\n",cpu_get_pc(),offset,data);
-/*TODO*///				break;
-/*TODO*///		}
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr popbounc_sfix_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///	        if (cpu_get_pc()==0x6b10) {return 0;}
-/*TODO*///	        return READ_WORD(&neogeo_ram[0x4fbc]);
-/*TODO*///	} };
+	
+	/******************************************************************************/
+	
+	static int prot_data;
+	
+	public static ReadHandlerPtr fatfury2_protection_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		int res = (prot_data >> 24) & 0xff;
+	
+		switch (offset)
+		{
+			case 0x55550:
+			case 0xffff0:
+			case 0x00000:
+			case 0xff000:
+			case 0x36000:
+			case 0x36008:
+				return res;
+	
+			case 0x36004:
+			case 0x3600c:
+				return ((res & 0xf0) >> 4) | ((res & 0x0f) << 4);
+	
+			default:
+	logerror("unknown protection read at pc %06x, offset %08x\n",cpu_get_pc(),offset);
+				return 0;
+		}
+	} };
+	
+	public static WriteHandlerPtr fatfury2_protection_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		switch (offset)
+		{
+			case 0x55552:	/* data == 0x5555; read back from 55550, ffff0, 00000, ff000 */
+				prot_data = 0xff00ff00;
+				break;
+	
+			case 0x56782:	/* data == 0x1234; read back from 36000 *or* 36004 */
+				prot_data = 0xf05a3601;
+				break;
+	
+			case 0x42812:	/* data == 0x1824; read back from 36008 *or* 3600c */
+				prot_data = 0x81422418;
+				break;
+	
+			case 0x55550:
+			case 0xffff0:
+			case 0xff000:
+			case 0x36000:
+			case 0x36004:
+			case 0x36008:
+			case 0x3600c:
+				prot_data <<= 8;
+				break;
+	
+			default:
+	logerror("unknown protection write at pc %06x, offset %08x, data %02x\n",cpu_get_pc(),offset,data);
+				break;
+		}
+	} };
+	
+	public static ReadHandlerPtr popbounc_sfix_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+	        if (cpu_get_pc()==0x6b10) {return 0;}
+	        return neogeo_ram.READ_WORD(0x4fbc);
+	} };
 	
 	static void neogeo_custom_memory()
 	{
@@ -600,14 +700,14 @@ public class neogeo
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"bjourney")) install_mem_read_handler(0, 0x100206, 0x100207, bjourney_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"maglord"))  install_mem_read_handler(0, 0x100206, 0x100207, maglord_cycle_r);
 /*TODO*///	//	if (!strcmp(Machine.gamedrv.name,"janshin"))  install_mem_read_handler(0, 0x100026, 0x100027, janshin_cycle_r);	// No speed difference
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"pulstar"))  install_mem_read_handler(0, 0x101000, 0x101001, pulstar_cycle_r);
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"blazstar")) install_mem_read_handler(0, 0x101000, 0x101001, blazstar_cycle_r);
-/*TODO*///	//**	if (!strcmp(Machine.gamedrv.name,"pbobble"))  install_mem_read_handler(0, 0x10, 0x10, pbobble_cycle_r);		// Can't find this one :-(
+		if (strcmp(Machine.gamedrv.name,"pulstar")==0)  install_mem_read_handler(0, 0x101000, 0x101001, pulstar_cycle_r);
+		if (strcmp(Machine.gamedrv.name,"blazstar")==0) install_mem_read_handler(0, 0x101000, 0x101001, blazstar_cycle_r);
+	//**	if (!strcmp(Machine.gamedrv.name,"pbobble"))  install_mem_read_handler(0, 0x10, 0x10, pbobble_cycle_r);		// Can't find this one :-(
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"puzzledp")) install_mem_read_handler(0, 0x100000, 0x100001, puzzledp_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"neodrift")) install_mem_read_handler(0, 0x100424, 0x100425, neodrift_cycle_r);
 /*TODO*///	//**	if (!strcmp(Machine.gamedrv.name,"neomrdo"))  install_mem_read_handler(0, 0x10, 0x10, neomrdo_cycle_r);		// Can't find this one :-(
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"spinmast")) install_mem_read_handler(0, 0x100050, 0x100051, spinmast_cycle_r);
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"karnovr"))  install_mem_read_handler(0, 0x103466, 0x103467, karnovr_cycle_r);
+		if (strcmp(Machine.gamedrv.name,"karnovr")==0)  install_mem_read_handler(0, 0x103466, 0x103467, karnovr_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"wjammers")) install_mem_read_handler(0, 0x10005a, 0x10005b, wjammers_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"strhoops")) install_mem_read_handler(0, 0x101200, 0x101201, strhoops_cycle_r);
 /*TODO*///	//	if (!strcmp(Machine.gamedrv.name,"magdrop3")) install_mem_read_handler(0, 0x100060, 0x100061, magdrop3_cycle_r);	// The game starts glitching.
@@ -615,8 +715,8 @@ public class neogeo
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"sonicwi2")) install_mem_read_handler(0, 0x10e5b6, 0x10e5b7, sonicwi2_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"sonicwi3")) install_mem_read_handler(0, 0x10ea2e, 0x10ea2f, sonicwi3_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"goalx3"))   install_mem_read_handler(0, 0x100006, 0x100007, goalx3_cycle_r);
-/*TODO*///	//	if (!strcmp(Machine.gamedrv.name,"mslug"))    install_mem_read_handler(0, 0x106ed8, 0x106ed9, mslug_cycle_r);		// Doesn't work properly.
-/*TODO*///	//	if (!strcmp(Machine.gamedrv.name,"turfmast")) install_mem_read_handler(0, 0x102e54, 0x102e55, turfmast_cycle_r);
+	//	if (strcmp(Machine.gamedrv.name,"mslug")==0)    install_mem_read_handler(0, 0x106ed8, 0x106ed9, mslug_cycle_r);		// Doesn't work properly.
+	//	if (!strcmp(Machine.gamedrv.name,"turfmast")) install_mem_read_handler(0, 0x102e54, 0x102e55, turfmast_cycle_r);
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"kabukikl")) install_mem_read_handler(0, 0x10428a, 0x10428b, kabukikl_cycle_r);
 /*TODO*///	
 /*TODO*///		if (!strcmp(Machine.gamedrv.name,"panicbom")) install_mem_read_handler(0, 0x10009c, 0x10009d, panicbom_cycle_r);
@@ -718,99 +818,99 @@ public class neogeo
 /*TODO*///			WRITE_WORD(&RAM[0x132c],0x4e71);
 /*TODO*///			WRITE_WORD(&RAM[0x132e],0x4e71);
 /*TODO*///		}
-/*TODO*///	
-/*TODO*///		if (!Machine.sample_rate &&
-/*TODO*///				!strcmp(Machine.gamedrv.name,"popbounc"))
-/*TODO*///		/* the game hangs after a while without this patch */
-/*TODO*///			install_mem_read_handler(0, 0x104fbc, 0x104fbd, popbounc_sfix_r);
-/*TODO*///	
-/*TODO*///		/* hacks to make the games which do protection checks run in arcade mode */
-/*TODO*///		/* we write protect a SRAM location so it cannot be set to 1 */
-/*TODO*///		sram_protection_hack = -1;
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"fatfury3") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"samsho3") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"samsho4") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"aof3") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"rbff1") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"rbffspec") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"kof95") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"kof96") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"kof97") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"kof98") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"kof99") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"kizuna") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"lastblad") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"lastbld2") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"rbff2") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"mslug2") ||
-/*TODO*///				 !strcmp(Machine.gamedrv.name,"garou"))
-/*TODO*///			sram_protection_hack = 0x100;
-/*TODO*///	
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"pulstar"))
-/*TODO*///			sram_protection_hack = 0x35a;
-/*TODO*///	
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"ssideki"))
-/*TODO*///		{
-/*TODO*///			/* patch out protection check */
-/*TODO*///			/* the protection routines are at 0x25dcc and involve reading and writing */
-/*TODO*///			/* addresses in the 0x2xxxxx range */
-/*TODO*///			UBytePtr RAM = memory_region(REGION_CPU1);
-/*TODO*///			WRITE_WORD(&RAM[0x2240],0x4e71);
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* Hacks the program rom of Fatal Fury 2, needed either in arcade or console mode */
-/*TODO*///		/* otherwise at level 2 you cannot hit the opponent and other problems */
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"fatfury2"))
-/*TODO*///		{
-/*TODO*///			/* there seems to also be another protection check like the countless ones */
-/*TODO*///			/* patched above by protectiong a SRAM location, but that trick doesn't work */
-/*TODO*///			/* here (or maybe the SRAM location to protect is different), so I patch out */
-/*TODO*///			/* the routine which trashes memory. Without this, the game goes nuts after */
-/*TODO*///			/* the first bonus stage. */
-/*TODO*///			UBytePtr RAM = memory_region(REGION_CPU1);
-/*TODO*///			WRITE_WORD(&RAM[0xb820],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0xb822],0x4e71);
-/*TODO*///	
-/*TODO*///			/* again, the protection involves reading and writing addresses in the */
-/*TODO*///			/* 0x2xxxxx range. There are several checks all around the code. */
-/*TODO*///			install_mem_read_handler (0, 0x200000, 0x2fffff, fatfury2_protection_r);
-/*TODO*///			install_mem_write_handler(0, 0x200000, 0x2fffff, fatfury2_protection_w);
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"fatfury3"))
-/*TODO*///		{
-/*TODO*///			/* patch the first word, it must be 0x0010 not 0x0000 (initial stack pointer) */
-/*TODO*///			UBytePtr RAM = memory_region(REGION_CPU1);
-/*TODO*///			WRITE_WORD(&RAM[0x0000],0x0010);
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		if (!strcmp(Machine.gamedrv.name,"mslugx"))
-/*TODO*///		{
-/*TODO*///			/* patch out protection checks */
-/*TODO*///			int i;
-/*TODO*///			UBytePtr RAM = memory_region(REGION_CPU1);
-/*TODO*///	
-/*TODO*///			for (i = 0;i < 0x100000;i+=2)
-/*TODO*///			{
-/*TODO*///				if (READ_WORD(&RAM[i+0]) == 0x0243 &&
-/*TODO*///					READ_WORD(&RAM[i+2]) == 0x0001 &&	/* andi.w  #$1, D3 */
-/*TODO*///					READ_WORD(&RAM[i+4]) == 0x6600)		/* bne xxxx */
-/*TODO*///				{
-/*TODO*///					WRITE_WORD(&RAM[i+4],0x4e71);
-/*TODO*///					WRITE_WORD(&RAM[i+6],0x4e71);
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///	
-/*TODO*///			WRITE_WORD(&RAM[0x3bdc],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0x3bde],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0x3be0],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0x3c0c],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0x3c0e],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0x3c10],0x4e71);
-/*TODO*///	
-/*TODO*///			WRITE_WORD(&RAM[0x3c36],0x4e71);
-/*TODO*///			WRITE_WORD(&RAM[0x3c38],0x4e71);
-/*TODO*///		}
+	
+		if (Machine.sample_rate==0 &&
+				strcmp(Machine.gamedrv.name,"popbounc")==0)
+		/* the game hangs after a while without this patch */
+			install_mem_read_handler(0, 0x104fbc, 0x104fbd, popbounc_sfix_r);
+	
+		/* hacks to make the games which do protection checks run in arcade mode */
+		/* we write protect a SRAM location so it cannot be set to 1 */
+		sram_protection_hack = -1;
+		if (strcmp(Machine.gamedrv.name,"fatfury3")==0 ||
+				 strcmp(Machine.gamedrv.name,"samsho3")==0 ||
+				 strcmp(Machine.gamedrv.name,"samsho4")==0 ||
+				 strcmp(Machine.gamedrv.name,"aof3")==0 ||
+				 strcmp(Machine.gamedrv.name,"rbff1")==0 ||
+				 strcmp(Machine.gamedrv.name,"rbffspec")==0 ||
+				 strcmp(Machine.gamedrv.name,"kof95")==0 ||
+				 strcmp(Machine.gamedrv.name,"kof96")==0 ||
+				 strcmp(Machine.gamedrv.name,"kof97")==0 ||
+				 strcmp(Machine.gamedrv.name,"kof98")==0 ||
+				 strcmp(Machine.gamedrv.name,"kof99")==0 ||
+				 strcmp(Machine.gamedrv.name,"kizuna")==0 ||
+				 strcmp(Machine.gamedrv.name,"lastblad")==0 ||
+				 strcmp(Machine.gamedrv.name,"lastbld2")==0 ||
+				 strcmp(Machine.gamedrv.name,"rbff2")==0 ||
+				 strcmp(Machine.gamedrv.name,"mslug2")==0 ||
+				 strcmp(Machine.gamedrv.name,"garou")==0)
+			sram_protection_hack = 0x100;
+	
+		if (strcmp(Machine.gamedrv.name,"pulstar")==0)
+			sram_protection_hack = 0x35a;
+	
+		if (strcmp(Machine.gamedrv.name,"ssideki")==0)
+		{
+			/* patch out protection check */
+			/* the protection routines are at 0x25dcc and involve reading and writing */
+			/* addresses in the 0x2xxxxx range */
+			UBytePtr RAM = new UBytePtr(memory_region(REGION_CPU1));
+			RAM.WRITE_WORD(0x2240,0x4e71);
+		}
+	
+		/* Hacks the program rom of Fatal Fury 2, needed either in arcade or console mode */
+		/* otherwise at level 2 you cannot hit the opponent and other problems */
+		if (strcmp(Machine.gamedrv.name,"fatfury2")==0)
+		{
+			/* there seems to also be another protection check like the countless ones */
+			/* patched above by protectiong a SRAM location, but that trick doesn't work */
+			/* here (or maybe the SRAM location to protect is different), so I patch out */
+			/* the routine which trashes memory. Without this, the game goes nuts after */
+			/* the first bonus stage. */
+			UBytePtr RAM = new UBytePtr(memory_region(REGION_CPU1));
+			RAM.WRITE_WORD(0xb820,0x4e71);
+			RAM.WRITE_WORD(0xb822,0x4e71);
+	
+			/* again, the protection involves reading and writing addresses in the */
+			/* 0x2xxxxx range. There are several checks all around the code. */
+			install_mem_read_handler (0, 0x200000, 0x2fffff, fatfury2_protection_r);
+			install_mem_write_handler(0, 0x200000, 0x2fffff, fatfury2_protection_w);
+		}
+	
+		if (strcmp(Machine.gamedrv.name,"fatfury3")==0)
+		{
+			/* patch the first word, it must be 0x0010 not 0x0000 (initial stack pointer) */
+			UBytePtr RAM = new UBytePtr(memory_region(REGION_CPU1));
+			RAM.WRITE_WORD(0x0000,0x0010);
+		}
+	
+		if (strcmp(Machine.gamedrv.name,"mslugx")==0)
+		{
+			/* patch out protection checks */
+			int i;
+			UBytePtr RAM = new UBytePtr(memory_region(REGION_CPU1));
+	
+			for (i = 0;i < 0x100000;i+=2)
+			{
+				if (RAM.READ_WORD(i+0) == 0x0243 &&
+					RAM.READ_WORD(i+2) == 0x0001 &&	/* andi.w  #$1, D3 */
+					RAM.READ_WORD(i+4) == 0x6600)		/* bne xxxx */
+				{
+					RAM.WRITE_WORD(i+4,0x4e71);
+					RAM.WRITE_WORD(i+6,0x4e71);
+				}
+			}
+	
+			RAM.WRITE_WORD(0x3bdc,0x4e71);
+			RAM.WRITE_WORD(0x3bde,0x4e71);
+			RAM.WRITE_WORD(0x3be0,0x4e71);
+			RAM.WRITE_WORD(0x3c0c,0x4e71);
+			RAM.WRITE_WORD(0x3c0e,0x4e71);
+			RAM.WRITE_WORD(0x3c10,0x4e71);
+	
+			RAM.WRITE_WORD(0x3c36,0x4e71);
+			RAM.WRITE_WORD(0x3c38,0x4e71);
+		}
 	}
 	
 	

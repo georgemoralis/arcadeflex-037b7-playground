@@ -3181,7 +3181,7 @@ public class driver {
         /*TODO*///	driver_samsho2 )	/* 0063 (c) 1994 SNK */
         /*TODO*///	driver_wh2j )		/* 0064 (c) 1994 ADK / SNK */
         /*TODO*///	driver_wjammers )	/* 0065 (c) 1994 Data East Corporation */
-        /*TODO*///	driver_karnovr )	/* 0066 (c) 1994 Data East Corporation */
+        driver_karnovr, 	/* 0066 (c) 1994 Data East Corporation */
         /*TODO*///	driver_gururin )	/* 0067 (c) 1994 Face */
         /*TODO*///	driver_pspikes2 )	/* 0068 (c) 1994 Video System Co. */
         /*TODO*///	driver_fatfury3 )	/* 0069 (c) 1995 SNK */
@@ -3204,7 +3204,7 @@ public class driver {
         driver_tws96, 		/* 0086 (c) 1996 Tecmo */
         /*TODO*///	driver_samsho3 )	/* 0087 (c) 1995 SNK */
         /*TODO*///	driver_stakwin )	/* 0088 (c) 1995 Saurus */
-        /*TODO*///	driver_pulstar )	/* 0089 (c) 1995 Aicom */
+        driver_pulstar, 	/* 0089 (c) 1995 Aicom */
         /*TODO*///	driver_whp )		/* 0090 (c) 1995 ADK / SNK */
         /*TODO*///	/* 0091 */
         /*TODO*///	driver_kabukikl )	/* 0092 (c) 1995 Hudson */
@@ -3214,9 +3214,9 @@ public class driver {
         /*TODO*///	driver_aof3 )		/* 0096 (c) 1996 SNK */
         /*TODO*///	driver_sonicwi3 )	/* 0097 (c) 1995 Video System Co. */
         /*TODO*///	/* 0098 Idol Mahjong - final romance 2 (CD only? not confirmed, MVS might exist) */
-        /*TODO*///	/* 0099 */
-        /*TODO*///	driver_turfmast )	/* 0200 (c) 1996 Nazca */
-        /*TODO*///	driver_mslug )		/* 0201 (c) 1996 Nazca */
+        /* 0099 */
+        driver_turfmast, 	/* 0200 (c) 1996 Nazca */
+        driver_mslug, 		/* 0201 (c) 1996 Nazca */
         /*TODO*///	driver_puzzledp )	/* 0202 (c) 1995 Taito (Visco license) */
         /*TODO*///	driver_mosyougi )	/* 0203 (c) 1995 ADK / SNK */
         /*TODO*///	/* 0204 ADK World (CD only) */
@@ -3255,9 +3255,9 @@ public class driver {
         /*TODO*///	driver_popbounc )	/* 0237 (c) 1997 Video System Co. */
         /*TODO*///	driver_shocktro )	/* 0238 (c) 1997 Saurus */
         /*TODO*///	driver_shocktrj )	/* 0238 (c) 1997 Saurus */
-        /*TODO*///	driver_blazstar )	/* 0239 (c) 1998 Yumekobo */
+        driver_blazstar, 	/* 0239 (c) 1998 Yumekobo */
         /*TODO*///	driver_rbff2 )		/* 0240 (c) 1998 SNK */
-        /*TODO*///	driver_mslug2 )	/* 0241 (c) 1998 SNK */
+        driver_mslug2, 	/* 0241 (c) 1998 SNK */
         /*TODO*///	driver_kof98 )		/* 0242 (c) 1998 SNK */
         /*TODO*///	driver_lastbld2 )	/* 0243 (c) 1998 SNK */
         /*TODO*///	driver_neocup98 )	/* 0244 (c) 1998 SNK */
