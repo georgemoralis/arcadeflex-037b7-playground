@@ -1251,14 +1251,14 @@ public class cischeat
 		//MEGASYS1_TMAP_DRAW(0)
                 if ( (megasys1_tmap_0)!=null && (megasys1_active_layers & (1 << 0) )!=0 ) 
                 { 
-                        /*TODO*///tilemap_draw(bitmap, megasys1_tmap_0, flag ); 
+                        tilemap_draw(bitmap, megasys1_tmap_0, flag ); 
                         flag = 0; 
                 }
 	//	else	osd_clearbitmap(Machine.scrbitmap);
 		//MEGASYS1_TMAP_DRAW(1)
                 if ( (megasys1_tmap_1)!=null && (megasys1_active_layers & (1 << 1) )!=0 ) 
                 { 
-                        /*TODO*///tilemap_draw(bitmap, megasys1_tmap_1, flag ); 
+                        tilemap_draw(bitmap, megasys1_tmap_1, flag ); 
                         flag = 0; 
                 }
 	
@@ -1276,7 +1276,7 @@ public class cischeat
 		//MEGASYS1_TMAP_DRAW(2)
                 if ( (megasys1_tmap_2)!=null && (megasys1_active_layers & (1 << 2) )!=0 ) 
                 { 
-                        /*TODO*///tilemap_draw(bitmap, megasys1_tmap_2, flag ); 
+                        tilemap_draw(bitmap, megasys1_tmap_2, flag ); 
                         flag = 0; 
                 }
 		if ((megasys1_active_layers & 0x08) != 0)	cischeat_draw_sprites(bitmap,0,0);
