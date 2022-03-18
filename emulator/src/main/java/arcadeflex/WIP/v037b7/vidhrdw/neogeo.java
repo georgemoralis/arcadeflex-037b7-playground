@@ -167,6 +167,7 @@ public class neogeo
                 /*unsigned*/ int pen;
 
                 gfxdata = new IntPtr(memory_region(REGION_GFX2), 128 * tileno);
+                gfxdata.base=128 * tileno;
 
                 memcpy(swap, gfxdata, 128);
 

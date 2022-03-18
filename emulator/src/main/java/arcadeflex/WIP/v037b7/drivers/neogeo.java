@@ -270,9 +270,9 @@ public class neogeo
 		return 1;      /* vertical blank */
 	} };
 	
-	static int irq2enable,irq2start,irq2repeat=1000,irq2control;
+	static int /*irq2enable,*/irq2start,irq2repeat=1000,irq2control;
 	static int lastirq2line = 1000;
-        //static int fc=0;
+        static int fc_2=0;
         static int raster_enable=1;
 
 	public static InterruptPtr neogeo_raster_interrupt = new InterruptPtr() { public int handler() 
@@ -290,12 +290,12 @@ public class neogeo
 			addretrace();
 	
 			/* Animation counter, 1 once per frame is too fast, every 4 seems good */
-			if  (fc >= neogeo_frame_counter_speed)
+			if  (fc_2 >= neogeo_frame_counter_speed)
 			{
-				fc=0;
+				fc_2=0;
 				neogeo_frame_counter++;
 			}
-			fc++;
+			fc_2++;
 	
 			if (osd_skip_this_frame()==0)
 				neogeo_vh_raster_partial_refresh(Machine.scrbitmap,line-RASTER_VBLANK_END+FIRST_VISIBLE_LINE-1);
@@ -305,7 +305,7 @@ public class neogeo
 			return 1;      /* vertical blank */
 		}
 	
-		if (irq2enable != 0)
+		if (irq2_enable != 0)
 		{
 			if (line == irq2start || line == lastirq2line + irq2repeat)
 			{
@@ -470,7 +470,7 @@ public class neogeo
 	//logerror("PC %06x: neo_control_rn",cpu_get_pc());
 	
 		line = RASTER_LINES - cpu_getiloops();
-		irq_bit = (irq2enable!=0 && (line == irq2start || line == lastirq2line + irq2repeat)) ||
+		irq_bit = (irq2_enable!=0 && (line == irq2start || line == lastirq2line + irq2repeat)) ||
 			(line == RASTER_LINES) ? 1:0;
 	
 		return  ((cpu_getscanline() * 0x80) & 0x7f80)	/* scanline */
@@ -533,10 +533,10 @@ public class neogeo
 	    }
 	
 	    if ((data & 0x10) != 0)
-			irq2enable = 1;
+			irq2_enable = 1;
 	    else
 	    {
-			irq2enable = 0;
+			irq2_enable = 0;
 			lastirq2line = 1000;
 			return;
 	    }
@@ -4694,7 +4694,7 @@ public class neogeo
 	
 	/* Nazca */
 	public static GameDriver driver_turfmast	   = new GameDriver("1996"	,"turfmast"	,"neogeo.java"	,rom_turfmast,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"Nazca", "Neo Turf Masters / Big Tournament Golf" );
-	public static GameDriver driver_mslug	   = new GameDriver("1996"	,"mslug"	,"neogeo.java"	,rom_mslug,driver_neogeo	,machine_driver_neogeo	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Nazca", "Metal Slug - Super Vehicle-001" );
+	public static GameDriver driver_mslug	   = new GameDriver("1996"	,"mslug"	,"neogeo.java"	,rom_mslug,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0	,	"Nazca", "Metal Slug - Super Vehicle-001" );
 	
 	/* NMK */
 	public static GameDriver driver_zedblade	   = new GameDriver("1994"	,"zedblade"	,"neogeo.java"	,rom_zedblade,driver_neogeo	,machine_driver_raster	,input_ports_neogeo	,init_neogeo	,ROT0_16BIT	,	"NMK", "Zed Blade / Operation Ragnarok" );

@@ -694,6 +694,18 @@ public class libc_old {
         public IntPtr(IntPtr cp, int b) {
             set(cp.memory, cp.base + b);
         }
+        
+        public IntPtr(IntPtr cp) {
+            set(cp.memory, cp.base);
+        }
+        
+        public IntPtr(int[] cp) {
+            set(cp, 0);
+        }
+        
+        public IntPtr(int[] cp, int b) {
+            set(cp, b);
+        }
 
         public IntPtr(UBytePtr p) {
             set(p.memory, p.offset);
@@ -706,6 +718,17 @@ public class libc_old {
         public void set(char[] input, int b) {
             base = b;
             memory = input;
+        }
+        
+        public void set(int[] input, int b) {
+            base = b;
+            //memory = input;
+            int _longo=input.length;
+            memory = new char[_longo];
+            
+            for (int _i=0 ; _i<_longo ; _i++)
+                memory[_i] = (char) input[_i];
+            
         }
 
         public void inc() {
@@ -742,6 +765,14 @@ public class libc_old {
             memory[base + 1] = (char) ((value >> 8) & 0xFF);
             memory[base + 2] = (char) ((value >> 16) & 0xFF);
             memory[base + 3] = (char) ((value >> 24) & 0xFF);
+        }
+        
+        public void write(int _pos, int value) {
+
+            memory[_pos + base] = (char) (value & 0xFF);
+            memory[_pos + base + 1] = (char) ((value >> 8) & 0xFF);
+            memory[_pos + base + 2] = (char) ((value >> 16) & 0xFF);
+            memory[_pos + base + 3] = (char) ((value >> 24) & 0xFF);
         }
 
         public void or(int value) {

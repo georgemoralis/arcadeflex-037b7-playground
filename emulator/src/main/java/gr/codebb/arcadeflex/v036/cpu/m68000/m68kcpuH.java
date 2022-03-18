@@ -901,8 +901,11 @@ public class m68kcpuH {
     public static boolean CONDITION_HI() {
         return (get_CPU_C() == 0 && get_CPU_NOT_Z() != 0);
     }
-    /*TODO*///#define CONDITION_NOT_HI (CPU_C != 0 || CPU_NOT_Z == 0)
-
+    
+    public static boolean CONDITION_NOT_HI() {
+        return (get_CPU_C() != 0 || get_CPU_NOT_Z() == 0);
+    }
+    
     public static boolean CONDITION_LS() {
         return (get_CPU_C() != 0 || get_CPU_NOT_Z() == 0);
     }

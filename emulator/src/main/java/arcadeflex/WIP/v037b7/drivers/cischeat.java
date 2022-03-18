@@ -407,7 +407,7 @@ public class cischeat
 		new MemoryWriteAddress( 0x200000, 0x23ffff, MWA_ROM							),	// ROM
 		new MemoryWriteAddress( 0x0c0000, 0x0c3fff, MWA_BANK3							),	// RAM
 		new MemoryWriteAddress( 0x040000, 0x047fff, sharedram1_w						),	// Shared RAM (with Main CPU)
-		new MemoryWriteAddress( 0x080000, 0x0807ff, MWA_BANK4, cischeat_roadram[0]	),	// Road RAM
+		new MemoryWriteAddress( 0x080000, 0x0807ff, MWA_BANK4, cischeat_roadram_0	),	// Road RAM
 		new MemoryWriteAddress( 0x100000, 0x100001, MWA_NOP							),	// watchdog
 		new MemoryWriteAddress( -1 )
 	};
@@ -432,7 +432,7 @@ public class cischeat
 		new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM							),	// ROM
 		new MemoryWriteAddress( 0x180000, 0x183fff, MWA_BANK3							),	// RAM
 		new MemoryWriteAddress( 0x080000, 0x0807ff, sharedram1_w						),	// Shared RAM (with Main CPU)
-		new MemoryWriteAddress( 0x100000, 0x1007ff, MWA_BANK4, cischeat_roadram[0]	),	// Road RAM
+		new MemoryWriteAddress( 0x100000, 0x1007ff, MWA_BANK4, cischeat_roadram_0	),	// Road RAM
 		new MemoryWriteAddress( 0x200000, 0x200001, MWA_NOP							),	// watchdog
 		new MemoryWriteAddress( -1 )
 	};
@@ -463,7 +463,7 @@ public class cischeat
 		new MemoryWriteAddress( 0x200000, 0x23ffff, MWA_ROM							),	// ROM
 		new MemoryWriteAddress( 0x0c0000, 0x0c3fff, MWA_BANK5							),	// RAM
 		new MemoryWriteAddress( 0x040000, 0x047fff, sharedram2_w						),	// Shared RAM (with Main CPU)
-		new MemoryWriteAddress( 0x080000, 0x0807ff, MWA_BANK6, cischeat_roadram[1]	),	// Road RAM
+		new MemoryWriteAddress( 0x080000, 0x0807ff, MWA_BANK6, cischeat_roadram_1	),	// Road RAM
 		new MemoryWriteAddress( 0x100000, 0x100001, MWA_NOP							),	// watchdog
 		new MemoryWriteAddress( -1 )
 	};
@@ -489,7 +489,7 @@ public class cischeat
 		new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM							),	// ROM
 		new MemoryWriteAddress( 0x180000, 0x183fff, MWA_BANK5							),	// RAM
 		new MemoryWriteAddress( 0x080000, 0x0807ff, sharedram2_w						),	// Shared RAM (with Main CPU)
-		new MemoryWriteAddress( 0x100000, 0x1007ff, MWA_BANK6, cischeat_roadram[1]	),	// Road RAM
+		new MemoryWriteAddress( 0x100000, 0x1007ff, MWA_BANK6, cischeat_roadram_1	),	// Road RAM
 		new MemoryWriteAddress( 0x200000, 0x200001, MWA_NOP							),	// watchdog
 		new MemoryWriteAddress( -1 )
 	};

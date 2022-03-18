@@ -109,7 +109,9 @@ public class cischeat
 /*TODO*///	#endif
 	
 	/* Variables that driver has access to: */
-	public static UBytePtr[] cischeat_roadram = new UBytePtr[2];
+	//public static UBytePtr[] cischeat_roadram = new UBytePtr[2];
+        public static UBytePtr cischeat_roadram_0 = new UBytePtr();
+        public static UBytePtr cischeat_roadram_1 = new UBytePtr();
 	
 	/* Variables defined in driver: */
 	
@@ -126,10 +128,7 @@ public class cischeat
 	
 	/* 32 colour codes for the tiles */
 	public static VhStartPtr cischeat_vh_start = new VhStartPtr() { public int handler() 
-	{
-                cischeat_roadram[0]=new UBytePtr(1024 * 1024);
-                cischeat_roadram[1]=new UBytePtr(1024 * 1024);
-                
+	{                
 		if (megasys1_vh_start.handler() == 0)
 		{
 		 	megasys1_bits_per_color_code = 5;
@@ -146,10 +145,7 @@ public class cischeat
 	
 	/* 16 colour codes for the tiles */
 	public static VhStartPtr f1gpstar_vh_start = new VhStartPtr() { public int handler() 
-	{
-                cischeat_roadram[0]=new UBytePtr(1024 * 1024);
-                cischeat_roadram[1]=new UBytePtr(1024 * 1024);
-                
+	{                
 		if (megasys1_vh_start.handler() == 0)
 		{
 		 	megasys1_bits_per_color_code = 4;
@@ -493,7 +489,7 @@ public class cischeat
 		int[] pen_usage		=	Machine.gfx[gfx_num].pen_usage;
 	//	int total_color_codes		=	gfx.total_color_codes;
 		int color_codes_start		=	gfx.color_codes_start;
-		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
+		UBytePtr roadram		= (road_num & 1) ==0 ? new UBytePtr(cischeat_roadram_0) : new UBytePtr(cischeat_roadram_1);//=	/*new UBytePtr*/(cischeat_roadram[road_num & 1]);
                 
 	
 		int min_y = Machine.visible_area. min_y;
@@ -530,13 +526,13 @@ public class cischeat
 	
 	static void cischeat_draw_road(osd_bitmap bitmap, int road_num, int priority1, int priority2, int transparency)
 	{
-	
+	//System.out.println("cischeat_draw_road");
 		int curr_code,sx,sy;
 		int min_priority, max_priority;
 	
-		rectangle rect		=	Machine.visible_area;
-		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
-                roadram.offset=0;
+		rectangle rect		=	new rectangle(Machine.visible_area);
+		UBytePtr roadram		= (road_num & 1) ==0 ? new UBytePtr(cischeat_roadram_0) : new UBytePtr(cischeat_roadram_1);//=	/*new UBytePtr*/(cischeat_roadram[road_num & 1]);
+                //roadram.offset=0;
 		GfxElement gfx		=	Machine.gfx[(road_num & 1)!=0?4:3];
 	
 		int min_y = rect.min_y;
@@ -635,9 +631,9 @@ public class cischeat
 	//	int total_color_codes		=	gfx.total_color_codes;
 		int color_codes_start		=	gfx.color_codes_start;
                     
-		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
+		UBytePtr roadram		= (road_num & 1) ==0 ? new UBytePtr(cischeat_roadram_0) : new UBytePtr(cischeat_roadram_1);
                 
-                roadram.offset=0;
+                //roadram.offset=0;
 	
 		int min_y = Machine.visible_area.min_y;
 		int max_y = Machine.visible_area.max_y;
@@ -677,9 +673,9 @@ public class cischeat
 		int xstart;
 		int min_priority, max_priority;
 	
-		rectangle rect		=	Machine.visible_area;
-		UBytePtr roadram		=	new UBytePtr(cischeat_roadram[road_num & 1]);
-                roadram.offset=0;
+		rectangle rect		=	new rectangle(Machine.visible_area);
+		UBytePtr roadram		=	(road_num & 1) ==0 ? new UBytePtr(cischeat_roadram_0) : new UBytePtr(cischeat_roadram_1);
+                //roadram.offset=0;
 		GfxElement gfx		=	Machine.gfx[(road_num & 1)!=0?4:3];
 	
 		int min_y = rect.min_y;
@@ -1255,14 +1251,14 @@ public class cischeat
 		//MEGASYS1_TMAP_DRAW(0)
                 if ( (megasys1_tmap_0)!=null && (megasys1_active_layers & (1 << 0) )!=0 ) 
                 { 
-                        tilemap_draw(bitmap, megasys1_tmap_0, flag ); 
+                        /*TODO*///tilemap_draw(bitmap, megasys1_tmap_0, flag ); 
                         flag = 0; 
                 }
 	//	else	osd_clearbitmap(Machine.scrbitmap);
 		//MEGASYS1_TMAP_DRAW(1)
                 if ( (megasys1_tmap_1)!=null && (megasys1_active_layers & (1 << 1) )!=0 ) 
                 { 
-                        tilemap_draw(bitmap, megasys1_tmap_1, flag ); 
+                        /*TODO*///tilemap_draw(bitmap, megasys1_tmap_1, flag ); 
                         flag = 0; 
                 }
 	
@@ -1280,7 +1276,7 @@ public class cischeat
 		//MEGASYS1_TMAP_DRAW(2)
                 if ( (megasys1_tmap_2)!=null && (megasys1_active_layers & (1 << 2) )!=0 ) 
                 { 
-                        tilemap_draw(bitmap, megasys1_tmap_2, flag ); 
+                        /*TODO*///tilemap_draw(bitmap, megasys1_tmap_2, flag ); 
                         flag = 0; 
                 }
 		if ((megasys1_active_layers & 0x08) != 0)	cischeat_draw_sprites(bitmap,0,0);

@@ -3,6 +3,7 @@ package gr.codebb.arcadeflex.common.libc;
 import arcadeflex.common.ptrLib.*;
 import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 
 /** @author shadow */
 public class cstring {
@@ -48,6 +49,12 @@ public class cstring {
   public static void memset(char[] dst, int value, int size) {
     for (int mem = 0; mem < size; mem++) {
       dst[mem] = (char) value;
+    }
+  }
+  
+  public static void memset(IntPtr dst, int value, int size) {
+    for (int mem = 0; mem < size; mem++) {
+      dst.write(mem, value);
     }
   }
   
