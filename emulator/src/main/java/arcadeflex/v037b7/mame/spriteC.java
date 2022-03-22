@@ -1,5 +1,6 @@
 package arcadeflex.v037b7.mame;
 
+import static arcadeflex.common.libc.expressions.NOT;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.subArrays.UShortArray;
 import arcadeflex.v037b7.mame.drawgfxH.rectangle;
@@ -69,19 +70,23 @@ public class spriteC {
         mask_buffer_used = 0;
     }
 
-    static void mask_buffer_dispose() {
-	mask_buffer = null;
-	mask_buffer_size = 0;
-    }
-    
+    /*TODO*///static void mask_buffer_dispose( void ){
+/*TODO*///	free( mask_buffer );
+/*TODO*///	mask_buffer = NULL;
+/*TODO*///	mask_buffer_size = 0;
+/*TODO*///}
     static int mask_buffer_alloc(int size) {
         int result = mask_buffer_used;
         int req_size = mask_buffer_used + size;
         if (req_size > mask_buffer_size) {
             mask_buffer = new UBytePtr((int) req_size);//realloc( mask_buffer, req_size );
             mask_buffer_size = (int) req_size;
-            logerror("increased sprite mask buffer size to %d bytes.\n", mask_buffer_size );
-		if( mask_buffer==null ) logerror("Error! insufficient memory for mask_buffer_alloc\n" );
+/*TODO*///            if (errorlog != null) {
+/*TODO*///                fprintf(errorlog, "increased sprite mask buffer size to %d bytes.\n", mask_buffer_size);
+/*TODO*///                if (mask_buffer == null) {
+/*TODO*///                    fprintf(errorlog, "Error! insufficient memory for mask_buffer_alloc\n");
+/*TODO*///                }
+/*TODO*///            }
         }
         mask_buffer_used = (int) req_size;
         memset(mask_buffer, result, 0x00, size);
@@ -1087,19 +1092,19 @@ public class spriteC {
         screen_clip_bottom = bottom;
     }
 
-    public static void sprite_close(){
-	sprite_list sprite_list = first_sprite_list;
-	mask_buffer_dispose();
-
-	while( sprite_list != null ){
-		sprite_list next = sprite_list.next;
-		sprite_list.sprite = null;
-		sprite_list = null;
-		sprite_list = next;
-	}
-	first_sprite_list = null;
-    }
-
+    /*TODO*///void sprite_close( void ){
+/*TODO*///	struct sprite_list *sprite_list = first_sprite_list;
+/*TODO*///	mask_buffer_dispose();
+/*TODO*///
+/*TODO*///	while( sprite_list ){
+/*TODO*///		struct sprite_list *next = sprite_list.next;
+/*TODO*///		free( sprite_list.sprite );
+/*TODO*///		free( sprite_list );
+/*TODO*///		sprite_list = next;
+/*TODO*///	}
+/*TODO*///	first_sprite_list = NULL;
+/*TODO*///}
+/*TODO*///
     public static sprite_list sprite_list_create(int num_sprites, int flags) {
         sprite[] sprite = new sprite[num_sprites];
         for (int i = 0; i < sprite.length; i++) {
@@ -1332,7 +1337,7 @@ public class spriteC {
     public static void sprite_update() {
         sprite_list sprite_list = first_sprite_list;
         mask_buffer_reset();
-        FlickeringInvisible = FlickeringInvisible != 0 ? 0:1;
+        FlickeringInvisible = NOT(FlickeringInvisible);
         while (sprite_list != null) {
             sprite_update_helper(sprite_list);
             sprite_list = sprite_list.next;
@@ -1407,4 +1412,3 @@ public class spriteC {
     }
 
 }
-

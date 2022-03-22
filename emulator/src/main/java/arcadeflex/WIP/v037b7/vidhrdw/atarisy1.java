@@ -15,8 +15,10 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*; 
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import arcadeflex.common.ptrLib.UBytePtr;
+import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays;
 import arcadeflex.common.subArrays.IntSubArray;
+//import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -38,6 +40,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.drawgfx.copyscrollbitmap;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 
 public class atarisy1
 {
@@ -85,10 +88,10 @@ public class atarisy1
 	/* these macros make accessing the indirection table easier, plus this is how the data
 	   is stored for the pfmapped array */
 	static int PACK_LOOKUP_DATA(int bank, int color, int offset, int bpp) {
-			return (((((bpp) - 4) & 7) << 24) | 
+			return ((((((bpp) - 4) & 7) << 24) | 
 			 (((color) & 255) << 16) | 
 			 (((bank) & 15) << 12) | 
-			 (((offset) & 15) << 8));
+			 (((offset) & 15) << 8)) );
         }
 	
         static int LOOKUP_BPP(int data) { return (((data) >> 24) & 7); }
@@ -134,8 +137,8 @@ public class atarisy1
 	static int priority_pens;
 
 	/* indirection tables */
-	static int[] pf_lookup = new int[256];
-	static int[] mo_lookup = new int[256];
+	static int[] pf_lookup = new int[256 * 4];
+	static int[] mo_lookup = new int[256 * 4];
 
 	/* INT3 tracking */
 	static timer_entry[] int3_timer = new timer_entry[YDIM];
@@ -185,9 +188,9 @@ public class atarisy1
 		int i, e;
 	
 		/* first decode the graphics */
-		if (decode_gfx() != 0)
+		if (decode_gfx() == 0)
 			return 1;
-	
+                
 		/* reset the statics */
 		//memset(&pf_state, 0, sizeof(pf_state));
                 pf_state = new atarigen_pf_state();
@@ -208,12 +211,13 @@ public class atarisy1
 					pen_usage[e] = new int[gfx.total_elements * 2];
 					if (pen_usage[e] != null)
 					{
-						UShortArray entry;
+						//int[] entry;
+                                                int _entry=0;
                                                 int x, y;
 	
 						/* scan each entry, marking which pens are used */
 						memset(pen_usage[e], 0, gfx.total_elements * 2);
-						for (i = 0, entry = new UShortArray(pen_usage[e]); i < gfx.total_elements; i++, entry.inc(2))
+						for (i = 0/*, entry = pen_usage[e]*/; i < gfx.total_elements; i++, _entry+=2)
 						{
 							UBytePtr dp = new UBytePtr(gfx.gfxdata, i * gfx.char_modulo);
 							for (y = 0; y < gfx.height; y++)
@@ -221,14 +225,18 @@ public class atarisy1
 								for (x = 0; x < gfx.width; x++)
 								{
 									int color = dp.read(x);
-									entry.write((color >> 5) & 1, entry.read((color >> 5) & 1) | 1 << (color & 31));
+									pen_usage[e][_entry + (color >> 5) & 1] |= 1 << (color & 31);
 								}
 								dp.inc(gfx.line_modulo);
 							}
 						}
+                                                
 					}
+                                        
 				}
+                                Machine.gfx[e].pen_usage = pen_usage[e];
 			}
+                        
 	
 		/* initialize the playfield */
 		if (atarigen_pf_init(pf_desc) != 0)
@@ -530,7 +538,7 @@ public class atarisy1
 	
 		/* render the playfield */
 		memset(atarigen_pf_visit, 0, 64*64);
-		atarigen_pf_process(pf_render_callback, bitmap, Machine.visible_area);
+		atarigen_pf_process(pf_render_callback, bitmap, new rectangle(Machine.visible_area));
 	
 		/* render the motion objects */
 		priority_pens = atarisys1_prioritycolor.READ_WORD(0) & 0xff;
@@ -583,7 +591,7 @@ public class atarisy1
 		memset(new UBytePtr(palette_used_colors, 0x300), PALETTE_COLOR_USED, 16);
 	
 		/* update color usage for the playfield */
-		atarigen_pf_process(pf_color_callback, pfmo_map, Machine.visible_area);
+		atarigen_pf_process(pf_color_callback, pfmo_map, new rectangle(Machine.visible_area));
 	
 		/* update color usage for the mo's */
 		atarigen_mo_process(mo_color_callback, pfmo_map);
@@ -651,9 +659,9 @@ public class atarisy1
 	static atarigen_pf_callback pf_color_callback = new atarigen_pf_callback() {
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
-                //IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
+                IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
                 //lookup_table.offset=state.param[0];
-                int[] lookup_table = pf_lookup;
+                //int[] lookup_table = pf_lookup;
                         
 		int[] colormap = (int[]) param;
 		int x, y;
@@ -664,13 +672,16 @@ public class atarisy1
 			{
 				int offs = y * 64 + x;
 				int data = atarigen_playfieldram.READ_WORD(offs * 2);
-				int lookup = lookup_table[(data >> 8) & 0x7f];
+				int lookup = lookup_table.read(((data >> 8) & 0x7f));
 				int[] usage = pen_usage[LOOKUP_GFX(lookup)];
                                 //usage.offset=0;
 				int bpp = LOOKUP_BPP(lookup);
 				int code = LOOKUP_CODE(lookup) | (data & 0xff);
 				int color = LOOKUP_COLOR(lookup);
+                                
 				int bits;
+                                
+                                //System.out.println(usage[code]);
 	
 				/* based on the depth, we need to tweak our pen mapping */
 				if (bpp == 0)
@@ -695,7 +706,7 @@ public class atarisy1
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
 			}
                 
-                param = colormap;
+                //param = colormap;
             }
         };
         
@@ -711,8 +722,9 @@ public class atarisy1
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 int bank = state.param[0];
 		IntSubArray lookup_table = new IntSubArray(pf_lookup, bank);
+                //int[] lookup_table = pf_lookup;
                 
-                lookup_table.offset=bank;
+                //lookup_table.offset=bank;
                 
 		osd_bitmap bitmap = (osd_bitmap) param;
 		int x, y;
@@ -727,10 +739,12 @@ public class atarisy1
 				if (atarigen_pf_dirty.read(offs) != bank)
 				{
 					int data = atarigen_playfieldram.READ_WORD(offs * 2);
-					int lookup = lookup_table.read((data >> 8) & 0x7f);
+					int lookup = lookup_table.read(((data >> 8) & 0x7f));
 					GfxElement gfx = Machine.gfx[LOOKUP_GFX(lookup)];
 					int code = LOOKUP_CODE(lookup) | (data & 0xff);
 					int color = LOOKUP_COLOR(lookup);
+                                        //if (color==16755319)
+                                        //    System.out.println("Encontrado color!");
 					int hflip = data & 0x8000;
 	
 					drawgfx(atarigen_pf_bitmap, gfx, code, color, hflip, 0, 8 * x, 8 * y, null, TRANSPARENCY_NONE, 0);
@@ -759,7 +773,7 @@ public class atarisy1
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
-                lookup_table.offset=state.param[0];
+                //lookup_table.offset=state.param[0];
 		pf_overrender_data overrender_data = (pf_overrender_data) param;
 		osd_bitmap bitmap = overrender_data.bitmap;
 		int type = overrender_data.type;
@@ -775,7 +789,7 @@ public class atarisy1
 			{
 				int offs = y * 64 + x;
 				int data = atarigen_playfieldram.READ_WORD(offs * 2);
-				int lookup = lookup_table.read((data >> 8) & 0x7f);
+				int lookup = lookup_table.read(((data >> 8) & 0x7f));
 				GfxElement gfx = Machine.gfx[LOOKUP_GFX(lookup)];
 				int code = LOOKUP_CODE(lookup) | (data & 0xff);
 				int color = LOOKUP_COLOR(lookup);
@@ -823,13 +837,18 @@ public class atarisy1
 	
 		if (bpp == 0)
 		{
-			for (i = 0; i < vsize; i++)
+			for (i = 0; i < vsize; i++){
+                            //try{
 				temp |= usage[code++];
+                            /*} catch (Exception e){
+                                System.out.println(i);
+                            }*/
+                        }
 			colormap[color] |= temp;
 		}
 	
 		/* in theory we should support all 3 possible depths, but motion objects are all 4bpp */
-                param = colormap;
+                //param = colormap;
             }
         };
         
@@ -917,22 +936,21 @@ public class atarisy1
 	 *	Graphics decoding
 	 *
 	 *************************************/
-	
-	static int decode_gfx()
+        static int decode_gfx()
 	{
 		UBytePtr prom1 = new UBytePtr(memory_region(REGION_PROMS), 0x000);
 		UBytePtr prom2 = new UBytePtr(memory_region(REGION_PROMS), 0x200);
 		int obj, i;
 	
 		/* reset the globals */
-//		memset(&bank_gfx, 0, sizeof(bank_gfx));
+		//memset(&bank_gfx, 0, sizeof(bank_gfx));
                 bank_gfx = new int[3][8];
 	
 		/* loop for two sets of objects */
 		for (obj = 0; obj < 2; obj++)
 		{
 			int[] table = (obj == 0) ? pf_lookup : mo_lookup;
-                        int _table=0;
+                        int _pTable = 0;
 	
 			/* loop for 256 objects in the set */
 			for (i = 0; i < 256; i++, prom1.inc(), prom2.inc())
@@ -960,26 +978,29 @@ public class atarisy1
 				/* determine the bank */
 				bank = get_bank(prom1.read(), prom2.read(), bpp);
 				if (bank < 0)
-					return 1;
+					return 0;
 	
 				/* set the value */
-				if (bank == 0){
-					table[_table++]=0;
-                                        
-                                } else {
-					table[_table++]=(PACK_LOOKUP_DATA(bank, color, offset, bpp));
-                                        
-                                }
+				if (bank == 0)
+					table[_pTable++] = 0;
+				else
+					table[_pTable++] = PACK_LOOKUP_DATA(bank, color, offset, bpp); //((((bpp) - 4) & 7) << 24) |offset | (bank << 8) | (color << 12);
 			}
                         
-                        /*if (obj == 0)
-                            pf_lookup=new IntSubArray(table);
-                        else
-                            mo_lookup=table;*/
+                       if (obj == 0) {
+                           pf_lookup = table;
+                           
+                           //for (int _i=0 ; _i<256 ; _i++)
+                           //    System.out.println(_i+"="+gfx.pen_usage[pf_lookup[_i]]);
+                           
+                       } else {
+                           //System.out.println("==========================");
+                           mo_lookup = table;
+                           //for (int _i=0 ; _i<256 ; _i++)
+                           // System.out.println(_i+"="+mo_lookup[_i]);
+                       }
 		}
-                
-                
-		return 0;
+		return 1;
 	}
 	
 	
@@ -989,7 +1010,8 @@ public class atarisy1
 	 *	Graphics bank mapping
 	 *
 	 *************************************/
-	
+        
+        
 	static int get_bank(int prom1, int prom2, int bpp)
 	{
 		int bank_offset[] = { 0, 0x00000, 0x30000, 0x60000, 0x90000, 0xc0000, 0xe0000, 0x100000 };
@@ -1046,7 +1068,10 @@ public class atarisy1
 		Machine.gfx[gfx_index].total_colors = 48 >> (bpp - 4);
 	
 		/* set the entry and return it */
-		return bank_gfx[bpp - 4][bank_index] = gfx_index;
+                bank_gfx[bpp - 4][bank_index] = gfx_index;
+                
+		return gfx_index;
+	
 	}
         
 }

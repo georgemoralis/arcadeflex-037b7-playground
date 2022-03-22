@@ -206,7 +206,12 @@ public class gauntlet
 	{
             //System.out.println(scanline);
             //atarigen_alpharam.offset=0;
-		atarigen_mo_update_slip_512(new UBytePtr(atarigen_spriteram), pf_state.vscroll, scanline, new UBytePtr(atarigen_alpharam, 0xf80));
+            //System.out.println(atarigen_alpharam.memory.length);
+            //System.out.println("Scanline="+scanline);
+            UBytePtr _alphram = new UBytePtr(atarigen_alpharam, 0xf80);
+            _alphram.offset=0xf80;
+            
+            atarigen_mo_update_slip_512(atarigen_spriteram, pf_state.vscroll, scanline, _alphram);
 	}
 	
 	
@@ -360,6 +365,7 @@ public class gauntlet
 				/* also mark unvisited tiles dirty */
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
 			}
+                param = colormap;
             }
         };
         
@@ -469,6 +475,8 @@ public class gauntlet
 		for (i = 0; i < tiles; i++)
 			temp |= usage[code++];
 		colormap[color] |= temp;
+                
+                param = colormap;
             }
         };
         	

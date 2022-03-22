@@ -679,26 +679,19 @@ public class system16
 	
 	/***************************************************************************/
 	
-	static void get_sprite_info(){
+	static void get_sprite_info(  ){
+	//	const struct rectangle *clip = &Machine.drv.visible_area;
 		UShortArray base_pal = new UShortArray(Machine.gfx[0].colortable, 1024);
 		UBytePtr base_gfx = new UBytePtr(memory_region(REGION_GFX2));
 	
 		UShortPtr source = new UShortPtr(sys16_spriteram);
 		sprite sprite[] = sprite_list.sprite;
-		int sprite_ptr=0;
+                int sprite_ptr=0;
 		int finish = sprite_ptr + NUM_SPRITES;//const struct sprite *finish = sprite + NUM_SPRITES;
 	
 		int passshot_y=0;
 		int passshot_width=0;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///		int dump_spritedata=0;
-/*TODO*///		if(keyboard_pressed_memory(KEYCODE_W))
-/*TODO*///		{
-/*TODO*///			dump_spritedata=1;
-/*TODO*///			logerror("sprites\n");
-/*TODO*///		}
-/*TODO*///	#endif
+
 		switch( sys16_spritesystem  ){
 			case 1: /* standard sprite hardware (Shinobi, Altered Beast, Golden Axe, ...) */
 	/*
@@ -712,8 +705,8 @@ public class system16
 		7	?						"sprite offset"
 	*/
 			while( sprite_ptr<finish ){
-				int ypos = source.read(0);
-				int width = source.read(2);
+				char ypos = source.read(0);
+				char width = source.read(2);
 				int top = ypos&0xff;
 				int bottom = ypos>>8;
 	
@@ -728,15 +721,10 @@ public class system16
 	
 				if(bottom !=0 && bottom > top)
 				{
-					int attributes = source.read(4);
-					int zoomx = source.read(5)&0x3ff;
-					int zoomy = (source.read(6)&0x3ff);
+					char attributes = source.read(4);
+					char zoomx = (char)(source.read(5)&0x3ff);
+					char zoomy = (char)((source.read(6)&0x3ff));
 					int gfx = source.read(3)*4;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
 	
 					if( zoomy==0 || source.read(6)==0xffff ) zoomy = zoomx; /* if zoomy is 0, use zoomx instead */
 	
@@ -754,12 +742,10 @@ public class system16
 					if ((width & 0x100) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPX;
 					if ((width & 0x080) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPY;
 	
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 					if ((attributes&0x3f)==0x3f)	// shadow sprite
 						sprite[sprite_ptr].flags|= SPRITE_SHADOW;
-/*TODO*///	#endif
-	
-					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
+						
+					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY )!=0){
 						sprite[sprite_ptr].line_offset = 512-sprite[sprite_ptr].line_offset;
 						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
 							gfx += 4 - sprite[sprite_ptr].line_offset*(sprite[sprite_ptr].tile_height+1);
@@ -779,12 +765,12 @@ public class system16
 	
 					sprite[sprite_ptr].tile_width = sprite[sprite_ptr].line_offset;
 					sprite[sprite_ptr].total_width = sprite[sprite_ptr].tile_width*(0x800-zoomx)/0x800;
-					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx, (gfx &0x3ffff) + (sys16_obj_bank[(attributes>>8)&0xf] << 17));
+					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx , (gfx &0x3ffff) + (sys16_obj_bank[(attributes>>8)&0xf] << 17));
 	
 				}
 	
 				sprite_ptr++;
-				source.inc(8);
+				source.offset += 8*2;
 			}
 			break;
 	
@@ -816,10 +802,6 @@ public class system16
 					int zoom = source.read(4)&0x3ff;
 					int xpos = source.read(0) + sys16_sprxoffset;
 	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
 					sprite[sprite_ptr].priority = 3-((attributes>>14)&0x3);
 					if (passshot_width != 0) /* 4 player bootleg version */
 					{
@@ -834,19 +816,18 @@ public class system16
 					sprite[sprite_ptr].total_height = bottom - top;
 					sprite[sprite_ptr].tile_height = sprite[sprite_ptr].total_height*(0x400+zoom)/0x400;
 	
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 					if (((attributes>>8)&0x3f)==0x3f)	// shadow sprite
 						sprite[sprite_ptr].flags|= SPRITE_SHADOW;
-/*TODO*///	#endif
+						
 					width &= 0x7f;
 	
-					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0) width = 0x80-width;
+					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY )!=0) width = 0x80-width;
 	
 					sprite[sprite_ptr].tile_width = sprite[sprite_ptr].line_offset = width*4;
 	
-					if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
+					if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
 						bank = (bank-1) & 0xf;
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPY )!=0){
 							xpos += 4;
 						}
 						else {
@@ -855,28 +836,28 @@ public class system16
 					}
 					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx, number*4 + (sys16_obj_bank[bank] << 17));
 	
-					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
+					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY )!=0){
 						sprite[sprite_ptr].pen_data.offset -= sprite[sprite_ptr].tile_height*sprite[sprite_ptr].tile_width;
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0) sprite[sprite_ptr].pen_data.inc(2);
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0) sprite[sprite_ptr].pen_data.inc( 2 );
 					}
 	
 					sprite[sprite_ptr].x = xpos;
 					sprite[sprite_ptr].y = top+2;
 	
-					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
+					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY )!=0){
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
 							sprite[sprite_ptr].tile_width-=4;
 							sprite[sprite_ptr].pen_data.inc(4);
 						}
 						else {
-							sprite[sprite_ptr].pen_data.inc(sprite[sprite_ptr].line_offset);
+							sprite[sprite_ptr].pen_data.inc( sprite[sprite_ptr].line_offset );
 						}
 					}
 	
 					sprite[sprite_ptr].total_width = sprite[sprite_ptr].tile_width*(0x800-zoom)/0x800;
 				}
 				sprite_ptr++;
-				source.inc(8);
+				source.inc( 8 );
 			}
 			break;
 	
@@ -906,21 +887,12 @@ public class system16
 					break;
 				}
 				sprite[sprite_ptr].flags = 0;
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 				if(bottom !=0 && bottom > top)
-/*TODO*///	#else
-/*TODO*///				if(bottom !=0 && bottom > top && (attributes&0x3f) !=0x3f)
-/*TODO*///	#endif
 				{
 					int zoomx = source.read(5)&0x3ff;
 					int zoomy = (source.read(6)&0x3ff);
 					int gfx = source.read(3)*4;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
-	
+		
 					if( zoomy==0 ) zoomy = zoomx; /* if zoomy is 0, use zoomx instead */
 					sprite[sprite_ptr].pal_data = new UShortArray(base_pal, ((attributes&0x3f)<<4));
 	
@@ -936,11 +908,10 @@ public class system16
 					sprite[sprite_ptr].flags = SPRITE_VISIBLE;
 					if ((width & 0x100) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPX;
 					if ((width & 0x080) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPY;
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
+
 					if ((attributes&0x3f)==0x3f)	// shadow sprite
 						sprite[sprite_ptr].flags|= SPRITE_SHADOW;
-/*TODO*///	#endif
-	
+
 					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
 						sprite[sprite_ptr].line_offset = 512-sprite[sprite_ptr].line_offset;
 						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
@@ -965,7 +936,7 @@ public class system16
 	
 				}
 				sprite_ptr++;
-				source.inc(8);
+				source.inc( 8 );
 			}
 			break;
 			case 3:	// Fantzone
@@ -985,16 +956,8 @@ public class system16
 							break;
 						}
 						sprite[sprite_ptr].flags = 0;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///						if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///								source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
+
 						if(bottom !=0 && bottom > top)
-/*TODO*///	#else
-/*TODO*///						if(bottom !=0 && bottom > top && pal !=0x3f)
-/*TODO*///	#endif
 						{
 							int spr_pri=(source.read(4))&0xf;
 							int bank=(source.read(4)>>4) &0xf;
@@ -1040,10 +1003,9 @@ public class system16
 							sprite[sprite_ptr].flags = SPRITE_VISIBLE;
 							if ((width & 0x100) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPX;
 							if ((width & 0x080) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPY;
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
+
 							if (pal==0x3f)	// shadow sprite
 								sprite[sprite_ptr].flags|= SPRITE_SHADOW;
-/*TODO*///	#endif
 	
 							if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
 								sprite[sprite_ptr].line_offset = 512-sprite[sprite_ptr].line_offset;
@@ -1055,7 +1017,7 @@ public class system16
 								}
 							}
 							else {
-								if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
+								if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
 									gfx += 4;
 								}
 								else {
@@ -1070,7 +1032,7 @@ public class system16
 	
 						}
 	
-						source.inc(8);
+						source.inc( 8 );
 						sprite_ptr++;
 						spr_no++;
 					}
@@ -1078,7 +1040,7 @@ public class system16
 				break;
 			case 2: // Quartet2 /Alexkidd + others
 			while( sprite_ptr<finish ){
-				int ypos = source.read(0);
+				char ypos = source.read(0);
 				int top = ypos&0xff;
 				int bottom = ypos>>8;
 	
@@ -1093,33 +1055,24 @@ public class system16
 	
 				if(bottom !=0 && bottom > top)
 				{
-					int spr_pri=(source.read(4))&0xf;
-					int bank=(source.read(4)>>4) &0xf;
-					int pal=(source.read(4)>>8)&0x3f;
-					int[] tsource = new int[4];
-					int width;
+					char spr_pri=(char)((source.read(4))&0xf);
+					char bank=(char)((source.read(4)>>4) &0xf);
+					char pal=(char)((source.read(4)>>8)&0x3f);
+					char[] tsource=new char[4];
+					char width;
 					int gfx;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
 	
 					tsource[2]=source.read(2);
 					tsource[3]=source.read(3);
-/*TODO*///	#ifndef TRANSPARENT_SHADOWS
-/*TODO*///					if (pal==0x3f)	// shadow sprite
-/*TODO*///						pal=(bank<<1);
-/*TODO*///	#endif
 	
 					if((tsource[3] & 0x7f80) == 0x7f80)
 					{
-						bank=(bank-1)&0xf;
+						bank=(char)((bank-1)&0xf);
 						tsource[3]^=0x8000;
 					}
 	
 					tsource[2] &= 0x00ff;
-					if ((tsource[3]&0x8000) != 0)
+					if ((tsource[3]&0x8000)!=0)
 					{ // reverse
 						tsource[2] |= 0x0100;
 						tsource[3] &= 0x7fff;
@@ -1134,7 +1087,7 @@ public class system16
 					if(sprite[sprite_ptr].x > 0x140) sprite[sprite_ptr].x-=0x200;
 					sprite[sprite_ptr].y = top;
 					sprite[sprite_ptr].priority = 3 - spr_pri;
-					sprite[sprite_ptr].pal_data = new UShortArray(base_pal, (pal<<4));
+					sprite[sprite_ptr].pal_data = new UShortArray(base_pal , (pal<<4));
 	
 					sprite[sprite_ptr].total_height = bottom-top;
 					sprite[sprite_ptr].tile_height = sprite[sprite_ptr].total_height;
@@ -1144,14 +1097,13 @@ public class system16
 					sprite[sprite_ptr].flags = SPRITE_VISIBLE;
 					if ((width & 0x100) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPX;
 					if ((width & 0x080) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPY;
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
+
 					if (pal==0x3f)	// shadow sprite
 						sprite[sprite_ptr].flags|= SPRITE_SHADOW;
-/*TODO*///	#endif
-	
-					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
+
+					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY )!=0){
 						sprite[sprite_ptr].line_offset = 512-sprite[sprite_ptr].line_offset;
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
 							gfx += 4 - sprite[sprite_ptr].line_offset*(sprite[sprite_ptr].tile_height+1);
 						}
 						else {
@@ -1159,7 +1111,7 @@ public class system16
 						}
 					}
 					else {
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
 							gfx += 4;
 						}
 						else {
@@ -1169,10 +1121,10 @@ public class system16
 	
 					sprite[sprite_ptr].tile_width = sprite[sprite_ptr].line_offset;
 					sprite[sprite_ptr].total_width = sprite[sprite_ptr].tile_width;
-					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx, (gfx &0x3ffff) + (sys16_obj_bank[bank] << 17));
+					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx , (gfx &0x3ffff) + (sys16_obj_bank[bank] << 17));
 				}
 	
-				source.inc(8);
+				source.offset+=8*2;
 				sprite_ptr++;
 			}
 			break;
@@ -1195,15 +1147,10 @@ public class system16
 				{
 					int bank=(source.read(1)>>12);
 					int pal=(source.read(4)>>8)&0x3f;
-					int[] tsource = new int[4];
+					int[] tsource=new int[4];
 					int width;
 					int gfx;
 					int zoomx,zoomy;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
 	
 					tsource[2]=source.read(2);
 					tsource[3]=source.read(3);
@@ -1272,7 +1219,7 @@ public class system16
 	
 				}
 	
-				source.inc(8);
+				source.inc( 8 );
 				sprite_ptr++;
 			}
 			break;
@@ -1295,26 +1242,16 @@ public class system16
 				{
 					int bank=(source.read(1)>>12);
 					int pal=(source.read(2)>>8)&0x3f;
-					int[] tsource = new int[4];
+					int[] tsource=new int[4];
 					int width;
 					int gfx;
 					int zoomx,zoomy;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
 	
 					tsource[2]=source.read(2)&0xff;
 					tsource[3]=source.read(3);
 	
 					zoomx=(source.read(4) & 0x3f) *(1024/64);
 			        zoomy = (1024*zoomx)/(2048-zoomx);
-	
-/*TODO*///	#ifndef TRANSPARENT_SHADOWS
-/*TODO*///					if (pal==0x3f)	// shadow sprite
-/*TODO*///						pal=(bank<<1);
-/*TODO*///	#endif
 	
 					if((tsource[3] & 0x7f80) == 0x7f80)
 					{
@@ -1347,13 +1284,12 @@ public class system16
 					if ((width & 0x100) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPX;
 					if ((width & 0x080) != 0) sprite[sprite_ptr].flags |= SPRITE_FLIPY;
 	
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 					if (sys16_sh_shadowpal == 0)		// space harrier
 					{
 						if (pal==sys16_sh_shadowpal)	// shadow sprite
 							sprite[sprite_ptr].flags|= SPRITE_SHADOW;
 						// I think this looks better, but I'm sure it's wrong.
-	//					else if(READ_WORD(&paletteram.read(2048+pal*2+20)) == 0)
+	//					else if(READ_WORD(&paletteram[2048+pal*2+20]) == 0)
 	//					{
 	//						sprite.flags|= SPRITE_PARTIAL_SHADOW;
 	//						sprite.shadow_pen=10;
@@ -1364,10 +1300,9 @@ public class system16
 						sprite[sprite_ptr].flags|= SPRITE_PARTIAL_SHADOW;
 						sprite[sprite_ptr].shadow_pen=10;
 					}
-/*TODO*///	#endif
 					if(( sprite[sprite_ptr].flags&SPRITE_FLIPY ) != 0){
 						sprite[sprite_ptr].line_offset = 512-sprite[sprite_ptr].line_offset;
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
 							gfx += 4 - sprite[sprite_ptr].line_offset*(sprite[sprite_ptr].tile_height+1) /*+4*/;
 						}
 						else {
@@ -1375,7 +1310,7 @@ public class system16
 						}
 					}
 					else {
-						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX )!=0){
+						if(( sprite[sprite_ptr].flags&SPRITE_FLIPX ) != 0){
 							gfx += 4 /*+ 4*/;		// +2 ???
 						}
 						else {
@@ -1388,66 +1323,9 @@ public class system16
 					sprite[sprite_ptr].total_width = sprite[sprite_ptr].tile_width*(0x0800 - zoomx)/0x800;
 	
 					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx, (((gfx &0x3ffff) + (sys16_obj_bank[bank] << 17)) << 1));
-	
-	
-/*TODO*///	#ifdef SPACEHARRIER_OFFSETS
-/*TODO*///	// doesn't seem to work properly and I'm not sure why it's needed.
-/*TODO*///					if( !(width & 0x180) && (width & 0x7f))
-/*TODO*///					{
-/*TODO*///						unsigned addr=tsource[3];
-/*TODO*///						unsigned offset_addr= (bank<<12) | (addr>>4);
-/*TODO*///						char rebuild = 0;
-/*TODO*///	
-/*TODO*///						if (spaceharrier_patternoffsets[offset_addr]!=0x7f)
-/*TODO*///						{
-/*TODO*///							offset = spaceharrier_patternoffsets[offset_addr];
-/*TODO*///						}
-/*TODO*///						else
-/*TODO*///						{ // build pattern offset
-/*TODO*///							unsigned width2=width&0x7f;
-/*TODO*///							UINT8 *p,*p0;
-/*TODO*///							unsigned height=sprite.tile_height;
-/*TODO*///							unsigned width_bytes;
-/*TODO*///							int len_pattern;
-/*TODO*///							int i,j;
-/*TODO*///	
-/*TODO*///							len_pattern = height*width2;
-/*TODO*///							if (len_pattern >= 16)
-/*TODO*///							{
-/*TODO*///	
-/*TODO*///								len_pattern >>= 4;
-/*TODO*///	
-/*TODO*///								// 32 bit sprite hardware ///////////////////////////////////////////
-/*TODO*///								width_bytes = width2<<3;
-/*TODO*///								p0 = (UINT8 *)sprite.pen_data;
-/*TODO*///								/////////////////////////////////////////////////////////////////////
-/*TODO*///	
-/*TODO*///								offset=0xe;
-/*TODO*///								for (i=0, p=p0; i<height; i++, p+=width_bytes)
-/*TODO*///								{
-/*TODO*///									for (j=0; j<width_bytes && j<offset; j++)
-/*TODO*///									{
-/*TODO*///										if ((p[j]!=0xff && p[j]!=0x00) /*|| (p[j+1]!=0xff && p[j+1]!=0x00 )*/) break;
-/*TODO*///									}
-/*TODO*///									if (j<offset) offset = j;
-/*TODO*///								}
-/*TODO*///	
-/*TODO*///								//              printf("rebuild %02x:%04x = %d\n", bank, addr, offset);
-/*TODO*///	
-/*TODO*///								p=&spaceharrier_patternoffsets[offset_addr];
-/*TODO*///	
-/*TODO*///								offset/=2;
-/*TODO*///								for (i=0; i<len_pattern; i++,p++) *p = offset;
-/*TODO*///	
-/*TODO*///							    logerror("addr=%04x offset=%4x bank=%02x offset=%d height=%d zoomy=%04x len_pattern=%d width=%d offset_addr=%04x\n", addr, offset, bank, offset, height, zoomy,  len_pattern, width2, offset_addr);
-/*TODO*///							}
-/*TODO*///						}
-/*TODO*///					}
-/*TODO*///					sprite.pen_data += offset*2;
-/*TODO*///	#endif
 				}
 	
-				source.inc(8);
+				source.inc( 8 );
 				sprite_ptr++;
 			}
 			break;
@@ -1471,11 +1349,6 @@ public class system16
 					int gfx;
 					int zoom;
 					int x;
-	
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
-/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
-/*TODO*///	#endif
 	
 					zoom=source.read(4)&0xfff;
 	//				if (zoom==0x32c) zoom=0x3cf;	//???
@@ -1503,7 +1376,6 @@ public class system16
 					sprite[sprite_ptr].line_offset = (width&0x7f)*4;
 	
 					sprite[sprite_ptr].flags = SPRITE_VISIBLE;
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 					if(pal==0)
 						sprite[sprite_ptr].flags|= SPRITE_SHADOW;
 					else if((source.read(3)&0x4000) != 0)
@@ -1512,7 +1384,6 @@ public class system16
 						sprite[sprite_ptr].flags|= SPRITE_PARTIAL_SHADOW;
 						sprite[sprite_ptr].shadow_pen=10;
 					}
-/*TODO*///	#endif
 					if((source.read(4)&0x2000)==0)
 					{
 						if((source.read(4)&0x4000)==0)
@@ -1583,21 +1454,20 @@ public class system16
 					sprite[sprite_ptr].total_width = sprite[sprite_ptr].tile_width*0x200/zoom;
 					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx, (((gfx &0x3ffff) + (sys16_obj_bank[bank] << 17)) << 1));
 				}
-				source.inc(8);
+				source.inc( 8 );
 				sprite_ptr++;
 			}
 			break;
 		}
 	}
-	
 	/***************************************************************************/
 	
 	static void mark_sprite_colors(){
 		UShortPtr source = new UShortPtr(sys16_spriteram);
-		UShortPtr finish = new UShortPtr(source, NUM_SPRITES*8);
+		UShortPtr finish = new UShortPtr(source,NUM_SPRITES*8);
 		int pal_start=1024,pal_size=64;
 	
-		char[] used = new char[128];
+		char[] used=new char[128];
 		memset( used, 0, 128 );
 	
 		switch( sys16_spritesystem ){
@@ -1605,14 +1475,14 @@ public class system16
 				do{
 					if( source.read(0)>>8 == 0xff || source.read(2) == sys16_spritelist_end) break;
 					used[source.read(4)&0x3f] = 1;
-					source.inc(8);
+					source.offset+=8*2;
 				}while( source.offset<finish.offset );
 				break;
 			case 4: /* Aurail */
 				do{
 					if( (source.read(2)) == sys16_spritelist_end) break;
 					used[source.read(4)&0x3f] = 1;
-					source.inc(8);
+					source.offset+=8;
 				}while( source.offset<finish.offset );
 				break;
 	
@@ -1622,21 +1492,21 @@ public class system16
 				do{
 					if( (source.read(0)>>8) == 0xff ) break;;
 					used[(source.read(4)>>8)&0x3f] = 1;
-					source.inc(8);
+					source.offset+=8;
 				}while( source.offset<finish.offset );
 				break;
 			case 6:	/* Space Harrier */
 				do{
 					if( (source.read(0)>>8) == 0xff ) break;;
 					used[(source.read(2)>>8)&0x3f] = 1;
-					source.inc(8);
+					source.offset+=8;
 				}while( source.offset<finish.offset );
 				break;
 			case 7:	/* Out Run */
 				do{
 					if( (source.read(0)) == 0xffff ) break;;
 					used[(source.read(5))&0x7f] = 1;
-					source.inc(8);
+					source.offset+=8;
 				}while( source.offset<finish.offset );
 				pal_start=2048;
 				pal_size=128;
@@ -1645,39 +1515,37 @@ public class system16
 			case 8: /* passing shot 4p */
 				do{
 					if( source.read(1)!=0xffff ) used[(source.read(5)>>8)&0x3f] = 1;
-					source.inc(8);
+					source.offset+=8;
 				}while( source.offset<finish.offset );
 				break;
 		}
 	
 		{
-			UBytePtr pal = new UBytePtr(palette_used_colors, pal_start);
+			UBytePtr pal = new UBytePtr(palette_used_colors,pal_start);
 			int i;
 			for (i = 0; i < pal_size; i++){
-				if ( used[i] != 0 ){					
-                                        pal.write(0,  PALETTE_COLOR_UNUSED);
+				if ( used[i]!=0 ){
+					pal.write(0,  PALETTE_COLOR_UNUSED);
 					memset( pal,1,PALETTE_COLOR_USED,14 );
 					pal.write(15, PALETTE_COLOR_UNUSED);
 				}
 				else {
 					memset( pal, PALETTE_COLOR_UNUSED, 16 );
 				}
-				pal.inc(16);
+				pal.offset += 16;
 			}
 		}
-/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 		if (Machine.scrbitmap.depth == 8) /* 8 bit shadows */
 		{
 			memset(palette_used_colors,Machine.drv.total_colors/2, PALETTE_COLOR_USED, sys16_MaxShadowColors);
 		}
-		else if(sys16_MaxShadowColors != 0) /* 16 bit shadows */
-		{
-			/* Mark the shadowed versions of the used pens */
-			memcpy(palette_used_colors,Machine.drv.total_colors/2, palette_used_colors, 0, Machine.drv.total_colors/2);
-		}
-/*TODO*///	#endif
+/*TODO*///		else if(sys16_MaxShadowColors != 0) /* 16 bit shadows */
+/*TODO*///		{
+/*TODO*///			/* Mark the shadowed versions of the used pens */
+/*TODO*///			memcpy(&palette_used_colors[Machine.drv.total_colors/2], &palette_used_colors[0], Machine.drv.total_colors/2);
+/*TODO*///		}
 	}
-	
+        
 /*TODO*///	#ifdef TRANSPARENT_SHADOWS
 	static void build_shadow_table()
 	{
@@ -1689,7 +1557,10 @@ public class system16
 			if(sys16_MaxShadowColors == 0) return;
 			for (i = 0; i < 256; i++)
 			{
-				char[] r=new char[1], g=new char[1], b=new char[1];
+				//unsigned char r, g, b;
+                                char[] r= new char[1];
+                                char[] g= new char[1];
+                                char[] b= new char[1];
 				int y;
 				osd_get_pen(i, r, g, b);
 				y = (r[0] * 10 + g[0] * 18 + b[0] * 4) >> sys16_MaxShadowColors_Shift;
@@ -1700,226 +1571,241 @@ public class system16
 				shade_table[Machine.pens[color_start + i]]=Machine.pens[color_start + i];
 			}
 		}
-		else
-		{
-			if(sys16_MaxShadowColors != 0)
-			{
-				size=Machine.drv.total_colors/2;
-				for(i=0;i<size;i++)
-				{
-					shade_table[Machine.pens[i]]=Machine.pens[size + i];
-					shade_table[Machine.pens[size+i]]=Machine.pens[size + i];
-				}
-			}
-			else
-			{
-				size=Machine.drv.total_colors;
-				for(i=0;i<size;i++)
-				{
-					shade_table[Machine.pens[i]]=Machine.pens[i];
-				}
-			}
-		}
+/*TODO*///		else
+/*TODO*///		{
+/*TODO*///			if(sys16_MaxShadowColors != 0)
+/*TODO*///			{
+/*TODO*///				size=Machine.drv.total_colors/2;
+/*TODO*///				for(i=0;i<size;i++)
+/*TODO*///				{
+/*TODO*///					shade_table[Machine.pens[i]]=Machine.pens[size + i];
+/*TODO*///					shade_table[Machine.pens[size+i]]=Machine.pens[size + i];
+/*TODO*///				}
+/*TODO*///			}
+/*TODO*///			else
+/*TODO*///			{
+/*TODO*///				size=Machine.drv.total_colors;
+/*TODO*///				for(i=0;i<size;i++)
+/*TODO*///				{
+/*TODO*///					shade_table[Machine.pens[i]]=Machine.pens[i];
+/*TODO*///				}
+/*TODO*///			}
+/*TODO*///		}
 	}
-/*TODO*///	#else
-/*TODO*///	#define build_shadow_table()
-/*TODO*///	#endif
 	
 	public static VhUpdatePtr sys16_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) {
-		if (sys16_refreshenable==0) return;
-	
 		if (sys16_update_proc != null) sys16_update_proc.handler();
 		update_page();
 	
-		if (sys18_splittab_bg_x != null)
-		{
-			if((sys16_bg_scrollx&0xff00)  != sys16_rowscroll_scroll)
+	
+		// from sys16 emu (Not sure if this is the best place for this?)
+		/*{
+			if (sys16_refreshenable==0)
 			{
-				tilemap_set_scroll_rows( background , 1 );
+				freeze_counter_sys16=4;
+				sys16_freezepalette=1;
+			}
+			if (freeze_counter_sys16 != 0)
+			{
+				if (sys16_clear_screen != 0)
+					fillbitmap(bitmap,palette_transparent_color,Machine.drv.visible_area);
+				freeze_counter_sys16--;
+				return;
+			}
+			else if (sys16_freezepalette != 0)
+			{
+				sys16_refresh_palette();
+				sys16_freezepalette=0;
+			}
+		}*/
+	
+		if (sys16_refreshenable != 0){
+	
+			if (sys18_splittab_bg_x != null)
+			{
+				if((sys16_bg_scrollx&0xff00)  != sys16_rowscroll_scroll)
+				{
+					tilemap_set_scroll_rows( background , 1 );
+					tilemap_set_scrollx( background, 0, -320-sys16_bg_scrollx+sys16_bgxoffset );
+				}
+				else
+				{
+					int offset, scroll,i;
+	
+					tilemap_set_scroll_rows( background , 64 );
+					offset = 32+((sys16_bg_scrolly&0x1f8) >> 3);
+	
+					for(i=0;i<29;i++)
+					{
+						scroll = sys18_splittab_bg_x.READ_WORD(i*2);
+						tilemap_set_scrollx( background , (i+offset)&0x3f, -320-(scroll&0x3ff)+sys16_bgxoffset );
+					}
+				}
+			}
+			else
+			{
 				tilemap_set_scrollx( background, 0, -320-sys16_bg_scrollx+sys16_bgxoffset );
 			}
-			else
+	
+			if (sys18_splittab_bg_y != null)
 			{
-				int offset, scroll,i;
-	
-				tilemap_set_scroll_rows( background , 64 );
-				offset = 32+((sys16_bg_scrolly&0x1f8) >> 3);
-	
-				for(i=0;i<29;i++)
+				if((sys16_bg_scrolly&0xff00)  != sys16_rowscroll_scroll)
 				{
-					scroll = sys18_splittab_bg_x.READ_WORD(i*2);
-					tilemap_set_scrollx( background , (i+offset)&0x3f, -320-(scroll&0x3ff)+sys16_bgxoffset );
+					tilemap_set_scroll_cols( background , 1 );
+					tilemap_set_scrolly( background, 0, -256+sys16_bg_scrolly );
+				}
+				else
+				{
+					int offset, scroll,i;
+	
+					tilemap_set_scroll_cols( background , 128 );
+					offset = 127-((sys16_bg_scrollx&0x3f8) >> 3)-40+2;
+	
+					for(i=0;i<41;i++)
+					{
+						scroll = sys18_splittab_bg_y.READ_WORD((i+24)&0xfffe);
+						tilemap_set_scrolly( background , (i+offset)&0x7f, -256+(scroll&0x3ff) );
+					}
 				}
 			}
-		}
-		else
-		{
-			tilemap_set_scrollx( background, 0, -320-sys16_bg_scrollx+sys16_bgxoffset );
-		}
-	
-		if (sys18_splittab_bg_y != null)
-		{
-			if((sys16_bg_scrolly&0xff00)  != sys16_rowscroll_scroll)
+			else
 			{
-				tilemap_set_scroll_cols( background , 1 );
 				tilemap_set_scrolly( background, 0, -256+sys16_bg_scrolly );
 			}
-			else
+	
+			if (sys18_splittab_fg_x != null)
 			{
-				int offset, scroll,i;
-	
-				tilemap_set_scroll_cols( background , 128 );
-				offset = 127-((sys16_bg_scrollx&0x3f8) >> 3)-40+2;
-	
-				for(i=0;i<41;i++)
+				if((sys16_fg_scrollx&0xff00)  != sys16_rowscroll_scroll)
 				{
-					scroll = sys18_splittab_bg_y.READ_WORD((i+24)&0xfffe);
-					tilemap_set_scrolly( background , (i+offset)&0x7f, -256+(scroll&0x3ff) );
+					tilemap_set_scroll_rows( foreground , 1 );
+					tilemap_set_scrollx( foreground, 0, -320-sys16_fg_scrollx+sys16_fgxoffset );
+				}
+				else
+				{
+					int offset, scroll,i;
+	
+					tilemap_set_scroll_rows( foreground , 64 );
+					offset = 32+((sys16_fg_scrolly&0x1f8) >> 3);
+	
+					for(i=0;i<29;i++)
+					{
+						scroll = sys18_splittab_fg_x.READ_WORD(i*2);
+	
+	
+						tilemap_set_scrollx( foreground , (i+offset)&0x3f, -320-(scroll&0x3ff)+sys16_fgxoffset );
+					}
 				}
 			}
-		}
-		else
-		{
-			tilemap_set_scrolly( background, 0, -256+sys16_bg_scrolly );
-		}
-	
-		if (sys18_splittab_fg_x != null)
-		{
-			if((sys16_fg_scrollx&0xff00)  != sys16_rowscroll_scroll)
+			else
 			{
-				tilemap_set_scroll_rows( foreground , 1 );
 				tilemap_set_scrollx( foreground, 0, -320-sys16_fg_scrollx+sys16_fgxoffset );
 			}
-			else
+	
+			if (sys18_splittab_fg_y != null)
 			{
-				int offset, scroll,i;
-	
-				tilemap_set_scroll_rows( foreground , 64 );
-				offset = 32+((sys16_fg_scrolly&0x1f8) >> 3);
-	
-				for(i=0;i<29;i++)
+				if((sys16_fg_scrolly&0xff00)  != sys16_rowscroll_scroll)
 				{
-					scroll = sys18_splittab_fg_x.READ_WORD(i*2);
+					tilemap_set_scroll_cols( foreground , 1 );
+					tilemap_set_scrolly( foreground, 0, -256+sys16_fg_scrolly );
+				}
+				else
+				{
+					int offset, scroll,i;
 	
+					tilemap_set_scroll_cols( foreground , 128 );
+					offset = 127-((sys16_fg_scrollx&0x3f8) >> 3)-40+2;
 	
-					tilemap_set_scrollx( foreground , (i+offset)&0x3f, -320-(scroll&0x3ff)+sys16_fgxoffset );
+					for(i=0;i<41;i++)
+					{
+						scroll = sys18_splittab_fg_y.READ_WORD((i+24)&0xfffe);
+						tilemap_set_scrolly( foreground , (i+offset)&0x7f, -256+(scroll&0x3ff) );
+					}
 				}
 			}
-		}
-		else
-		{
-			tilemap_set_scrollx( foreground, 0, -320-sys16_fg_scrollx+sys16_fgxoffset );
-		}
-	
-		if (sys18_splittab_fg_y != null)
-		{
-			if((sys16_fg_scrolly&0xff00)  != sys16_rowscroll_scroll)
+			else
 			{
-				tilemap_set_scroll_cols( foreground , 1 );
 				tilemap_set_scrolly( foreground, 0, -256+sys16_fg_scrolly );
 			}
+	
+			if (sys16_quartet_title_kludge != 0)
+			{
+				int top,bottom,left,right;
+				int top2,bottom2,left2,right2;
+				rectangle clip=new rectangle();
+	
+				left = background.clip_left;
+				right = background.clip_right;
+				top = background.clip_top;
+				bottom = background.clip_bottom;
+	
+				left2 = foreground.clip_left;
+				right2 = foreground.clip_right;
+				top2 = foreground.clip_top;
+				bottom2 = foreground.clip_bottom;
+	
+				clip.min_x=0;
+				clip.min_y=0;
+				clip.max_x=1024;
+				clip.max_y=512;
+	
+				tilemap_set_clip( background, clip );
+				tilemap_set_clip( foreground, clip );
+	
+				tilemap_update(  ALL_TILEMAPS  );
+	
+				background.clip_left = left;
+				background.clip_right = right;
+				background.clip_top = top;
+				background.clip_bottom = bottom;
+	
+				foreground.clip_left = left2;
+				foreground.clip_right = right2;
+				foreground.clip_top = top2;
+				foreground.clip_bottom = bottom2;
+	
+			}
+			else
+				tilemap_update(  ALL_TILEMAPS  );
+	
+			get_sprite_info();
+	
+			palette_init_used_colors();
+			mark_sprite_colors(); // custom; normally this would be handled by the sprite manager
+			sprite_update();
+	
+			if( palette_recalc()!=null ) tilemap_mark_all_pixels_dirty( ALL_TILEMAPS );
+			build_shadow_table();
+			tilemap_render(  ALL_TILEMAPS  );
+	
+			if(sys16_quartet_title_kludge==0)
+			{
+				tilemap_draw( bitmap, background, TILEMAP_IGNORE_TRANSPARENCY );
+				if (sys16_bg_priority_mode != 0) tilemap_draw( bitmap, background, TILEMAP_IGNORE_TRANSPARENCY | 1 );
+			}
+			else
+				draw_quartet_title_screen( bitmap, 0 );
+	
+			sprite_draw(sprite_list,3); // needed for Aurail
+			if(sys16_bg_priority_mode==2) tilemap_draw( bitmap, background, 1 );		// body slam (& wrestwar??)
+			sprite_draw(sprite_list,2);
+			if(sys16_bg_priority_mode==1) tilemap_draw( bitmap, background, 1 );		// alien syndrome / aurail
+	
+			if(sys16_quartet_title_kludge==0)
+			{
+				tilemap_draw( bitmap, foreground, 0 );
+				sprite_draw(sprite_list,1);
+				tilemap_draw( bitmap, foreground, 1 );
+			}
 			else
 			{
-				int offset, scroll,i;
-	
-				tilemap_set_scroll_cols( foreground , 128 );
-				offset = 127-((sys16_fg_scrollx&0x3f8) >> 3)-40+2;
-	
-				for(i=0;i<41;i++)
-				{
-					scroll = sys18_splittab_fg_y.READ_WORD((i+24)&0xfffe);
-					tilemap_set_scrolly( foreground , (i+offset)&0x7f, -256+(scroll&0x3ff) );
-				}
+				draw_quartet_title_screen( bitmap, 1 );
+				sprite_draw(sprite_list,1);
 			}
+	
+			if(sys16_textlayer_lo_max!=0) tilemap_draw( bitmap, text_layer, 1 ); // needed for Body Slam
+			sprite_draw(sprite_list,0);
+			tilemap_draw( bitmap, text_layer, 0 );
 		}
-		else
-		{
-			tilemap_set_scrolly( foreground, 0, -256+sys16_fg_scrolly );
-		}
-                
-	
-		if (sys16_quartet_title_kludge != 0)
-		{
-			int top,bottom,left,right;
-			int top2,bottom2,left2,right2;
-			rectangle clip = new rectangle();
-	
-			left = background.clip_left;
-			right = background.clip_right;
-			top = background.clip_top;
-			bottom = background.clip_bottom;
-	
-			left2 = foreground.clip_left;
-			right2 = foreground.clip_right;
-			top2 = foreground.clip_top;
-			bottom2 = foreground.clip_bottom;
-	
-			clip.min_x=0;
-			clip.min_y=0;
-			clip.max_x=1024;
-			clip.max_y=512;
-	
-			tilemap_set_clip( background, clip );
-			tilemap_set_clip( foreground, clip );
-	
-			tilemap_update(  ALL_TILEMAPS  );
-	
-			background.clip_left = left;
-			background.clip_right = right;
-			background.clip_top = top;
-			background.clip_bottom = bottom;
-	
-			foreground.clip_left = left2;
-			foreground.clip_right = right2;
-			foreground.clip_top = top2;
-			foreground.clip_bottom = bottom2;
-	
-		}
-		else
-			tilemap_update(  ALL_TILEMAPS  );
-	
-	
-		get_sprite_info();
-	
-		palette_init_used_colors();
-		mark_sprite_colors(); // custom; normally this would be handled by the sprite manager
-		sprite_update();
-	
-		if( palette_recalc() != null ) tilemap_mark_all_pixels_dirty( ALL_TILEMAPS );
-		build_shadow_table();
-		tilemap_render(  ALL_TILEMAPS  );
-	
-		if(sys16_quartet_title_kludge==0)
-		{
-			tilemap_draw( bitmap, background, TILEMAP_IGNORE_TRANSPARENCY );
-			if (sys16_bg_priority_mode != 0) tilemap_draw( bitmap, background, TILEMAP_IGNORE_TRANSPARENCY | 1 );
-		}
-		else
-			draw_quartet_title_screen( bitmap, 0 );
-	
-		sprite_draw(sprite_list,3); // needed for Aurail
-		if(sys16_bg_priority_mode==2) tilemap_draw( bitmap, background, 1 );		// body slam (& wrestwar??)
-		sprite_draw(sprite_list,2);
-		if(sys16_bg_priority_mode==1) tilemap_draw( bitmap, background, 1 );		// alien syndrome / aurail
-	
-		if(sys16_quartet_title_kludge==0)
-		{
-			tilemap_draw( bitmap, foreground, 0 );
-			sprite_draw(sprite_list,1);
-			tilemap_draw( bitmap, foreground, 1 );
-		}
-		else
-		{
-			draw_quartet_title_screen( bitmap, 1 );
-			sprite_draw(sprite_list,1);
-		}
-	
-		if(sys16_textlayer_lo_max!=0) tilemap_draw( bitmap, text_layer, 1 ); // needed for Body Slam
-		sprite_draw(sprite_list,0);
-		tilemap_draw( bitmap, text_layer, 0 );
-/*TODO*///	#ifdef SYS16_DEBUG
-/*TODO*///		dump_tilemap();
-/*TODO*///	#endif
 	} };
 	
 	public static VhUpdatePtr sys18_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) {
@@ -2828,10 +2714,10 @@ public class system16
 	// hideous kludge to display quartet title screen correctly
 	static void draw_quartet_title_screen( osd_bitmap bitmap,int playfield )
 	{
-		UBytePtr xscroll=new UBytePtr(), yscroll=new UBytePtr();
+		UBytePtr xscroll=new UBytePtr(),yscroll=new UBytePtr();
 		int r,c,scroll;
-		struct_tilemap tilemap;
-		rectangle clip = new rectangle();
+		struct_tilemap _tilemap;
+		rectangle clip=new rectangle();
 	
 		int top,bottom,left,right;
 	
@@ -2840,19 +2726,19 @@ public class system16
 		{
 			xscroll=new UBytePtr(sys16_textram, 0x0fc0);
 			yscroll=new UBytePtr(sys16_textram, 0x0f58);
-			tilemap=background;
+			_tilemap=background;
 		}
 		else
 		{
 			xscroll=new UBytePtr(sys16_textram, 0x0f80);
 			yscroll=new UBytePtr(sys16_textram, 0x0f30);
-			tilemap=foreground;
+			_tilemap=foreground;
 		}
 	
-		left = tilemap.clip_left;
-		right = tilemap.clip_right;
-		top = tilemap.clip_top;
-		bottom = tilemap.clip_bottom;
+		left = _tilemap.clip_left;
+		right = _tilemap.clip_right;
+		top = _tilemap.clip_top;
+		bottom = _tilemap.clip_bottom;
 	
 		for(r=0;r<14;r++)
 		{
@@ -2862,12 +2748,12 @@ public class system16
 			{
 				clip.min_x=c*32;
 				clip.max_x=c*32+31;
-				tilemap_set_clip( tilemap, clip );
+				tilemap_set_clip( _tilemap, clip );
 				scroll = xscroll.READ_WORD(r*4)&0x3ff;
-				tilemap_set_scrollx( tilemap, 0, (-320-scroll+sys16_bgxoffset)&0x3ff );
+				tilemap_set_scrollx( _tilemap, 0, (-320-scroll+sys16_bgxoffset)&0x3ff );
 				scroll = yscroll.READ_WORD(c*4)&0x1ff;
-				tilemap_set_scrolly( tilemap, 0, (-256+scroll)&0x1ff );
-				tilemap_draw( bitmap, tilemap, 0 );
+				tilemap_set_scrolly( _tilemap, 0, (-256+scroll)&0x1ff );
+				tilemap_draw( bitmap, _tilemap, 0 );
 			}
 		}
 	/*
@@ -2888,12 +2774,11 @@ public class system16
 			}
 		}
 	*/
-		tilemap.clip_left = left;
-		tilemap.clip_right = right;
-		tilemap.clip_top = top;
-		tilemap.clip_bottom = bottom;
+		_tilemap.clip_left = left;
+		_tilemap.clip_right = right;
+		_tilemap.clip_top = top;
+		_tilemap.clip_bottom = bottom;
 	}
-	
 	
 /*TODO*///	#ifdef SYS16_DEBUG
 /*TODO*///	void dump_tilemap(void)

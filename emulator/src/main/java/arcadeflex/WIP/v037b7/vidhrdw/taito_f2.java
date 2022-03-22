@@ -12,6 +12,7 @@ import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
 import static arcadeflex.v037b7.mame.drawgfxH.*;
+import static gr.codebb.arcadeflex.old.mame.drawgfx.*; 
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;        
 import arcadeflex.v037b7.mame.osdependH.osd_bitmap;
@@ -95,7 +96,7 @@ public class taito_f2
 	public static UBytePtr f2_sprite_extension = new UBytePtr();
 	public static int[] f2_spriteext_size = new int[1];
 	static int sprites_disabled,sprites_active_area,sprites_master_scrollx,sprites_master_scrolly;
-	static UShortArray spriteram_buffered, spriteram_delayed;
+	static UBytePtr spriteram_buffered, spriteram_delayed;
 	
 	
 	public static class tempsprite
@@ -267,8 +268,8 @@ public class taito_f2
 	
 	public static VhStartPtr taitof2_core_vh_start = new VhStartPtr() { public int handler() 
 	{
-		spriteram_delayed = new UShortArray (spriteram_size[0] * 2);
-		spriteram_buffered = new UShortArray (spriteram_size[0] * 2);
+		spriteram_delayed = new UBytePtr (spriteram/*spriteram_size[0] * 2*/);
+		spriteram_buffered = new UBytePtr (spriteram/*spriteram_size[0] * 2*/);
 		spritelist = new tempsprite[0x400];
                 
                 for (int _i=0 ; _i<0x400 ; _i++)
@@ -553,7 +554,10 @@ public class taito_f2
 	
 	public static WriteHandlerPtr taitof2_spriteram_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
-		COMBINE_WORD_MEM(spriteram,offset,data);
+                UBytePtr _temp = new UBytePtr(spriteram);
+                _temp.offset=0;
+		COMBINE_WORD_MEM(_temp,offset,data);
+                spriteram = new UBytePtr(_temp);
 	} };
 	
 	public static WriteHandlerPtr taitof2_sprite_extension_w = new WriteHandlerPtr() {public void handler(int offset, int data)
@@ -1075,7 +1079,7 @@ public class taito_f2
 				}
 				else
 				{
-                                    //System.out.println("drawgfxzoom");
+                                    System.out.println("drawgfxzoom");
 					drawgfxzoom(bitmap,Machine.gfx[0],
 							sprite_ptr[_sprite_ptr].code,
 							sprite_ptr[_sprite_ptr].color,
@@ -1116,6 +1120,7 @@ public class taito_f2
 	
 	static void taitof2_handle_sprite_buffering()
 	{
+            //System.out.println("taitof2_handle_sprite_buffering");
 		if (prepare_sprites != 0)	/* no buffering */
 		{
 			memcpy(spriteram_buffered,spriteram,spriteram_size[0]);

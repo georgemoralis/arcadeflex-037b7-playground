@@ -84,6 +84,7 @@ package arcadeflex.WIP.v037b7.vidhrdw;
 import static arcadeflex.WIP.v037b7.drivers.wecleman.wecleman_irqctrl;
 import static arcadeflex.common.libc.cstring.*;
 import arcadeflex.common.ptrLib.UBytePtr;
+import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.vidhrdw.konamiic.*;
@@ -114,7 +115,7 @@ public class wecleman
 	/* Variables only used here: */
 	
 	static struct_tilemap bg_tilemap, fg_tilemap, txt_tilemap;
-	static sprite_list sprite_list;
+	public static sprite_list sprite_list;
 	
 	
 	/* Variables that driver has acces to: */
@@ -773,7 +774,7 @@ public class wecleman
 	
 	static void get_sprite_info()
 	{
-		subArrays.UShortArray base_pal	= Machine.remapped_colortable;
+		UShortArray base_pal	= new UShortArray(Machine.remapped_colortable);
 		UBytePtr base_gfx = new UBytePtr(memory_region(REGION_GFX1));
 	
 		int gfx_max = memory_region_length(REGION_GFX1);
@@ -833,6 +834,8 @@ public class wecleman
 			if ((gfx + sprite[_spritePtr].tile_width * sprite[_spritePtr].tile_height - 1) >= gfx_max )
 				{sprite[_spritePtr].flags = 0;	continue;}
 		}
+                
+                sprite_list.sprite = sprite;
 	}
 	
 	

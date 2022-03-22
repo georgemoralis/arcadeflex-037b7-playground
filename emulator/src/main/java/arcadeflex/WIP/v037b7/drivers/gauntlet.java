@@ -164,6 +164,8 @@ import static gr.codebb.arcadeflex.WIP.v037b7.sound.pokeyH.*;
 import static arcadeflex.v037b7.sound._2151intf.*;
 import static arcadeflex.v037b7.sound._2151intfH.*;
 import arcadeflex.v056.mame.timer;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
+//import gr.codebb.arcadeflex.old.arcadeflex.libc_old.UShortArray;
 
 public class gauntlet
 {
@@ -504,7 +506,7 @@ public class gauntlet
 		new MemoryWriteAddress( 0x900000, 0x901fff, gauntlet_playfieldram_w, atarigen_playfieldram, atarigen_playfieldram_size ),
 		new MemoryWriteAddress( 0x902000, 0x903fff, MWA_BANK3, atarigen_spriteram, atarigen_spriteram_size ),
 		new MemoryWriteAddress( 0x904000, 0x904fff, MWA_BANK4 ),
-		new MemoryWriteAddress( 0x905000, 0x905eff, MWA_BANK5, atarigen_alpharam, atarigen_alpharam_size ),
+		new MemoryWriteAddress( 0x905000, 0x905f6d/*0x905eff*/, MWA_BANK5, atarigen_alpharam, atarigen_alpharam_size ),
 		new MemoryWriteAddress( 0x905f6e, 0x905f6f, gauntlet_vscroll_w, atarigen_vscroll ),
 		new MemoryWriteAddress( 0x905f00, 0x905fff, MWA_BANK6 ),
 		new MemoryWriteAddress( 0x910000, 0x9107ff, paletteram_IIIIRRRRGGGGBBBB_word_w, paletteram ),
@@ -1063,57 +1065,56 @@ public class gauntlet
 	
 	static void rom_decode()
 	{
-		UShortArray p1, p2, temp;
+		IntPtr p1, p2;
+                int temp;
 		UBytePtr data;
 		int i;
 	
 		/* swap the top and bottom halves of the main CPU ROM images */
-		p1 = new UShortArray(memory_region(REGION_CPU1), 0x000000);
-		p2 = new UShortArray(memory_region(REGION_CPU1), 0x008000);
+		p1 = new IntPtr(memory_region(REGION_CPU1), 0x000000);
+		p2 = new IntPtr(memory_region(REGION_CPU1), 0x008000);
 		for (i = 0; i < 0x8000 / 4; i++){
-			temp = new UShortArray(p1);
-                        p1.write(0,p2.read());
-                        p1.inc(1);
-                        p2.write(0,temp.read());
-                        p2.inc(1);
+			temp = p1.read();
+                        p1.write(p2.read());
+                        p1.inc();
+                        p2.write(temp);
+                        p2.inc();
                 }
-                
-		p1 = new UShortArray(memory_region(REGION_CPU1), 0x040000);
-		p2 = new UShortArray(memory_region(REGION_CPU1), 0x048000);
+		p1 = new IntPtr(memory_region(REGION_CPU1), 0x040000);
+		p2 = new IntPtr(memory_region(REGION_CPU1), 0x048000);
 		for (i = 0; i < 0x8000 / 4; i++){
-			temp = new UShortArray(p1);
-                        p1.write(0,p2.read());
-                        p1.inc(1);
-                        p2.write(0,temp.read());
-                        p2.inc(1);
+			temp = p1.read();
+                        p1.write(p2.read());
+                        p1.inc();
+                        p2.write(temp);
+                        p2.inc();
                 }
-                
-		p1 = new UShortArray(memory_region(REGION_CPU1), 0x050000);
-		p2 = new UShortArray(memory_region(REGION_CPU1), 0x058000);
+		p1 = new IntPtr(memory_region(REGION_CPU1), 0x050000);
+		p2 = new IntPtr(memory_region(REGION_CPU1), 0x058000);
 		for (i = 0; i < 0x8000 / 4; i++){
-			temp = new UShortArray(p1);
-                        p1.write(0,p2.read());
-                        p1.inc(1);
-                        p2.write(0,temp.read());
-                        p2.inc(1);
+			temp = p1.read();
+                        p1.write(p2.read());
+                        p1.inc();
+                        p2.write(temp);
+                        p2.inc();
                 }
-		p1 = new UShortArray(memory_region(REGION_CPU1), 0x060000);
-		p2 = new UShortArray(memory_region(REGION_CPU1), 0x068000);
+		p1 = new IntPtr(memory_region(REGION_CPU1), 0x060000);
+		p2 = new IntPtr(memory_region(REGION_CPU1), 0x068000);
 		for (i = 0; i < 0x8000 / 4; i++){
-			temp = new UShortArray(p1);
-                        p1.write(0,p2.read());
-                        p1.inc(1);
-                        p2.write(0,temp.read());
-                        p2.inc(1);
+			temp = p1.read();
+                        p1.write(p2.read());
+                        p1.inc();
+                        p2.write(temp);
+                        p2.inc();
                 }
-		p1 = new UShortArray(memory_region(REGION_CPU1), 0x070000);
-		p2 = new UShortArray(memory_region(REGION_CPU1), 0x078000);
+		p1 = new IntPtr(memory_region(REGION_CPU1), 0x070000);
+		p2 = new IntPtr(memory_region(REGION_CPU1), 0x078000);
 		for (i = 0; i < 0x8000 / 4; i++){
-			temp = new UShortArray(p1);
-                        p1.write(0,p2.read());
-                        p1.inc(1);
-                        p2.write(0,temp.read());
-                        p2.inc(1);
+			temp = p1.read();
+                        p1.write(p2.read());
+                        p1.inc();
+                        p2.write(temp);
+                        p2.inc();
                 }
 	
 		/* highly strange -- the address bits on the chip at 2J (and only that
@@ -1129,8 +1130,7 @@ public class gauntlet
 					int srcoffs = (i & 0x4000) | ((i << 11) & 0x3800) | ((i >> 3) & 0x07ff);
 					memory_region(REGION_GFX2).write(0x88000 + i, data.read(srcoffs));
 				}
-				//free(data);
-                                data=null;
+				data = null;
 			}
 		}
 	

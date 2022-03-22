@@ -10,6 +10,7 @@ import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kcpuH.*;
 import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kopsH.*;
 import static gr.codebb.arcadeflex.v036.cpu.m68000.m68kops.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.*;
+import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.fopen;
 
 public class m68kcpu {
 

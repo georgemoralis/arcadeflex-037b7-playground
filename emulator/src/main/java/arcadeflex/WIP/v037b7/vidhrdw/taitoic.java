@@ -226,10 +226,10 @@ public class taitoic
 	static int[] TC0100SCN_chars_dirty = new int[TC0100SCN_MAX_CHIPS];
 	static int[] TC0100SCN_bg_gfx = new int[TC0100SCN_MAX_CHIPS], TC0100SCN_tx_gfx = new int[TC0100SCN_MAX_CHIPS];
 	
-	static {
+	/*static {
             for (int _i=0 ; _i<TC0100SCN_MAX_CHIPS ; _i++)
                 TC0100SCN_ctrl[_i] = new UBytePtr(16);
-        }
+        }*/
 	
 	
 	static void common_get_bg_tile_info(UBytePtr ram,int gfxnum,int tile_index)
@@ -249,32 +249,44 @@ public class taitoic
 	
 	public static GetTileInfoPtr TC0100SCN_get_bg_tile_info_0 = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
-		common_get_bg_tile_info(new UBytePtr(TC0100SCN_bg_ram[0]),TC0100SCN_bg_gfx[0],tile_index);
+                UBytePtr _temp = new UBytePtr(TC0100SCN_bg_ram[0]);
+		common_get_bg_tile_info(_temp,TC0100SCN_bg_gfx[0],tile_index);
+                TC0100SCN_bg_ram[0] = new UBytePtr(_temp);
 	} };
 	
 	public static GetTileInfoPtr TC0100SCN_get_fg_tile_info_0 = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
-		common_get_bg_tile_info(new UBytePtr(TC0100SCN_fg_ram[0]),TC0100SCN_bg_gfx[0],tile_index);
+		UBytePtr _temp = new UBytePtr(TC0100SCN_fg_ram[0]);
+                common_get_bg_tile_info(_temp,TC0100SCN_bg_gfx[0],tile_index);
+                TC0100SCN_fg_ram[0] = new UBytePtr(_temp);
 	} };
 	
 	public static GetTileInfoPtr TC0100SCN_get_tx_tile_info_0 = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
-		common_get_tx_tile_info(new UBytePtr(TC0100SCN_tx_ram[0]),TC0100SCN_tx_gfx[0],tile_index);
+                UBytePtr _temp = new UBytePtr(TC0100SCN_tx_ram[0]);
+		common_get_tx_tile_info(_temp,TC0100SCN_tx_gfx[0],tile_index);
+                TC0100SCN_tx_ram[0]=new UBytePtr(_temp);
 	} };
 	
 	public static GetTileInfoPtr TC0100SCN_get_bg_tile_info_1 = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
-		common_get_bg_tile_info(new UBytePtr(TC0100SCN_bg_ram[1]),TC0100SCN_bg_gfx[1],tile_index);
+                UBytePtr _temp = new UBytePtr(TC0100SCN_bg_ram[1]);
+		common_get_bg_tile_info(_temp,TC0100SCN_bg_gfx[1],tile_index);
+                TC0100SCN_bg_ram[1] = new UBytePtr(_temp);
 	} };
 	
 	public static GetTileInfoPtr TC0100SCN_get_fg_tile_info_1 = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
-		common_get_bg_tile_info(new UBytePtr(TC0100SCN_fg_ram[1]),TC0100SCN_bg_gfx[1],tile_index);
+                UBytePtr _temp = new UBytePtr(TC0100SCN_fg_ram[1]);
+		common_get_bg_tile_info(_temp,TC0100SCN_bg_gfx[1],tile_index);
+                TC0100SCN_fg_ram[1] = new UBytePtr(_temp);
 	} };
 	
 	public static GetTileInfoPtr TC0100SCN_get_tx_tile_info_1 = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
-		common_get_tx_tile_info(new UBytePtr(TC0100SCN_tx_ram[1]),TC0100SCN_tx_gfx[1],tile_index);
+                UBytePtr _temp = new UBytePtr(TC0100SCN_tx_ram[1]);
+		common_get_tx_tile_info(_temp,TC0100SCN_tx_gfx[1],tile_index);
+                TC0100SCN_tx_ram[1] = new UBytePtr(_temp);
 	} };
 	
 	
@@ -330,8 +342,15 @@ public class taitoic
 			TC0100SCN_fg_ram[i]       = new UBytePtr(TC0100SCN_ram[i], 0x8000);
 			TC0100SCN_bgscroll_ram[i] = new UBytePtr(TC0100SCN_ram[i], 0xc000);
 			TC0100SCN_fgscroll_ram[i] = new UBytePtr(TC0100SCN_ram[i], 0xc400);
-			memset(TC0100SCN_ram[i],0,TC0100SCN_RAM_SIZE);
-			memset(TC0100SCN_char_dirty[i],1,TC0100SCN_TOTAL_CHARS);
+			
+                        UBytePtr _temp1 = new UBytePtr(TC0100SCN_ram[i]);
+                        memset(_temp1,0,TC0100SCN_RAM_SIZE);
+                        TC0100SCN_ram[i]=new UBytePtr(_temp1);
+                        
+			UBytePtr _temp2 = new UBytePtr(TC0100SCN_char_dirty[i]);
+                        memset(_temp2,1,TC0100SCN_TOTAL_CHARS);
+                        TC0100SCN_char_dirty[i] = new UBytePtr(_temp2);
+                        
 			TC0100SCN_chars_dirty[i] = 1;
 	
 			/* find first empty slot to decode gfx */
@@ -476,7 +495,12 @@ public class taitoic
 	
 	static void TC0100SCN_ctrl_word_w(int chip,int offset,int data)
 	{
-		COMBINE_WORD_MEM(TC0100SCN_ctrl[chip],offset,data);
+                if (TC0100SCN_ctrl[chip]==null)
+                    TC0100SCN_ctrl[chip]=new UBytePtr(16);
+                
+		UBytePtr _temp = new UBytePtr(TC0100SCN_ctrl[chip]);
+                COMBINE_WORD_MEM(_temp,offset,data);
+                TC0100SCN_ctrl[chip] = new UBytePtr(_temp);
 	
 		data = TC0100SCN_ctrl[chip].READ_WORD(offset);
 	

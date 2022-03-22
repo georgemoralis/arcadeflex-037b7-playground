@@ -1534,7 +1534,7 @@ public class atarigen
 		if (scanline == 0 && (scroll & 7) != 0)
 		{
 			int pfscanline = scroll & 0x1f8;
-			int link = (slips.READ_WORD(2 * (pfscanline / 8)) >> modesc.linkshift) & modesc.linkmask;
+			int link = (slips.READ_WORD((2 * (pfscanline / 8))) >> modesc.linkshift) & modesc.linkmask;
 			atarigen_mo_update(base, link, 0);
 		}
 	
@@ -1542,6 +1542,7 @@ public class atarigen
 		if (scanline < Machine.drv.screen_height)
 		{
 			int pfscanline = (scanline + scroll + 7) & 0x1f8;
+                        //System.out.println(2 * (pfscanline / 8));
 			int link = (slips.READ_WORD(2 * (pfscanline / 8)) >> modesc.linkshift) & modesc.linkmask;
 			atarigen_mo_update(base, link, (pfscanline - scroll) & 0x1ff);
 		}
