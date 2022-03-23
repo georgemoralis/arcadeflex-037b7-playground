@@ -468,7 +468,7 @@ public class system16
 				sys16_bg_map,
 				TILEMAP_OPAQUE,
 				8,8,
-				64*2,32*2 );
+				64*2*2,32*2*2 );
 		else
 			background = tilemap_create(
 				get_bg_tile_info,

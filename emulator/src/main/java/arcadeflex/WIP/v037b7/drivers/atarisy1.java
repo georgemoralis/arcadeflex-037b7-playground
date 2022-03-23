@@ -140,6 +140,7 @@ import static arcadeflex.WIP.v037b7.machine.atarigen.*;
 import static arcadeflex.WIP.v037b7.machine.atarigenH.*;
 import static arcadeflex.WIP.v037b7.vidhrdw.atarisy1.*;
 import arcadeflex.common.ptrLib.UBytePtr;
+import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays.IntSubArray;
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
@@ -154,6 +155,7 @@ import static arcadeflex.v037b7.sound.mixerH.*;
 import static arcadeflex.v056.mame.timer.*;
 import static arcadeflex.v056.mame.timerH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 
 public class atarisy1
 {
@@ -971,7 +973,7 @@ public class atarisy1
 	
 	static void rom_decode()
 	{
-		IntSubArray data = new IntSubArray(memory_region(REGION_GFX2), 0);
+		UShortPtr data = new UShortPtr(memory_region(REGION_GFX2), 0);
 		int chips = memory_region_length(REGION_GFX2) / 0x8000;
 		int i, j;
 	
@@ -985,7 +987,7 @@ public class atarisy1
 	
 			if (j != 0x2000)
 				for (j = 0; j < 0x2000; j++)
-					data.write(j, data.read(j) ^ 0xffffffff );
+					data.write(j, (char) (data.read(j) ^ 0xffffffff));
 		}
 	}
 	

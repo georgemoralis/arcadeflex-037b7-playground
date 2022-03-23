@@ -1043,7 +1043,7 @@ public class m68kcpuH {
     /*TODO*///#define m68ki_branch_dword(A) CPU_PC += (A)
 
     public static void m68ki_branch_long(long A) {
-        m68ki_set_pc(A);
+        m68ki_set_pc(MAKE_INT_32(A) & 0xFFFFFFFFL);
     }
 
 
@@ -1586,7 +1586,7 @@ public class m68kcpuH {
         set_CPU_PC(address & 0xFFFFFFFFL);
         /* Inform the host program */
         /* MAME */
-        change_pc24((int) ADDRESS_68K(address));
+        change_pc24((int) ADDRESS_68K(address & 0xFFFFFFFFL));
         /*
          m68ki_pc_changed(ADDRESS_68K(address));
          */

@@ -19,6 +19,7 @@ import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays;
 import arcadeflex.common.subArrays.IntSubArray;
 //import arcadeflex.common.subArrays.IntSubArray;
+//import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -88,10 +89,14 @@ public class atarisy1
 	/* these macros make accessing the indirection table easier, plus this is how the data
 	   is stored for the pfmapped array */
 	static int PACK_LOOKUP_DATA(int bank, int color, int offset, int bpp) {
-			return ((((((bpp) - 4) & 7) << 24) | 
+                        int _i=((((((bpp) - 4) & 7) << 24) | 
 			 (((color) & 255) << 16) | 
 			 (((bank) & 15) << 12) | 
 			 (((offset) & 15) << 8)) );
+                        
+                        //System.out.println(_i);
+                        
+			return _i;
         }
 	
         static int LOOKUP_BPP(int data) { return (((data) >> 24) & 7); }
@@ -137,8 +142,8 @@ public class atarisy1
 	static int priority_pens;
 
 	/* indirection tables */
-	static int[] pf_lookup = new int[256 * 4];
-	static int[] mo_lookup = new int[256 * 4];
+	static IntSubArray pf_lookup = new IntSubArray(256);
+	static IntSubArray mo_lookup = new IntSubArray(256);
 
 	/* INT3 tracking */
 	static timer_entry[] int3_timer = new timer_entry[YDIM];
@@ -234,7 +239,7 @@ public class atarisy1
 					}
                                         
 				}
-                                Machine.gfx[e].pen_usage = pen_usage[e];
+                                //Machine.gfx[e].pen_usage = pen_usage[e];
 			}
                         
 	
@@ -659,6 +664,7 @@ public class atarisy1
 	static atarigen_pf_callback pf_color_callback = new atarigen_pf_callback() {
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
+                //UShortArray lookup_table = new UShortArray(pf_lookup, state.param[0]);
                 IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
                 //lookup_table.offset=state.param[0];
                 //int[] lookup_table = pf_lookup;
@@ -706,7 +712,7 @@ public class atarisy1
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
 			}
                 
-                //param = colormap;
+                param = colormap;
             }
         };
         
@@ -722,6 +728,7 @@ public class atarisy1
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 int bank = state.param[0];
 		IntSubArray lookup_table = new IntSubArray(pf_lookup, bank);
+                //IntPtr lookup_table = new IntPtr(pf_lookup, bank);
                 //int[] lookup_table = pf_lookup;
                 
                 //lookup_table.offset=bank;
@@ -739,7 +746,7 @@ public class atarisy1
 				if (atarigen_pf_dirty.read(offs) != bank)
 				{
 					int data = atarigen_playfieldram.READ_WORD(offs * 2);
-					int lookup = lookup_table.read(((data >> 8) & 0x7f));
+					int lookup = lookup_table.read((((data >> 8) & 0x7f)));
 					GfxElement gfx = Machine.gfx[LOOKUP_GFX(lookup)];
 					int code = LOOKUP_CODE(lookup) | (data & 0xff);
 					int color = LOOKUP_COLOR(lookup);
@@ -773,6 +780,8 @@ public class atarisy1
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
+                //IntPtr lookup_table = new IntPtr(pf_lookup, state.param[0]);
+                //int[] lookup_table = pf_lookup;
                 //lookup_table.offset=state.param[0];
 		pf_overrender_data overrender_data = (pf_overrender_data) param;
 		osd_bitmap bitmap = overrender_data.bitmap;
@@ -789,7 +798,7 @@ public class atarisy1
 			{
 				int offs = y * 64 + x;
 				int data = atarigen_playfieldram.READ_WORD(offs * 2);
-				int lookup = lookup_table.read(((data >> 8) & 0x7f));
+				int lookup = lookup_table.read((((data >> 8) & 0x7f)));
 				GfxElement gfx = Machine.gfx[LOOKUP_GFX(lookup)];
 				int code = LOOKUP_CODE(lookup) | (data & 0xff);
 				int color = LOOKUP_COLOR(lookup);
@@ -828,7 +837,7 @@ public class atarisy1
                 
                 //mo_lookup.offset=0;
 	
-		int lookup = mo_lookup[data.read(1) >> 8];
+		int lookup = mo_lookup.read(data.read(1) >> 8);
 		int[] usage = pen_usage[LOOKUP_GFX(lookup)];
 		int code = LOOKUP_CODE(lookup) | (data.read(1) & 0xff);
 		int color = LOOKUP_COLOR(lookup);
@@ -848,7 +857,7 @@ public class atarisy1
 		}
 	
 		/* in theory we should support all 3 possible depths, but motion objects are all 4bpp */
-                //param = colormap;
+                param = colormap;
             }
         };
         
@@ -867,7 +876,7 @@ public class atarisy1
 		rectangle pf_clip = new rectangle();
 	
 		/* extract data from the various words */
-		int lookup = mo_lookup[data.read(1) >> 8];
+		int lookup = mo_lookup.read(data.read(1) >> 8);
 		GfxElement gfx = Machine.gfx[LOOKUP_GFX(lookup)];
 		int code = LOOKUP_CODE(lookup) | (data.read(1) & 0xff);
 		int color = LOOKUP_COLOR(lookup);
@@ -949,7 +958,7 @@ public class atarisy1
 		/* loop for two sets of objects */
 		for (obj = 0; obj < 2; obj++)
 		{
-			int[] table = (obj == 0) ? pf_lookup : mo_lookup;
+			IntSubArray table = (obj == 0) ? new IntSubArray(pf_lookup) : new IntSubArray(mo_lookup);
                         int _pTable = 0;
 	
 			/* loop for 256 objects in the set */
@@ -982,20 +991,20 @@ public class atarisy1
 	
 				/* set the value */
 				if (bank == 0)
-					table[_pTable++] = 0;
+					table.write(_pTable++, 0);
 				else
-					table[_pTable++] = PACK_LOOKUP_DATA(bank, color, offset, bpp); //((((bpp) - 4) & 7) << 24) |offset | (bank << 8) | (color << 12);
+					table.write(_pTable++, PACK_LOOKUP_DATA(bank, color, offset, bpp)); //((((bpp) - 4) & 7) << 24) |offset | (bank << 8) | (color << 12);
 			}
                         
                        if (obj == 0) {
-                           pf_lookup = table;
+                           pf_lookup = new IntSubArray(table);
                            
                            //for (int _i=0 ; _i<256 ; _i++)
                            //    System.out.println(_i+"="+gfx.pen_usage[pf_lookup[_i]]);
                            
                        } else {
                            //System.out.println("==========================");
-                           mo_lookup = table;
+                           mo_lookup = new IntSubArray(table);
                            //for (int _i=0 ; _i<256 ; _i++)
                            // System.out.println(_i+"="+mo_lookup[_i]);
                        }
