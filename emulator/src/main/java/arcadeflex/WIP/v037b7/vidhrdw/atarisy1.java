@@ -239,7 +239,7 @@ public class atarisy1
 					}
                                         
 				}
-                                //Machine.gfx[e].pen_usage = pen_usage[e];
+                                Machine.gfx[e].pen_usage = pen_usage[e];
 			}
                         
 	
@@ -532,6 +532,8 @@ public class atarisy1
 	public static VhUpdatePtr atarisys1_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) 
 	{
 		int i;
+                
+                //System.out.println(palette_transparent_pen);
 	
 		/* update the palette */
 		if (update_palette() != null)
@@ -539,7 +541,7 @@ public class atarisy1
 	
 		/* set up the all-transparent overrender palette */
 		for (i = 0; i < 16; i++)
-			atarigen_overrender_colortable[i] = palette_transparent_pen;
+			atarigen_overrender_colortable.write(i, palette_transparent_pen);
 	
 		/* render the playfield */
 		memset(atarigen_pf_visit, 0, 64*64);
@@ -584,12 +586,12 @@ public class atarisy1
 	
 	static UBytePtr update_palette()
 	{
-		int[] al_map=new int[8], pfmo_map=new int[32];
+		IntSubArray al_map=new IntSubArray(8), pfmo_map=new IntSubArray(32);
 		int i, j;
 	
 		/* reset color tracking */
-		memset(pfmo_map, 0, pfmo_map.length);
-		memset(al_map, 0, al_map.length);
+		//memset(pfmo_map, 0, pfmo_map.length);
+		//memset(al_map, 0, al_map.length);
 		palette_init_used_colors();
 	
 		/* always remap the transluscent colors */
@@ -612,14 +614,14 @@ public class atarisy1
 					int data = atarigen_alpharam.READ_WORD(offs * 2);
 					int color = (data >> 10) & 7;
 					int code = data & 0x3ff;
-					al_map[color] |= usage[code];
+					al_map.write(color, al_map.read(color) | usage[code]);
 				}
 		}
 	
 		/* determine the final playfield palette */
 		for (i = 16; i < 32; i++)
 		{
-			int used = pfmo_map[i];
+			int used = pfmo_map.read(i);
 			if (used != 0)
 				for (j = 0; j < 16; j++)
 					if ((used & (1 << j)) != 0)
@@ -629,7 +631,7 @@ public class atarisy1
 		/* determine the final motion object palette */
 		for (i = 0; i < 16; i++)
 		{
-			int used = pfmo_map[i];
+			int used = pfmo_map.read(i);
 			if (used != 0)
 			{
 				palette_used_colors.write(0x100 + i * 16, PALETTE_COLOR_TRANSPARENT);
@@ -642,7 +644,7 @@ public class atarisy1
 		/* determine the final alpha palette */
 		for (i = 0; i < 8; i++)
 		{
-			int used = al_map[i];
+			int used = al_map.read(i);
 			if (used != 0)
 				for (j = 0; j < 4; j++)
 					if ((used & (1 << j)) != 0)
@@ -665,11 +667,11 @@ public class atarisy1
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 //UShortArray lookup_table = new UShortArray(pf_lookup, state.param[0]);
-                IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
+                IntSubArray lookup_table = new IntSubArray(pf_lookup, 0/*state.param[0]*/);
                 //lookup_table.offset=state.param[0];
                 //int[] lookup_table = pf_lookup;
                         
-		int[] colormap = (int[]) param;
+		IntSubArray colormap = (IntSubArray) param;
 		int x, y;
 	
 		/* standard loop over tiles */
@@ -687,32 +689,32 @@ public class atarisy1
                                 
 				int bits;
                                 
-                                //System.out.println(usage[code]);
+                                //System.out.println("bpp="+bpp);
 	
 				/* based on the depth, we need to tweak our pen mapping */
 				if (bpp == 0)
-					colormap[color] |= usage[code];
+					colormap.write(color, colormap.read(color) | usage[code]);
 				else if (bpp == 1)
 				{
 					bits = usage[code];
-					colormap[color * 2] |= bits;
-					colormap[color * 2 + 1] |= bits >> 16;
+					colormap.write(color * 2, colormap.read(color * 2) | bits);
+					colormap.write(color * 2 +1, colormap.read(color * 2 +1) | bits >> 16);
 				}
 				else
 				{
 					bits = usage[code * 2];
-					colormap[color * 4] |= bits;
-					colormap[color * 4 + 1] |= bits >> 16;
+					colormap.write(color * 4, colormap.read(color * 4) | bits);
+					colormap.write(color * 4 +1, colormap.read(color * 4 +1) | bits >> 16);
 					bits = usage[code * 2 + 1];
-					colormap[color * 4 + 2] |= bits;
-					colormap[color * 4 + 3] |= bits >> 16;
+					colormap.write(color * 4 +2, colormap.read(color * 4 +2) | bits);
+					colormap.write(color * 4 +3, colormap.read(color * 4 +3) | bits >> 16);
 				}
 	
 				/* also mark unvisited tiles dirty */
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
 			}
                 
-                param = colormap;
+                //param = colormap;
             }
         };
         
@@ -743,7 +745,7 @@ public class atarisy1
 				int offs = y * 64 + x;
 	
 				/* update only if dirty */
-				if (atarigen_pf_dirty.read(offs) != bank)
+				//if (atarigen_pf_dirty.read(offs) != bank)
 				{
 					int data = atarigen_playfieldram.READ_WORD(offs * 2);
 					int lookup = lookup_table.read((((data >> 8) & 0x7f)));
@@ -831,7 +833,7 @@ public class atarisy1
 	static atarigen_mo_callback mo_color_callback = new atarigen_mo_callback() {
             @Override
             public void handler(UShortArray data, rectangle clip, Object param) {
-                int[] colormap = (int[]) param;
+                IntSubArray colormap = (IntSubArray) param;
 		int temp = 0;
 		int i;
                 
@@ -853,11 +855,11 @@ public class atarisy1
                                 System.out.println(i);
                             }*/
                         }
-			colormap[color] |= temp;
+			colormap.write(color, colormap.read(color) | temp);
 		}
 	
 		/* in theory we should support all 3 possible depths, but motion objects are all 4bpp */
-                param = colormap;
+                //param = colormap;
             }
         };
         
@@ -903,7 +905,7 @@ public class atarisy1
 		pf_clip = atarigen_mo_compute_clip_8x8(xpos, ypos, 1, vsize, clip);
 	
 		/* standard priority case? */
-		if (priority==0)
+		if (true)
 		{
 			/* draw the motion object */
 			atarigen_mo_draw_8x8_strip(bitmap, gfx, code, color, hflip, 0, xpos, ypos, vsize, clip, TRANSPARENCY_PEN, 0);
@@ -996,18 +998,7 @@ public class atarisy1
 					table.write(_pTable++, PACK_LOOKUP_DATA(bank, color, offset, bpp)); //((((bpp) - 4) & 7) << 24) |offset | (bank << 8) | (color << 12);
 			}
                         
-                       if (obj == 0) {
-                           pf_lookup = new IntSubArray(table);
-                           
-                           //for (int _i=0 ; _i<256 ; _i++)
-                           //    System.out.println(_i+"="+gfx.pen_usage[pf_lookup[_i]]);
-                           
-                       } else {
-                           //System.out.println("==========================");
-                           mo_lookup = new IntSubArray(table);
-                           //for (int _i=0 ; _i<256 ; _i++)
-                           // System.out.println(_i+"="+mo_lookup[_i]);
-                       }
+                       
 		}
 		return 1;
 	}

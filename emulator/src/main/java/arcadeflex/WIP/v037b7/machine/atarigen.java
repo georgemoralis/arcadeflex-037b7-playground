@@ -905,7 +905,7 @@ public class atarigen
 		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
 		{
 			String name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "2151"))
+			if (name!=null && strstr(name, "2151")!=null)
 				mixer_set_volume(ch, volume);
 		}
 	}
@@ -925,7 +925,7 @@ public class atarigen
 		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
 		{
 			String name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "3812"))/*"2413")) -- need this change until 2413 stands alone */
+			if (name!=null && strstr(name, "3812")!=null)/*"2413")) -- need this change until 2413 stands alone */
 				mixer_set_volume(ch, volume);
 		}
 	}
@@ -945,7 +945,7 @@ public class atarigen
 		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
 		{
 			String name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "POKEY"))
+			if (name!=null && strstr(name, "POKEY")!=null)
 				mixer_set_volume(ch, volume);
 		}
 	}
@@ -965,7 +965,7 @@ public class atarigen
 		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
 		{
 			String name = mixer_get_name(ch);
-/*TODO*///			if (name && strstr(name, "5220"))
+			if (name!=null && strstr(name, "5220")!=null)
 				mixer_set_volume(ch, volume);
 		}
 	}
@@ -985,7 +985,7 @@ public class atarigen
 		for (ch = 0; ch < MIXER_MAX_CHANNELS; ch++)
 		{
 			String name = mixer_get_name(ch);
-/*TODO*///			if (name!=null && strstr(name, "6295"))
+			if (name!=null && strstr(name, "6295")!=null)
 				mixer_set_volume(ch, volume);
 		}
 	}
@@ -2802,7 +2802,7 @@ public class atarigen
         public static UBytePtr atarigen_pf2_visit;
 
 	public static osd_bitmap atarigen_pf_overrender_bitmap;
-	public static int[] atarigen_overrender_colortable=new int[32];
+	public static UShortArray atarigen_overrender_colortable=new UShortArray(32);
 	
 	/* statics */
 	public static playfield_data playfield = new playfield_data();

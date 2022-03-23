@@ -192,7 +192,7 @@ public class badlands
 	
 		/* set up the all-transparent overrender palette */
 		for (i = 0; i < 16; i++)
-			atarigen_overrender_colortable[i] = palette_transparent_pen;
+			atarigen_overrender_colortable.write(i, palette_transparent_pen);
 	
 		/* draw the playfield */
 		atarigen_pf_process(pf_render_callback, bitmap, Machine.visible_area);
