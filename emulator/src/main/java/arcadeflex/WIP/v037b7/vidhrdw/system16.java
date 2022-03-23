@@ -43,6 +43,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.spriteC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
 import static gr.codebb.arcadeflex.common.libc.cstring.memset;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.memcpy;
 import static gr.codebb.arcadeflex.old.arcadeflex.video.osd_get_pen;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;
@@ -1965,7 +1966,7 @@ public class system16
 		UBytePtr source=new UBytePtr();
 		UBytePtr line=new UBytePtr();
 		UShortPtr line16;
-		UShortPtr line32;
+		IntPtr line32;
 		UBytePtr data_ver=new UBytePtr(gr_ver);
 		int ver_data,hor_pos;
 		int[] colors=new int[5];
@@ -2201,11 +2202,11 @@ public class system16
 						if((ver_data & 0x500) == 0x100 || (ver_data & 0x300) == 0x200)
 						{
 							// fill line
-							line32 = new UShortPtr(bitmap.line[ypos]);
+							line32 = new IntPtr(bitmap.line[ypos]);
 							fastfill = colors[0] + (colors[0] << 8) + (colors[0] << 16) + (colors[0] << 24);
 							for(j=0;j<320;j+=4)
 							{
-								line32.write(0, (char) fastfill);
+								line32.write(0, fastfill);
                                                                 line32.inc(1);
 							}
 						}
@@ -2330,7 +2331,7 @@ public class system16
 		UBytePtr source = new UBytePtr(), source2 = new UBytePtr(), temp = new UBytePtr();
 		UBytePtr line = new UBytePtr();
 		UShortPtr line16;
-		/*UINT32*/ /*IntSubArray*/ UShortArray line32;
+		/*UINT32*/ /*IntSubArray*/ IntPtr line32;
 		UBytePtr data_ver = new UBytePtr(gr_ver);
 		int ver_data,hor_pos,hor_pos2;
 		int[] colors=new int[5];
@@ -2607,7 +2608,7 @@ public class system16
 						{
 							colors[0] = paldata1.read( ver_data&0x3f );
 							// fill line
-							line32 = new UShortArray(bitmap.line[ypos], 0);
+							line32 = new IntPtr(bitmap.line[ypos], 0);
 							fastfill = colors[0] + (colors[0] << 8) + (colors[0] << 16) + (colors[0] << 24);
 							for(j=0;j<320;j+=4)
 							{
