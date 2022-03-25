@@ -25,6 +25,7 @@ import static arcadeflex.WIP.v037b7.drivers.system16.gr_bitmap_width;
 import arcadeflex.WIP.v037b7.drivers.system16.sys16_update_procPtr;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.common.*;
@@ -123,7 +124,7 @@ public class system16
         public static UBytePtr sys18_splittab_fg_y = new UBytePtr();
 
 /*TODO*///	#ifdef SPACEHARRIER_OFFSETS
-	public static UBytePtr spaceharrier_patternoffsets = new UBytePtr();
+/*TODO*///	public static UBytePtr spaceharrier_patternoffsets = new UBytePtr();
 /*TODO*///	#endif
 	public static UBytePtr gr_ver = new UBytePtr();
 	public static UBytePtr gr_hor = new UBytePtr();
@@ -230,61 +231,64 @@ public class system16
 	} };
 	
 	static void update_page(){
-		int all_dirty = 0;
-		int i,offset;
-		if( old_tile_bank1 != sys16_tile_bank1 ){
-			all_dirty = 1;
-			old_tile_bank1 = sys16_tile_bank1;
-		}
-		if( old_tile_bank0 != sys16_tile_bank0 ){
-			all_dirty = 1;
-			old_tile_bank0 = sys16_tile_bank0;
-			tilemap_mark_all_tiles_dirty( text_layer );
-		}
-		if (all_dirty != 0){
-			tilemap_mark_all_tiles_dirty( background );
-			tilemap_mark_all_tiles_dirty( foreground );
-			if (sys16_18_mode != 0){
-				tilemap_mark_all_tiles_dirty( background2 );
-				tilemap_mark_all_tiles_dirty( foreground2 );
-			}
-		}
-		else {
-			for(i=0;i<4;i++){
-				int page0 = 64*32*i;
-				if( old_bg_page[i]!=sys16_bg_page[i] ){
-					old_bg_page[i] = sys16_bg_page[i];
-					for( offset = page0; offset<page0+64*32; offset++ ){
-						tilemap_mark_tile_dirty( background, offset );
-					}
-				}
-				if( old_fg_page[i]!=sys16_fg_page[i] ){
-					old_fg_page[i] = sys16_fg_page[i];
-					for( offset = page0; offset<page0+64*32; offset++ ){
-						tilemap_mark_tile_dirty( foreground, offset );
-					}
-				}
-				if (sys16_18_mode != 0){
-					if( old_bg2_page[i]!=sys16_bg2_page[i] ){
-						old_bg2_page[i] = sys16_bg2_page[i];
-						for( offset = page0; offset<page0+64*32; offset++ ){
-							tilemap_mark_tile_dirty( background2, offset );
-						}
-					}
-					if( old_fg2_page[i]!=sys16_fg2_page[i] ){
-						old_fg2_page[i] = sys16_fg2_page[i];
-						for( offset = page0; offset<page0+64*32; offset++ ){
-							tilemap_mark_tile_dirty( foreground2, offset );
-						}
-					}
-				}
-			}
-		}
+            int all_dirty = 0;
+            int i,offset;
+            if( old_tile_bank1 != sys16_tile_bank1 ){
+                    all_dirty = 1;
+                    old_tile_bank1 = sys16_tile_bank1;
+            }
+            if( old_tile_bank0 != sys16_tile_bank0 ){
+                    all_dirty = 1;
+                    old_tile_bank0 = sys16_tile_bank0;
+                    tilemap_mark_all_tiles_dirty( text_layer );
+            }
+            if (all_dirty != 0){
+                    tilemap_mark_all_tiles_dirty( background );
+                    tilemap_mark_all_tiles_dirty( foreground );
+                    if (sys16_18_mode != 0){
+                            tilemap_mark_all_tiles_dirty( background2 );
+                            tilemap_mark_all_tiles_dirty( foreground2 );
+                    }
+            }
+            else {
+                    for(i=0;i<4;i++){
+                            int page0 = 64*32*i;
+                            if( old_bg_page[i]!=sys16_bg_page[i] ){
+                                    old_bg_page[i] = sys16_bg_page[i];
+                                    for( offset = page0; offset<page0+64*32; offset++ ){
+                                            tilemap_mark_tile_dirty( background, offset );
+                                    }
+                            }
+                            if( old_fg_page[i]!=sys16_fg_page[i] ){
+                                    old_fg_page[i] = sys16_fg_page[i];
+                                    for( offset = page0; offset<page0+64*32; offset++ ){
+                                            tilemap_mark_tile_dirty( foreground, offset );
+                                    }
+                            }
+                            if (sys16_18_mode != 0){
+                                    if( old_bg2_page[i]!=sys16_bg2_page[i] ){
+                                            old_bg2_page[i] = sys16_bg2_page[i];
+                                            for( offset = page0; offset<page0+64*32; offset++ ){
+                                                    tilemap_mark_tile_dirty( background2, offset );
+                                            }
+                                    }
+                                    if( old_fg2_page[i]!=sys16_fg2_page[i] ){
+                                            old_fg2_page[i] = sys16_fg2_page[i];
+                                            for( offset = page0; offset<page0+64*32; offset++ ){
+                                                    tilemap_mark_tile_dirty( foreground2, offset );
+                                            }
+                                    }
+                            }
+                    }
+            }
 	}
 	
 	static GetTileInfoPtr get_bg_tile_info = new GetTileInfoPtr() {
             @Override
             public void handler(int offset) {
+                /*UShortPtr source = new UShortPtr(sys16_tileram, 64*32*sys16_bg_page[offset/(64*32)] * 2);
+		int data = source.read(offset%(64*32));
+		int tile_number = (data&0xfff) + 0x1000*((data&sys16_tilebank_switch)!=0?sys16_tile_bank1:sys16_tile_bank0);*/
                 UShortPtr source = new UShortPtr(sys16_tileram, 64*32*sys16_bg_page[offset/(64*32)] * 2);
 		int data = source.read(offset%(64*32));
 		int tile_number = (data&0xfff) + 0x1000*((data&sys16_tilebank_switch)!=0?sys16_tile_bank1:sys16_tile_bank0);
@@ -312,6 +316,10 @@ public class system16
 			}
 			break;
                 }
+                
+	
+		
+		
             }
         };
         
@@ -469,7 +477,7 @@ public class system16
 				sys16_bg_map,
 				TILEMAP_OPAQUE,
 				8,8,
-				64*2*2,32*2*2 );
+				64*2,32*2 );
 		else
 			background = tilemap_create(
 				get_bg_tile_info,
@@ -1572,7 +1580,7 @@ public class system16
 				shade_table[Machine.pens[color_start + i]]=Machine.pens[color_start + i];
 			}
 		}
-/*TODO*///		else
+                else System.out.println("kk");
 /*TODO*///		{
 /*TODO*///			if(sys16_MaxShadowColors != 0)
 /*TODO*///			{
@@ -1958,18 +1966,18 @@ public class system16
 			data_ver.inc(2);
 		}
 	}
-	
-	static void render_gr(osd_bitmap bitmap,int priority)
+        
+        static void render_gr(osd_bitmap bitmap,int priority)
 	{
 		int i,j;
 		UBytePtr data = new UBytePtr(memory_region(REGION_GFX3));
-		UBytePtr source=new UBytePtr();
-		UBytePtr line=new UBytePtr();
-		UShortPtr line16;
+		UBytePtr source;
+		UBytePtr line;
+		/*UShortArray UShortPtr*/ UShortPtr line16;
 		IntPtr line32;
 		UBytePtr data_ver=new UBytePtr(gr_ver);
 		int ver_data,hor_pos;
-		int[] colors=new int[5];
+		int[] colors = new int[5];
 	//	UINT8 colors[5];
 		int fastfill;
 		int colorflip;
@@ -1980,6 +1988,8 @@ public class system16
 		UShortArray paldata2 = new UShortArray(Machine.gfx[0].colortable, gr_palette_default);
 	
 		priority=priority << 10;
+                
+                //System.out.println("depth="+Machine.scrbitmap.depth);
 	
 		if (Machine.scrbitmap.depth == 16) /* 16 bit */
 		{
@@ -1997,7 +2007,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD(0);
+					ver_data=data_ver.READ_WORD();
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2018,9 +2028,13 @@ public class system16
 							colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
 	
 							colors[1] = paldata2.read( gr_colorflip[colorflip][0] );
+                                                        System.out.println("colors[1]="+colors[1]);
 							colors[2] = paldata2.read( gr_colorflip[colorflip][1] );
+                                                        System.out.println("colors[2]="+colors[2]);
 							colors[3] = paldata2.read( gr_colorflip[colorflip][2] );
+                                                        System.out.println("colors[3]="+colors[3]);
 							colors[4] = paldata2.read( gr_colorflip[colorflip][3] );
+                                                        System.out.println("colors[4]="+colors[4]);
 	
 							hor_pos = (gr_hor.READ_WORD(ver_data<<1) );
 							ver_data = ver_data << gr_bitmap_width;
@@ -2041,7 +2055,8 @@ public class system16
 							for(j=0;j<320;j++)
 							{
 								line16=new UShortPtr(bitmap.line[xoff+j*dx], ypos);
-								line16.write(0, (char) colors[source.readinc()]);
+								line16.write(0, (char) colors[source.read(source.offset)]);
+                                                                source.offset+=1;
 							}
 						}
 					}
@@ -2062,7 +2077,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD(0);
+					ver_data=data_ver.READ_WORD();
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2073,7 +2088,7 @@ public class system16
 							for(j=0;j<320;j++)
 							{
 								line16.write(0, (char) colors[0]);
-                                                                line16.inc(1);
+                                                                line16.inc();
 							}
 						}
 						else
@@ -2103,7 +2118,7 @@ public class system16
 							}
 	
 							source = new UBytePtr(data, hor_pos + ver_data + 18 + 8);
-	
+	System.out.println("Aquí!");
 							for(j=0;j<320;j++)
 							{
 								line16.write(0, (char) colors[source.readinc()]);
@@ -2131,7 +2146,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD(0);
+					ver_data=data_ver.READ_WORD();
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2141,7 +2156,7 @@ public class system16
 							// fill line
 							for(j=0;j<320;j++)
 							{
-								new UBytePtr(bitmap.line[j]).write(ypos, colors[0]);
+								bitmap.line[j].write(ypos, colors[0]);
 							}
 						}
 						else
@@ -2173,7 +2188,7 @@ public class system16
 	
 							for(j=0;j<320;j++)
 							{
-								new UBytePtr(bitmap.line[xoff+j*dx]).write(ypos, colors[source.readinc()]);
+								bitmap.line[xoff+j*dx].write(ypos, colors[source.readinc()]);
 							}
 						}
 					}
@@ -2194,7 +2209,7 @@ public class system16
 				{
 					if (yflip != 0) ypos=223-i;
 					else ypos=i;
-					ver_data=data_ver.READ_WORD(0);
+					ver_data=data_ver.READ_WORD();
 					if((ver_data & 0x400) == priority)
 					{
 						colors[0] = paldata1.read( gr_pal.READ_WORD((ver_data<<1)&0x1fe)&0xff );
@@ -2207,7 +2222,7 @@ public class system16
 							for(j=0;j<320;j+=4)
 							{
 								line32.write(0, fastfill);
-                                                                line32.inc(1);
+                                                                line32.inc();
 							}
 						}
 						else
@@ -2218,9 +2233,13 @@ public class system16
 							colorflip = (gr_flip.READ_WORD(ver_data<<1) >> 3) & 1;
 	
 							colors[1] = paldata2.read( gr_colorflip[colorflip][0] );
+                                                        //System.out.println("colors[1]="+colors[1]);
 							colors[2] = paldata2.read( gr_colorflip[colorflip][1] );
+                                                        //System.out.println("colors[2]="+colors[2]);
 							colors[3] = paldata2.read( gr_colorflip[colorflip][2] );
+                                                        //System.out.println("colors[3]="+colors[3]);
 							colors[4] = paldata2.read( gr_colorflip[colorflip][3] );
+                                                        //System.out.println("colors[4]="+colors[4]);
 	
 							hor_pos = (gr_hor.READ_WORD(ver_data<<1) );
 							ver_data = ver_data << gr_bitmap_width;
@@ -2240,8 +2259,10 @@ public class system16
 	
 							for(j=0;j<320;j++)
 							{
-								line.write(0, colors[source.readinc()]);
+								line.write(0, colors[source.read()]);
+                                                                source.offset += 1;
 								line.inc(dx);
+                                                                
 							}
 						}
 					}
@@ -2250,6 +2271,7 @@ public class system16
 			}
 		}
 	}
+	
 	
 	
 	// Refresh for hang-on, etc.

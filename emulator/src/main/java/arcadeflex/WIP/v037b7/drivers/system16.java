@@ -429,7 +429,7 @@ public class system16
 		sys16_MaxShadowColors=NumOfShadowColors;
 	
 /*TODO*///	#ifdef SPACEHARRIER_OFFSETS
-		spaceharrier_patternoffsets=null;
+/*TODO*///		spaceharrier_patternoffsets=null;
 /*TODO*///	#endif
 	} };
 	
@@ -1189,16 +1189,16 @@ public class system16
 		for (i=0; i<256; i++)
 		{
 			int last_bit;
-			int[] color_data = new int[4];
+			int[] color_data=new int[4];
 	
 			color_data[0]=start_color; color_data[1]=start_color+1;
 			color_data[2]=start_color+2; color_data[3]=start_color+3;
-			last_bit=((buf.read(0)&0x80)==0)?1:0|(((buf.read(0x4000)&0x80)==0)?1:0<<1);
+			last_bit=((buf.read(0)&0x80)==0)?1:0|(((buf.read(0x4000)&0x80)==0?1:0)<<1);
 			for (j=0; j<w/8; j++)
 			{
 				for (k=0; k<8; k++)
 				{
-					int bit=((buf.read(0)&0x80)==0)?1:0|(((buf.read(0x4000)&0x80)==0)?1:0<<1);
+					int bit=((buf.read(0)&0x80)==0)?1:0|(((buf.read(0x4000)&0x80)==0?1:0)<<1);
 					if (bit!=last_bit && bit==0 && i>1)
 					{ // color flipped to 0,advance color[0]
 						if (color_data[0]+end_color <= end_color)
@@ -1212,7 +1212,7 @@ public class system16
 					}
 					gr.write(color_data[bit]);
 					last_bit=bit;
-					buf.write(0, buf.read(0) << 1); 
+					buf.write(0, (buf.read(0) << 1)); 
                                         buf.write(0x4000, buf.read(0x4000) << 1); 
                                         gr.inc();
 				}
@@ -1222,12 +1222,16 @@ public class system16
 			if (grr!=null)
 			{ // need mirrored RHS
 				UBytePtr _gr=new UBytePtr(gr, -1);
-				_gr.inc( -skip );
+                                //UBytePtr _gr=gr;
+                                //_gr.offset--;
+                                
+				_gr.dec(skip);
 				for (j=0; j<w-skip; j++)
 				{
 					gr.writeinc( _gr.readdec() );
+                                        //_gr.dec();
 				}
-				for (j=0; j<skip; j++) gr.writeinc(0);
+				for (j=0; j<skip; j++) gr.writeinc( 0 );
 			}
 			else if (center_offset!=0)
 			{
@@ -10510,20 +10514,20 @@ public class system16
 		sys16_MaxShadowColors=NumOfShadowColors / 2;
 	
 /*TODO*///	#ifdef SPACEHARRIER_OFFSETS
-		spaceharrier_patternoffsets=new UBytePtr(65536);
-	
-		memset(spaceharrier_patternoffsets,0x7f,65535);
-		spaceharrier_patternoffsets.write(0x2124, 0); // small shadow
-		spaceharrier_patternoffsets.write(0x2429, 4); // ice berg of round 7
-		spaceharrier_patternoffsets.write(0x211b, 1); // small flying rock
-		spaceharrier_patternoffsets.write(0x515b, 0); // small flying ball
-		spaceharrier_patternoffsets.write(0x611f, 0); // small ceiling ball
-		spaceharrier_patternoffsets.write(0x624a, 1); // small ceiling ball
-		spaceharrier_patternoffsets.write(0x5785, 1); // 3 poses of the Harrier on the title screen
-		spaceharrier_patternoffsets.write(0x5771, 1); // these are the only patterns which do not need
-		spaceharrier_patternoffsets.write(0x579a, 1); // position compensations
-		spaceharrier_patternoffsets.write(0x06f3, 0); // missiles
-		spaceharrier_patternoffsets.write(0x0735, 0);
+/*TODO*///		spaceharrier_patternoffsets=new UBytePtr(65536);
+/*TODO*///	
+/*TODO*///		memset(spaceharrier_patternoffsets,0x7f,65535);
+/*TODO*///		spaceharrier_patternoffsets.write(0x2124, 0); // small shadow
+/*TODO*///		spaceharrier_patternoffsets.write(0x2429, 4); // ice berg of round 7
+/*TODO*///		spaceharrier_patternoffsets.write(0x211b, 1); // small flying rock
+/*TODO*///		spaceharrier_patternoffsets.write(0x515b, 0); // small flying ball
+/*TODO*///		spaceharrier_patternoffsets.write(0x611f, 0); // small ceiling ball
+/*TODO*///		spaceharrier_patternoffsets.write(0x624a, 1); // small ceiling ball
+/*TODO*///		spaceharrier_patternoffsets.write(0x5785, 1); // 3 poses of the Harrier on the title screen
+/*TODO*///		spaceharrier_patternoffsets.write(0x5771, 1); // these are the only patterns which do not need
+/*TODO*///		spaceharrier_patternoffsets.write(0x579a, 1); // position compensations
+/*TODO*///		spaceharrier_patternoffsets.write(0x06f3, 0); // missiles
+/*TODO*///		spaceharrier_patternoffsets.write(0x0735, 0);
 /*TODO*///	#endif
 	
 		sys16_sprite_decode2( 8,0x020000 ,1);
