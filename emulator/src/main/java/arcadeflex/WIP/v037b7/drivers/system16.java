@@ -1156,8 +1156,92 @@ public class system16
 	}
 
 	public static int gr_bitmap_width;
+        
+        static void generate_gr_screen(int w,int bitmap_width,int skip,int start_color,int end_color,int source_size)
+	{
+		UBytePtr buf;
+		UBytePtr gr = new UBytePtr(memory_region(REGION_GFX3));
+		UBytePtr grr = null;
+	    int i,j,k;
+	    int center_offset=0;
+	
+	
+		buf=new UBytePtr(source_size);
+		if(buf==null) return;
+	
+		gr_bitmap_width = bitmap_width;
+	
+		memcpy(buf,gr,source_size);
+		memset(gr,0,256*bitmap_width);
+	
+		if (w!=gr_bitmap_width)
+		{
+			if (skip>0) // needs mirrored RHS
+				grr=gr;
+			else
+			{
+				center_offset=(gr_bitmap_width-w);
+				gr.inc(center_offset/2);
+			}
+		}
+	
+	    // build gr_bitmap
+		for (i=0; i<256; i++)
+		{
+			int last_bit;
+			int[] color_data = new int[4];
+	
+			color_data[0]=start_color; color_data[1]=start_color+1;
+			color_data[2]=start_color+2; color_data[3]=start_color+3;
+			last_bit=((buf.read(0)&0x80)==0)?1:0|(((buf.read(0x4000)&0x80)==0?1:0)<<1);
+			for (j=0; j<w/8; j++)
+			{
+				for (k=0; k<8; k++)
+				{
+					int bit=((buf.read(0)&0x80)==0?1:0)|(((buf.read(0x4000)&0x80)==0?1:0)<<1);
+					if (bit!=last_bit && bit==0 && i>1)
+					{ // color flipped to 0,advance color[0]
+						if (color_data[0]+end_color <= end_color)
+						{
+							color_data[0]+=end_color;
+						}
+						else
+						{
+							color_data[0]-=end_color;
+						}
+					}
+					gr.write( color_data[bit] );
+					last_bit=bit;
+					buf.write(0, buf.read(0)<< 1); 
+                                        buf.write(0x4000, buf.read(0x4000) << 1);
+                                        gr.inc();
+				}
+				buf.inc();
+			}
+	
+			if (grr!=null)
+			{ // need mirrored RHS
+				UBytePtr _gr=new UBytePtr(gr, -1);
+				_gr.dec(skip);
+				for (j=0; j<w-skip; j++)
+				{
+					gr.writeinc(_gr.readdec());
+				}
+				for (j=0; j<skip; j++) gr.writeinc(0);
+			}
+			else if (center_offset!=0)
+			{
+				gr.inc(center_offset);
+			}
+		}
+	
+		i=1;
+		while ( (1<<i) < gr_bitmap_width ) i++;
+		gr_bitmap_width=i; // power of 2
+	
+	}
 
-	static void generate_gr_screen(int w,int bitmap_width,int skip,int start_color,int end_color,int source_size)
+	static void generate_gr_screen_old(int w,int bitmap_width,int skip,int start_color,int end_color,int source_size)
 	{
 		UBytePtr buf=new UBytePtr();
 		UBytePtr gr = new UBytePtr(memory_region(REGION_GFX3));
