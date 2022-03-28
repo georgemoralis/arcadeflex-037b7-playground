@@ -1338,7 +1338,7 @@ public class system16
 				sprite_ptr++;
 			}
 			break;
-			case 7: // Out Run
+                        case 7: // Out Run
 			while( sprite_ptr<finish ){
 	
 				if( source.read(0) == 0xffff ){ /* end of spritelist marker */
@@ -1358,6 +1358,11 @@ public class system16
 					int gfx;
 					int zoom;
 					int x;
+	
+/*TODO*///	#ifdef SYS16_DEBUG
+/*TODO*///					if (dump_spritedata != 0) logerror("0:%4x  1:%4x  2:%4x  3:%4x  4:%4x  5:%4x  6:%4x  7:%4x\n",
+/*TODO*///							source[0],source[1],source[2],source[3],source[4],source[5],source[6],source[7]);
+/*TODO*///	#endif
 	
 					zoom=source.read(4)&0xfff;
 	//				if (zoom==0x32c) zoom=0x3cf;	//???
@@ -1385,6 +1390,7 @@ public class system16
 					sprite[sprite_ptr].line_offset = (width&0x7f)*4;
 	
 					sprite[sprite_ptr].flags = SPRITE_VISIBLE;
+/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 					if(pal==0)
 						sprite[sprite_ptr].flags|= SPRITE_SHADOW;
 					else if((source.read(3)&0x4000) != 0)
@@ -1393,6 +1399,7 @@ public class system16
 						sprite[sprite_ptr].flags|= SPRITE_PARTIAL_SHADOW;
 						sprite[sprite_ptr].shadow_pen=10;
 					}
+/*TODO*///	#endif
 					if((source.read(4)&0x2000)==0)
 					{
 						if((source.read(4)&0x4000)==0)
@@ -1463,7 +1470,7 @@ public class system16
 					sprite[sprite_ptr].total_width = sprite[sprite_ptr].tile_width*0x200/zoom;
 					sprite[sprite_ptr].pen_data = new UBytePtr(base_gfx, (((gfx &0x3ffff) + (sys16_obj_bank[bank] << 17)) << 1));
 				}
-				source.inc( 8 );
+				source.inc(8);
 				sprite_ptr++;
 			}
 			break;
@@ -1472,11 +1479,11 @@ public class system16
 	/***************************************************************************/
 	
 	static void mark_sprite_colors(){
-		UShortPtr source = new UShortPtr(sys16_spriteram);
-		UShortPtr finish = new UShortPtr(source,NUM_SPRITES*8);
+                UShortPtr source = new UShortPtr(sys16_spriteram);
+		UShortPtr finish = new UShortPtr(source, NUM_SPRITES*8);
 		int pal_start=1024,pal_size=64;
 	
-		char[] used=new char[128];
+		char[] used = new char[128];
 		memset( used, 0, 128 );
 	
 		switch( sys16_spritesystem ){
@@ -1484,14 +1491,14 @@ public class system16
 				do{
 					if( source.read(0)>>8 == 0xff || source.read(2) == sys16_spritelist_end) break;
 					used[source.read(4)&0x3f] = 1;
-					source.offset+=8*2;
+					source.inc(8);
 				}while( source.offset<finish.offset );
 				break;
 			case 4: /* Aurail */
 				do{
 					if( (source.read(2)) == sys16_spritelist_end) break;
 					used[source.read(4)&0x3f] = 1;
-					source.offset+=8;
+					source.inc(8);
 				}while( source.offset<finish.offset );
 				break;
 	
@@ -1501,21 +1508,21 @@ public class system16
 				do{
 					if( (source.read(0)>>8) == 0xff ) break;;
 					used[(source.read(4)>>8)&0x3f] = 1;
-					source.offset+=8;
+					source.inc(8);
 				}while( source.offset<finish.offset );
 				break;
 			case 6:	/* Space Harrier */
 				do{
 					if( (source.read(0)>>8) == 0xff ) break;;
 					used[(source.read(2)>>8)&0x3f] = 1;
-					source.offset+=8;
+					source.inc(8);
 				}while( source.offset<finish.offset );
 				break;
 			case 7:	/* Out Run */
 				do{
 					if( (source.read(0)) == 0xffff ) break;;
 					used[(source.read(5))&0x7f] = 1;
-					source.offset+=8;
+					source.inc(8);
 				}while( source.offset<finish.offset );
 				pal_start=2048;
 				pal_size=128;
@@ -1524,35 +1531,37 @@ public class system16
 			case 8: /* passing shot 4p */
 				do{
 					if( source.read(1)!=0xffff ) used[(source.read(5)>>8)&0x3f] = 1;
-					source.offset+=8;
+					source.inc(8);
 				}while( source.offset<finish.offset );
 				break;
 		}
 	
 		{
-			UBytePtr pal = new UBytePtr(palette_used_colors,pal_start);
+			UBytePtr pal = new UBytePtr(palette_used_colors, pal_start);
 			int i;
 			for (i = 0; i < pal_size; i++){
-				if ( used[i]!=0 ){
-					pal.write(0,  PALETTE_COLOR_UNUSED);
-					memset( pal,1,PALETTE_COLOR_USED,14 );
+				if ( used[i] != 0 ){
+					pal.write(0, PALETTE_COLOR_UNUSED);
+					memset( new UBytePtr(pal, 1),PALETTE_COLOR_USED,14 );
 					pal.write(15, PALETTE_COLOR_UNUSED);
 				}
 				else {
 					memset( pal, PALETTE_COLOR_UNUSED, 16 );
 				}
-				pal.offset += 16;
+				pal.inc(16);
 			}
 		}
+/*TODO*///	#ifdef TRANSPARENT_SHADOWS
 		if (Machine.scrbitmap.depth == 8) /* 8 bit shadows */
 		{
-			memset(palette_used_colors,Machine.drv.total_colors/2, PALETTE_COLOR_USED, sys16_MaxShadowColors);
+			memset(new UBytePtr(palette_used_colors, Machine.drv.total_colors/2), PALETTE_COLOR_USED, sys16_MaxShadowColors);
 		}
-/*TODO*///		else if(sys16_MaxShadowColors != 0) /* 16 bit shadows */
-/*TODO*///		{
-/*TODO*///			/* Mark the shadowed versions of the used pens */
-/*TODO*///			memcpy(&palette_used_colors[Machine.drv.total_colors/2], &palette_used_colors[0], Machine.drv.total_colors/2);
-/*TODO*///		}
+		else if(sys16_MaxShadowColors != 0) /* 16 bit shadows */
+		{
+			/* Mark the shadowed versions of the used pens */
+			memcpy(new UBytePtr(palette_used_colors, Machine.drv.total_colors/2), new UBytePtr(palette_used_colors, 0), Machine.drv.total_colors/2);
+		}
+/*TODO*///	#endif
 	}
         
 /*TODO*///	#ifdef TRANSPARENT_SHADOWS
@@ -2323,7 +2332,7 @@ public class system16
 	
 		for(i=0;i<224;i++)
 		{
-			ver_data=data_ver.READ_WORD(0);
+			ver_data=data_ver.READ_WORD();
 	
 			if((ver_data & 0x800)==0)
 			{
@@ -2334,9 +2343,9 @@ public class system16
 	
 				colorflip = (colorflip_info >> 3) & 1;
 	
-				palette_used_colors.write( gr_colorflip[colorflip][0] + gr_palette_default , PALETTE_COLOR_USED);
-				palette_used_colors.write( gr_colorflip[colorflip][1] + gr_palette_default , PALETTE_COLOR_USED);
-				palette_used_colors.write( gr_colorflip[colorflip][2] + gr_palette_default , PALETTE_COLOR_USED);
+				palette_used_colors.write( gr_colorflip[colorflip][0] + gr_palette_default, PALETTE_COLOR_USED);
+				palette_used_colors.write( gr_colorflip[colorflip][1] + gr_palette_default, PALETTE_COLOR_USED);
+				palette_used_colors.write( gr_colorflip[colorflip][2] + gr_palette_default, PALETTE_COLOR_USED);
 			}
 			else
 			{
@@ -2427,9 +2436,9 @@ public class system16
 	
 							switch(second_road)
 							{
-								case 0:	source2=source;	break;
-								case 2:	temp=source;source=source2;source2=temp; break;
-								case 3:	source=source2;	break;
+								case 0:	source2=new UBytePtr(source);	break;
+								case 2:	temp=new UBytePtr(source);source=new UBytePtr(source2);source2=new UBytePtr(temp); break;
+								case 3:	source=new UBytePtr(source2);	break;
 							}
 	
 							source2.inc();
@@ -2507,9 +2516,9 @@ public class system16
 	
 							switch(second_road)
 							{
-								case 0:	source2=source;	break;
-								case 2:	temp=source;source=source2;source2=temp; break;
-								case 3:	source=source2;	break;
+								case 0:	source2=new UBytePtr(source);	break;
+								case 2:	temp=new UBytePtr(source);source=new UBytePtr(source2);source2=new UBytePtr(temp); break;
+								case 3:	source=new UBytePtr(source2);	break;
 							}
 	
 							source2.inc();
@@ -2587,9 +2596,9 @@ public class system16
 	
 							switch(second_road)
 							{
-								case 0:	source2=source;	break;
-								case 2:	temp=source;source=source2;source2=temp; break;
-								case 3:	source=source2;	break;
+								case 0:	source2=new UBytePtr(source);	break;
+								case 2:	temp=new UBytePtr(source);source=new UBytePtr(source2);source2=new UBytePtr(temp); break;
+								case 3:	source=new UBytePtr(source2);	break;
 							}
 	
 							source2.inc();
@@ -2667,9 +2676,9 @@ public class system16
 	
 							switch(second_road)
 							{
-								case 0:	source2=source;	break;
-								case 2:	temp=source;source=source2;source2=temp; break;
-								case 3:	source=source2;	break;
+								case 0:	source2=new UBytePtr(source);	break;
+								case 2:	temp=new UBytePtr(source);source=new UBytePtr(source2);source2=new UBytePtr(temp); break;
+								case 3:	source=new UBytePtr(source2);	break;
 							}
 	
 							source2.inc();

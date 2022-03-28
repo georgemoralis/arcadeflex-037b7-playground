@@ -546,6 +546,7 @@ public class spriteC {
             }
 
             if ((sprite[sprite_ptr].flags & (SPRITE_SHADOW | SPRITE_PARTIAL_SHADOW)) == 0) {
+                //System.out.println("1st case");
                 UBytePtr pen_data = new UBytePtr(sprite[sprite_ptr].pen_data);
                 UShortArray pal_data = sprite[sprite_ptr].pal_data;
                 int x, y;
