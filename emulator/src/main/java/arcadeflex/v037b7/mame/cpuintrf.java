@@ -78,6 +78,7 @@ import static gr.codebb.arcadeflex.v036.cpu.m68000.m68000H.MC68000_IRQ_7;
 import gr.codebb.arcadeflex.v036.cpu.m68000.m68kmame;
 import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_INT_FIRQ;
 import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_INT_IRQ;
+import arcadeflex.WIP.v037b7.cpu.nec.v30;
 
 public class cpuintrf {
 
@@ -332,7 +333,7 @@ public class cpuintrf {
                 new i86(),//CPU0(I86,	   i86, 	 1,  0,1.00,I86_INT_NONE,	   -1000,		   I86_NMI_INT,    20,	  0,20,LE,1, 5,20	),
                 new i186(),//CPU0(I186,	   i186,	 1,  0,1.00,I186_INT_NONE,	   -1000,		   I186_NMI_INT,   20,	  0,20,LE,1, 5,20	),
                 new Dummy_cpu(),//CPU0(V20,	   v20, 	 1,  0,1.00,NEC_INT_NONE,	   -1000,		   NEC_NMI_INT,    20,	  0,20,LE,1, 5,20	),
-                new Dummy_cpu(),//CPU0(V30,	   v30, 	 1,  0,1.00,NEC_INT_NONE,	   -1000,		   NEC_NMI_INT,    20,	  0,20,LE,1, 5,20	),
+                new v30(),//CPU0(V30,	   v30, 	 1,  0,1.00,NEC_INT_NONE,	   -1000,		   NEC_NMI_INT,    20,	  0,20,LE,1, 5,20	),
                 new Dummy_cpu(),//CPU0(V33,	   v33, 	 1,  0,1.20,NEC_INT_NONE,	   -1000,		   NEC_NMI_INT,    20,	  0,20,LE,1, 5,20	),
                 new i8035(),//CPU0(I8035,    i8035,	 1,  0,1.00,I8035_IGNORE_INT,  I8035_EXT_INT,  -1,			   16,	  0,16,LE,1, 2,16	),
                 new i8039(),//CPU0(I8039,    i8039,	 1,  0,1.00,I8039_IGNORE_INT,  I8039_EXT_INT,  -1,			   16,	  0,16,LE,1, 2,16	),
@@ -1575,13 +1576,22 @@ public class cpuintrf {
                         break;
 
                     /*TODO*///#if (HAS_V20)
-/*TODO*///			case CPU_V20:				irq_line = 0; LOG(("V20 IRQ\n")); break;
+			case CPU_V20:				
+                            irq_line = 0; 
+                            //LOG(("V20 IRQ\n")); 
+                            break;
 /*TODO*///#endif
 /*TODO*///#if (HAS_V30)
-/*TODO*///			case CPU_V30:				irq_line = 0; LOG(("V30 IRQ\n")); break;
+			case CPU_V30:				
+                            irq_line = 0; 
+                            //LOG(("V30 IRQ\n")); 
+                            break;
 /*TODO*///#endif
 /*TODO*///#if (HAS_V33)
-/*TODO*///			case CPU_V33:				irq_line = 0; LOG(("V33 IRQ\n")); break;
+			case CPU_V33:				
+                            irq_line = 0; 
+                            //LOG(("V33 IRQ\n")); 
+                            break;
 /*TODO*///#endif
                     case CPU_I8035:
                         irq_line = 0;

@@ -154,14 +154,14 @@ public class wwfsstar
 	
 	static MemoryWriteAddress writemem[] =
 	{
-		new MemoryWriteAddress( 0x000000, 0x03ffff, MWA_ROM ),	/* Rom */
+		new MemoryWriteAddress( 0x000000, 0x07ffff, MWA_ROM ),	/* Rom */
 		new MemoryWriteAddress( 0x080000, 0x080fff, wwfsstar_fg0_videoram_w, fg0_videoram ),	/* FG0 Ram */
 		new MemoryWriteAddress( 0x0c0000, 0x0c0fff, wwfsstar_bg0_videoram_w, bg0_videoram ),	/* BG0 Ram */
 		new MemoryWriteAddress( 0x100000, 0x1003ff, MWA_RAM, spriteram ),	/* SPR Ram */
 		new MemoryWriteAddress( 0x140000, 0x140fff, paletteram_xxxxBBBBGGGGRRRR_word_w, paletteram ),
 		new MemoryWriteAddress( 0x180004, 0x180007, wwfsstar_scrollwrite ),
 		new MemoryWriteAddress( 0x180008, 0x180009, wwfsstar_soundwrite ),
-		new MemoryWriteAddress( 0x1c0000, 0x1c3fff, MWA_RAM ),	/* Work Ram */
+		new MemoryWriteAddress( 0x1c0000, 0x2c3fff, MWA_RAM ),	/* Work Ram */
                 new MemoryWriteAddress( -1 )
 	};
 	

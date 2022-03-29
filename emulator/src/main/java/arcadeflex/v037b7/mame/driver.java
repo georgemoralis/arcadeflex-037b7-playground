@@ -238,6 +238,7 @@ import static arcadeflex.WIP.v037b7.drivers.toobin.*;
 import static arcadeflex.WIP.v037b7.drivers.atarisy1.*;
 import static arcadeflex.WIP.v037b7.drivers.vindictr.*;
 import static arcadeflex.WIP.v037b7.drivers.neogeo.*;
+import static arcadeflex.WIP.v037b7.drivers.m72.*;
 
 public class driver {
 
@@ -934,29 +935,29 @@ public class driver {
         driver_vigilntj, /* (c) 1988 (Japan) */
         driver_kikcubic, /* (c) 1988 (Japan) */
         /* M72 (and derivatives) */
-        /*TODO*///	driver_rtype,		/* (c) 1987 (Japan) */
-        /*TODO*///	driver_rtypepj,	/* (c) 1987 (Japan) */
-        /*TODO*///	driver_rtypeu,	/* (c) 1987 + Nintendo USA license (US) */
-        /*TODO*///	driver_bchopper,	/* (c) 1987 */
-        /*TODO*///	driver_mrheli,	/* (c) 1987 (Japan) */
-        /*TODO*///	driver_nspirit,	/* (c) 1988 */
-        /*TODO*///	driver_nspiritj,	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_imgfight,	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_loht,		/* (c) 1989 */
-        /*TODO*///	driver_xmultipl,	/* (c) 1989 (Japan) */
-        /*TODO*///	driver_dbreed,	/* (c) 1989 */
-        /*TODO*///	driver_rtype2,	/* (c) 1989 */
-        /*TODO*///	driver_rtype2j,	/* (c) 1989 (Japan) */
-        /*TODO*///	driver_majtitle,	/* (c) 1990 (Japan) */
-        /*TODO*///	driver_hharry,	/* (c) 1990 (World) */
-        /*TODO*///	driver_hharryu,	/* (c) 1990 Irem America (US) */
-        /*TODO*///	driver_dkgensan,	/* (c) 1990 (Japan) */
+        driver_rtype,		/* (c) 1987 (Japan) */
+        driver_rtypepj,	/* (c) 1987 (Japan) */
+        driver_rtypeu,	/* (c) 1987 + Nintendo USA license (US) */
+        driver_bchopper,	/* (c) 1987 */
+        driver_mrheli,	/* (c) 1987 (Japan) */
+        driver_nspirit,	/* (c) 1988 */
+        driver_nspiritj,	/* (c) 1988 (Japan) */
+        driver_imgfight,	/* (c) 1988 (Japan) */
+        driver_loht,		/* (c) 1989 */
+        driver_xmultipl,	/* (c) 1989 (Japan) */
+        driver_dbreed,	/* (c) 1989 */
+        driver_rtype2,	/* (c) 1989 */
+        driver_rtype2j,	/* (c) 1989 (Japan) */
+        driver_majtitle,	/* (c) 1990 (Japan) */
+        driver_hharry,	/* (c) 1990 (World) */
+        driver_hharryu,	/* (c) 1990 Irem America (US) */
+        driver_dkgensan,	/* (c) 1990 (Japan) */
         /*TODO*///TESTdriver_kengo,
-        /*TODO*///	driver_poundfor,	/* (c) 1990 (World) */
-        /*TODO*///	driver_poundfou,	/* (c) 1990 Irem America (US) */
-        /*TODO*///	driver_airduel,	/* (c) 1990 (Japan) */
-        /*TODO*///	driver_gallop,	/* (c) 1991 (Japan) */
-        /*TODO*///	/* not M72, but same sound hardware */
+        driver_poundfor,	/* (c) 1990 (World) */
+        driver_poundfou,	/* (c) 1990 Irem America (US) */
+        driver_airduel,	/* (c) 1990 (Japan) */
+        driver_gallop,	/* (c) 1991 (Japan) */
+        /* not M72, but same sound hardware */
         driver_sichuan2, /* (c) 1989 Tamtex */
         driver_sichuana, /* (c) 1989 Tamtex */
         driver_shisen, /* (c) 1989 Tamtex */
