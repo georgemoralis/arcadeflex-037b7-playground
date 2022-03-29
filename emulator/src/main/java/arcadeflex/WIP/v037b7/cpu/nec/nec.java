@@ -225,12 +225,12 @@ public abstract class nec extends cpu_interface {
 
     @Override
     public void set_nmi_line(int linestate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        nec_set_nmi_line(linestate);
     }
 
     @Override
     public void set_irq_line(int irqline, int linestate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        nec_set_irq_line(irqline, linestate);
     }
 
     @Override
@@ -2503,15 +2503,22 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		} else nec_ICount-=4;
 /*TODO*///	}
 /*TODO*///	
-/*TODO*///	static void i_jnz(void)    /* Opcode 0x75 */
-/*TODO*///	{
-/*TODO*///		int tmp = (int)((INT8)FETCH);
-/*TODO*///		if (!ZF) {
-/*TODO*///			I.ip = (WORD)(I.ip+tmp);
-/*TODO*///			nec_ICount-=14;
-/*TODO*///			change_pc20((I.base[CS]+I.ip));
-/*TODO*///		} else nec_ICount-=4;
-/*TODO*///	}
+
+        static InstructionPtr i_jnz = new InstructionPtr() /* Opcode 0x75 */ {
+            public void handler() {
+                int tmp = (int) ((byte) FETCH());
+                if (ZF() == 0) {
+                    I.ip = (I.ip + tmp) & 0xFFFF;
+                    nec_ICount[0] -= 14;
+                    change_pc20((I.base[CS] + I.ip));
+                } else {
+                    nec_ICount[0] -= 4;
+                }
+                if (neclog != null) {
+                    fprintf(neclog, "i_jnz :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                }
+            }
+        };
 /*TODO*///	
 /*TODO*///	static void i_jbe(void)    /* Opcode 0x76 */
 /*TODO*///	{
@@ -2613,51 +2620,129 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		} else nec_ICount-=4;
 /*TODO*///	}
 /*TODO*///	
-/*TODO*///	static void i_80pre(void)    /* Opcode 0x80 */
-/*TODO*///	{
-/*TODO*///		unsigned ModRM = FETCH;
-/*TODO*///	    unsigned dst = GetRMByte(ModRM);
-/*TODO*///	    unsigned src = FETCH;
-/*TODO*///		nec_ICount-=(ModRM >=0xc0 )?4:18;
-/*TODO*///	
-/*TODO*///	    switch (ModRM & 0x38)
-/*TODO*///	    {
-/*TODO*///	    case 0x00:  /* ADD eb,d8 */
-/*TODO*///	        ADDB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x08:  /* OR eb,d8 */
-/*TODO*///	        ORB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x10:  /* ADC eb,d8 */
-/*TODO*///	        src+=CF;
-/*TODO*///	        ADDB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x18:  /* SBB eb,b8 */
-/*TODO*///	        src+=CF;
-/*TODO*///	        SUBB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x20:  /* AND eb,d8 */
-/*TODO*///	        ANDB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x28:  /* SUB eb,d8 */
-/*TODO*///	        SUBB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x30:  /* XOR eb,d8 */
-/*TODO*///	        XORB(dst,src);
-/*TODO*///	        PutbackRMByte(ModRM,dst);
-/*TODO*///		break;
-/*TODO*///	    case 0x38:  /* CMP eb,d8 */
-/*TODO*///	        SUBB(dst,src);
-/*TODO*///		break;
-/*TODO*///	    }
-/*TODO*///	}
-/*TODO*///	
+static InstructionPtr i_80pre = new InstructionPtr() {
+        public void handler() {
+            int ModRM = FETCH();
+            int dst = GetRMByte(ModRM);
+            int src = FETCH();
+            nec_ICount[0] -= (ModRM >= 0xc0) ? 4 : 18;
+
+            switch (ModRM & 0x38) {
+                case 0x00: /* ADD eb,d8 */ {
+                    //ADDB(dst,src);
+                    int res = dst + src;
+                    SetCFB(res);
+                    SetOFB_Add(res, src, dst);
+                    SetAF(res, src, dst);
+                    SetSZPF_Byte(res);
+                    dst = res & 0xFF;
+                    PutbackRMByte(ModRM, dst);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x00 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                }
+                break;
+
+                case 0x08:
+                    /* OR eb,d8 */
+
+                    //ORB(dst,src);
+                    dst |= src;
+                    I.CarryVal = I.OverVal = I.AuxVal = 0;
+                    SetSZPF_Byte(dst);
+                    PutbackRMByte(ModRM, dst & 0xFF);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x08 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                    break;
+                case 0x10: /* ADC eb,d8 */ {
+                    src += CF();
+                    //ADDB(dst,src);
+                    int res = dst + src;
+                    SetCFB(res);
+                    SetOFB_Add(res, src, dst);
+                    SetAF(res, src, dst);
+                    SetSZPF_Byte(res);
+                    dst = res & 0xFF;
+                    PutbackRMByte(ModRM, dst);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x10 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                }
+                break;
+                case 0x18: /* SBB eb,b8 */ {
+                    src += CF();
+                    //SUBB(dst, src);
+                    int res = dst - src;
+                    SetCFB(res);
+                    SetOFB_Sub(res, src, dst);
+                    SetAF(res, src, dst);
+                    SetSZPF_Byte(res);
+                    dst = res & 0xFF;
+                    PutbackRMByte(ModRM, dst);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x18 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                }
+                break;
+                case 0x20: /* AND eb,d8 */ {
+                    //ANDB(dst,src);
+                    dst &= src;
+                    I.CarryVal = I.OverVal = I.AuxVal = 0;
+                    SetSZPF_Byte(dst);
+                    PutbackRMByte(ModRM, dst & 0xFF);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x20 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                }
+                break;
+                case 0x28: /* SUB eb,d8 */ {
+                    //SUBB(dst,src);
+
+                    int res = dst - src;
+                    SetCFB(res);
+                    SetOFB_Sub(res, src, dst);
+                    SetAF(res, src, dst);
+                    SetSZPF_Byte(res);
+                    dst = res & 0xFF;
+                    PutbackRMByte(ModRM, dst);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x28 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                }
+                break;
+                case 0x30: /* XOR eb,d8 */ {
+                    //XORB(dst,src);
+                    dst ^= src;
+                    I.CarryVal = I.OverVal = I.AuxVal = 0;
+                    SetSZPF_Byte(dst);
+                    PutbackRMByte(ModRM, dst & 0xFF);
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x30 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                }
+                break;
+                case 0x38:
+                    /* CMP eb,d8 */
+
+                    //SUBB(dst,src);
+                    int res = dst - src;
+                    SetCFB(res);
+                    SetOFB_Sub(res, src, dst);
+                    SetAF(res, src, dst);
+                    SetSZPF_Byte(res);
+                    dst = res & 0xFF;
+                    if (neclog != null) {
+                        fprintf(neclog, "i_80pre_0x38 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                    }
+                    break;
+                default:
+                    System.out.println("i_80pre 0x" + Integer.toHexString(ModRM & 0x38));
+                    break;
+            }
+        }
+    };
+
 /*TODO*///	
 /*TODO*///	static void i_81pre(void)    /* Opcode 0x81 */
 /*TODO*///	{
@@ -3214,21 +3299,31 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		I.regs.b[BH] = FETCH;
 /*TODO*///		nec_ICount-=4;
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	static void i_mov_axd16(void)    /* Opcode 0xb8 */
-/*TODO*///	{
-/*TODO*///		I.regs.b[AL] = FETCH;
-/*TODO*///		I.regs.b[AH] = FETCH;
-/*TODO*///		nec_ICount-=4;
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	static void i_mov_cxd16(void)    /* Opcode 0xb9 */
-/*TODO*///	{
-/*TODO*///		I.regs.b[CL] = FETCH;
-/*TODO*///		I.regs.b[CH] = FETCH;
-/*TODO*///		nec_ICount-=4;
-/*TODO*///	}
-/*TODO*///	
+        
+        static InstructionPtr i_mov_axd16 = new InstructionPtr() /* Opcode 0xb8 */ {
+            public void handler() {
+                I.regs.SetB(AL, FETCH());//I.regs.b[AL] = FETCH;
+                I.regs.SetB(AH, FETCH());//I.regs.b[AH] = FETCH;
+                nec_ICount[0] -= 4;
+                if (neclog != null) {
+                    fprintf(neclog, "i_mov_axd16 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                }
+            }
+        };
+
+        static InstructionPtr i_mov_cxd16 = new InstructionPtr() /* Opcode 0xb9 */ {
+            public void handler() {
+
+                I.regs.SetB(CL, FETCH());//I.regs.b[CL] = FETCH;
+                I.regs.SetB(CH, FETCH());//I.regs.b[CH] = FETCH;
+                nec_ICount[0] -= 4;
+
+                /*if (neclog != null) {
+                 fprintf(neclog, "i_mov_cxd16 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                 }*/
+            }
+        };
+        
 /*TODO*///	static void i_mov_dxd16(void)    /* Opcode 0xba */
 /*TODO*///	{
 /*TODO*///		I.regs.b[DL] = FETCH;
@@ -3870,21 +3965,25 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		change_pc20((I.base[CS]+I.ip));
 /*TODO*///	   } else nec_ICount-=5;
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	static void i_loop(void)    /* Opcode 0xe2 */
-/*TODO*///	{
-/*TODO*///		int disp = (int)((INT8)FETCH);
-/*TODO*///		unsigned tmp = I.regs.w[CW]-1;
-/*TODO*///	
-/*TODO*///		I.regs.w[CW]=tmp;
-/*TODO*///	
-/*TODO*///	    if (tmp != 0) {
-/*TODO*///		nec_ICount-=13;
-/*TODO*///		I.ip = (WORD)(I.ip+disp);
-/*TODO*///		change_pc20((I.base[CS]+I.ip));
-/*TODO*///		} else nec_ICount-=5;
-/*TODO*///	}
-/*TODO*///	
+
+        static InstructionPtr i_loop = new InstructionPtr()/* Opcode 0xe2 */ {
+            public void handler() {
+                int disp = (int) ((byte) FETCH());
+                /*unsigned*/ int tmp = (I.regs.w[CW] - 1);
+                I.regs.SetW(CW, tmp & 0xFFFF);
+                if (tmp != 0) {
+                    nec_ICount[0] -= 13;
+                    I.ip = (I.ip + disp) & 0xFFFF;
+                    change_pc20((I.base[CS] + I.ip));
+                } else {
+                    nec_ICount[0] -= 5;
+                }
+                /*if (neclog != null) {
+                 fprintf(neclog, "i_loop :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip,I.regs.w[AW],I.regs.w[CW],I.regs.w[DW],I.regs.w[BW],I.regs.w[SP],I.regs.w[BP],I.regs.w[IX],I.regs.w[IY],I.base[0],I.base[1],I.base[2],I.base[3],I.sregs[0],I.sregs[1],I.sregs[2],I.sregs[3],I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal,I.TF, I.IF, I.DF, I.MF,I.int_vector,I.pending_irq,I.nmi_state,I.irq_state,I.prefix_base,I.seg_prefix,EA);
+                 }*/
+            }
+        };
+        
 /*TODO*///	static void i_jcxz(void)    /* Opcode 0xe3 */
 /*TODO*///	{
 /*TODO*///		int disp = (int)((INT8)FETCH);
@@ -3901,30 +4000,38 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		I.regs.b[AL] = read_port(port);
 /*TODO*///		nec_ICount-=9;
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	static void i_inax(void)    /* Opcode 0xe5 */
-/*TODO*///	{
-/*TODO*///		unsigned port = FETCH;
-/*TODO*///		I.regs.b[AL] = read_port(port);
-/*TODO*///		I.regs.b[AH] = read_port(port+1);
-/*TODO*///		nec_ICount-=13;
-/*TODO*///	}
-/*TODO*///	
+
+        static InstructionPtr i_inax = new InstructionPtr() /* Opcode 0xe5 */ {
+            public void handler() {
+                /*unsigned*/
+                int port = FETCH();
+                I.regs.SetB(AL, read_port(port));
+                I.regs.SetB(AH, read_port(port + 1));
+                nec_ICount[0] -= 13;
+                if (neclog != null) {
+                    fprintf(neclog, "i_inax :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                }
+            }
+        };
 /*TODO*///	static void i_outal(void)    /* Opcode 0xe6 */
 /*TODO*///	{
 /*TODO*///		unsigned port = FETCH;
 /*TODO*///		write_port(port, I.regs.b[AL]);
 /*TODO*///		nec_ICount-=8;
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	static void i_outax(void)    /* Opcode 0xe7 */
-/*TODO*///	{
-/*TODO*///		unsigned port = FETCH;
-/*TODO*///		write_port(port, I.regs.b[AL]);
-/*TODO*///		write_port(port+1, I.regs.b[AH]);
-/*TODO*///		nec_ICount-=12;
-/*TODO*///	}
-/*TODO*///	
+        static InstructionPtr i_outax = new InstructionPtr() /* Opcode 0xe7 */ {
+            public void handler() {
+                /*unsigned*/
+                int port = FETCH();
+                write_port(port, I.regs.b[AL]);
+                write_port(port + 1, I.regs.b[AH]);
+                nec_ICount[0] -= 12;
+                if (neclog != null) {
+                    fprintf(neclog, "i_outax :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+                }
+            }
+        };
+
 /*TODO*///	static void i_call_d16(void)    /* Opcode 0xe8 */
 /*TODO*///	{
 /*TODO*///		unsigned tmp = FETCH;
@@ -4727,31 +4834,31 @@ public abstract class nec extends cpu_interface {
 /*TODO*///				}
 /*TODO*///	    }
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	void nec_set_nmi_line(int state)
-/*TODO*///	{
-/*TODO*///		if( I.nmi_state == state ) return;
-/*TODO*///	    I.nmi_state = state;
-/*TODO*///		if (state != CLEAR_LINE)
-/*TODO*///		{
-/*TODO*///			I.pending_irq |= NMI_IRQ;
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	void nec_set_irq_line(int irqline, int state)
-/*TODO*///	{
-/*TODO*///		I.irq_state = state;
-/*TODO*///		if (state == CLEAR_LINE)
-/*TODO*///		{
-/*TODO*///			if (!I.IF)
-/*TODO*///				I.pending_irq &= ~INT_IRQ;
-/*TODO*///		}
-/*TODO*///		else
-/*TODO*///		{
-/*TODO*///			if (I.IF)
-/*TODO*///				I.pending_irq |= INT_IRQ;
-/*TODO*///		}
-/*TODO*///	}
+	
+	static void nec_set_nmi_line(int state)
+	{
+		if( I.nmi_state == state ) return;
+                I.nmi_state = state;
+		if (state != CLEAR_LINE)
+		{
+			I.pending_irq |= NMI_IRQ;
+		}
+	}
+	
+	static void nec_set_irq_line(int irqline, int state)
+	{
+		I.irq_state = state;
+		if (state == CLEAR_LINE)
+		{
+			if (I.IF == 0)
+				I.pending_irq &= ~INT_IRQ;
+		}
+		else
+		{
+			if (I.IF != 0)
+				I.pending_irq |= INT_IRQ;
+		}
+	}
 	
 	static void nec_set_irq_callback(irqcallbacksPtr callback)
 	{
@@ -4896,7 +5003,7 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		case 0x72:    i_jb(); break;
 /*TODO*///		case 0x73:    i_jnb(); break;
 /*TODO*///		case 0x74:    i_jz(); break;
-/*TODO*///		case 0x75:    i_jnz(); break;
+		case 0x75:    i_jnz.handler(); break;
 /*TODO*///		case 0x76:    i_jbe(); break;
 /*TODO*///		case 0x77:    i_jnbe(); break;
 /*TODO*///		case 0x78:    i_js(); break;
@@ -4907,7 +5014,7 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		case 0x7d:    i_jnl(); break;
 /*TODO*///		case 0x7e:    i_jle(); break;
 /*TODO*///		case 0x7f:    i_jnle(); break;
-/*TODO*///		case 0x80:    i_80pre(); break;
+		case 0x80:    i_80pre.handler(); break;
 /*TODO*///		case 0x81:    i_81pre(); break;
 /*TODO*///		case 0x82:	  i_82pre(); break;
 /*TODO*///		case 0x83:    i_83pre(); break;
@@ -4963,8 +5070,8 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		case 0xb5:    i_mov_chd8(); break;
 /*TODO*///		case 0xb6:    i_mov_dhd8(); break;
 /*TODO*///		case 0xb7:    i_mov_bhd8(); break;
-/*TODO*///		case 0xb8:    i_mov_axd16(); break;
-/*TODO*///		case 0xb9:    i_mov_cxd16(); break;
+		case 0xb8:    i_mov_axd16.handler(); break;
+		case 0xb9:    i_mov_cxd16.handler(); break;
 /*TODO*///		case 0xba:    i_mov_dxd16(); break;
 /*TODO*///		case 0xbb:    i_mov_bxd16(); break;
 /*TODO*///		case 0xbc:    i_mov_spd16(); break;
@@ -5005,12 +5112,12 @@ public abstract class nec extends cpu_interface {
 /*TODO*///		case 0xdf:    i_escape(); break;
 /*TODO*///		case 0xe0:    i_loopne(); break;
 /*TODO*///		case 0xe1:    i_loope(); break;
-/*TODO*///		case 0xe2:    i_loop(); break;
+		case 0xe2:    i_loop.handler(); break;
 /*TODO*///		case 0xe3:    i_jcxz(); break;
 /*TODO*///		case 0xe4:    i_inal(); break;
-/*TODO*///		case 0xe5:    i_inax(); break;
+		case 0xe5:    i_inax.handler(); break;
 /*TODO*///		case 0xe6:    i_outal(); break;
-/*TODO*///		case 0xe7:    i_outax(); break;
+		case 0xe7:    i_outax.handler(); break;
 /*TODO*///		case 0xe8:    i_call_d16(); break;
 /*TODO*///		case 0xe9:    i_jmp_d16(); break;
 		case 0xea:    i_jmp_far.handler(); break;

@@ -586,7 +586,7 @@ public class m72
 	{
 		int start,i;
 		/* use clip regions to split the screen */
-		rectangle clip = new rectangle();
+		rectangle clip=new rectangle();
 	
 		clip.min_x = Machine.visible_area.min_x;
 		clip.max_x = Machine.visible_area.max_x;
@@ -596,11 +596,14 @@ public class m72
 			i = start;
 			while (scrollx[i+1] == scrollx[start] && scrolly[i+1] == scrolly[start]
 					&& i < Machine.visible_area.max_y - 128)
+                        {
 				i++;
-	
+                                if(i==255) break;//check the boundries of table (shadow)
+                        }
+                        //System.out.println(i);
 			clip.min_y = start + 128;
 			clip.max_y = i + 128;
-			tilemap_set_clip(tilemap, clip);
+			tilemap_set_clip(tilemap,clip);
 			tilemap_set_scrollx(tilemap,0,scrollx[start] + xadjust);
 			tilemap_set_scrolly(tilemap,0,scrolly[start]);
 			tilemap_draw(bitmap,tilemap,priority);

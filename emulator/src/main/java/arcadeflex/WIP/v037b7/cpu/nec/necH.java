@@ -4,7 +4,8 @@ import static arcadeflex.WIP.v037b7.cpu.nec.nec.I;
 import static arcadeflex.WIP.v037b7.cpu.nec.nec.nec_ICount;
 import static arcadeflex.WIP.v037b7.cpu.nec.nec.parity_table;
 import static arcadeflex.common.libc.expressions.*;
-import static arcadeflex.v037b7.mame.memoryH.cpu_readop_arg;
+import static arcadeflex.v037b7.mame.memory.*;
+import static arcadeflex.v037b7.mame.memoryH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.*;
 
 public class necH {
@@ -41,18 +42,30 @@ public class necH {
     public static void SetMD(int x) { I.MF = x; }	/* OB [19.07.99] Mode Flag V30 */
     
     /*TODO*///#define SetOFW_Add(x,y,z)	(I.OverVal = ((x) ^ (y)) & ((x) ^ (z)) & 0x8000)
-    /*TODO*///#define SetOFB_Add(x,y,z)	(I.OverVal = ((x) ^ (y)) & ((x) ^ (z)) & 0x80)
+    public static void SetOFB_Add(int x, int y, int z) {
+        I.OverVal = ((x) ^ (y)) & ((x) ^ (z)) & 0x80;
+    }
     /*TODO*///#define SetOFW_Sub(x,y,z)	(I.OverVal = ((z) ^ (y)) & ((z) ^ (x)) & 0x8000)
-    /*TODO*///#define SetOFB_Sub(x,y,z)	(I.OverVal = ((z) ^ (y)) & ((z) ^ (x)) & 0x80)
-    /*TODO*///
-    /*TODO*///#define SetCFB(x)		(I.CarryVal = (x) & 0x100)
+    public static void SetOFB_Sub(int x, int y, int z) {
+        I.OverVal = ((z) ^ (y)) & ((z) ^ (x)) & 0x80;
+    }
+    
+    public static void SetCFB(int x) {
+        I.CarryVal = (x) & 0x100;
+    }
     /*TODO*///#define SetCFW(x)		(I.CarryVal = (x) & 0x10000)
-    /*TODO*///#define SetAF(x,y,z)	(I.AuxVal = ((x) ^ ((y) ^ (z))) & 0x10)
+    public static void SetAF(int x, int y, int z) {
+        I.AuxVal = ((x) ^ ((y) ^ (z))) & 0x10;
+    }
     /*TODO*///#define SetSF(x)		(I.SignVal = (x))
     /*TODO*///#define SetZF(x)		(I.ZeroVal = (x))
     /*TODO*///#define SetPF(x)		(I.ParityVal = (x))
-    /*TODO*///
-    /*TODO*///#define SetSZPF_Byte(x) (I.SignVal=I.ZeroVal=I.ParityVal=(INT8)(x))
+    
+    public static void SetSZPF_Byte(int x) {
+        I.SignVal = (byte) (x);
+        I.ZeroVal = (byte) (x);
+        I.ParityVal = (byte) (x);
+    }
     /*TODO*///#define SetSZPF_Word(x) (I.SignVal=I.ZeroVal=I.ParityVal=(INT16)(x))
     /*TODO*///
     /*TODO*///#define ADDB(dst,src) { unsigned res=dst+src; SetCFB(res); SetOFB_Add(res,src,dst); SetAF(res,src,dst); SetSZPF_Byte(res); dst=(BYTE)res; }
@@ -107,7 +120,9 @@ public class necH {
         return I.sregs[Seg] << 4;
     }
     
-    /*TODO*///#define DefaultBase(Seg) ((I.seg_prefix && (Seg==DS || Seg==SS)) ? I.prefix_base : I.base[Seg])
+    static final int DefaultBase(int Seg) {
+        return ((I.seg_prefix != 0 && (Seg == DS || Seg == SS)) ? I.prefix_base : I.base[Seg]);
+    }
     
     /*TODO*////* ASG 971005 -- changed to cpu_readmem20/cpu_writemem20 */
     /*TODO*///#define GetMemB(Seg,Off) (nec_ICount-=6,(BYTE)cpu_readmem20((DefaultBase(Seg)+(Off))))
@@ -115,20 +130,34 @@ public class necH {
     /*TODO*///#define PutMemB(Seg,Off,x) { nec_ICount-=7; cpu_writemem20((DefaultBase(Seg)+(Off)),(x)); }
     /*TODO*///#define PutMemW(Seg,Off,x) { nec_ICount-=11; PutMemB(Seg,Off,(BYTE)(x)); PutMemB(Seg,(Off)+1,(BYTE)((x)>>8)); }
     
-    /*TODO*///#define ReadByte(ea) (nec_ICount-=6,(BYTE)cpu_readmem20((ea)))
+    public static int ReadByte(int ea) {
+        nec_ICount[0] -= 6;
+        return cpu_readmem20((ea)) & 0xFF;
+    }
+    
     public static int ReadWord(int ea) {
         nec_ICount[0] -= 10;
         return cpu_readmem20((ea)) + (cpu_readmem20(((ea) + 1)) << 8);
     }
-    /*TODO*///#define WriteByte(ea,val) { nec_ICount-=7; cpu_writemem20((ea),val); }
+    
+    public static void WriteByte(int ea, int val) {
+        nec_ICount[0] -= 7;
+        cpu_writemem20((ea), val & 0xff); //0xff added by Chuso
+    }
+    
     public static void WriteWord(int ea, int val) {
         nec_ICount[0] -= 11;
         cpu_writemem20((ea), (val & 0xFF));
         cpu_writemem20(((ea) + 1), (val) >> 8);
     }
     
-    /*TODO*///#define read_port(port) cpu_readport(port)
-    /*TODO*///#define write_port(port,val) cpu_writeport(port,val)
+    public static int read_port(int port) {
+        return cpu_readport(port);
+    }
+    
+    public static void write_port(int port, int val) {
+        cpu_writeport(port, val);
+    }
     
     /* no need to go through cpu_readmem for these ones... */
     /* ASG 971222 -- PUSH/POP now use the standard mechanisms; opcode reading is the same */
@@ -137,7 +166,13 @@ public class necH {
         I.ip = I.ip + 1 & 0xFFFF;//neccesary???
         return i;
     }
-    /*TODO*///#define FETCHOP ((BYTE)cpu_readop((I.base[CS]+I.ip++)))
+    
+    public static final int FETCHOP() {
+        int i = cpu_readop((I.base[CS] + I.ip)) & 0xFF;//((BYTE)cpu_readop((I.base[CS]+I.ip++)))
+        I.ip = I.ip + 1 & 0xFFFF;//neccesary???
+        return i;
+    }
+    
     /*TODO*///#define FETCHWORD(var) { var=cpu_readop_arg(((I.base[CS]+I.ip)))+(cpu_readop_arg(((I.base[CS]+I.ip+1)))<<8); I.ip+=2; }
     public static final void PUSH(int val) {
         I.regs.SetW(SP, (I.regs.w[SP] - 2) & 0xFFFF);

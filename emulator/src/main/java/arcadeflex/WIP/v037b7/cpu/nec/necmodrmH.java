@@ -1,5 +1,11 @@
 package arcadeflex.WIP.v037b7.cpu.nec;
 
+import static arcadeflex.WIP.v037b7.cpu.nec.nec.I;
+import static arcadeflex.WIP.v037b7.cpu.nec.necH.ReadByte;
+import static arcadeflex.WIP.v037b7.cpu.nec.necH.WriteByte;
+import static arcadeflex.WIP.v037b7.cpu.nec.neceaH.EA;
+import static arcadeflex.WIP.v037b7.cpu.nec.neceaH.GetEA;
+
 public class necmodrmH {
     
 	public static _Mod_RM Mod_RM = new _Mod_RM();
@@ -58,8 +64,15 @@ public class necmodrmH {
 /*TODO*///		}						
 /*TODO*///	}
 /*TODO*///		
-/*TODO*///	#define GetRMByte(ModRM) 
-/*TODO*///		((ModRM) >= 0xc0 ? I.regs.b[Mod_RM.RM.b[ModRM]] : ReadByte( (*GetEA[ModRM])() ))
+
+        public static final int GetRMByte(int ModRM) {
+            if (ModRM >= 0xc0) {
+                return I.regs.b[Mod_RM.RM.b[ModRM]];
+            } else {
+                return ReadByte(GetEA[ModRM].handler());
+            }
+            //return ModRM >= 0xc0 ? I.regs.b[Mod_RM.RM.b[ModRM]] : 
+        }
 /*TODO*///		
 /*TODO*///	#define PutRMByte(ModRM,val)				
 /*TODO*///	{							
@@ -78,15 +91,15 @@ public class necmodrmH {
 /*TODO*///			WriteByte( EA , FETCH );		
 /*TODO*///		}						
 /*TODO*///	}
-/*TODO*///		
-/*TODO*///	#define PutbackRMByte(ModRM,val)			
-/*TODO*///	{							
-/*TODO*///		if (ModRM >= 0xc0)				
-/*TODO*///			I.regs.b[Mod_RM.RM.b[ModRM]]=val;	
-/*TODO*///		else						
-/*TODO*///			WriteByte(EA,val);			
-/*TODO*///	}
-/*TODO*///
+
+        public static final void PutbackRMByte(int ModRM, int val) {
+            if (ModRM >= 0xc0) {
+                I.regs.SetB(Mod_RM.RM.b[ModRM], val);
+            } else {
+                WriteByte(EA, val);
+            }
+        }
+
 /*TODO*///	#define DEF_br8(dst,src)				
 /*TODO*///		unsigned ModRM = FETCHOP;			
 /*TODO*///		unsigned src = RegByte(ModRM);			
