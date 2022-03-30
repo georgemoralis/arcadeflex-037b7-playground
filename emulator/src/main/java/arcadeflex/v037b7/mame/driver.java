@@ -239,6 +239,7 @@ import static arcadeflex.WIP.v037b7.drivers.atarisy1.*;
 import static arcadeflex.WIP.v037b7.drivers.vindictr.*;
 import static arcadeflex.WIP.v037b7.drivers.neogeo.*;
 import static arcadeflex.WIP.v037b7.drivers.m72.*;
+import static arcadeflex.WIP.v037b7.drivers.m92.*;
 
 public class driver {
 
@@ -961,28 +962,28 @@ public class driver {
         driver_sichuan2, /* (c) 1989 Tamtex */
         driver_sichuana, /* (c) 1989 Tamtex */
         driver_shisen, /* (c) 1989 Tamtex */
-        /*TODO*///	/* M92 */
-        /*TODO*///	driver_bmaster,	/* (c) 1991 Irem */
-        /*TODO*///	driver_gunforce,	/* (c) 1991 Irem (World) */
-        /*TODO*///	driver_gunforcu,	/* (c) 1991 Irem America (US) */
-        /*TODO*///	driver_hook,		/* (c) 1992 Irem (World) */
-        /*TODO*///	driver_hooku,		/* (c) 1992 Irem America (US) */
-        /*TODO*///	driver_mysticri,	/* (c) 1992 Irem (World) */
-        /*TODO*///	driver_gunhohki,	/* (c) 1992 Irem (Japan) */
-        /*TODO*///	driver_uccops,	/* (c) 1992 Irem (World) */
-        /*TODO*///	driver_uccopsj,	/* (c) 1992 Irem (Japan) */
-        /*TODO*///	driver_rtypeleo,	/* (c) 1992 Irem (Japan) */
-        /*TODO*///	driver_majtitl2,	/* (c) 1992 Irem (World) */
-        /*TODO*///	driver_skingame,	/* (c) 1992 Irem America (US) */
-        /*TODO*///	driver_skingam2,	/* (c) 1992 Irem America (US) */
-        /*TODO*///	driver_inthunt,	/* (c) 1993 Irem (World) */
-        /*TODO*///	driver_inthuntu,	/* (c) 1993 Irem (US) */
-        /*TODO*///	driver_kaiteids,	/* (c) 1993 Irem (Japan) */
+        	/* M92 */
+        	driver_bmaster,	/* (c) 1991 Irem */
+        	driver_gunforce,	/* (c) 1991 Irem (World) */
+        	driver_gunforcu,	/* (c) 1991 Irem America (US) */
+        	driver_hook,		/* (c) 1992 Irem (World) */
+        	driver_hooku,		/* (c) 1992 Irem America (US) */
+        	driver_mysticri,	/* (c) 1992 Irem (World) */
+        	driver_gunhohki,	/* (c) 1992 Irem (Japan) */
+        	driver_uccops,	/* (c) 1992 Irem (World) */
+        	driver_uccopsj,	/* (c) 1992 Irem (Japan) */
+        	driver_rtypeleo,	/* (c) 1992 Irem (Japan) */
+        	driver_majtitl2,	/* (c) 1992 Irem (World) */
+        	driver_skingame,	/* (c) 1992 Irem America (US) */
+        	driver_skingam2,	/* (c) 1992 Irem America (US) */
+        	driver_inthunt,	/* (c) 1993 Irem (World) */
+        	driver_inthuntu,	/* (c) 1993 Irem (US) */
+        	driver_kaiteids,	/* (c) 1993 Irem (Japan) */
         /*TODO*///TESTdriver_nbbatman,	/* (c) 1993 Irem America (US) */
         /*TODO*///TESTdriver_leaguemn,	/* (c) 1993 Irem (Japan) */
-        /*TODO*///	driver_lethalth,	/* (c) 1991 Irem (World) */
-        /*TODO*///	driver_thndblst,	/* (c) 1991 Irem (Japan) */
-        /*TODO*///	driver_psoldier,	/* (c) 1993 Irem (Japan) */
+        	driver_lethalth,	/* (c) 1991 Irem (World) */
+        	driver_thndblst,	/* (c) 1991 Irem (Japan) */
+        	driver_psoldier,	/* (c) 1993 Irem (Japan) */
         /*TODO*///	/* M97 */
         /*TODO*///TESTdriver_hasamu,	/* M90, probably doesn't belong here */
         /*TODO*///TESTdriver_riskchal,

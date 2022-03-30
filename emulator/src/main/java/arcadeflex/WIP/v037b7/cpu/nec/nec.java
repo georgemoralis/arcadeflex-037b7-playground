@@ -5278,14 +5278,15 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
     /*TODO*///	nec_ICount-=38;	// 38-50
     /*TODO*///	nec_interrupt(3,0);
     /*TODO*///}
-    /*TODO*///
-    /*TODO*///static void i_int(void)    /* Opcode 0xcd */
-    /*TODO*///{
-    /*TODO*///	unsigned int_num = FETCH;
-    /*TODO*///	nec_ICount-=38;	// 38-50
-    /*TODO*///	nec_interrupt(int_num,0);
-    /*TODO*///}
-    /*TODO*///
+    
+    static InstructionPtr i_int = new InstructionPtr() {
+        public void handler() {     /* Opcode 0xcd */
+            int int_num = FETCH();
+            nec_ICount[0]-=38;	// 38-50
+            nec_interrupt(int_num,false);
+        }
+    };
+    
     /*TODO*///static void i_into(void)    /* Opcode 0xce */
     /*TODO*///{
     /*TODO*///    if (OF) {
@@ -6309,19 +6310,21 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "i_ffpre_0x10 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                /*TODO*///
-                /*TODO*///	case 0x18:  /* CALL FAR ea */
-                /*TODO*///		tmp = I.sregs[CS];	/* HJB 12/13/98 need to skip displacements of EA */
-                /*TODO*///		tmp1 = GetRMWord(ModRM);
-                /*TODO*///		I.sregs[CS] = GetnextRMWord;
-                /*TODO*///		I.base[CS] = SegBase(CS);
-                /*TODO*///		PUSH(tmp);
-                /*TODO*///		PUSH(I.ip);
-                /*TODO*///		I.ip = tmp1;
-                /*TODO*///		change_pc20((I.base[CS]+I.ip));
-                /*TODO*///		nec_ICount-=(ModRM >=0xc0 )?16:26;
-                /*TODO*///		break;
-                /*TODO*///
+                
+                case 0x18:  
+                    /* CALL FAR ea */
+                    
+                    tmp = I.sregs[CS];	/* HJB 12/13/98 need to skip displacements of EA */
+                    tmp1 = GetRMWord(ModRM);
+                    I.sregs[CS] = GetnextRMWord();
+                    I.base[CS] = SegBase(CS);
+                    PUSH(tmp);
+                    PUSH(I.ip);
+                    I.ip = tmp1 & 0xFFFF;
+                    change_pc20((I.base[CS]+I.ip));
+                    nec_ICount[0]-=(ModRM >=0xc0 )?16:26;
+                    break;
+                
                 case 0x20:
                     /* JMP ea */
 
@@ -7114,7 +7117,9 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         i_retf.handler();
                         break;
                     /*TODO*///	case 0xcc:    i_int3(); break;
-                    /*TODO*///	case 0xcd:    i_int(); break;
+                    case 0xcd:    
+                        i_int.handler(); 
+                        break;
                     /*TODO*///	case 0xce:    i_into(); break;
                     case 0xcf:
                         i_iret.handler();
