@@ -166,7 +166,7 @@ public class m92
 	
 	public static ReadHandlerPtr m92_eeprom_r  = new ReadHandlerPtr() { public int handler(int offset)
 	{
-		UBytePtr RAM = memory_region(REGION_USER1);
+		UBytePtr RAM = new UBytePtr(memory_region(REGION_USER1));
 	//	logerror("%05x: EEPROM RE %04x\n",cpu_get_pc(),offset);
 	
 		return RAM.read(offset/2);
@@ -174,7 +174,7 @@ public class m92
 	
 	public static WriteHandlerPtr m92_eeprom_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
-		UBytePtr RAM = memory_region(REGION_USER1);
+		UBytePtr RAM = new UBytePtr(memory_region(REGION_USER1));
 	//	logerror("%05x: EEPROM WR %04x\n",cpu_get_pc(),offset);
 		RAM.write(offset/2, data);
 	} };
@@ -221,7 +221,7 @@ public class m92
 	
 	public static WriteHandlerPtr m92_bankswitch_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
-		UBytePtr RAM = memory_region(REGION_CPU1);
+		UBytePtr RAM = new UBytePtr(memory_region(REGION_CPU1));
 	
 		logerror("%04x: Bank %04x (%02x)\n",cpu_get_pc(),data,offset);
 		if (offset==1) return; /* Unused top byte */

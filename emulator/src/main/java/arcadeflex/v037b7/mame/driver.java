@@ -240,6 +240,7 @@ import static arcadeflex.WIP.v037b7.drivers.vindictr.*;
 import static arcadeflex.WIP.v037b7.drivers.neogeo.*;
 import static arcadeflex.WIP.v037b7.drivers.m72.*;
 import static arcadeflex.WIP.v037b7.drivers.m92.*;
+import static arcadeflex.WIP.v037b7.drivers.m107.*;
 
 public class driver {
 
@@ -994,8 +995,8 @@ public class driver {
         /*TODO*///TESTdriver_bbmanw,
         /*TODO*///	/* M107 */
         /*TODO*///TESTdriver_firebarr,	/* (c) 1993 Irem (Japan) */
-        /*TODO*///	driver_dsoccr94,	/* (c) 1994 Irem (Data East Corporation license) */
-        /*TODO*///
+        driver_dsoccr94,	/* (c) 1994 Irem (Data East Corporation license) */
+        
         /*TODO*///	/* Gottlieb/Mylstar games (Gottlieb became Mylstar in 1983) */
         /*TODO*///	driver_reactor,	/* GV-100 (c) 1982 Gottlieb */
         /*TODO*///	driver_mplanets,	/* GV-102 (c) 1983 Gottlieb */

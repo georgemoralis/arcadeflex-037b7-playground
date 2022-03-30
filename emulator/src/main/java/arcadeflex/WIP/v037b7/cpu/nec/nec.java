@@ -4820,14 +4820,14 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "nec_rotate_shift_Byte_1_0x28 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                /*TODO*///      case 0x38:  /* SAR eb,1 */
-                /*TODO*///        dst = ((INT8)src) >> 1;
-                /*TODO*///        PutbackRMByte(ModRM,dst);
-                /*TODO*///	I.CarryVal = src & 0x01;
-                /*TODO*///	I.OverVal = 0;
-                /*TODO*///	I.AuxVal = 1;
-                /*TODO*///        SetSZPF_Byte(dst);
-                /*TODO*///	break;
+                      case 0x38:  /* SAR eb,1 */
+                        dst = ((byte)src) >> 1;
+                        PutbackRMByte(ModRM,dst);
+                	I.CarryVal = src & 0x01;
+                	I.OverVal = 0;
+                	I.AuxVal = 1;
+                        SetSZPF_Byte(dst);
+                	break;
                 default:
                     System.out.println("nec_rotate_shift_Byte_1 0x" + Integer.toHexString(ModRM & 0x38));
                     break;
@@ -4906,14 +4906,14 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "nec_rotate_shift_Byte_0x28 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                /*TODO*///      case 0x38:  /* SAR eb,count */
-                /*TODO*///        dst = ((INT8)dst) >> (count-1);
-                /*TODO*///	I.CarryVal = dst & 0x1;
-                /*TODO*///        dst = ((INT8)((BYTE)dst)) >> 1;
-                /*TODO*///        SetSZPF_Byte(dst);
-                /*TODO*///	I.AuxVal = 1;
-                /*TODO*///        PutbackRMByte(ModRM,(BYTE)dst);
-                /*TODO*///	break;
+                      case 0x38:  /* SAR eb,count */
+                        dst = ((byte)dst) >> (count-1);
+                	I.CarryVal = dst & 0x1;
+                        dst = ((byte)((byte)dst)) >> 1;
+                        SetSZPF_Byte(dst);
+                	I.AuxVal = 1;
+                        PutbackRMByte(ModRM,(byte)dst);
+                	break;
                 default:
                     System.out.println("nec_rotate_shift_Byte 0x" + Integer.toHexString(ModRM & 0x38));
                     break;
@@ -5061,15 +5061,15 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                 /*TODO*///	}
                 /*TODO*///        PutbackRMWord(ModRM,dst);
                 /*TODO*///	break;
-                /*TODO*///      case 0x18:  /* RCR ew,count */
-                /*TODO*///	for (; count > 0; count--)
-                /*TODO*///	{
-                /*TODO*///          dst = dst + (CF << 16);
-                /*TODO*///	  I.CarryVal = dst & 0x01;
-                /*TODO*///           dst >>= 1;
-                /*TODO*///	}
-                /*TODO*///        PutbackRMWord(ModRM,dst);
-                /*TODO*///	break;
+                      case 0x18:  /* RCR ew,count */
+                	for (; count > 0; count--)
+                	{
+                          dst = dst + (CF() << 16);
+                	  I.CarryVal = dst & 0x01;
+                           dst >>= 1;
+                	}
+                        PutbackRMWord(ModRM,dst);
+                	break;
                 case 0x20:
                 case 0x30:
                     /* SHL ew,count */
