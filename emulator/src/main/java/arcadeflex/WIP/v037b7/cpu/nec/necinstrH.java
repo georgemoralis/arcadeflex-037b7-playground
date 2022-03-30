@@ -1,270 +1,307 @@
 package arcadeflex.WIP.v037b7.cpu.nec;
 
+import static arcadeflex.WIP.v037b7.cpu.nec.nec.*;
+
 public class necinstrH {
     
     public static abstract interface InstructionPtr {
         public abstract void handler();
     }
     
-    /*TODO*///void (*nec_instruction[256])(void) =
-    /*TODO*///{
-    /*TODO*///    i_add_br8,          /* 0x00 */
-    /*TODO*///    i_add_wr16,         /* 0x01 */
-    /*TODO*///    i_add_r8b,          /* 0x02 */
-    /*TODO*///    i_add_r16w,         /* 0x03 */
-    /*TODO*///    i_add_ald8,         /* 0x04 */
-    /*TODO*///    i_add_axd16,        /* 0x05 */
-    /*TODO*///    i_push_es,          /* 0x06 */
-    /*TODO*///    i_pop_es,           /* 0x07 */
-    /*TODO*///    i_or_br8,           /* 0x08 */
-    /*TODO*///    i_or_wr16,          /* 0x09 */
-    /*TODO*///    i_or_r8b,           /* 0x0a */
-    /*TODO*///    i_or_r16w,          /* 0x0b */
-    /*TODO*///    i_or_ald8,          /* 0x0c */
-    /*TODO*///    i_or_axd16,         /* 0x0d */
-    /*TODO*///    i_push_cs,          /* 0x0e */
-    /*TODO*/////    i_invalid,
-    /*TODO*///	i_pre_nec			/* 0x0f */, 
-    /*TODO*///    i_adc_br8,          /* 0x10 */
-    /*TODO*///    i_adc_wr16,         /* 0x11 */
-    /*TODO*///    i_adc_r8b,          /* 0x12 */
-    /*TODO*///    i_adc_r16w,         /* 0x13 */
-    /*TODO*///    i_adc_ald8,         /* 0x14 */
-    /*TODO*///    i_adc_axd16,        /* 0x15 */
-    /*TODO*///    i_push_ss,          /* 0x16 */
-    /*TODO*///    i_pop_ss,           /* 0x17 */
-    /*TODO*///    i_sbb_br8,          /* 0x18 */
-    /*TODO*///    i_sbb_wr16,         /* 0x19 */
-    /*TODO*///    i_sbb_r8b,          /* 0x1a */
-    /*TODO*///    i_sbb_r16w,         /* 0x1b */
-    /*TODO*///    i_sbb_ald8,         /* 0x1c */
-    /*TODO*///    i_sbb_axd16,        /* 0x1d */
-    /*TODO*///    i_push_ds,          /* 0x1e */
-    /*TODO*///    i_pop_ds,           /* 0x1f */
-    /*TODO*///    i_and_br8,          /* 0x20 */
-    /*TODO*///    i_and_wr16,         /* 0x21 */
-    /*TODO*///    i_and_r8b,          /* 0x22 */
-    /*TODO*///    i_and_r16w,         /* 0x23 */
-    /*TODO*///    i_and_ald8,         /* 0x24 */
-    /*TODO*///    i_and_axd16,        /* 0x25 */
-    /*TODO*///    i_es,               /* 0x26 */
-    /*TODO*///    i_daa,              /* 0x27 */
-    /*TODO*///    i_sub_br8,          /* 0x28 */
-    /*TODO*///    i_sub_wr16,         /* 0x29 */
-    /*TODO*///    i_sub_r8b,          /* 0x2a */
-    /*TODO*///    i_sub_r16w,         /* 0x2b */
-    /*TODO*///    i_sub_ald8,         /* 0x2c */
-    /*TODO*///    i_sub_axd16,        /* 0x2d */
-    /*TODO*///    i_cs,               /* 0x2e */
-    /*TODO*///    i_das,		/* 0x2f */
-    /*TODO*///    i_xor_br8,          /* 0x30 */
-    /*TODO*///    i_xor_wr16,         /* 0x31 */
-    /*TODO*///    i_xor_r8b,          /* 0x32 */
-    /*TODO*///    i_xor_r16w,         /* 0x33 */
-    /*TODO*///    i_xor_ald8,         /* 0x34 */
-    /*TODO*///    i_xor_axd16,        /* 0x35 */
-    /*TODO*///    i_ss,               /* 0x36 */
-    /*TODO*///    i_aaa,		/* 0x37 */
-    /*TODO*///    i_cmp_br8,          /* 0x38 */
-    /*TODO*///    i_cmp_wr16,         /* 0x39 */
-    /*TODO*///    i_cmp_r8b,          /* 0x3a */
-    /*TODO*///    i_cmp_r16w,         /* 0x3b */
-    /*TODO*///    i_cmp_ald8,         /* 0x3c */
-    /*TODO*///    i_cmp_axd16,        /* 0x3d */
-    /*TODO*///    i_ds,               /* 0x3e */
-    /*TODO*///    i_aas,		/* 0x3f */
-    /*TODO*///    i_inc_ax,           /* 0x40 */
-    /*TODO*///    i_inc_cx,           /* 0x41 */
-    /*TODO*///    i_inc_dx,           /* 0x42 */
-    /*TODO*///    i_inc_bx,           /* 0x43 */
-    /*TODO*///    i_inc_sp,           /* 0x44 */
-    /*TODO*///    i_inc_bp,           /* 0x45 */
-    /*TODO*///    i_inc_si,           /* 0x46 */
-    /*TODO*///    i_inc_di,           /* 0x47 */
-    /*TODO*///    i_dec_ax,           /* 0x48 */
-    /*TODO*///    i_dec_cx,           /* 0x49 */
-    /*TODO*///    i_dec_dx,           /* 0x4a */
-    /*TODO*///    i_dec_bx,           /* 0x4b */
-    /*TODO*///    i_dec_sp,           /* 0x4c */
-    /*TODO*///    i_dec_bp,           /* 0x4d */
-    /*TODO*///    i_dec_si,           /* 0x4e */
-    /*TODO*///    i_dec_di,           /* 0x4f */
-    /*TODO*///    i_push_ax,          /* 0x50 */
-    /*TODO*///    i_push_cx,          /* 0x51 */
-    /*TODO*///    i_push_dx,          /* 0x52 */
-    /*TODO*///    i_push_bx,          /* 0x53 */
-    /*TODO*///    i_push_sp,          /* 0x54 */
-    /*TODO*///    i_push_bp,          /* 0x55 */
-    /*TODO*///    i_push_si,          /* 0x56 */
-    /*TODO*///    i_push_di,          /* 0x57 */
-    /*TODO*///    i_pop_ax,           /* 0x58 */
-    /*TODO*///    i_pop_cx,           /* 0x59 */
-    /*TODO*///    i_pop_dx,           /* 0x5a */
-    /*TODO*///    i_pop_bx,           /* 0x5b */
-    /*TODO*///    i_pop_sp,           /* 0x5c */
-    /*TODO*///    i_pop_bp,           /* 0x5d */
-    /*TODO*///    i_pop_si,           /* 0x5e */
-    /*TODO*///    i_pop_di,           /* 0x5f */
-    /*TODO*///    i_pusha,            /* 0x60 */
-    /*TODO*///    i_popa,             /* 0x61 */
-    /*TODO*///    i_bound,            /* 0x62 */
-    /*TODO*///    i_invalid,			/* 0x63 */
-    /*TODO*///    i_repnc,			/* 0x64 */
-    /*TODO*///    i_repc,				/* 0x65 */
-    /*TODO*///    i_invalid,			/* 0x66 */
-    /*TODO*///    i_invalid,			/* 0x67 */
-    /*TODO*///    i_push_d16,         /* 0x68 */
-    /*TODO*///    i_imul_d16,         /* 0x69 */
-    /*TODO*///    i_push_d8,          /* 0x6a */
-    /*TODO*///    i_imul_d8,          /* 0x6b */
-    /*TODO*///    i_insb,             /* 0x6c */
-    /*TODO*///    i_insw,             /* 0x6d */
-    /*TODO*///    i_outsb,            /* 0x6e */
-    /*TODO*///    i_outsw,            /* 0x6f */
-    /*TODO*///    i_jo,               /* 0x70 */
-    /*TODO*///    i_jno,              /* 0x71 */
-    /*TODO*///    i_jb,               /* 0x72 */
-    /*TODO*///    i_jnb,              /* 0x73 */
-    /*TODO*///    i_jz,               /* 0x74 */
-    /*TODO*///    i_jnz,              /* 0x75 */
-    /*TODO*///    i_jbe,              /* 0x76 */
-    /*TODO*///    i_jnbe,             /* 0x77 */
-    /*TODO*///    i_js,               /* 0x78 */
-    /*TODO*///    i_jns,              /* 0x79 */
-    /*TODO*///    i_jp,               /* 0x7a */
-    /*TODO*///    i_jnp,              /* 0x7b */
-    /*TODO*///    i_jl,               /* 0x7c */
-    /*TODO*///    i_jnl,              /* 0x7d */
-    /*TODO*///    i_jle,              /* 0x7e */
-    /*TODO*///    i_jnle,             /* 0x7f */
-    /*TODO*///    i_80pre,            /* 0x80 */
-    /*TODO*///    i_81pre,            /* 0x81 */
-    /*TODO*///	i_82pre,			/* 0x82 */
-    /*TODO*///    i_83pre,            /* 0x83 */
-    /*TODO*///    i_test_br8,         /* 0x84 */
-    /*TODO*///    i_test_wr16,        /* 0x85 */
-    /*TODO*///    i_xchg_br8,         /* 0x86 */
-    /*TODO*///    i_xchg_wr16,        /* 0x87 */
-    /*TODO*///    i_mov_br8,          /* 0x88 */
-    /*TODO*///    i_mov_wr16,         /* 0x89 */
-    /*TODO*///    i_mov_r8b,          /* 0x8a */
-    /*TODO*///    i_mov_r16w,         /* 0x8b */
-    /*TODO*///    i_mov_wsreg,        /* 0x8c */
-    /*TODO*///    i_lea,              /* 0x8d */
-    /*TODO*///    i_mov_sregw,        /* 0x8e */
-    /*TODO*///    i_popw,             /* 0x8f */
-    /*TODO*///    i_nop,              /* 0x90 */
-    /*TODO*///    i_xchg_axcx,        /* 0x91 */
-    /*TODO*///    i_xchg_axdx,        /* 0x92 */
-    /*TODO*///    i_xchg_axbx,        /* 0x93 */
-    /*TODO*///    i_xchg_axsp,        /* 0x94 */
-    /*TODO*///    i_xchg_axbp,        /* 0x95 */
-    /*TODO*///    i_xchg_axsi,        /* 0x97 */
-    /*TODO*///    i_xchg_axdi,        /* 0x97 */
-    /*TODO*///    i_cbw,              /* 0x98 */
-    /*TODO*///    i_cwd,              /* 0x99 */
-    /*TODO*///    i_call_far,         /* 0x9a */
-    /*TODO*///    i_wait,             /* 0x9b */
-    /*TODO*///    i_pushf,            /* 0x9c */
-    /*TODO*///    i_popf,             /* 0x9d */
-    /*TODO*///    i_sahf,             /* 0x9e */
-    /*TODO*///    i_lahf,             /* 0x9f */
-    /*TODO*///    i_mov_aldisp,       /* 0xa0 */
-    /*TODO*///    i_mov_axdisp,       /* 0xa1 */
-    /*TODO*///    i_mov_dispal,       /* 0xa2 */
-    /*TODO*///    i_mov_dispax,       /* 0xa3 */
-    /*TODO*///    i_movsb,            /* 0xa4 */
-    /*TODO*///    i_movsw,            /* 0xa5 */
-    /*TODO*///    i_cmpsb,            /* 0xa6 */
-    /*TODO*///    i_cmpsw,            /* 0xa7 */
-    /*TODO*///    i_test_ald8,        /* 0xa8 */
-    /*TODO*///    i_test_axd16,       /* 0xa9 */
-    /*TODO*///    i_stosb,            /* 0xaa */
-    /*TODO*///    i_stosw,            /* 0xab */
-    /*TODO*///    i_lodsb,            /* 0xac */
-    /*TODO*///    i_lodsw,            /* 0xad */
-    /*TODO*///    i_scasb,            /* 0xae */
-    /*TODO*///    i_scasw,            /* 0xaf */
-    /*TODO*///    i_mov_ald8,         /* 0xb0 */
-    /*TODO*///    i_mov_cld8,         /* 0xb1 */
-    /*TODO*///    i_mov_dld8,         /* 0xb2 */
-    /*TODO*///    i_mov_bld8,         /* 0xb3 */
-    /*TODO*///    i_mov_ahd8,         /* 0xb4 */
-    /*TODO*///    i_mov_chd8,         /* 0xb5 */
-    /*TODO*///    i_mov_dhd8,         /* 0xb6 */
-    /*TODO*///    i_mov_bhd8,         /* 0xb7 */
-    /*TODO*///    i_mov_axd16,        /* 0xb8 */
-    /*TODO*///    i_mov_cxd16,        /* 0xb9 */
-    /*TODO*///    i_mov_dxd16,        /* 0xba */
-    /*TODO*///    i_mov_bxd16,        /* 0xbb */
-    /*TODO*///    i_mov_spd16,        /* 0xbc */
-    /*TODO*///    i_mov_bpd16,        /* 0xbd */
-    /*TODO*///    i_mov_sid16,        /* 0xbe */
-    /*TODO*///    i_mov_did16,        /* 0xbf */
-    /*TODO*///    i_rotshft_bd8,      /* 0xc0 */
-    /*TODO*///    i_rotshft_wd8,      /* 0xc1 */
-    /*TODO*///    i_ret_d16,          /* 0xc2 */
-    /*TODO*///    i_ret,              /* 0xc3 */
-    /*TODO*///    i_les_dw,           /* 0xc4 */
-    /*TODO*///    i_lds_dw,           /* 0xc5 */
-    /*TODO*///    i_mov_bd8,          /* 0xc6 */
-    /*TODO*///    i_mov_wd16,         /* 0xc7 */
-    /*TODO*///    i_enter,            /* 0xc8 */
-    /*TODO*///    i_leave,            /* 0xc9 */
-    /*TODO*///    i_retf_d16,         /* 0xca */
-    /*TODO*///    i_retf,             /* 0xcb */
-    /*TODO*///    i_int3,             /* 0xcc */
-    /*TODO*///    i_int,              /* 0xcd */
-    /*TODO*///    i_into,             /* 0xce */
-    /*TODO*///    i_iret,             /* 0xcf */
-    /*TODO*///    i_rotshft_b,        /* 0xd0 */
-    /*TODO*///    i_rotshft_w,        /* 0xd1 */
-    /*TODO*///    i_rotshft_bcl,      /* 0xd2 */
-    /*TODO*///    i_rotshft_wcl,      /* 0xd3 */
-    /*TODO*///    i_aam,              /* 0xd4 */
-    /*TODO*///    i_aad,              /* 0xd5 */
-    /*TODO*///    i_setalc,
-    /*TODO*///    i_xlat,             /* 0xd7 */
-    /*TODO*///    i_escape,           /* 0xd8 */
-    /*TODO*///    i_escape,           /* 0xd9 */
-    /*TODO*///    i_escape,           /* 0xda */
-    /*TODO*///    i_escape,           /* 0xdb */
-    /*TODO*///    i_escape,           /* 0xdc */
-    /*TODO*///    i_escape,           /* 0xdd */
-    /*TODO*///    i_escape,           /* 0xde */
-    /*TODO*///    i_escape,           /* 0xdf */
-    /*TODO*///    i_loopne,           /* 0xe0 */
-    /*TODO*///    i_loope,            /* 0xe1 */
-    /*TODO*///    i_loop,             /* 0xe2 */
-    /*TODO*///    i_jcxz,             /* 0xe3 */
-    /*TODO*///    i_inal,             /* 0xe4 */
-    /*TODO*///    i_inax,             /* 0xe5 */
-    /*TODO*///    i_outal,            /* 0xe6 */
-    /*TODO*///    i_outax,            /* 0xe7 */
-    /*TODO*///    i_call_d16,         /* 0xe8 */
-    /*TODO*///    i_jmp_d16,          /* 0xe9 */
-    /*TODO*///    i_jmp_far,          /* 0xea */
-    /*TODO*///    i_jmp_d8,           /* 0xeb */
-    /*TODO*///    i_inaldx,           /* 0xec */
-    /*TODO*///    i_inaxdx,           /* 0xed */
-    /*TODO*///    i_outdxal,          /* 0xee */
-    /*TODO*///    i_outdxax,          /* 0xef */
-    /*TODO*///    i_lock,             /* 0xf0 */
-    /*TODO*///    i_invalid,          /* 0xf1 */
-    /*TODO*///    i_repne,            /* 0xf2 */
-    /*TODO*///    i_repe,             /* 0xf3 */
-    /*TODO*///    i_hlt,				/* 0xf4 */
-    /*TODO*///    i_cmc,              /* 0xf5 */
-    /*TODO*///    i_f6pre,            /* 0xf6 */
-    /*TODO*///    i_f7pre,            /* 0xf7 */
-    /*TODO*///    i_clc,              /* 0xf8 */
-    /*TODO*///    i_stc,              /* 0xf9 */
-    /*TODO*///    i_di,              /* 0xfa */
-    /*TODO*///    i_ei,              /* 0xfb */
-    /*TODO*///    i_cld,              /* 0xfc */
-    /*TODO*///    i_std,              /* 0xfd */
-    /*TODO*///    i_fepre,            /* 0xfe */
-    /*TODO*///    i_ffpre             /* 0xff */
-    /*TODO*///};
+    static InstructionPtr i_aaa= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_aas= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_push_sp= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_pop_sp= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_bound= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_repnc= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_repc= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_imul_d16= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_insb= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_insw= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_outsb= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_outsw= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_jno= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_invalid= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_xchg_axsp= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_xchg_axbp= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_xchg_axsi= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_xchg_axdi= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_cmpsw= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_mov_bhd8= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_ret_d16= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_retf_d16= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_int3= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_int= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_into= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_aad= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_setalc= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_loopne= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_inaldx= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_inaxdx= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_outdxal= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_outdxax= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_hlt= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    static InstructionPtr i_wait= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    
+    public static InstructionPtr[] nec_instruction =
+    {
+        i_add_br8,          /* 0x00 */
+        i_add_wr16,         /* 0x01 */
+        i_add_r8b,          /* 0x02 */
+        i_add_r16w,         /* 0x03 */
+        i_add_ald8,         /* 0x04 */
+        i_add_axd16,        /* 0x05 */
+        i_push_es,          /* 0x06 */
+        i_pop_es,           /* 0x07 */
+        i_or_br8,           /* 0x08 */
+        i_or_wr16,          /* 0x09 */
+        i_or_r8b,           /* 0x0a */
+        i_or_r16w,          /* 0x0b */
+        i_or_ald8,          /* 0x0c */
+        i_or_axd16,         /* 0x0d */
+        i_push_cs,          /* 0x0e */
+    //    i_invalid,
+    	i_pre_nec			/* 0x0f */, 
+        i_adc_br8,          /* 0x10 */
+        i_adc_wr16,         /* 0x11 */
+        i_adc_r8b,          /* 0x12 */
+        i_adc_r16w,         /* 0x13 */
+        i_adc_ald8,         /* 0x14 */
+        i_adc_axd16,        /* 0x15 */
+        i_push_ss,          /* 0x16 */
+        i_pop_ss,           /* 0x17 */
+        i_sbb_br8,          /* 0x18 */
+        i_sbb_wr16,         /* 0x19 */
+        i_sbb_r8b,          /* 0x1a */
+        i_sbb_r16w,         /* 0x1b */
+        i_sbb_ald8,         /* 0x1c */
+        i_sbb_axd16,        /* 0x1d */
+        i_push_ds,          /* 0x1e */
+        i_pop_ds,           /* 0x1f */
+        i_and_br8,          /* 0x20 */
+        i_and_wr16,         /* 0x21 */
+        i_and_r8b,          /* 0x22 */
+        i_and_r16w,         /* 0x23 */
+        i_and_ald8,         /* 0x24 */
+        i_and_axd16,        /* 0x25 */
+        i_es,               /* 0x26 */
+        i_daa,              /* 0x27 */
+        i_sub_br8,          /* 0x28 */
+        i_sub_wr16,         /* 0x29 */
+        i_sub_r8b,          /* 0x2a */
+        i_sub_r16w,         /* 0x2b */
+        i_sub_ald8,         /* 0x2c */
+        i_sub_axd16,        /* 0x2d */
+        i_cs,               /* 0x2e */
+        i_das,		/* 0x2f */
+        i_xor_br8,          /* 0x30 */
+        i_xor_wr16,         /* 0x31 */
+        i_xor_r8b,          /* 0x32 */
+        i_xor_r16w,         /* 0x33 */
+        i_xor_ald8,         /* 0x34 */
+        i_xor_axd16,        /* 0x35 */
+        i_ss,               /* 0x36 */
+        i_aaa,		/* 0x37 */
+        i_cmp_br8,          /* 0x38 */
+        i_cmp_wr16,         /* 0x39 */
+        i_cmp_r8b,          /* 0x3a */
+        i_cmp_r16w,         /* 0x3b */
+        i_cmp_ald8,         /* 0x3c */
+        i_cmp_axd16,        /* 0x3d */
+        i_ds,               /* 0x3e */
+        i_aas,		/* 0x3f */
+        i_inc_ax,           /* 0x40 */
+        i_inc_cx,           /* 0x41 */
+        i_inc_dx,           /* 0x42 */
+        i_inc_bx,           /* 0x43 */
+        i_inc_sp,           /* 0x44 */
+        i_inc_bp,           /* 0x45 */
+        i_inc_si,           /* 0x46 */
+        i_inc_di,           /* 0x47 */
+        i_dec_ax,           /* 0x48 */
+        i_dec_cx,           /* 0x49 */
+        i_dec_dx,           /* 0x4a */
+        i_dec_bx,           /* 0x4b */
+        i_dec_sp,           /* 0x4c */
+        i_dec_bp,           /* 0x4d */
+        i_dec_si,           /* 0x4e */
+        i_dec_di,           /* 0x4f */
+        i_push_ax,          /* 0x50 */
+        i_push_cx,          /* 0x51 */
+        i_push_dx,          /* 0x52 */
+        i_push_bx,          /* 0x53 */
+        i_push_sp,          /* 0x54 */
+        i_push_bp,          /* 0x55 */
+        i_push_si,          /* 0x56 */
+        i_push_di,          /* 0x57 */
+        i_pop_ax,           /* 0x58 */
+        i_pop_cx,           /* 0x59 */
+        i_pop_dx,           /* 0x5a */
+        i_pop_bx,           /* 0x5b */
+        i_pop_sp,           /* 0x5c */
+        i_pop_bp,           /* 0x5d */
+        i_pop_si,           /* 0x5e */
+        i_pop_di,           /* 0x5f */
+        i_pusha,            /* 0x60 */
+        i_popa,             /* 0x61 */
+        i_bound,            /* 0x62 */
+        i_invalid,			/* 0x63 */
+        i_repnc,			/* 0x64 */
+        i_repc,				/* 0x65 */
+        i_invalid,			/* 0x66 */
+        i_invalid,			/* 0x67 */
+        i_push_d16,         /* 0x68 */
+        i_imul_d16,         /* 0x69 */
+        i_push_d8,          /* 0x6a */
+        i_imul_d8,          /* 0x6b */
+        i_insb,             /* 0x6c */
+        i_insw,             /* 0x6d */
+        i_outsb,            /* 0x6e */
+        i_outsw,            /* 0x6f */
+        i_jo,               /* 0x70 */
+        i_jno,              /* 0x71 */
+        i_jb,               /* 0x72 */
+        i_jnb,              /* 0x73 */
+        i_jz,               /* 0x74 */
+        i_jnz,              /* 0x75 */
+        i_jbe,              /* 0x76 */
+        i_jnbe,             /* 0x77 */
+        i_js,               /* 0x78 */
+        i_jns,              /* 0x79 */
+        i_jp,               /* 0x7a */
+        i_jnp,              /* 0x7b */
+        i_jl,               /* 0x7c */
+        i_jnl,              /* 0x7d */
+        i_jle,              /* 0x7e */
+        i_jnle,             /* 0x7f */
+        i_80pre,            /* 0x80 */
+        i_81pre,            /* 0x81 */
+    	i_82pre,			/* 0x82 */
+        i_83pre,            /* 0x83 */
+        i_test_br8,         /* 0x84 */
+        i_test_wr16,        /* 0x85 */
+        i_xchg_br8,         /* 0x86 */
+        i_xchg_wr16,        /* 0x87 */
+        i_mov_br8,          /* 0x88 */
+        i_mov_wr16,         /* 0x89 */
+        i_mov_r8b,          /* 0x8a */
+        i_mov_r16w,         /* 0x8b */
+        i_mov_wsreg,        /* 0x8c */
+        i_lea,              /* 0x8d */
+        i_mov_sregw,        /* 0x8e */
+        i_popw,             /* 0x8f */
+        i_nop,              /* 0x90 */
+        i_xchg_axcx,        /* 0x91 */
+        i_xchg_axdx,        /* 0x92 */
+        i_xchg_axbx,        /* 0x93 */
+        i_xchg_axsp,        /* 0x94 */
+        i_xchg_axbp,        /* 0x95 */
+        i_xchg_axsi,        /* 0x97 */
+        i_xchg_axdi,        /* 0x97 */
+        i_cbw,              /* 0x98 */
+        i_cwd,              /* 0x99 */
+        i_call_far,         /* 0x9a */
+        i_wait,             /* 0x9b */
+        i_pushf,            /* 0x9c */
+        i_popf,             /* 0x9d */
+        i_sahf,             /* 0x9e */
+        i_lahf,             /* 0x9f */
+        i_mov_aldisp,       /* 0xa0 */
+        i_mov_axdisp,       /* 0xa1 */
+        i_mov_dispal,       /* 0xa2 */
+        i_mov_dispax,       /* 0xa3 */
+        i_movsb,            /* 0xa4 */
+        i_movsw,            /* 0xa5 */
+        i_cmpsb,            /* 0xa6 */
+        i_cmpsw,            /* 0xa7 */
+        i_test_ald8,        /* 0xa8 */
+        i_test_axd16,       /* 0xa9 */
+        i_stosb,            /* 0xaa */
+        i_stosw,            /* 0xab */
+        i_lodsb,            /* 0xac */
+        i_lodsw,            /* 0xad */
+        i_scasb,            /* 0xae */
+        i_scasw,            /* 0xaf */
+        i_mov_ald8,         /* 0xb0 */
+        i_mov_cld8,         /* 0xb1 */
+        i_mov_dld8,         /* 0xb2 */
+        i_mov_bld8,         /* 0xb3 */
+        i_mov_ahd8,         /* 0xb4 */
+        i_mov_chd8,         /* 0xb5 */
+        i_mov_dhd8,         /* 0xb6 */
+        i_mov_bhd8,         /* 0xb7 */
+        i_mov_axd16,        /* 0xb8 */
+        i_mov_cxd16,        /* 0xb9 */
+        i_mov_dxd16,        /* 0xba */
+        i_mov_bxd16,        /* 0xbb */
+        i_mov_spd16,        /* 0xbc */
+        i_mov_bpd16,        /* 0xbd */
+        i_mov_sid16,        /* 0xbe */
+        i_mov_did16,        /* 0xbf */
+        i_rotshft_bd8,      /* 0xc0 */
+        i_rotshft_wd8,      /* 0xc1 */
+        i_ret_d16,          /* 0xc2 */
+        i_ret,              /* 0xc3 */
+        i_les_dw,           /* 0xc4 */
+        i_lds_dw,           /* 0xc5 */
+        i_mov_bd8,          /* 0xc6 */
+        i_mov_wd16,         /* 0xc7 */
+        i_enter,            /* 0xc8 */
+        i_leave,            /* 0xc9 */
+        i_retf_d16,         /* 0xca */
+        i_retf,             /* 0xcb */
+        i_int3,             /* 0xcc */
+        i_int,              /* 0xcd */
+        i_into,             /* 0xce */
+        i_iret,             /* 0xcf */
+        i_rotshft_b,        /* 0xd0 */
+        i_rotshft_w,        /* 0xd1 */
+        i_rotshft_bcl,      /* 0xd2 */
+        i_rotshft_wcl,      /* 0xd3 */
+        i_aam,              /* 0xd4 */
+        i_aad,              /* 0xd5 */
+        i_setalc,
+        i_xlat,             /* 0xd7 */
+        i_escape,           /* 0xd8 */
+        i_escape,           /* 0xd9 */
+        i_escape,           /* 0xda */
+        i_escape,           /* 0xdb */
+        i_escape,           /* 0xdc */
+        i_escape,           /* 0xdd */
+        i_escape,           /* 0xde */
+        i_escape,           /* 0xdf */
+        i_loopne,           /* 0xe0 */
+        i_loope,            /* 0xe1 */
+        i_loop,             /* 0xe2 */
+        i_jcxz,             /* 0xe3 */
+        i_inal,             /* 0xe4 */
+        i_inax,             /* 0xe5 */
+        i_outal,            /* 0xe6 */
+        i_outax,            /* 0xe7 */
+        i_call_d16,         /* 0xe8 */
+        i_jmp_d16,          /* 0xe9 */
+        i_jmp_far,          /* 0xea */
+        i_jmp_d8,           /* 0xeb */
+        i_inaldx,           /* 0xec */
+        i_inaxdx,           /* 0xed */
+        i_outdxal,          /* 0xee */
+        i_outdxax,          /* 0xef */
+        i_lock,             /* 0xf0 */
+        i_invalid,          /* 0xf1 */
+        i_repne,            /* 0xf2 */
+        i_repe,             /* 0xf3 */
+        i_hlt,				/* 0xf4 */
+        i_cmc,              /* 0xf5 */
+        i_f6pre,            /* 0xf6 */
+        i_f7pre,            /* 0xf7 */
+        i_clc,              /* 0xf8 */
+        i_stc,              /* 0xf9 */
+        i_di,              /* 0xfa */
+        i_ei,              /* 0xfb */
+        i_cld,              /* 0xfc */
+        i_std,              /* 0xfd */
+        i_fepre,            /* 0xfe */
+        i_ffpre             /* 0xff */
+    };
     
 }

@@ -1,10 +1,8 @@
 package arcadeflex.WIP.v037b7.cpu.nec;
 
 import static arcadeflex.WIP.v037b7.cpu.nec.nec.I;
-import static arcadeflex.WIP.v037b7.cpu.nec.necH.ReadByte;
-import static arcadeflex.WIP.v037b7.cpu.nec.necH.WriteByte;
-import static arcadeflex.WIP.v037b7.cpu.nec.neceaH.EA;
-import static arcadeflex.WIP.v037b7.cpu.nec.neceaH.GetEA;
+import static arcadeflex.WIP.v037b7.cpu.nec.necH.*;
+import static arcadeflex.WIP.v037b7.cpu.nec.neceaH.*;
 
 public class necmodrmH {
     
@@ -28,42 +26,61 @@ public class necmodrmH {
             }
         }
 
-/*TODO*///	#define RegWord(ModRM) I.regs.w[Mod_RM.reg.w[ModRM]]
-/*TODO*///	#define RegByte(ModRM) I.regs.b[Mod_RM.reg.b[ModRM]]
-/*TODO*///
-/*TODO*///	#define GetRMWord(ModRM) 
-/*TODO*///		((ModRM) >= 0xc0 ? I.regs.w[Mod_RM.RM.w[ModRM]] : ( (*GetEA[ModRM])(), ReadWord( EA ) ))
-/*TODO*///
-/*TODO*///	#define PutbackRMWord(ModRM,val) 			     
-/*TODO*///	{ 							     
-/*TODO*///		if (ModRM >= 0xc0) I.regs.w[Mod_RM.RM.w[ModRM]]=val; 
-/*TODO*///		else WriteWord(EA,val); 				     
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	#define GetnextRMWord ReadWord(EA+2)
-/*TODO*///
-/*TODO*///	#define PutRMWord(ModRM,val)				
-/*TODO*///	{							
-/*TODO*///		if (ModRM >= 0xc0)				
-/*TODO*///			I.regs.w[Mod_RM.RM.w[ModRM]]=val;	
-/*TODO*///		else {						
-/*TODO*///			(*GetEA[ModRM])();			
-/*TODO*///			WriteWord( EA ,val);			
-/*TODO*///		}						
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	#define PutImmRMWord(ModRM) 				
-/*TODO*///	{							
-/*TODO*///		WORD val;					
-/*TODO*///		if (ModRM >= 0xc0)				
-/*TODO*///			FETCHWORD(I.regs.w[Mod_RM.RM.w[ModRM]]) 
-/*TODO*///		else {						
-/*TODO*///			(*GetEA[ModRM])();			
-/*TODO*///			FETCHWORD(val)				
-/*TODO*///			WriteWord( EA , val);			
-/*TODO*///		}						
-/*TODO*///	}
-/*TODO*///		
+        public static final int RegWord(int ModRM) {
+            return I.regs.w[Mod_RM.reg.w[ModRM]];
+        }
+        
+        public static final void SetRegByte(int ModRM, int val) {
+            I.regs.SetB(Mod_RM.reg.b[ModRM], val);
+        }
+        
+        public static final int RegByte(int ModRM) {
+            return I.regs.b[Mod_RM.reg.b[ModRM]];
+        }
+        
+        public static final void SetRegWord(int ModRM, int val) {
+            I.regs.SetW(Mod_RM.reg.w[ModRM], val);
+        }
+
+        public static final int GetRMWord(int ModRM) {
+            if (ModRM >= 0xc0) {
+                return I.regs.w[Mod_RM.RM.w[ModRM]];
+            } else {
+                return ReadWord(GetEA[ModRM].handler());
+            }
+            //return ModRM >= 0xc0 ? I.regs.w[Mod_RM.RM.w[ModRM]] : ReadWord(GetEA[ModRM].handler()); //( (*GetEA[ModRM])(), ReadWord( EA )
+        }
+
+        public static final void PutbackRMWord(int ModRM, int val) {
+            if (ModRM >= 0xc0) {
+                I.regs.SetW(Mod_RM.RM.w[ModRM], val);
+            } else {
+                WriteWord(EA, val);
+            }
+        }
+
+        public static final int GetnextRMWord() {
+            return ReadWord(EA + 2);
+        }
+
+        public static final void PutRMWord(int ModRM, int val) {
+            if (ModRM >= 0xc0) {
+                I.regs.SetW(Mod_RM.RM.w[ModRM], val);
+            } else {
+                GetEA[ModRM].handler();
+                WriteWord(EA, val);
+            }
+        }
+
+        public static final void PutImmRMWord(int ModRM) {
+            if (ModRM >= 0xc0) {
+                I.regs.SetW(Mod_RM.RM.w[ModRM], FETCHWORD());
+            } else {
+                GetEA[ModRM].handler();
+                int i = FETCHWORD();
+                WriteWord(EA, i);
+            }
+        }		
 
         public static final int GetRMByte(int ModRM) {
             if (ModRM >= 0xc0) {
@@ -73,24 +90,23 @@ public class necmodrmH {
             }
             //return ModRM >= 0xc0 ? I.regs.b[Mod_RM.RM.b[ModRM]] : 
         }
-/*TODO*///		
-/*TODO*///	#define PutRMByte(ModRM,val)				
-/*TODO*///	{							
-/*TODO*///		if (ModRM >= 0xc0)				
-/*TODO*///			I.regs.b[Mod_RM.RM.b[ModRM]]=val;	
-/*TODO*///		else						
-/*TODO*///			WriteByte( (*GetEA[ModRM])() ,val); 	
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	#define PutImmRMByte(ModRM) 				
-/*TODO*///	{							
-/*TODO*///		if (ModRM >= 0xc0)				
-/*TODO*///			I.regs.b[Mod_RM.RM.b[ModRM]]=FETCH; 	
-/*TODO*///		else {						
-/*TODO*///			(*GetEA[ModRM])();			
-/*TODO*///			WriteByte( EA , FETCH );		
-/*TODO*///		}						
-/*TODO*///	}
+	
+        public static final void PutRMByte(int ModRM, int val) {
+            if (ModRM >= 0xc0) {
+                I.regs.SetB(Mod_RM.RM.b[ModRM], val);
+            } else {
+                WriteByte(GetEA[ModRM].handler(), val);
+            }
+        }
+
+        public static final void PutImmRMByte(int ModRM) {
+            if (ModRM >= 0xc0) {
+                I.regs.SetB(Mod_RM.RM.b[ModRM], FETCH());
+            } else {
+                GetEA[ModRM].handler();
+                WriteByte(EA, FETCH());
+            }
+        }
 
         public static final void PutbackRMByte(int ModRM, int val) {
             if (ModRM >= 0xc0) {
