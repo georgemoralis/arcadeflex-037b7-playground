@@ -241,6 +241,7 @@ import static arcadeflex.WIP.v037b7.drivers.neogeo.*;
 import static arcadeflex.WIP.v037b7.drivers.m72.*;
 import static arcadeflex.WIP.v037b7.drivers.m92.*;
 import static arcadeflex.WIP.v037b7.drivers.m107.*;
+import static arcadeflex.WIP.v037b7.drivers.raiden.*;
 
 public class driver {
 
@@ -2841,9 +2842,9 @@ public class driver {
         driver_stfight,/* (c) 1986 Seibu Kaihatsu (Germany) (bootleg?) */
         /*TODO*///	driver_dynduke,	/* (c) 1989 Seibu Kaihatsu + Fabtek license */
         /*TODO*///	driver_dbldyn,	/* (c) 1989 Seibu Kaihatsu + Fabtek license */
-        /*TODO*///	driver_raiden,	/* (c) 1990 Seibu Kaihatsu */
-        /*TODO*///	driver_raidena,	/* (c) 1990 Seibu Kaihatsu */
-        /*TODO*///	driver_raidenk,	/* (c) 1990 Seibu Kaihatsu + IBL Corporation license */
+        driver_raiden,	/* (c) 1990 Seibu Kaihatsu */
+        driver_raidena,	/* (c) 1990 Seibu Kaihatsu */
+        driver_raidenk,	/* (c) 1990 Seibu Kaihatsu + IBL Corporation license */
         /*TODO*///	driver_dcon,		/* (c) 1992 Success */
         /*TODO*///
         /*TODO*////* Seibu STI System games:

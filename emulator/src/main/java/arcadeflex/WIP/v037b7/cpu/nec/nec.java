@@ -177,12 +177,13 @@ public abstract class nec extends cpu_interface {
 
     @Override
     public Object get_context() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Object reg = new nec_Regs();
+        return nec_get_context(reg);
     }
 
     @Override
     public void set_context(Object reg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        nec_set_context(reg);
     }
 
     @Override
@@ -6371,28 +6372,28 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///		nec_ICount-=10;
 /*TODO*///		logerror("PC=%06x : Invalid Opcode %02x\n",cpu_get_pc(),(BYTE)cpu_readop((I.base[CS]+I.ip)));
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	/* ASG 971222 -- added these interface functions */
-/*TODO*///	
-/*TODO*///	unsigned nec_get_context(void *dst)
-/*TODO*///	{
-/*TODO*///		if (dst != 0)
-/*TODO*///			*(nec_Regs*)dst = I;
-/*TODO*///	    return sizeof(nec_Regs);
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	void nec_set_context(void *src)
-/*TODO*///	{
-/*TODO*///		if (src != 0)
-/*TODO*///		{
-/*TODO*///			I = *(nec_Regs*)src;
-/*TODO*///			I.base[CS] = SegBase(CS);
-/*TODO*///			I.base[DS] = SegBase(DS);
-/*TODO*///			I.base[ES] = SegBase(ES);
-/*TODO*///			I.base[SS] = SegBase(SS);
-/*TODO*///			change_pc20((I.base[CS]+I.ip));
-/*TODO*///		}
-/*TODO*///	}
+	
+	/* ASG 971222 -- added these interface functions */
+	
+	static Object nec_get_context(Object dst)
+	{
+		if (dst != null)
+			dst = (nec_Regs)I;
+	    return dst;
+	}
+	
+	static void nec_set_context(Object src)
+	{
+		if (src != null)
+		{
+			I = (nec_Regs)src;
+			I.base[CS] = SegBase(CS);
+			I.base[DS] = SegBase(DS);
+			I.base[ES] = SegBase(ES);
+			I.base[SS] = SegBase(SS);
+			change_pc20((I.base[CS]+I.ip));
+		}
+	}
 	
 	public static int nec_get_pc()
 	{
