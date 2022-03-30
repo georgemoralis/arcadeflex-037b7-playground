@@ -2485,24 +2485,25 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
         }
     };
 
-    /*TODO*///static void i_aaa(void)    /* Opcode 0x37 */
-    /*TODO*///{
-    /*TODO*///	if (AF || ((I.regs.b[AL] & 0xf) > 9))
-    /*TODO*///    {
-    /*TODO*///		I.regs.b[AL] += 6;
-    /*TODO*///		I.regs.b[AH] += 1;
-    /*TODO*///		I.AuxVal = 1;
-    /*TODO*///		I.CarryVal = 1;
-    /*TODO*///    }
-    /*TODO*///	else
-    /*TODO*///	{
-    /*TODO*///		I.AuxVal = 0;
-    /*TODO*///		I.CarryVal = 0;
-    /*TODO*///    }
-    /*TODO*///	I.regs.b[AL] &= 0x0F;
-    /*TODO*///	nec_ICount-=3;
-    /*TODO*///}
-    /*TODO*///
+    static InstructionPtr i_aaa = new InstructionPtr() {    /* Opcode 0x37 */
+        public void handler() {
+            if (AF() != 0 || ((I.regs.b[AL] & 0xf) > 9))
+            {
+                    I.regs.b[AL] += 6;
+                    I.regs.b[AH] += 1;
+                    I.AuxVal = 1;
+                    I.CarryVal = 1;
+            }
+            else
+            {
+                    I.AuxVal = 0;
+                    I.CarryVal = 0;
+            }
+            I.regs.b[AL] &= 0x0F;
+            nec_ICount[0]-=3;            
+        }
+    };
+    
     static InstructionPtr i_cmp_br8 = new InstructionPtr() {
         public void handler() {
             //DEF_br8(dst,src);
@@ -6715,7 +6716,9 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                     case 0x36:
                         i_ss.handler();
                         break;
-                    /*TODO*///	case 0x37:    i_aaa(); break;
+                    case 0x37:    
+                        i_aaa.handler(); 
+                        break;
                     case 0x38:
                         i_cmp_br8.handler();
                         break;

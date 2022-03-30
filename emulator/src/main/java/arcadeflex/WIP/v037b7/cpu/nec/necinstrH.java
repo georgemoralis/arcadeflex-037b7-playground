@@ -8,7 +8,7 @@ public class necinstrH {
         public abstract void handler();
     }
     
-    static InstructionPtr i_aaa= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
+    //static InstructionPtr i_aaa= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
     static InstructionPtr i_aas= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
     static InstructionPtr i_push_sp= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
     static InstructionPtr i_pop_sp= new InstructionPtr(){ public void handler(){throw new UnsupportedOperationException("Not supported yet.");}};
