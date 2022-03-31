@@ -8,6 +8,11 @@ package arcadeflex.WIP.v037b7.cpu.t11;
 
 public class t11H
 {
+        
+        public static abstract interface InstructionPtr {
+            public abstract void handler();
+        }
+        
 /*TODO*///	
 /*TODO*///	enum {
 /*TODO*///		T11_R0=1, T11_R1, T11_R2, T11_R3, T11_R4, T11_R5, T11_SP, T11_PC, T11_PSW,

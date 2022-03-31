@@ -18,6 +18,7 @@
 package arcadeflex.WIP.v037b7.cpu.t11;
 
 import static arcadeflex.WIP.v037b7.cpu.t11.t11H.*;
+import static arcadeflex.WIP.v037b7.cpu.t11.t11table.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import static arcadeflex.v037b7.mame.cpuintrf.*;
 import static arcadeflex.v037b7.mame.cpuintrfH.*;
@@ -62,7 +63,7 @@ public class t11 extends cpu_interface
 
     @Override
     public int execute(int cycles) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return t11_execute(cycles);
     }
 
     @Override
@@ -296,15 +297,15 @@ public class t11 extends cpu_interface
             //t11.psw.b.l;
             return t11.reg[7].L; 
         }
-/*TODO*///	
-/*TODO*///	/* shortcuts for reading opcodes */
-/*TODO*///	INLINE int ROPCODE(void)
-/*TODO*///	{
-/*TODO*///		int pc = PCD;
-/*TODO*///		PC += 2;
-/*TODO*///		return READ_WORD(&t11.bank[pc >> 13][pc & 0x1fff]);
-/*TODO*///	}
-/*TODO*///	
+	
+	/* shortcuts for reading opcodes */
+	public int ROPCODE()
+	{
+		int pc = PCD();
+		PC( PC() + 2 );
+		return t11.bank[pc >> 13].READ_WORD(pc & 0x1fff);
+	}
+	
 /*TODO*///	/* shortcuts for reading/writing memory bytes */
 /*TODO*///	#define RBYTE(addr)      T11_RDMEM(addr)
 /*TODO*///	#define WBYTE(addr,data) T11_WRMEM((addr), (data))
@@ -582,40 +583,44 @@ public class t11 extends cpu_interface
 	}
 	
 	
-/*TODO*///	/* execute instructions on this CPU until icount expires */
-/*TODO*///	int t11_execute(int cycles)
-/*TODO*///	{
-/*TODO*///		t11_ICount = cycles;
-/*TODO*///		t11_ICount -= t11.interrupt_cycles;
-/*TODO*///		t11.interrupt_cycles = 0;
-/*TODO*///	
-/*TODO*///		if (t11.wait_state)
-/*TODO*///		{
-/*TODO*///			t11_ICount = 0;
-/*TODO*///			goto getout;
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///	change_pc(0xffff);
-/*TODO*///		do
-/*TODO*///		{
-/*TODO*///			t11.ppc = t11.reg[7];	/* copy PC to previous PC */
-/*TODO*///	
+	/* execute instructions on this CPU until icount expires */
+	public int t11_execute(int cycles)
+	{
+		t11_ICount[0] = cycles;
+		t11_ICount[0] -= t11.interrupt_cycles;
+		t11.interrupt_cycles = 0;
+	
+		if (t11.wait_state != 0)
+		{
+			t11_ICount[0] = 0;
+			//goto getout;
+                        t11_ICount[0] -= t11.interrupt_cycles;
+                        t11.interrupt_cycles = 0;
+
+                        return cycles - t11_ICount[0];
+		}
+	
+                change_pc(0xffff);
+		do
+		{
+			t11.ppc = t11.reg[7];	/* copy PC to previous PC */
+	
 /*TODO*///			CALL_MAME_DEBUG;
-/*TODO*///	
-/*TODO*///			t11.op = ROPCODE();
-/*TODO*///			(*opcode_table[t11.op >> 3])();
-/*TODO*///	
-/*TODO*///			t11_ICount -= 22;
-/*TODO*///	
-/*TODO*///		} while (t11_ICount > 0);
-/*TODO*///	
+	
+			t11.op = ROPCODE();
+			(opcode_table[t11.op >> 3]).handler();
+	
+			t11_ICount[0] -= 22;
+	
+		} while (t11_ICount[0] > 0);
+	
 /*TODO*///	getout:
-/*TODO*///	
-/*TODO*///		t11_ICount -= t11.interrupt_cycles;
-/*TODO*///		t11.interrupt_cycles = 0;
-/*TODO*///	
-/*TODO*///		return cycles - t11_ICount;
-/*TODO*///	}
+	
+		t11_ICount[0] -= t11.interrupt_cycles;
+		t11.interrupt_cycles = 0;
+	
+		return cycles - t11_ICount[0];
+	}
 	
 	/****************************************************************************
 	 * Return a formatted string for a register
