@@ -22,45 +22,38 @@ import static arcadeflex.common.subArrays.*;
 
 public class atarigenH
 {
-/*TODO*///	
-/*TODO*///	#ifndef __MACHINE_ATARIGEN__
-/*TODO*///	#define __MACHINE_ATARIGEN__
-
 
 	public static final int ATARI_CLOCK_14MHz	= 14318180;
-/*TODO*///	#define ATARI_CLOCK_20MHz	20000000
+        public static final int ATARI_CLOCK_20MHz	= 20000000;
         public static final int ATARI_CLOCK_32MHz	= 32000000;
-/*TODO*///	#define ATARI_CLOCK_50MHz	50000000
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*--------------------------------------------------------------------------
-/*TODO*///	
-/*TODO*///		Atari generic interrupt model (required)
-/*TODO*///	
-/*TODO*///			atarigen_scanline_int_state - state of the scanline interrupt line
-/*TODO*///			atarigen_sound_int_state - state of the sound interrupt line
-/*TODO*///			atarigen_video_int_state - state of the video interrupt line
-/*TODO*///	
-/*TODO*///			atarigen_int_callback - called when the interrupt state changes
-/*TODO*///	
-/*TODO*///			atarigen_interrupt_reset - resets & initializes the interrupt state
-/*TODO*///			atarigen_update_interrupts - forces the interrupts to be reevaluted
-/*TODO*///	
-/*TODO*///			atarigen_scanline_int_set - scanline interrupt initialization
-/*TODO*///			atarigen_sound_int_gen - scanline interrupt generator
-/*TODO*///			atarigen_scanline_int_ack_w - scanline interrupt acknowledgement
-/*TODO*///	
-/*TODO*///			atarigen_sound_int_gen - sound interrupt generator
-/*TODO*///			atarigen_sound_int_ack_w - sound interrupt acknowledgement
-/*TODO*///	
-/*TODO*///			atarigen_video_int_gen - video interrupt generator
-/*TODO*///			atarigen_video_int_ack_w - video interrupt acknowledgement
-/*TODO*///	
-/*TODO*///	--------------------------------------------------------------------------*/
-/*TODO*///	extern int atarigen_scanline_int_state;
-/*TODO*///	extern int atarigen_sound_int_state;
-/*TODO*///	extern int atarigen_video_int_state;
+        public static final int ATARI_CLOCK_50MHz	= 50000000;
+
+	
+	
+	/*--------------------------------------------------------------------------
+	
+		Atari generic interrupt model (required)
+	
+			atarigen_scanline_int_state - state of the scanline interrupt line
+			atarigen_sound_int_state - state of the sound interrupt line
+			atarigen_video_int_state - state of the video interrupt line
+	
+			atarigen_int_callback - called when the interrupt state changes
+	
+			atarigen_interrupt_reset - resets & initializes the interrupt state
+			atarigen_update_interrupts - forces the interrupts to be reevaluted
+	
+			atarigen_scanline_int_set - scanline interrupt initialization
+			atarigen_sound_int_gen - scanline interrupt generator
+			atarigen_scanline_int_ack_w - scanline interrupt acknowledgement
+	
+			atarigen_sound_int_gen - sound interrupt generator
+			atarigen_sound_int_ack_w - sound interrupt acknowledgement
+	
+			atarigen_video_int_gen - video interrupt generator
+			atarigen_video_int_ack_w - video interrupt acknowledgement
+	
+	--------------------------------------------------------------------------*/
 
 	public abstract static interface atarigen_int_callbackPtr {
             public abstract void handler();
@@ -653,9 +646,10 @@ public class atarigenH
         public static void atarigen_mo_draw_16x8_strip(osd_bitmap bitmap, GfxElement gfx, int code, int color, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen) {
 		atarigen_mo_draw_strip(bitmap, gfx, code, color, hflip, vflip, x, y, vsize, clip, trans, trans_pen, 16, 8);
         }
-/*TODO*///	#define atarigen_mo_draw_16x16_strip(bitmap, gfx, code, color, hflip, vflip, x, y, vsize, clip, trans, trans_pen) \
-/*TODO*///		atarigen_mo_draw_strip(bitmap, gfx, code, color, hflip, vflip, x, y, vsize, clip, trans, trans_pen, 16, 16)
-/*TODO*///	
+        
+        public static void atarigen_mo_draw_16x16_strip(osd_bitmap bitmap, GfxElement gfx, int code, int color, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen) {
+		atarigen_mo_draw_strip(bitmap, gfx, code, color, hflip, vflip, x, y, vsize, clip, trans, trans_pen, 16, 16);
+        }
 	
 	public static void atarigen_mo_draw_transparent_8x8_strip(osd_bitmap bitmap, GfxElement gfx, int code, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen) {
 		atarigen_mo_draw_transparent_strip(bitmap, gfx, code, hflip, vflip, x, y, vsize, clip, trans, trans_pen, 8, 8);
@@ -666,8 +660,8 @@ public class atarigenH
         }
 
         
-/*TODO*///	#define atarigen_mo_draw_transparent_16x16_strip(bitmap, gfx, code, hflip, vflip, x, y, vsize, clip, trans, trans_pen) \
-/*TODO*///		atarigen_mo_draw_transparent_strip(bitmap, gfx, code, hflip, vflip, x, y, vsize, clip, trans, trans_pen, 16, 16)
-/*TODO*///	
-/*TODO*///	#endif
+        public static void atarigen_mo_draw_transparent_16x16_strip(osd_bitmap bitmap, GfxElement gfx, int code, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen) {
+		atarigen_mo_draw_transparent_strip(bitmap, gfx, code, hflip, vflip, x, y, vsize, clip, trans, trans_pen, 16, 16);
+        }
+
 }

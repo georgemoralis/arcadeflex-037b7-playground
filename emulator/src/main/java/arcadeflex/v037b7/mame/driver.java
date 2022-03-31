@@ -242,6 +242,7 @@ import static arcadeflex.WIP.v037b7.drivers.m72.*;
 import static arcadeflex.WIP.v037b7.drivers.m92.*;
 import static arcadeflex.WIP.v037b7.drivers.m107.*;
 import static arcadeflex.WIP.v037b7.drivers.raiden.*;
+import static arcadeflex.WIP.v037b7.drivers.atarisy2.*;
 
 public class driver {
 
@@ -2489,14 +2490,14 @@ public class driver {
         driver_roadrunn, 	/* (c) 1985 */
         driver_roadblst, 	/* (c) 1986, 1987 */
         
-        /*TODO*///	/* Atari System 2 games */
-        /*TODO*///	driver_paperboy,	/* (c) 1984 */
-        /*TODO*///	driver_ssprint,	/* (c) 1986 */
-        /*TODO*///	driver_csprint,	/* (c) 1986 */
-        /*TODO*///	driver_720,		/* (c) 1986 */
-        /*TODO*///	driver_720b,		/* (c) 1986 */
-        /*TODO*///	driver_apb,		/* (c) 1987 */
-        /*TODO*///	driver_apb2,		/* (c) 1987 */
+        /* Atari System 2 games */
+        driver_paperboy,	/* (c) 1984 */
+        driver_ssprint,	/* (c) 1986 */
+        driver_csprint,	/* (c) 1986 */
+        driver_720,		/* (c) 1986 */
+        driver_720b,		/* (c) 1986 */
+        driver_apb,		/* (c) 1987 */
+        driver_apb2,		/* (c) 1987 */
         
         /* later Atari games */
         driver_gauntlet, 	/* (c) 1985 */

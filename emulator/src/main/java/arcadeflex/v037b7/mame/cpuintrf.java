@@ -81,6 +81,8 @@ import static gr.codebb.arcadeflex.v037b7.cpu.m6809.m6809H.M6809_INT_IRQ;
 import arcadeflex.WIP.v037b7.cpu.nec.v20;
 import arcadeflex.WIP.v037b7.cpu.nec.v30;
 import arcadeflex.WIP.v037b7.cpu.nec.v33;
+import arcadeflex.WIP.v037b7.cpu.t11.t11;
+import static arcadeflex.WIP.v037b7.cpu.t11.t11H.*;
 
 public class cpuintrf {
 
@@ -358,7 +360,7 @@ public class cpuintrf {
                 new Dummy_cpu(),//CPU0(M68010,   m68010,	 8, -1,1.00,MC68010_INT_NONE,  -1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
                 new Dummy_cpu(),//CPU0(M68EC020, m68ec020, 8, -1,1.00,MC68EC020_INT_NONE,-1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
                 new Dummy_cpu(),//CPU0(M68020,   m68020,	 8, -1,1.00,MC68020_INT_NONE,  -1,			   -1,			   24bew, 0,24,BE,2,10,24BEW),
-                new Dummy_cpu(),//CPU0(T11,	   t11, 	 4,  0,1.00,T11_INT_NONE,	   -1,			   -1,			   16lew, 0,16,LE,2, 6,16LEW),
+                new t11(),//CPU0(T11,	   t11, 	 4,  0,1.00,T11_INT_NONE,	   -1,			   -1,			   16lew, 0,16,LE,2, 6,16LEW),
                 new s2650(),//CPU0(S2650,    s2650,	 2,  0,1.00,S2650_INT_NONE,    -1,			   -1,			   16,	  0,15,LE,1, 3,16	),
                 new Dummy_cpu(),//CPU4(F8,	   f8,		 1,  0,1.00,F8_INT_NONE,	   F8_INT_INTR,    -1,			   16,	  0,16,LE,1, 3,16	),
                 new Dummy_cpu(),//CPU0(CP1600,   cp1600,   0,  0,1.00,CP1600_INT_NONE,   -1,             -1,             16,    0,16,LE,1, 3,16   ),
@@ -1778,16 +1780,30 @@ public class cpuintrf {
 /*TODO*///				break;
 /*TODO*///#endif
 /*TODO*///#if (HAS_T11)
-/*TODO*///			case CPU_T11:
-/*TODO*///				switch (num)
-/*TODO*///				{
-/*TODO*///				case T11_IRQ0:			irq_line = 0; LOG(("T11 IRQ0\n")); break;
-/*TODO*///				case T11_IRQ1:			irq_line = 1; LOG(("T11 IRQ1\n")); break;
-/*TODO*///				case T11_IRQ2:			irq_line = 2; LOG(("T11 IRQ2\n")); break;
-/*TODO*///				case T11_IRQ3:			irq_line = 3; LOG(("T11 IRQ3\n")); break;
-/*TODO*///				default:				irq_line = 0; LOG(("T11 unknown\n"));
-/*TODO*///				}
-/*TODO*///				break;
+			case CPU_T11:
+                            switch (num)
+                            {
+				case T11_IRQ0:			
+                                    irq_line = 0; 
+                                    //LOG(("T11 IRQ0\n")); 
+                                    break;
+				case T11_IRQ1:			
+                                    irq_line = 1; 
+                                    //LOG(("T11 IRQ1\n")); 
+                                    break;
+				case T11_IRQ2:			
+                                    irq_line = 2; 
+                                    //LOG(("T11 IRQ2\n")); 
+                                    break;
+				case T11_IRQ3:			
+                                    irq_line = 3; 
+                                    //LOG(("T11 IRQ3\n")); 
+                                    break;
+				default:				
+                                    irq_line = 0; 
+                                    //LOG(("T11 unknown\n"));
+                            }
+                            break;
 /*TODO*///#endif
 /*TODO*///#if (HAS_S2650)
                     case CPU_S2650:
