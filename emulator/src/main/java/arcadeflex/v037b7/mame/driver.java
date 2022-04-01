@@ -243,6 +243,8 @@ import static arcadeflex.WIP.v037b7.drivers.m92.*;
 import static arcadeflex.WIP.v037b7.drivers.m107.*;
 import static arcadeflex.WIP.v037b7.drivers.raiden.*;
 import static arcadeflex.WIP.v037b7.drivers.atarisy2.*;
+import static arcadeflex.WIP.v037b7.drivers.dynduke.*;
+import static arcadeflex.WIP.v037b7.drivers.shanghai.*;
 
 public class driver {
 
@@ -2841,8 +2843,8 @@ public class driver {
         driver_empcity, /* (c) 1986 Seibu Kaihatsu (bootleg?) */
         driver_empcityj, /* (c) 1986 Taito Corporation (Japan) */
         driver_stfight,/* (c) 1986 Seibu Kaihatsu (Germany) (bootleg?) */
-        /*TODO*///	driver_dynduke,	/* (c) 1989 Seibu Kaihatsu + Fabtek license */
-        /*TODO*///	driver_dbldyn,	/* (c) 1989 Seibu Kaihatsu + Fabtek license */
+        driver_dynduke,	/* (c) 1989 Seibu Kaihatsu + Fabtek license */
+        driver_dbldyn,	/* (c) 1989 Seibu Kaihatsu + Fabtek license */
         driver_raiden,	/* (c) 1990 Seibu Kaihatsu */
         driver_raidena,	/* (c) 1990 Seibu Kaihatsu */
         driver_raidenk,	/* (c) 1990 Seibu Kaihatsu + IBL Corporation license */
@@ -3029,9 +3031,9 @@ public class driver {
         /*TODO*///	/* Atlus games */
         /*TODO*///	driver_ohmygod,	/* (c) 1993 Atlus (Japan) */
         driver_powerins, /* (c) 1993 Atlus (Japan) */
-        /*TODO*///
-        /*TODO*///	/* SunSoft games */
-        /*TODO*///	driver_shanghai,	/* (c) 1988 Sunsoft (Sun Electronics) */
+        
+        /* SunSoft games */
+        driver_shanghai,	/* (c) 1988 Sunsoft (Sun Electronics) */
         /*TODO*///	driver_shangha3,	/* (c) 1993 Sunsoft */
         /*TODO*///	driver_heberpop,	/* (c) 1994 Sunsoft / Atlus */
         /*TODO*///	driver_blocken,	/* (c) 1994 KID / Visco */

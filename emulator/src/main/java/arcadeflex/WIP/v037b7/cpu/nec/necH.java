@@ -154,7 +154,7 @@ public class necH {
     /*TODO*////* ASG 971005 -- changed to cpu_readmem20/cpu_writemem20 */
     public static int GetMemB(int Seg, int Off) {
         nec_ICount[0] -= 6;
-        return cpu_readmem20((DefaultBase(Seg) + (Off))) & 0xFF;
+        return cpu_readmem20(((DefaultBase(Seg) + (Off)))&0xfff) & 0xFF;
     }
     
     public static int GetMemW(int Seg, int Off) {

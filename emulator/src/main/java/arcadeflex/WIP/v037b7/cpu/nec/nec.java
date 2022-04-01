@@ -151,6 +151,7 @@ import static arcadeflex.WIP.v037b7.cpu.nec.necinstrH.*;
 import static arcadeflex.WIP.v037b7.cpu.nec.necmodrmH.*;
 import static arcadeflex.common.libc.expressions.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.*;
+import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public abstract class nec extends cpu_interface {
     
@@ -3255,14 +3256,15 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
     /*TODO*///	I.regs.w[IY]+= -4 * I.DF + 2;
     /*TODO*///	nec_ICount-=8;
     /*TODO*///}
-    /*TODO*///
-    /*TODO*///static void i_outsb(void)    /* Opcode 0x6e */
-    /*TODO*///{
-    /*TODO*///	write_port(I.regs.w[DW],GetMemB(DS,I.regs.w[IX]));
-    /*TODO*///	I.regs.w[IY]+= -2 * I.DF + 1;
-    /*TODO*///	nec_ICount-=8;
-    /*TODO*///}
-    /*TODO*///
+    
+        static InstructionPtr i_outsb = new InstructionPtr() {    /* Opcode 0x6e */
+            public void handler() {
+                write_port(I.regs.w[DW],GetMemB(DS,I.regs.w[IX]));
+                I.regs.w[IY]+= -2 * I.DF + 1;
+                nec_ICount[0]-=8;
+            }
+        };
+
     /*TODO*///static void i_outsw(void)    /* Opcode 0x6f */
     /*TODO*///{
     /*TODO*///	write_port(I.regs.w[DW],GetMemB(DS,I.regs.w[IX]));
@@ -5137,16 +5139,17 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
         }
     };
 
-    /*TODO*///static void i_ret_d16(void)    /* Opcode 0xc2 */
-    /*TODO*///{
-    /*TODO*///	unsigned count = FETCH;
-    /*TODO*///	count += FETCH << 8;
-    /*TODO*///	POP(I.ip);
-    /*TODO*///	I.regs.w[SP]+=count;
-    /*TODO*///	change_pc20((I.base[CS]+I.ip));
-    /*TODO*///	nec_ICount-=22;	// near 20-24
-    /*TODO*///}
-    /*TODO*///
+    static InstructionPtr i_ret_d16 = new InstructionPtr() {    /* Opcode 0xc2 */
+        public void handler() {
+            int count = FETCH();
+            count += FETCH() << 8;
+            I.ip = POP();
+            I.regs.w[SP]+=count;
+            change_pc20((I.base[CS]+I.ip));
+            nec_ICount[0]-=22;	// near 20-24
+        }
+    };
+    
     static InstructionPtr i_ret = new InstructionPtr() {
         public void handler() {
             I.ip = POP();
@@ -5618,35 +5621,39 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
     };
 
 
-    /*TODO*///static void i_inaldx(void)    /* Opcode 0xec */
-    /*TODO*///{
-    /*TODO*///	I.regs.b[AL] = read_port(I.regs.w[DW]);
-    /*TODO*///	nec_ICount-=8;
-    /*TODO*///}
-    /*TODO*///
-    /*TODO*///static void i_inaxdx(void)    /* Opcode 0xed */
-    /*TODO*///{
-    /*TODO*///	unsigned port = I.regs.w[DW];
-    /*TODO*///
-    /*TODO*///	I.regs.b[AL] = read_port(port);
-    /*TODO*///	I.regs.b[AH] = read_port(port+1);
-    /*TODO*///	nec_ICount-=12;
-    /*TODO*///}
-    /*TODO*///
-    /*TODO*///static void i_outdxal(void)    /* Opcode 0xee */
-    /*TODO*///{
-    /*TODO*///	write_port(I.regs.w[DW], I.regs.b[AL]);
-    /*TODO*///	nec_ICount-=8;
-    /*TODO*///}
-    /*TODO*///
-    /*TODO*///static void i_outdxax(void)    /* Opcode 0xef */
-    /*TODO*///{
-    /*TODO*///	unsigned port = I.regs.w[DW];
-    /*TODO*///	write_port(port, I.regs.b[AL]);
-    /*TODO*///	write_port(port+1, I.regs.b[AH]);
-    /*TODO*///	nec_ICount-=12;
-    /*TODO*///}
-    /*TODO*///
+    static InstructionPtr i_inaldx = new InstructionPtr() {    /* Opcode 0xec */
+        public void handler() {
+            I.regs.SetB(AL, read_port(I.regs.w[DW]));
+            nec_ICount[0]-=8;
+        }
+    };
+    
+    static InstructionPtr i_inaxdx = new InstructionPtr() {    /* Opcode 0xed */
+        public void handler() {
+            int port = I.regs.w[DW];
+
+            I.regs.b[AL] = read_port(port);
+            I.regs.b[AH] = read_port(port+1);
+            nec_ICount[0]-=12;
+        }
+    };
+    
+        static InstructionPtr i_outdxal = new InstructionPtr() {    /* Opcode 0xee */
+            public void handler() {
+                write_port(I.regs.w[DW], I.regs.b[AL]);
+                nec_ICount[0]-=8;
+            }
+        };
+    
+        static InstructionPtr i_outdxax = new InstructionPtr() {    /* Opcode 0xef */
+            public void handler() {
+                int port = I.regs.w[DW];
+                write_port(port, I.regs.b[AL]);
+                write_port(port+1, I.regs.b[AH]);
+                nec_ICount[0]-=12;
+            }
+        };
+    
     /* I think thats not a V20 instruction...*/
     static InstructionPtr i_lock = new InstructionPtr() {
         public void handler() {
@@ -6364,14 +6371,16 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
             }
         }
     };	
-/*TODO*///	static void i_invalid(void)
-/*TODO*///	{
-/*TODO*///	    /* makes the cpu loops forever until user resets it */
-/*TODO*///		/*	{ extern int debug_key_pressed; debug_key_pressed = 1; } */
-/*TODO*///		I.ip--;
-/*TODO*///		nec_ICount-=10;
-/*TODO*///		logerror("PC=%06x : Invalid Opcode %02x\n",cpu_get_pc(),(BYTE)cpu_readop((I.base[CS]+I.ip)));
-/*TODO*///	}
+    
+	static InstructionPtr i_invalid = new InstructionPtr() {
+            public void handler() {
+                /* makes the cpu loops forever until user resets it */
+                    /*	{ extern int debug_key_pressed; debug_key_pressed = 1; } */
+                    I.ip--;
+                    nec_ICount[0]-=10;
+                    logerror("PC=%06x : Invalid Opcode %02x\n",cpu_get_pc(),(byte)cpu_readop((I.base[CS]+I.ip)));
+            }
+        };
 	
 	/* ASG 971222 -- added these interface functions */
 	
@@ -6844,7 +6853,9 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                     /*TODO*///	case 0x63:    i_invalid(); break;
                     /*TODO*///	case 0x64:    i_repnc(); break;
                     /*TODO*///	case 0x65:	  i_repc(); break;
-                    /*TODO*///	case 0x66:    i_invalid(); break;
+                    case 0x66:    
+                        i_invalid.handler(); 
+                        break;
                     /*TODO*///	case 0x67:    i_invalid(); break;
                     case 0x68:
                         i_push_d16.handler();
@@ -6858,7 +6869,9 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         break;
                     /*TODO*///        case 0x6c:    i_insb(); break;
                     /*TODO*///        case 0x6d:    i_insw(); break;
-                    /*TODO*///        case 0x6e:    i_outsb(); break;
+                    case 0x6e:    
+                        i_outsb.handler(); 
+                        break;
                     /*TODO*///        case 0x6f:    i_outsw(); break;
                     case 0x70:
                         i_jo.handler();
@@ -7094,7 +7107,9 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                     case 0xc1:
                         i_rotshft_wd8.handler();
                         break;
-                    /*TODO*///	case 0xc2:    i_ret_d16(); break;
+                    case 0xc2:    
+                        i_ret_d16.handler(); 
+                        break;
                     case 0xc3:
                         i_ret.handler();
                         break;
@@ -7145,7 +7160,9 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         break;
                     /*TODO*///	case 0xd5:    i_aad(); break;
                     /*TODO*///	case 0xd6:    i_setalc(); break;
-                    /*TODO*///	case 0xd7:    i_xlat(); break;
+                    case 0xd7:    
+                        i_xlat.handler(); 
+                        break;
                     case 0xd8:
                         i_escape.handler();
                         break;
@@ -7204,10 +7221,18 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                     case 0xeb:
                         i_jmp_d8.handler();
                         break;
-                    /*TODO*///	case 0xec:    i_inaldx(); break;
-                    /*TODO*///	case 0xed:    i_inaxdx(); break;
-                    /*TODO*///	case 0xee:    i_outdxal(); break;
-                    /*TODO*///	case 0xef:    i_outdxax(); break;
+                    case 0xec:    
+                        i_inaldx.handler(); 
+                        break;
+                    case 0xed:    
+                        i_inaxdx.handler(); 
+                        break;
+                    case 0xee:    
+                        i_outdxal.handler(); 
+                        break;
+                    case 0xef:    
+                        i_outdxax.handler(); 
+                        break;
                     case 0xf0:
                         i_lock.handler();
                         break;

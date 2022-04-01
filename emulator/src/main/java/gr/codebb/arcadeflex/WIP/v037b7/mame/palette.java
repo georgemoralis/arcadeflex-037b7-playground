@@ -487,7 +487,7 @@ public class palette {
         if (palette_used_colors == null) {
             return;
         }
-        while (usage_mask != 0) {
+        while ((usage_mask != 0) && (table_offset<(Machine.game_colortable.length -1))) {
             if ((usage_mask & 1) != 0) {
                 if ((color_flags & PALETTE_COLOR_VISIBLE) != 0) {
                     pen_visiblecount.write(Machine.game_colortable[table_offset], Machine.game_colortable[table_offset] + 1);
@@ -506,7 +506,7 @@ public class palette {
             return;
         }
 
-        while (usage_mask != 0) {
+        while ((usage_mask != 0) && (table_offset<(Machine.game_colortable.length -1))) {
             if ((usage_mask & 1) != 0) {
                 if ((color_flags & PALETTE_COLOR_VISIBLE) != 0) {
                     pen_visiblecount.write(Machine.game_colortable[table_offset], Machine.game_colortable[table_offset] - 1);
@@ -1066,6 +1066,9 @@ public class palette {
             artwork_remap();
         }
 
+        if (ret!=null)
+            return new UBytePtr(ret);
+        
         return ret;
     }
 
