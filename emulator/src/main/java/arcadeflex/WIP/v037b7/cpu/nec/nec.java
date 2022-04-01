@@ -5057,14 +5057,14 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "nec_rotate_shift_Word_0x08 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                /*TODO*///      case 0x10:  /* RCL ew,count */
-                /*TODO*///	for (; count > 0; count--)
-                /*TODO*///	{
-                /*TODO*///          dst = (dst << 1) + CF;
-                /*TODO*///          SetCFW(dst);
-                /*TODO*///	}
-                /*TODO*///        PutbackRMWord(ModRM,dst);
-                /*TODO*///	break;
+                      case 0x10:  /* RCL ew,count */
+                	for (; count > 0; count--)
+                	{
+                          dst = (dst << 1) + CF();
+                          SetCFW(dst);
+                	}
+                        PutbackRMWord(ModRM,dst);
+                	break;
                       case 0x18:  /* RCR ew,count */
                 	for (; count > 0; count--)
                 	{
