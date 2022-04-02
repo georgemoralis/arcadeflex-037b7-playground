@@ -1,10 +1,10 @@
-/****************************************************************************
-*               real mode NEC Vx emulator v1.0 by Oliver Bergmann           *
-*             based on the i286 emulator by Fabrice Frances                 *
-*	        (initial work based on David Hedley's pcemu)                *
-*   any ideas/help/bugs/contributions to Raul_Bloodworth@hotmail.com        *
-*   DO WHAT YOU WANT WITH THIS CODE BUT THE BEST IS EMULATION               *
-****************************************************************************/
+/** **************************************************************************
+ *               real mode NEC Vx emulator v1.0 by Oliver Bergmann           *
+ *             based on the i286 emulator by Fabrice Frances                 *
+ *	        (initial work based on David Hedley's pcemu)                *
+ *   any ideas/help/bugs/contributions to Raul_Bloodworth@hotmail.com        *
+ *   DO WHAT YOU WANT WITH THIS CODE BUT THE BEST IS EMULATION               *
+ *************************************************************************** */
 /* NEC V-Models overview
    ---------------------
    NEC V20/V30	-	i80186 upward instruction compatible. No protected mode.
@@ -132,12 +132,12 @@
 
 		All my changes are flagged 'MISH'.
 
-*/
+ */
 
-/*
+ /*
  * ported to v0.37b7
  * using automatic conversion tool v0.01
- */ 
+ */
 package arcadeflex.WIP.v037b7.cpu.nec;
 
 import static arcadeflex.v037b7.mame.cpuintrf.*;
@@ -154,7 +154,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 
 public abstract class nec extends cpu_interface {
-    
+
     public static FILE neclog = null;//ofopen("neclog.log", "wa");  //for debug purposes
 
     @Override
@@ -258,12 +258,12 @@ public abstract class nec extends cpu_interface {
 
     @Override
     public int memory_read(int offset) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return cpu_readmem20((offset));
     }
 
     @Override
     public void memory_write(int offset, int data) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        cpu_writemem20((offset), data);
     }
 
     @Override
@@ -281,17 +281,16 @@ public abstract class nec extends cpu_interface {
         cpu_setOPbase20.handler(pc);
     }
 
-/*TODO*///	static UINT8 nec_reg_layout[] = {
+    /*TODO*///	static UINT8 nec_reg_layout[] = {
 /*TODO*///		NEC_IP,NEC_SP,NEC_FLAGS,NEC_AW,NEC_CW,NEC_DW,NEC_BW,NEC_BP,NEC_IX,NEC_IY, -1,
 /*TODO*///		NEC_ES,NEC_CS,NEC_SS,NEC_DS,NEC_VECTOR,NEC_NMI_STATE,NEC_IRQ_STATE, 0
 /*TODO*///	};
-	
-	static int bytes[] = {
-		1,2,4,8,16,32,64,128,256,
-		512,1024,2048,4096,8192,16384,32768,65336
-	};
-	
-/*TODO*///	/* Layout of the debugger windows x,y,w,h */
+    static int bytes[] = {
+        1, 2, 4, 8, 16, 32, 64, 128, 256,
+        512, 1024, 2048, 4096, 8192, 16384, 32768, 65336
+    };
+
+    /*TODO*///	/* Layout of the debugger windows x,y,w,h */
 /*TODO*///	static UINT8 nec_win_layout[] = {
 /*TODO*///	     0, 0,80, 2,    /* register window (top rows) */
 /*TODO*///	     0, 3,34,19,    /* disassembler window (left colums) */
@@ -299,171 +298,170 @@ public abstract class nec extends cpu_interface {
 /*TODO*///	    35,13,45, 9,    /* memory #2 window (right, lower middle) */
 /*TODO*///	     0,23,80, 1,    /* command line window (bottom rows) */
 /*TODO*///	};
-	
-	/* NEC registers */
-	static class necbasicregs
-	{                   
-            /* eight general registers */
-            public int[] w = new int[8];    /* viewed as 16 bits registers */
-            public int[] b = new int[16];   /* or as 8 bit registers */
+    /* NEC registers */
+    static class necbasicregs {
 
-            public void SetB(int index, int val) {
-                b[index] = val;
-                w[(index >> 1)] = (b[((index & 0xFFFFFFFE) + 1)] << 8 | b[(index & 0xFFFFFFFE)]);
+        /* eight general registers */
+        public int[] w = new int[8];
+        /* viewed as 16 bits registers */
+        public int[] b = new int[16];
+
+        /* or as 8 bit registers */
+
+        public void SetB(int index, int val) {
+            b[index] = val;
+            w[(index >> 1)] = (b[((index & 0xFFFFFFFE) + 1)] << 8 | b[(index & 0xFFFFFFFE)]);
+        }
+
+        public void AddB(int index, int val) {
+            b[index] = (b[index] + val & 0xFF);
+            w[(index >> 1)] = (b[((index & 0xFFFFFFFE) + 1)] << 8 | b[(index & 0xFFFFFFFE)]);
+        }
+
+        public void SetW(int index, int val) {
+            w[index] = val;
+            index <<= 1;
+            b[index] = (val & 0xFF);
+            b[(index + 1)] = (val >> 8);
+        }
+    };
+
+    public static class nec_Regs {
+
+        necbasicregs regs = new necbasicregs();
+        int ip;
+        int /*UINT16*/ flags;
+        int[] /*UINT32*/ base = new int[4];
+        int[] /*UINT16*/ sregs = new int[4];
+        public irqcallbacksPtr irq_callback;
+        int AuxVal, OverVal, SignVal, ZeroVal, CarryVal, ParityVal;
+        /* 0 or non-0 valued flags */
+        int /*UINT8*/ TF, IF, DF, MF;
+        /* 0 or 1 valued flags */ /* OB[19.07.99] added Mode Flag V30 */
+        int /*UINT8*/ int_vector;
+        int /*UINT8*/ pending_irq;
+        int /*UINT8*/ nmi_state;
+        int /*UINT8*/ irq_state;
+
+        int /*unsigned*/ prefix_base;
+        /* base address of the latest prefix segment */
+        int /*char*/ seg_prefix;
+        /* prefix segment indicator */
+    };
+
+    /**
+     * ************************************************************************
+     */
+    /* cpu state                                                               */
+    /**
+     * ************************************************************************
+     */
+    static int[] nec_ICount = new int[1];
+    static nec_Regs I = new nec_Regs();
+
+    /* The interrupt number of a pending external interrupt pending NMI is 2.	*/
+ /* For INTR interrupts, the level is caught on the bus during an INTA cycle */
+    public static final int INT_IRQ = 0x01;
+    public static final int NMI_IRQ = 0x02;
+
+    static /*UINT8*/ int[] parity_table = new int[256];
+
+    /**
+     * ************************************************************************
+     */
+
+    static void nec_reset(Object param) {
+        /*unsigned*/ int i, j, c;
+        int reg_name[] = {AL, CL, DL, BL, AH, CH, DH, BH};
+
+        //memset( &I, 0, sizeof(I) );
+        I = new nec_Regs();
+
+        I.sregs[CS] = 0xffff;
+        I.base[CS] = I.sregs[CS] << 4;
+
+        change_pc20((I.base[CS] + I.ip));
+
+        for (i = 0; i < 256; i++) {
+            for (j = i, c = 0; j > 0; j >>= 1) {
+                if ((j & 1) != 0) {
+                    c++;
+                }
             }
+            parity_table[i] = NOT(c & 1);
+        }
 
-            public void AddB(int index, int val) {
-                b[index] = (b[index] + val & 0xFF);
-                w[(index >> 1)] = (b[((index & 0xFFFFFFFE) + 1)] << 8 | b[(index & 0xFFFFFFFE)]);
-            }
+        I.ZeroVal = I.ParityVal = 1;
+        SetMD(1);
+        /* set the mode-flag = native mode */
 
-            public void SetW(int index, int val) {
-                w[index] = val;
-                index <<= 1;
-                b[index] = (val & 0xFF);
-                b[(index + 1)] = (val >> 8);
-            }
-	} ;
-	
-	public static class nec_Regs
-	{
-            necbasicregs regs = new necbasicregs();
-            int     ip;
-            int     /*UINT16*/	flags;
-            int[]   /*UINT32*/	base = new int[4];
-            int[]   /*UINT16*/	sregs = new int[4];
-            public irqcallbacksPtr irq_callback;
-	    int     AuxVal, OverVal, SignVal, ZeroVal, CarryVal, ParityVal; /* 0 or non-0 valued flags */
-            int     /*UINT8*/	TF, IF, DF, MF; 	/* 0 or 1 valued flags */	/* OB[19.07.99] added Mode Flag V30 */
-            int     /*UINT8*/	int_vector;
-            int     /*UINT8*/	pending_irq;
-            int     /*UINT8*/	nmi_state;
-            int     /*UINT8*/	irq_state;
+        for (i = 0; i < 256; i++) {
+            Mod_RM.reg.b[i] = reg_name[(i & 0x38) >> 3];
+            Mod_RM.reg.w[i] = ((i & 0x38) >> 3);
+        }
 
-            int     /*unsigned*/ prefix_base;	/* base address of the latest prefix segment */
-            int     /*char*/ seg_prefix;		/* prefix segment indicator */
-	};
-	
-	/***************************************************************************/
-	/* cpu state                                                               */
-	/***************************************************************************/
-	
-	static int[] nec_ICount = new int[1];
-        static nec_Regs I = new nec_Regs();
+        for (i = 0xc0; i < 0x100; i++) {
+            Mod_RM.RM.w[i] = (i & 7);
+            Mod_RM.RM.b[i] = reg_name[i & 7];
+        }
+    }
 
-	/* The interrupt number of a pending external interrupt pending NMI is 2.	*/
-	/* For INTR interrupts, the level is caught on the bus during an INTA cycle */
-	
-        public static final int INT_IRQ = 0x01;
-        public static final int NMI_IRQ = 0x02;
+    static void nec_exit() {
+        /* nothing to do ? */
+    }
 
+    static void nec_interrupt(int int_num, boolean md_flag) {
+        int dest_seg, dest_off;
 
-	static /*UINT8*/ int[] parity_table = new int[256];
-	/***************************************************************************/
-	
-	static void nec_reset (Object param)
-	{
-	    /*unsigned*/ int i, j, c;
-	    int reg_name[]={ AL, CL, DL, BL, AH, CH, DH, BH };
-	
-            //memset( &I, 0, sizeof(I) );
-            I = new nec_Regs();
-	
-	     I.sregs[CS] = 0xffff;
-		I.base[CS] = I.sregs[CS] << 4;
-	
-		change_pc20( (I.base[CS] + I.ip));
-	
-	    for (i = 0;i < 256; i++)
-	    {
-			for (j = i, c = 0; j > 0; j >>= 1)
-				if ((j & 1) != 0) c++;
-			parity_table[i] = NOT(c & 1);
-	    }
-	
-		I.ZeroVal = I.ParityVal = 1;
-		SetMD(1);						/* set the mode-flag = native mode */
-	
-	    for (i = 0; i < 256; i++)
-	    {
-			Mod_RM.reg.b[i] = reg_name[(i & 0x38) >> 3];
-			Mod_RM.reg.w[i] = ( (i & 0x38) >> 3) ;
-	    }
-	
-	    for (i = 0xc0; i < 0x100; i++)
-	    {
-			Mod_RM.RM.w[i] = ( i & 7 );
-			Mod_RM.RM.b[i] = reg_name[i & 7];
-	    }
-	}
-	
-	static void nec_exit ()
-	{
-		/* nothing to do ? */
-	}
-	
-	
-	static void nec_interrupt(int int_num, boolean md_flag)
-	{
-                int dest_seg, dest_off;
-	
-/*TODO*///	#if 0
+        /*TODO*///	#if 0
 /*TODO*///		logerror("PC=%06x : NEC Interrupt %02d",cpu_get_pc(),int_num);
 /*TODO*///	#endif
-	
-                i_pushf.handler();
-		I.TF = I.IF = 0;
-		if (md_flag) SetMD(0);	/* clear Mode-flag = start 8080 emulation mode */
-	
-		if (int_num == -1)
-		{
-			int_num = (I.irq_callback).handler(0);
-	//		logerror(" (indirect .%02d) ",int_num);
-		}
-	
-                dest_off = ReadWord(int_num*4);
-                dest_seg = ReadWord(int_num*4+2);
-	
-		PUSH(I.sregs[CS]);
-		PUSH(I.ip);
-		I.ip = dest_off & 0xFFFF;
-		I.sregs[CS] = dest_seg & 0xFFFF;
-		I.base[CS] = SegBase(CS);
-		change_pc20((I.base[CS]+I.ip));
-	//	logerror("=%06x\n",cpu_get_pc());
-	}
-	
-	
-	
-        public static void nec_trap() {
-            nec_instruction[FETCHOP()].handler();
-            nec_interrupt(1, false);
-            if (neclog != null) {
-                fprintf(neclog, "nec_trap :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
-            }
+        i_pushf.handler();
+        I.TF = I.IF = 0;
+        if (md_flag) {
+            SetMD(0);	/* clear Mode-flag = start 8080 emulation mode */
         }
-	
-	
-	static void external_int()
-	{
-		if(( I.pending_irq & NMI_IRQ ) != 0)
-		{
-			nec_interrupt(NEC_NMI_INT,false);
-			I.pending_irq &= ~NMI_IRQ;
-		}
-		else
-		if( I.pending_irq != 0 )
-		{
-			/* the actual vector is retrieved after pushing flags */
-			/* and clearing the IF */
-			nec_interrupt(-1,false);
-		}
-	}
-	
-/*TODO*///	/****************************************************************************/
+
+        if (int_num == -1) {
+            int_num = (I.irq_callback).handler(0);
+            //		logerror(" (indirect .%02d) ",int_num);
+        }
+
+        dest_off = ReadWord(int_num * 4);
+        dest_seg = ReadWord(int_num * 4 + 2);
+
+        PUSH(I.sregs[CS]);
+        PUSH(I.ip);
+        I.ip = dest_off & 0xFFFF;
+        I.sregs[CS] = dest_seg & 0xFFFF;
+        I.base[CS] = SegBase(CS);
+        change_pc20((I.base[CS] + I.ip));
+        //	logerror("=%06x\n",cpu_get_pc());
+    }
+
+    public static void nec_trap() {
+        nec_instruction[FETCHOP()].handler();
+        nec_interrupt(1, false);
+        if (neclog != null) {
+            fprintf(neclog, "nec_trap :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
+        }
+    }
+
+    static void external_int() {
+        if ((I.pending_irq & NMI_IRQ) != 0) {
+            nec_interrupt(NEC_NMI_INT, false);
+            I.pending_irq &= ~NMI_IRQ;
+        } else if (I.pending_irq != 0) {
+            /* the actual vector is retrieved after pushing flags */
+ /* and clearing the IF */
+            nec_interrupt(-1, false);
+        }
+    }
+
+    /*TODO*///	/****************************************************************************/
 /*TODO*///	/*                             OPCODES                                      */
 /*TODO*///	/****************************************************************************/
-static InstructionPtr i_add_br8 = new InstructionPtr() {
+    static InstructionPtr i_add_br8 = new InstructionPtr() {
         public void handler() {
             //(dst, src);
             int ModRM = FETCHOP();
@@ -2487,25 +2485,23 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
         }
     };
 
-    static InstructionPtr i_aaa = new InstructionPtr() {    /* Opcode 0x37 */
+    static InstructionPtr i_aaa = new InstructionPtr() {
+        /* Opcode 0x37 */
         public void handler() {
-            if (AF() != 0 || ((I.regs.b[AL] & 0xf) > 9))
-            {
-                    I.regs.b[AL] += 6;
-                    I.regs.b[AH] += 1;
-                    I.AuxVal = 1;
-                    I.CarryVal = 1;
-            }
-            else
-            {
-                    I.AuxVal = 0;
-                    I.CarryVal = 0;
+            if (AF() != 0 || ((I.regs.b[AL] & 0xf) > 9)) {
+                I.regs.b[AL] += 6;
+                I.regs.b[AH] += 1;
+                I.AuxVal = 1;
+                I.CarryVal = 1;
+            } else {
+                I.AuxVal = 0;
+                I.CarryVal = 0;
             }
             I.regs.b[AL] &= 0x0F;
-            nec_ICount[0]-=3;            
+            nec_ICount[0] -= 3;
         }
     };
-    
+
     static InstructionPtr i_cmp_br8 = new InstructionPtr() {
         public void handler() {
             //DEF_br8(dst,src);
@@ -3256,14 +3252,14 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
     /*TODO*///	I.regs.w[IY]+= -4 * I.DF + 2;
     /*TODO*///	nec_ICount-=8;
     /*TODO*///}
-    
-        static InstructionPtr i_outsb = new InstructionPtr() {    /* Opcode 0x6e */
-            public void handler() {
-                write_port(I.regs.w[DW],GetMemB(DS,I.regs.w[IX]));
-                I.regs.w[IY]+= -2 * I.DF + 1;
-                nec_ICount[0]-=8;
-            }
-        };
+    static InstructionPtr i_outsb = new InstructionPtr() {
+        /* Opcode 0x6e */
+        public void handler() {
+            write_port(I.regs.w[DW], GetMemB(DS, I.regs.w[IX]));
+            I.regs.w[IY] += -2 * I.DF + 1;
+            nec_ICount[0] -= 8;
+        }
+    };
 
     /*TODO*///static void i_outsw(void)    /* Opcode 0x6f */
     /*TODO*///{
@@ -4824,14 +4820,15 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "nec_rotate_shift_Byte_1_0x28 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                      case 0x38:  /* SAR eb,1 */
-                        dst = ((byte)src) >> 1;
-                        PutbackRMByte(ModRM,dst);
-                	I.CarryVal = src & 0x01;
-                	I.OverVal = 0;
-                	I.AuxVal = 1;
-                        SetSZPF_Byte(dst);
-                	break;
+                case 0x38:
+                    /* SAR eb,1 */
+                    dst = ((byte) src) >> 1;
+                    PutbackRMByte(ModRM, dst);
+                    I.CarryVal = src & 0x01;
+                    I.OverVal = 0;
+                    I.AuxVal = 1;
+                    SetSZPF_Byte(dst);
+                    break;
                 default:
                     System.out.println("nec_rotate_shift_Byte_1 0x" + Integer.toHexString(ModRM & 0x38));
                     break;
@@ -4910,14 +4907,15 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "nec_rotate_shift_Byte_0x28 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                      case 0x38:  /* SAR eb,count */
-                        dst = ((byte)dst) >> (count-1);
-                	I.CarryVal = dst & 0x1;
-                        dst = ((byte)((byte)dst)) >> 1;
-                        SetSZPF_Byte(dst);
-                	I.AuxVal = 1;
-                        PutbackRMByte(ModRM,(byte)dst);
-                	break;
+                case 0x38:
+                    /* SAR eb,count */
+                    dst = ((byte) dst) >> (count - 1);
+                    I.CarryVal = dst & 0x1;
+                    dst = ((byte) ((byte) dst)) >> 1;
+                    SetSZPF_Byte(dst);
+                    I.AuxVal = 1;
+                    PutbackRMByte(ModRM, (byte) dst);
+                    break;
                 default:
                     System.out.println("nec_rotate_shift_Byte 0x" + Integer.toHexString(ModRM & 0x38));
                     break;
@@ -5057,23 +5055,23 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "nec_rotate_shift_Word_0x08 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                      case 0x10:  /* RCL ew,count */
-                	for (; count > 0; count--)
-                	{
-                          dst = (dst << 1) + CF();
-                          SetCFW(dst);
-                	}
-                        PutbackRMWord(ModRM,dst);
-                	break;
-                      case 0x18:  /* RCR ew,count */
-                	for (; count > 0; count--)
-                	{
-                          dst = dst + (CF() << 16);
-                	  I.CarryVal = dst & 0x01;
-                           dst >>= 1;
-                	}
-                        PutbackRMWord(ModRM,dst);
-                	break;
+                case 0x10:
+                    /* RCL ew,count */
+                    for (; count > 0; count--) {
+                        dst = (dst << 1) + CF();
+                        SetCFW(dst);
+                    }
+                    PutbackRMWord(ModRM, dst);
+                    break;
+                case 0x18:
+                    /* RCR ew,count */
+                    for (; count > 0; count--) {
+                        dst = dst + (CF() << 16);
+                        I.CarryVal = dst & 0x01;
+                        dst >>= 1;
+                    }
+                    PutbackRMWord(ModRM, dst);
+                    break;
                 case 0x20:
                 case 0x30:
                     /* SHL ew,count */
@@ -5139,17 +5137,18 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
         }
     };
 
-    static InstructionPtr i_ret_d16 = new InstructionPtr() {    /* Opcode 0xc2 */
+    static InstructionPtr i_ret_d16 = new InstructionPtr() {
+        /* Opcode 0xc2 */
         public void handler() {
             int count = FETCH();
             count += FETCH() << 8;
             I.ip = POP();
-            I.regs.w[SP]+=count;
-            change_pc20((I.base[CS]+I.ip));
-            nec_ICount[0]-=22;	// near 20-24
+            I.regs.w[SP] += count;
+            change_pc20((I.base[CS] + I.ip));
+            nec_ICount[0] -= 22;	// near 20-24
         }
     };
-    
+
     static InstructionPtr i_ret = new InstructionPtr() {
         public void handler() {
             I.ip = POP();
@@ -5283,15 +5282,15 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
     /*TODO*///	nec_ICount-=38;	// 38-50
     /*TODO*///	nec_interrupt(3,0);
     /*TODO*///}
-    
     static InstructionPtr i_int = new InstructionPtr() {
-        public void handler() {     /* Opcode 0xcd */
+        public void handler() {
+            /* Opcode 0xcd */
             int int_num = FETCH();
-            nec_ICount[0]-=38;	// 38-50
-            nec_interrupt(int_num,false);
+            nec_ICount[0] -= 38;	// 38-50
+            nec_interrupt(int_num, false);
         }
     };
-    
+
     /*TODO*///static void i_into(void)    /* Opcode 0xce */
     /*TODO*///{
     /*TODO*///    if (OF) {
@@ -5620,40 +5619,43 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
         }
     };
 
-
-    static InstructionPtr i_inaldx = new InstructionPtr() {    /* Opcode 0xec */
+    static InstructionPtr i_inaldx = new InstructionPtr() {
+        /* Opcode 0xec */
         public void handler() {
             I.regs.SetB(AL, read_port(I.regs.w[DW]));
-            nec_ICount[0]-=8;
+            nec_ICount[0] -= 8;
         }
     };
-    
-    static InstructionPtr i_inaxdx = new InstructionPtr() {    /* Opcode 0xed */
+
+    static InstructionPtr i_inaxdx = new InstructionPtr() {
+        /* Opcode 0xed */
         public void handler() {
             int port = I.regs.w[DW];
 
             I.regs.b[AL] = read_port(port);
-            I.regs.b[AH] = read_port(port+1);
-            nec_ICount[0]-=12;
+            I.regs.b[AH] = read_port(port + 1);
+            nec_ICount[0] -= 12;
         }
     };
-    
-        static InstructionPtr i_outdxal = new InstructionPtr() {    /* Opcode 0xee */
-            public void handler() {
-                write_port(I.regs.w[DW], I.regs.b[AL]);
-                nec_ICount[0]-=8;
-            }
-        };
-    
-        static InstructionPtr i_outdxax = new InstructionPtr() {    /* Opcode 0xef */
-            public void handler() {
-                int port = I.regs.w[DW];
-                write_port(port, I.regs.b[AL]);
-                write_port(port+1, I.regs.b[AH]);
-                nec_ICount[0]-=12;
-            }
-        };
-    
+
+    static InstructionPtr i_outdxal = new InstructionPtr() {
+        /* Opcode 0xee */
+        public void handler() {
+            write_port(I.regs.w[DW], I.regs.b[AL]);
+            nec_ICount[0] -= 8;
+        }
+    };
+
+    static InstructionPtr i_outdxax = new InstructionPtr() {
+        /* Opcode 0xef */
+        public void handler() {
+            int port = I.regs.w[DW];
+            write_port(port, I.regs.b[AL]);
+            write_port(port + 1, I.regs.b[AH]);
+            nec_ICount[0] -= 12;
+        }
+    };
+
     /* I think thats not a V20 instruction...*/
     static InstructionPtr i_lock = new InstructionPtr() {
         public void handler() {
@@ -6319,21 +6321,22 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                         fprintf(neclog, "i_ffpre_0x10 :PC:%d,I.ip:%d,AW:%d,CW:%d,DW:%d,BW:%d,SP:%d,BP:%d,IX:%d,IY:%d,b1:%d,b2:%d,b3:%d,b4:%d,s1:%d,s2:%d,s3:%d,s4:%d,A:%d,O:%d,S:%d,Z:%d,C:%d,P:%d,T:%d,I:%d,D:%d,M:%d,v:%d,irq:%d,ns:%d,is:%d,pb:%d,pre:%d,EA:%d\n", cpu_get_pc(), I.ip, I.regs.w[AW], I.regs.w[CW], I.regs.w[DW], I.regs.w[BW], I.regs.w[SP], I.regs.w[BP], I.regs.w[IX], I.regs.w[IY], I.base[0], I.base[1], I.base[2], I.base[3], I.sregs[0], I.sregs[1], I.sregs[2], I.sregs[3], I.AuxVal, I.OverVal, I.SignVal, I.ZeroVal, I.CarryVal, I.ParityVal, I.TF, I.IF, I.DF, I.MF, I.int_vector, I.pending_irq, I.nmi_state, I.irq_state, I.prefix_base, I.seg_prefix, EA);
                     }
                     break;
-                
-                case 0x18:  
+
+                case 0x18:
                     /* CALL FAR ea */
-                    
-                    tmp = I.sregs[CS];	/* HJB 12/13/98 need to skip displacements of EA */
+
+                    tmp = I.sregs[CS];
+                    /* HJB 12/13/98 need to skip displacements of EA */
                     tmp1 = GetRMWord(ModRM);
                     I.sregs[CS] = GetnextRMWord();
                     I.base[CS] = SegBase(CS);
                     PUSH(tmp);
                     PUSH(I.ip);
                     I.ip = tmp1 & 0xFFFF;
-                    change_pc20((I.base[CS]+I.ip));
-                    nec_ICount[0]-=(ModRM >=0xc0 )?16:26;
+                    change_pc20((I.base[CS] + I.ip));
+                    nec_ICount[0] -= (ModRM >= 0xc0) ? 16 : 26;
                     break;
-                
+
                 case 0x20:
                     /* JMP ea */
 
@@ -6370,46 +6373,42 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
                     break;
             }
         }
-    };	
-    
-	static InstructionPtr i_invalid = new InstructionPtr() {
-            public void handler() {
-                /* makes the cpu loops forever until user resets it */
-                    /*	{ extern int debug_key_pressed; debug_key_pressed = 1; } */
-                    I.ip--;
-                    nec_ICount[0]-=10;
-                    logerror("PC=%06x : Invalid Opcode %02x\n",cpu_get_pc(),(byte)cpu_readop((I.base[CS]+I.ip)));
-            }
-        };
-	
-	/* ASG 971222 -- added these interface functions */
-	
-	static Object nec_get_context(Object dst)
-	{
-		if (dst != null)
-			dst = (nec_Regs)I;
-	    return dst;
-	}
-	
-	static void nec_set_context(Object src)
-	{
-		if (src != null)
-		{
-			I = (nec_Regs)src;
-			I.base[CS] = SegBase(CS);
-			I.base[DS] = SegBase(DS);
-			I.base[ES] = SegBase(ES);
-			I.base[SS] = SegBase(SS);
-			change_pc20((I.base[CS]+I.ip));
-		}
-	}
-	
-	public static int nec_get_pc()
-	{
-            return (I.base[CS] + (I.ip & 0xFFFF));//return (I.base[CS] + (WORD)I.ip);
-	}
+    };
 
-/*TODO*///	void nec_set_pc(unsigned val)
+    static InstructionPtr i_invalid = new InstructionPtr() {
+        public void handler() {
+            /* makes the cpu loops forever until user resets it */
+ /*	{ extern int debug_key_pressed; debug_key_pressed = 1; } */
+            I.ip--;
+            nec_ICount[0] -= 10;
+            logerror("PC=%06x : Invalid Opcode %02x\n", cpu_get_pc(), (byte) cpu_readop((I.base[CS] + I.ip)));
+        }
+    };
+
+    /* ASG 971222 -- added these interface functions */
+    static Object nec_get_context(Object dst) {
+        if (dst != null) {
+            dst = (nec_Regs) I;
+        }
+        return dst;
+    }
+
+    static void nec_set_context(Object src) {
+        if (src != null) {
+            I = (nec_Regs) src;
+            I.base[CS] = SegBase(CS);
+            I.base[DS] = SegBase(DS);
+            I.base[ES] = SegBase(ES);
+            I.base[SS] = SegBase(SS);
+            change_pc20((I.base[CS] + I.ip));
+        }
+    }
+
+    public static int nec_get_pc() {
+        return (I.base[CS] + (I.ip & 0xFFFF));//return (I.base[CS] + (WORD)I.ip);
+    }
+
+    /*TODO*///	void nec_set_pc(unsigned val)
 /*TODO*///	{
 /*TODO*///		if( val - I.base[CS] < 0x10000 )
 /*TODO*///		{
@@ -6509,43 +6508,38 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///				}
 /*TODO*///	    }
 /*TODO*///	}
-	
-	static void nec_set_nmi_line(int state)
-	{
-		if( I.nmi_state == state ) return;
-                I.nmi_state = state;
-		if (state != CLEAR_LINE)
-		{
-			I.pending_irq |= NMI_IRQ;
-		}
-	}
-	
-	static void nec_set_irq_line(int irqline, int state)
-	{
-		I.irq_state = state;
-		if (state == CLEAR_LINE)
-		{
-			if (I.IF == 0)
-				I.pending_irq &= ~INT_IRQ;
-		}
-		else
-		{
-			if (I.IF != 0)
-				I.pending_irq |= INT_IRQ;
-		}
-	}
-	
-	static void nec_set_irq_callback(irqcallbacksPtr callback)
-	{
-		I.irq_callback = callback;
-	}
-	
-	static int nec_execute(int cycles)
-	{
-            nec_ICount[0]=cycles;	/* ASG 971222 cycles_per_run;*/
-            while(nec_ICount[0]>0)
-	    {
-/*TODO*///	
+    static void nec_set_nmi_line(int state) {
+        if (I.nmi_state == state) {
+            return;
+        }
+        I.nmi_state = state;
+        if (state != CLEAR_LINE) {
+            I.pending_irq |= NMI_IRQ;
+        }
+    }
+
+    static void nec_set_irq_line(int irqline, int state) {
+        I.irq_state = state;
+        if (state == CLEAR_LINE) {
+            if (I.IF == 0) {
+                I.pending_irq &= ~INT_IRQ;
+            }
+        } else {
+            if (I.IF != 0) {
+                I.pending_irq |= INT_IRQ;
+            }
+        }
+    }
+
+    static void nec_set_irq_callback(irqcallbacksPtr callback) {
+        I.irq_callback = callback;
+    }
+
+    static int nec_execute(int cycles) {
+        nec_ICount[0] = cycles;
+        /* ASG 971222 cycles_per_run;*/
+        while (nec_ICount[0] > 0) {
+            /*TODO*///	
 /*TODO*///	#ifdef VERBOSE_DEBUG
 /*TODO*///	printf("[%04x:%04x]=%02x\tAW=%04x\tBW=%04x\tCW=%04x\tDW=%04x\n",sregs[CS],I.ip,GetMemB(CS,I.ip),I.regs.w[AW],I.regs.w[BW],I.regs.w[CW],I.regs.w[DW]);
 /*TODO*///	#endif
@@ -6557,747 +6551,745 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 
             I.seg_prefix = 0;//FALSE
             int FETCHOP = cpu_readop((I.base[CS] + I.ip++)) & 0xFF;
-/*TODO*///	#if defined(BIGCASE) && !defined(RS6000)
-	  /* Some compilers cannot handle large case statements */
-		switch(FETCHOP)
-		{
-                    case 0x00:
-                        i_add_br8.handler();
-                        break;
-                    case 0x01:
-                        i_add_wr16.handler();
-                        break;
-                    case 0x02:
-                        i_add_r8b.handler();
-                        break;
-                    case 0x03:
-                        i_add_r16w.handler();
-                        break;
-                    case 0x04:
-                        i_add_ald8.handler();
-                        break;
-                    case 0x05:
-                        i_add_axd16.handler();
-                        break;
-                    case 0x06:
-                        i_push_es.handler();
-                        break;
-                    case 0x07:
-                        i_pop_es.handler();
-                        break;
-                    case 0x08:
-                        i_or_br8.handler();
-                        break;
-                    case 0x09:
-                        i_or_wr16.handler();
-                        break;
-                    case 0x0a:
-                        i_or_r8b.handler();
-                        break;
-                    case 0x0b:
-                        i_or_r16w.handler();
-                        break;
-                    case 0x0c:
-                        i_or_ald8.handler();
-                        break;
-                    case 0x0d:
-                        i_or_axd16.handler();
-                        break;
-                    case 0x0e:
-                        i_push_cs.handler();
-                        break;
-                    case 0x0f:
-                        i_pre_nec.handler();
-                        break;
-                    case 0x10:
-                        i_adc_br8.handler();
-                        break;
-                    case 0x11:
-                        i_adc_wr16.handler();
-                        break;
-                    case 0x12:
-                        i_adc_r8b.handler();
-                        break;
-                    case 0x13:
-                        i_adc_r16w.handler();
-                        break;
-                    case 0x14:
-                        i_adc_ald8.handler();
-                        break;
-                    case 0x15:
-                        i_adc_axd16.handler();
-                        break;
-                    case 0x16:
-                        i_push_ss.handler();
-                        break;
-                    case 0x17:
-                        i_pop_ss.handler();
-                        break;
-                    case 0x18:
-                        i_sbb_br8.handler();
-                        break;
-                    case 0x19:
-                        i_sbb_wr16.handler();
-                        break;
-                    case 0x1a:
-                        i_sbb_r8b.handler();
-                        break;
-                    case 0x1b:
-                        i_sbb_r16w.handler();
-                        break;
-                    case 0x1c:
-                        i_sbb_ald8.handler();
-                        break;
-                    case 0x1d:
-                        i_sbb_axd16.handler();
-                        break;
-                    case 0x1e:
-                        i_push_ds.handler();
-                        break;
-                    case 0x1f:
-                        i_pop_ds.handler();
-                        break;
-                    case 0x20:
-                        i_and_br8.handler();
-                        break;
-                    case 0x21:
-                        i_and_wr16.handler();
-                        break;
-                    case 0x22:
-                        i_and_r8b.handler();
-                        break;
-                    case 0x23:
-                        i_and_r16w.handler();
-                        break;
-                    case 0x24:
-                        i_and_ald8.handler();
-                        break;
-                    case 0x25:
-                        i_and_axd16.handler();
-                        break;
-                    case 0x26:
-                        i_es.handler();
-                        break;
-                    case 0x27:
-                        i_daa.handler();
-                        break;
-                    case 0x28:
-                        i_sub_br8.handler();
-                        break;
-                    case 0x29:
-                        i_sub_wr16.handler();
-                        break;
-                    case 0x2a:
-                        i_sub_r8b.handler();
-                        break;
-                    case 0x2b:
-                        i_sub_r16w.handler();
-                        break;
-                    case 0x2c:
-                        i_sub_ald8.handler();
-                        break;
-                    case 0x2d:
-                        i_sub_axd16.handler();
-                        break;
-                    case 0x2e:
-                        i_cs.handler();
-                        break;
-                    case 0x2f:
-                        i_das.handler();
-                        break;
-                    case 0x30:
-                        i_xor_br8.handler();
-                        break;
-                    case 0x31:
-                        i_xor_wr16.handler();
-                        break;
-                    case 0x32:
-                        i_xor_r8b.handler();
-                        break;
-                    case 0x33:
-                        i_xor_r16w.handler();
-                        break;
-                    case 0x34:
-                        i_xor_ald8.handler();
-                        break;
-                    case 0x35:
-                        i_xor_axd16.handler();
-                        break;
-                    case 0x36:
-                        i_ss.handler();
-                        break;
-                    case 0x37:    
-                        i_aaa.handler(); 
-                        break;
-                    case 0x38:
-                        i_cmp_br8.handler();
-                        break;
-                    case 0x39:
-                        i_cmp_wr16.handler();
-                        break;
-                    case 0x3a:
-                        i_cmp_r8b.handler();
-                        break;
-                    case 0x3b:
-                        i_cmp_r16w.handler();
-                        break;
-                    case 0x3c:
-                        i_cmp_ald8.handler();
-                        break;
-                    case 0x3d:
-                        i_cmp_axd16.handler();
-                        break;
-                    case 0x3e:
-                        i_ds.handler();
-                        break;
-                    /*TODO*///	case 0x3f:    i_aas(); break;
-                    case 0x40:
-                        i_inc_ax.handler();
-                        break;
-                    case 0x41:
-                        i_inc_cx.handler();
-                        break;
-                    case 0x42:
-                        i_inc_dx.handler();
-                        break;
-                    case 0x43:
-                        i_inc_bx.handler();
-                        break;
-                    case 0x44:
-                        i_inc_sp.handler();
-                        break;
-                    case 0x45:
-                        i_inc_bp.handler();
-                        break;
-                    case 0x46:
-                        i_inc_si.handler();
-                        break;
-                    case 0x47:
-                        i_inc_di.handler();
-                        break;
-                    case 0x48:
-                        i_dec_ax.handler();
-                        break;
-                    case 0x49:
-                        i_dec_cx.handler();
-                        break;
-                    case 0x4a:
-                        i_dec_dx.handler();
-                        break;
-                    case 0x4b:
-                        i_dec_bx.handler();
-                        break;
-                    case 0x4c:
-                        i_dec_sp.handler();
-                        break;
-                    case 0x4d:
-                        i_dec_bp.handler();
-                        break;
-                    case 0x4e:
-                        i_dec_si.handler();
-                        break;
-                    case 0x4f:
-                        i_dec_di.handler();
-                        break;
-                    case 0x50:
-                        i_push_ax.handler();
-                        break;
-                    case 0x51:
-                        i_push_cx.handler();
-                        break;
-                    case 0x52:
-                        i_push_dx.handler();
-                        break;
-                    case 0x53:
-                        i_push_bx.handler();
-                        break;
-                    /*TODO*///	case 0x54:    i_push_sp(); break;
-                    case 0x55:
-                        i_push_bp.handler();
-                        break;
-                    case 0x56:
-                        i_push_si.handler();
-                        break;
-                    case 0x57:
-                        i_push_di.handler();
-                        break;
-                    case 0x58:
-                        i_pop_ax.handler();
-                        break;
-                    case 0x59:
-                        i_pop_cx.handler();
-                        break;
-                    case 0x5a:
-                        i_pop_dx.handler();
-                        break;
-                    case 0x5b:
-                        i_pop_bx.handler();
-                        break;
-                    /*TODO*///	case 0x5c:    i_pop_sp(); break;
-                    case 0x5d:
-                        i_pop_bp.handler();
-                        break;
-                    case 0x5e:
-                        i_pop_si.handler();
-                        break;
-                    case 0x5f:
-                        i_pop_di.handler();
-                        break;
-                    case 0x60:
-                        i_pusha.handler();
-                        break;
-                    case 0x61:
-                        i_popa.handler();
-                        break;
-                    /*TODO*///        case 0x62:    i_bound(); break;
-                    /*TODO*///	case 0x63:    i_invalid(); break;
-                    /*TODO*///	case 0x64:    i_repnc(); break;
-                    /*TODO*///	case 0x65:	  i_repc(); break;
-                    case 0x66:    
-                        i_invalid.handler(); 
-                        break;
-                    /*TODO*///	case 0x67:    i_invalid(); break;
-                    case 0x68:
-                        i_push_d16.handler();
-                        break;
-                    /*TODO*///        case 0x69:    i_imul_d16(); break;
-                    case 0x6a:
-                        i_push_d8.handler();
-                        break;
-                    case 0x6b:
-                        i_imul_d8.handler();
-                        break;
-                    /*TODO*///        case 0x6c:    i_insb(); break;
-                    /*TODO*///        case 0x6d:    i_insw(); break;
-                    case 0x6e:    
-                        i_outsb.handler(); 
-                        break;
-                    /*TODO*///        case 0x6f:    i_outsw(); break;
-                    case 0x70:
-                        i_jo.handler();
-                        break;
-                    /*TODO*///	case 0x71:    i_jno(); break;
-                    case 0x72:
-                        i_jb.handler();
-                        break;
-                    case 0x73:
-                        i_jnb.handler();
-                        break;
-                    case 0x74:
-                        i_jz.handler();
-                        break;
-                    case 0x75:
-                        i_jnz.handler();
-                        break;
-                    case 0x76:
-                        i_jbe.handler();
-                        break;
-                    case 0x77:
-                        i_jnbe.handler();
-                        break;
-                    case 0x78:
-                        i_js.handler();
-                        break;
-                    case 0x79:
-                        i_jns.handler();
-                        break;
-                    case 0x7a:
-                        i_jp.handler();
-                        break;
-                    case 0x7b:
-                        i_jnp.handler();
-                        break;
-                    case 0x7c:
-                        i_jl.handler();
-                        break;
-                    case 0x7d:
-                        i_jnl.handler();
-                        break;
-                    case 0x7e:
-                        i_jle.handler();
-                        break;
-                    case 0x7f:
-                        i_jnle.handler();
-                        break;
-                    case 0x80:
-                        i_80pre.handler();
-                        break;
-                    case 0x81:
-                        i_81pre.handler();
-                        break;
-                    case 0x82:
-                        i_82pre.handler();
-                        break;
-                    case 0x83:
-                        i_83pre.handler();
-                        break;
-                    case 0x84:
-                        i_test_br8.handler();
-                        break;
-                    case 0x85:
-                        i_test_wr16.handler();
-                        break;
-                    case 0x86:
-                        i_xchg_br8.handler();
-                        break;
-                    case 0x87:
-                        i_xchg_wr16.handler();
-                        break;
-                    case 0x88:
-                        i_mov_br8.handler();
-                        break;
-                    case 0x89:
-                        i_mov_wr16.handler();
-                        break;
-                    case 0x8a:
-                        i_mov_r8b.handler();
-                        break;
-                    case 0x8b:
-                        i_mov_r16w.handler();
-                        break;
-                    case 0x8c:
-                        i_mov_wsreg.handler();
-                        break;
-                    case 0x8d:
-                        i_lea.handler();
-                        break;
-                    case 0x8e:
-                        i_mov_sregw.handler();
-                        break;
-                    case 0x8f:
-                        i_popw.handler();
-                        break;
-                    case 0x90:
-                        i_nop.handler();
-                        break;
-                    case 0x91:
-                        i_xchg_axcx.handler();
-                        break;
-                    case 0x92:
-                        i_xchg_axdx.handler();
-                        break;
-                    case 0x93:
-                        i_xchg_axbx.handler();
-                        break;
-                    /*TODO*///	case 0x94:    i_xchg_axsp(); break;
-                    /*TODO*///	case 0x95:    i_xchg_axbp(); break;
-                    case 0x96:
-                        i_xchg_axsi.handler();
-                        break;
-                    /*TODO*///	case 0x97:    i_xchg_axdi(); break;
-                    case 0x98:
-                        i_cbw.handler();
-                        break;
-                    case 0x99:
-                        i_cwd.handler();
-                        break;
-                    case 0x9a:
-                        i_call_far.handler();
-                        break;
-                    /*TODO*///	case 0x9b:    i_wait(); break;
-                    case 0x9c:
-                        i_pushf.handler();
-                        break;
-                    case 0x9d:
-                        i_popf.handler();
-                        break;
-                    case 0x9e:
-                        i_sahf.handler();
-                        break;
-                    case 0x9f:
-                        i_lahf.handler();
-                        break;
-                    case 0xa0:
-                        i_mov_aldisp.handler();
-                        break;
-                    case 0xa1:
-                        i_mov_axdisp.handler();
-                        break;
-                    case 0xa2:
-                        i_mov_dispal.handler();
-                        break;
-                    case 0xa3:
-                        i_mov_dispax.handler();
-                        break;
-                    case 0xa4:
-                        i_movsb.handler();
-                        break;
-                    case 0xa5:
-                        i_movsw.handler();
-                        break;
-                    case 0xa6:
-                        i_cmpsb.handler();
-                        break;
-                    /*TODO*///	case 0xa7:    i_cmpsw(); break;
-                    case 0xa8:
-                        i_test_ald8.handler();
-                        break;
-                    case 0xa9:
-                        i_test_axd16.handler();
-                        break;
-                    case 0xaa:
-                        i_stosb.handler();
-                        break;
-                    case 0xab:
-                        i_stosw.handler();
-                        break;
-                    case 0xac:
-                        i_lodsb.handler();
-                        break;
-                    case 0xad:
-                        i_lodsw.handler();
-                        break;
-                    case 0xae:
-                        i_scasb.handler();
-                        break;
-                    case 0xaf:
-                        i_scasw.handler();
-                        break;
-                    case 0xb0:
-                        i_mov_ald8.handler();
-                        break;
-                    case 0xb1:
-                        i_mov_cld8.handler();
-                        break;
-                    case 0xb2:
-                        i_mov_dld8.handler();
-                        break;
-                    case 0xb3:
-                        i_mov_bld8.handler();
-                        break;
-                    case 0xb4:
-                        i_mov_ahd8.handler();
-                        break;
-                    case 0xb5:
-                        i_mov_chd8.handler();
-                        break;
-                    case 0xb6:
-                        i_mov_dhd8.handler();
-                        break;
-                    case 0xb7:
-                        i_mov_bhd8.handler();
-                        break;
-                    case 0xb8:
-                        i_mov_axd16.handler();
-                        break;
-                    case 0xb9:
-                        i_mov_cxd16.handler();
-                        break;
-                    case 0xba:
-                        i_mov_dxd16.handler();
-                        break;
-                    case 0xbb:
-                        i_mov_bxd16.handler();
-                        break;
-                    case 0xbc:
-                        i_mov_spd16.handler();
-                        break;
-                    case 0xbd:
-                        i_mov_bpd16.handler();
-                        break;
-                    case 0xbe:
-                        i_mov_sid16.handler();
-                        break;
-                    case 0xbf:
-                        i_mov_did16.handler();
-                        break;
-                    case 0xc0:
-                        i_rotshft_bd8.handler();
-                        break;
-                    case 0xc1:
-                        i_rotshft_wd8.handler();
-                        break;
-                    case 0xc2:    
-                        i_ret_d16.handler(); 
-                        break;
-                    case 0xc3:
-                        i_ret.handler();
-                        break;
-                    case 0xc4:
-                        i_les_dw.handler();
-                        break;
-                    case 0xc5:
-                        i_lds_dw.handler();
-                        break;
-                    case 0xc6:
-                        i_mov_bd8.handler();
-                        break;
-                    case 0xc7:
-                        i_mov_wd16.handler();
-                        break;
-                    case 0xc8:
-                        i_enter.handler();
-                        break;
-                    case 0xc9:
-                        i_leave.handler();
-                        break;
-                    /*TODO*///	case 0xca:    i_retf_d16(); break;
-                    case 0xcb:
-                        i_retf.handler();
-                        break;
-                    /*TODO*///	case 0xcc:    i_int3(); break;
-                    case 0xcd:    
-                        i_int.handler(); 
-                        break;
-                    /*TODO*///	case 0xce:    i_into(); break;
-                    case 0xcf:
-                        i_iret.handler();
-                        break;
-                    case 0xd0:
-                        i_rotshft_b.handler();
-                        break;
-                    case 0xd1:
-                        i_rotshft_w.handler();
-                        break;
-                    case 0xd2:
-                        i_rotshft_bcl.handler();
-                        break;
-                    case 0xd3:
-                        i_rotshft_wcl.handler();
-                        break;
-                    case 0xd4:
-                        i_aam.handler();
-                        break;
-                    /*TODO*///	case 0xd5:    i_aad(); break;
-                    /*TODO*///	case 0xd6:    i_setalc(); break;
-                    case 0xd7:    
-                        i_xlat.handler(); 
-                        break;
-                    case 0xd8:
-                        i_escape.handler();
-                        break;
-                    case 0xd9:
-                        i_escape.handler();
-                        break;
-                    case 0xda:
-                        i_escape.handler();
-                        break;
-                    case 0xdb:
-                        i_escape.handler();
-                        break;
-                    case 0xdc:
-                        i_escape.handler();
-                        break;
-                    case 0xdd:
-                        i_escape.handler();
-                        break;
-                    case 0xde:
-                        i_escape.handler();
-                        break;
-                    case 0xdf:
-                        i_escape.handler();
-                        break;
-                    /*TODO*///	case 0xe0:    i_loopne(); break;
-                    case 0xe1:
-                        i_loope.handler();
-                        break;
-                    case 0xe2:
-                        i_loop.handler();
-                        break;
-                    case 0xe3:
-                        i_jcxz.handler();
-                        break;
-                    case 0xe4:
-                        i_inal.handler();
-                        break;
-                    case 0xe5:
-                        i_inax.handler();
-                        break;
-                    case 0xe6:
-                        i_outal.handler();
-                        break;
-                    case 0xe7:
-                        i_outax.handler();
-                        break;
-                    case 0xe8:
-                        i_call_d16.handler();
-                        break;
-                    case 0xe9:
-                        i_jmp_d16.handler();
-                        break;
-                    case 0xea:
-                        i_jmp_far.handler();
-                        break;
-                    case 0xeb:
-                        i_jmp_d8.handler();
-                        break;
-                    case 0xec:    
-                        i_inaldx.handler(); 
-                        break;
-                    case 0xed:    
-                        i_inaxdx.handler(); 
-                        break;
-                    case 0xee:    
-                        i_outdxal.handler(); 
-                        break;
-                    case 0xef:    
-                        i_outdxax.handler(); 
-                        break;
-                    case 0xf0:
-                        i_lock.handler();
-                        break;
-                    /*TODO*///	case 0xf1:    i_invalid(); break;
-                    case 0xf2:
-                        i_repne.handler();
-                        break;
-                    case 0xf3:
-                        i_repe.handler();
-                        break;
-                    /*TODO*///	case 0xf4:    i_hlt(); break;
-                    case 0xf5:
-                        i_cmc.handler();
-                        break;
-                    case 0xf6:
-                        i_f6pre.handler();
-                        break;
-                    case 0xf7:
-                        i_f7pre.handler();
-                        break;
-                    case 0xf8:
-                        i_clc.handler();
-                        break;
-                    case 0xf9:
-                        i_stc.handler();
-                        break;
-                    case 0xfa:
-                        i_di.handler();
-                        break;
-                    case 0xfb:
-                        i_ei.handler();
-                        break;
-                    case 0xfc:
-                        i_cld.handler();
-                        break;
-                    case 0xfd:
-                        i_std.handler();
-                        break;
-                    case 0xfe:
-                        i_fepre.handler();
-                        break;
-                    case 0xff:
-                        i_ffpre.handler();
-                        break;
-                    default:
-                        String _sOut=("Unsupported opcode 0x" + Integer.toHexString(FETCHOP));
-                        if (neclog != null) {
-                            fclose(neclog);
-                        }
-                        if (true)
-                            throw new UnsupportedOperationException(_sOut);
+            /*TODO*///	#if defined(BIGCASE) && !defined(RS6000)
+            /* Some compilers cannot handle large case statements */
+            switch (FETCHOP) {
+                case 0x00:
+                    i_add_br8.handler();
                     break;
-		};
-/*TODO*///	#else
+                case 0x01:
+                    i_add_wr16.handler();
+                    break;
+                case 0x02:
+                    i_add_r8b.handler();
+                    break;
+                case 0x03:
+                    i_add_r16w.handler();
+                    break;
+                case 0x04:
+                    i_add_ald8.handler();
+                    break;
+                case 0x05:
+                    i_add_axd16.handler();
+                    break;
+                case 0x06:
+                    i_push_es.handler();
+                    break;
+                case 0x07:
+                    i_pop_es.handler();
+                    break;
+                case 0x08:
+                    i_or_br8.handler();
+                    break;
+                case 0x09:
+                    i_or_wr16.handler();
+                    break;
+                case 0x0a:
+                    i_or_r8b.handler();
+                    break;
+                case 0x0b:
+                    i_or_r16w.handler();
+                    break;
+                case 0x0c:
+                    i_or_ald8.handler();
+                    break;
+                case 0x0d:
+                    i_or_axd16.handler();
+                    break;
+                case 0x0e:
+                    i_push_cs.handler();
+                    break;
+                case 0x0f:
+                    i_pre_nec.handler();
+                    break;
+                case 0x10:
+                    i_adc_br8.handler();
+                    break;
+                case 0x11:
+                    i_adc_wr16.handler();
+                    break;
+                case 0x12:
+                    i_adc_r8b.handler();
+                    break;
+                case 0x13:
+                    i_adc_r16w.handler();
+                    break;
+                case 0x14:
+                    i_adc_ald8.handler();
+                    break;
+                case 0x15:
+                    i_adc_axd16.handler();
+                    break;
+                case 0x16:
+                    i_push_ss.handler();
+                    break;
+                case 0x17:
+                    i_pop_ss.handler();
+                    break;
+                case 0x18:
+                    i_sbb_br8.handler();
+                    break;
+                case 0x19:
+                    i_sbb_wr16.handler();
+                    break;
+                case 0x1a:
+                    i_sbb_r8b.handler();
+                    break;
+                case 0x1b:
+                    i_sbb_r16w.handler();
+                    break;
+                case 0x1c:
+                    i_sbb_ald8.handler();
+                    break;
+                case 0x1d:
+                    i_sbb_axd16.handler();
+                    break;
+                case 0x1e:
+                    i_push_ds.handler();
+                    break;
+                case 0x1f:
+                    i_pop_ds.handler();
+                    break;
+                case 0x20:
+                    i_and_br8.handler();
+                    break;
+                case 0x21:
+                    i_and_wr16.handler();
+                    break;
+                case 0x22:
+                    i_and_r8b.handler();
+                    break;
+                case 0x23:
+                    i_and_r16w.handler();
+                    break;
+                case 0x24:
+                    i_and_ald8.handler();
+                    break;
+                case 0x25:
+                    i_and_axd16.handler();
+                    break;
+                case 0x26:
+                    i_es.handler();
+                    break;
+                case 0x27:
+                    i_daa.handler();
+                    break;
+                case 0x28:
+                    i_sub_br8.handler();
+                    break;
+                case 0x29:
+                    i_sub_wr16.handler();
+                    break;
+                case 0x2a:
+                    i_sub_r8b.handler();
+                    break;
+                case 0x2b:
+                    i_sub_r16w.handler();
+                    break;
+                case 0x2c:
+                    i_sub_ald8.handler();
+                    break;
+                case 0x2d:
+                    i_sub_axd16.handler();
+                    break;
+                case 0x2e:
+                    i_cs.handler();
+                    break;
+                case 0x2f:
+                    i_das.handler();
+                    break;
+                case 0x30:
+                    i_xor_br8.handler();
+                    break;
+                case 0x31:
+                    i_xor_wr16.handler();
+                    break;
+                case 0x32:
+                    i_xor_r8b.handler();
+                    break;
+                case 0x33:
+                    i_xor_r16w.handler();
+                    break;
+                case 0x34:
+                    i_xor_ald8.handler();
+                    break;
+                case 0x35:
+                    i_xor_axd16.handler();
+                    break;
+                case 0x36:
+                    i_ss.handler();
+                    break;
+                case 0x37:
+                    i_aaa.handler();
+                    break;
+                case 0x38:
+                    i_cmp_br8.handler();
+                    break;
+                case 0x39:
+                    i_cmp_wr16.handler();
+                    break;
+                case 0x3a:
+                    i_cmp_r8b.handler();
+                    break;
+                case 0x3b:
+                    i_cmp_r16w.handler();
+                    break;
+                case 0x3c:
+                    i_cmp_ald8.handler();
+                    break;
+                case 0x3d:
+                    i_cmp_axd16.handler();
+                    break;
+                case 0x3e:
+                    i_ds.handler();
+                    break;
+                /*TODO*///	case 0x3f:    i_aas(); break;
+                case 0x40:
+                    i_inc_ax.handler();
+                    break;
+                case 0x41:
+                    i_inc_cx.handler();
+                    break;
+                case 0x42:
+                    i_inc_dx.handler();
+                    break;
+                case 0x43:
+                    i_inc_bx.handler();
+                    break;
+                case 0x44:
+                    i_inc_sp.handler();
+                    break;
+                case 0x45:
+                    i_inc_bp.handler();
+                    break;
+                case 0x46:
+                    i_inc_si.handler();
+                    break;
+                case 0x47:
+                    i_inc_di.handler();
+                    break;
+                case 0x48:
+                    i_dec_ax.handler();
+                    break;
+                case 0x49:
+                    i_dec_cx.handler();
+                    break;
+                case 0x4a:
+                    i_dec_dx.handler();
+                    break;
+                case 0x4b:
+                    i_dec_bx.handler();
+                    break;
+                case 0x4c:
+                    i_dec_sp.handler();
+                    break;
+                case 0x4d:
+                    i_dec_bp.handler();
+                    break;
+                case 0x4e:
+                    i_dec_si.handler();
+                    break;
+                case 0x4f:
+                    i_dec_di.handler();
+                    break;
+                case 0x50:
+                    i_push_ax.handler();
+                    break;
+                case 0x51:
+                    i_push_cx.handler();
+                    break;
+                case 0x52:
+                    i_push_dx.handler();
+                    break;
+                case 0x53:
+                    i_push_bx.handler();
+                    break;
+                /*TODO*///	case 0x54:    i_push_sp(); break;
+                case 0x55:
+                    i_push_bp.handler();
+                    break;
+                case 0x56:
+                    i_push_si.handler();
+                    break;
+                case 0x57:
+                    i_push_di.handler();
+                    break;
+                case 0x58:
+                    i_pop_ax.handler();
+                    break;
+                case 0x59:
+                    i_pop_cx.handler();
+                    break;
+                case 0x5a:
+                    i_pop_dx.handler();
+                    break;
+                case 0x5b:
+                    i_pop_bx.handler();
+                    break;
+                /*TODO*///	case 0x5c:    i_pop_sp(); break;
+                case 0x5d:
+                    i_pop_bp.handler();
+                    break;
+                case 0x5e:
+                    i_pop_si.handler();
+                    break;
+                case 0x5f:
+                    i_pop_di.handler();
+                    break;
+                case 0x60:
+                    i_pusha.handler();
+                    break;
+                case 0x61:
+                    i_popa.handler();
+                    break;
+                /*TODO*///        case 0x62:    i_bound(); break;
+                /*TODO*///	case 0x63:    i_invalid(); break;
+                /*TODO*///	case 0x64:    i_repnc(); break;
+                /*TODO*///	case 0x65:	  i_repc(); break;
+                case 0x66:
+                    i_invalid.handler();
+                    break;
+                /*TODO*///	case 0x67:    i_invalid(); break;
+                case 0x68:
+                    i_push_d16.handler();
+                    break;
+                /*TODO*///        case 0x69:    i_imul_d16(); break;
+                case 0x6a:
+                    i_push_d8.handler();
+                    break;
+                case 0x6b:
+                    i_imul_d8.handler();
+                    break;
+                /*TODO*///        case 0x6c:    i_insb(); break;
+                /*TODO*///        case 0x6d:    i_insw(); break;
+                case 0x6e:
+                    i_outsb.handler();
+                    break;
+                /*TODO*///        case 0x6f:    i_outsw(); break;
+                case 0x70:
+                    i_jo.handler();
+                    break;
+                /*TODO*///	case 0x71:    i_jno(); break;
+                case 0x72:
+                    i_jb.handler();
+                    break;
+                case 0x73:
+                    i_jnb.handler();
+                    break;
+                case 0x74:
+                    i_jz.handler();
+                    break;
+                case 0x75:
+                    i_jnz.handler();
+                    break;
+                case 0x76:
+                    i_jbe.handler();
+                    break;
+                case 0x77:
+                    i_jnbe.handler();
+                    break;
+                case 0x78:
+                    i_js.handler();
+                    break;
+                case 0x79:
+                    i_jns.handler();
+                    break;
+                case 0x7a:
+                    i_jp.handler();
+                    break;
+                case 0x7b:
+                    i_jnp.handler();
+                    break;
+                case 0x7c:
+                    i_jl.handler();
+                    break;
+                case 0x7d:
+                    i_jnl.handler();
+                    break;
+                case 0x7e:
+                    i_jle.handler();
+                    break;
+                case 0x7f:
+                    i_jnle.handler();
+                    break;
+                case 0x80:
+                    i_80pre.handler();
+                    break;
+                case 0x81:
+                    i_81pre.handler();
+                    break;
+                case 0x82:
+                    i_82pre.handler();
+                    break;
+                case 0x83:
+                    i_83pre.handler();
+                    break;
+                case 0x84:
+                    i_test_br8.handler();
+                    break;
+                case 0x85:
+                    i_test_wr16.handler();
+                    break;
+                case 0x86:
+                    i_xchg_br8.handler();
+                    break;
+                case 0x87:
+                    i_xchg_wr16.handler();
+                    break;
+                case 0x88:
+                    i_mov_br8.handler();
+                    break;
+                case 0x89:
+                    i_mov_wr16.handler();
+                    break;
+                case 0x8a:
+                    i_mov_r8b.handler();
+                    break;
+                case 0x8b:
+                    i_mov_r16w.handler();
+                    break;
+                case 0x8c:
+                    i_mov_wsreg.handler();
+                    break;
+                case 0x8d:
+                    i_lea.handler();
+                    break;
+                case 0x8e:
+                    i_mov_sregw.handler();
+                    break;
+                case 0x8f:
+                    i_popw.handler();
+                    break;
+                case 0x90:
+                    i_nop.handler();
+                    break;
+                case 0x91:
+                    i_xchg_axcx.handler();
+                    break;
+                case 0x92:
+                    i_xchg_axdx.handler();
+                    break;
+                case 0x93:
+                    i_xchg_axbx.handler();
+                    break;
+                /*TODO*///	case 0x94:    i_xchg_axsp(); break;
+                /*TODO*///	case 0x95:    i_xchg_axbp(); break;
+                case 0x96:
+                    i_xchg_axsi.handler();
+                    break;
+                /*TODO*///	case 0x97:    i_xchg_axdi(); break;
+                case 0x98:
+                    i_cbw.handler();
+                    break;
+                case 0x99:
+                    i_cwd.handler();
+                    break;
+                case 0x9a:
+                    i_call_far.handler();
+                    break;
+                /*TODO*///	case 0x9b:    i_wait(); break;
+                case 0x9c:
+                    i_pushf.handler();
+                    break;
+                case 0x9d:
+                    i_popf.handler();
+                    break;
+                case 0x9e:
+                    i_sahf.handler();
+                    break;
+                case 0x9f:
+                    i_lahf.handler();
+                    break;
+                case 0xa0:
+                    i_mov_aldisp.handler();
+                    break;
+                case 0xa1:
+                    i_mov_axdisp.handler();
+                    break;
+                case 0xa2:
+                    i_mov_dispal.handler();
+                    break;
+                case 0xa3:
+                    i_mov_dispax.handler();
+                    break;
+                case 0xa4:
+                    i_movsb.handler();
+                    break;
+                case 0xa5:
+                    i_movsw.handler();
+                    break;
+                case 0xa6:
+                    i_cmpsb.handler();
+                    break;
+                /*TODO*///	case 0xa7:    i_cmpsw(); break;
+                case 0xa8:
+                    i_test_ald8.handler();
+                    break;
+                case 0xa9:
+                    i_test_axd16.handler();
+                    break;
+                case 0xaa:
+                    i_stosb.handler();
+                    break;
+                case 0xab:
+                    i_stosw.handler();
+                    break;
+                case 0xac:
+                    i_lodsb.handler();
+                    break;
+                case 0xad:
+                    i_lodsw.handler();
+                    break;
+                case 0xae:
+                    i_scasb.handler();
+                    break;
+                case 0xaf:
+                    i_scasw.handler();
+                    break;
+                case 0xb0:
+                    i_mov_ald8.handler();
+                    break;
+                case 0xb1:
+                    i_mov_cld8.handler();
+                    break;
+                case 0xb2:
+                    i_mov_dld8.handler();
+                    break;
+                case 0xb3:
+                    i_mov_bld8.handler();
+                    break;
+                case 0xb4:
+                    i_mov_ahd8.handler();
+                    break;
+                case 0xb5:
+                    i_mov_chd8.handler();
+                    break;
+                case 0xb6:
+                    i_mov_dhd8.handler();
+                    break;
+                case 0xb7:
+                    i_mov_bhd8.handler();
+                    break;
+                case 0xb8:
+                    i_mov_axd16.handler();
+                    break;
+                case 0xb9:
+                    i_mov_cxd16.handler();
+                    break;
+                case 0xba:
+                    i_mov_dxd16.handler();
+                    break;
+                case 0xbb:
+                    i_mov_bxd16.handler();
+                    break;
+                case 0xbc:
+                    i_mov_spd16.handler();
+                    break;
+                case 0xbd:
+                    i_mov_bpd16.handler();
+                    break;
+                case 0xbe:
+                    i_mov_sid16.handler();
+                    break;
+                case 0xbf:
+                    i_mov_did16.handler();
+                    break;
+                case 0xc0:
+                    i_rotshft_bd8.handler();
+                    break;
+                case 0xc1:
+                    i_rotshft_wd8.handler();
+                    break;
+                case 0xc2:
+                    i_ret_d16.handler();
+                    break;
+                case 0xc3:
+                    i_ret.handler();
+                    break;
+                case 0xc4:
+                    i_les_dw.handler();
+                    break;
+                case 0xc5:
+                    i_lds_dw.handler();
+                    break;
+                case 0xc6:
+                    i_mov_bd8.handler();
+                    break;
+                case 0xc7:
+                    i_mov_wd16.handler();
+                    break;
+                case 0xc8:
+                    i_enter.handler();
+                    break;
+                case 0xc9:
+                    i_leave.handler();
+                    break;
+                /*TODO*///	case 0xca:    i_retf_d16(); break;
+                case 0xcb:
+                    i_retf.handler();
+                    break;
+                /*TODO*///	case 0xcc:    i_int3(); break;
+                case 0xcd:
+                    i_int.handler();
+                    break;
+                /*TODO*///	case 0xce:    i_into(); break;
+                case 0xcf:
+                    i_iret.handler();
+                    break;
+                case 0xd0:
+                    i_rotshft_b.handler();
+                    break;
+                case 0xd1:
+                    i_rotshft_w.handler();
+                    break;
+                case 0xd2:
+                    i_rotshft_bcl.handler();
+                    break;
+                case 0xd3:
+                    i_rotshft_wcl.handler();
+                    break;
+                case 0xd4:
+                    i_aam.handler();
+                    break;
+                /*TODO*///	case 0xd5:    i_aad(); break;
+                /*TODO*///	case 0xd6:    i_setalc(); break;
+                case 0xd7:
+                    i_xlat.handler();
+                    break;
+                case 0xd8:
+                    i_escape.handler();
+                    break;
+                case 0xd9:
+                    i_escape.handler();
+                    break;
+                case 0xda:
+                    i_escape.handler();
+                    break;
+                case 0xdb:
+                    i_escape.handler();
+                    break;
+                case 0xdc:
+                    i_escape.handler();
+                    break;
+                case 0xdd:
+                    i_escape.handler();
+                    break;
+                case 0xde:
+                    i_escape.handler();
+                    break;
+                case 0xdf:
+                    i_escape.handler();
+                    break;
+                /*TODO*///	case 0xe0:    i_loopne(); break;
+                case 0xe1:
+                    i_loope.handler();
+                    break;
+                case 0xe2:
+                    i_loop.handler();
+                    break;
+                case 0xe3:
+                    i_jcxz.handler();
+                    break;
+                case 0xe4:
+                    i_inal.handler();
+                    break;
+                case 0xe5:
+                    i_inax.handler();
+                    break;
+                case 0xe6:
+                    i_outal.handler();
+                    break;
+                case 0xe7:
+                    i_outax.handler();
+                    break;
+                case 0xe8:
+                    i_call_d16.handler();
+                    break;
+                case 0xe9:
+                    i_jmp_d16.handler();
+                    break;
+                case 0xea:
+                    i_jmp_far.handler();
+                    break;
+                case 0xeb:
+                    i_jmp_d8.handler();
+                    break;
+                case 0xec:
+                    i_inaldx.handler();
+                    break;
+                case 0xed:
+                    i_inaxdx.handler();
+                    break;
+                case 0xee:
+                    i_outdxal.handler();
+                    break;
+                case 0xef:
+                    i_outdxax.handler();
+                    break;
+                case 0xf0:
+                    i_lock.handler();
+                    break;
+                /*TODO*///	case 0xf1:    i_invalid(); break;
+                case 0xf2:
+                    i_repne.handler();
+                    break;
+                case 0xf3:
+                    i_repe.handler();
+                    break;
+                /*TODO*///	case 0xf4:    i_hlt(); break;
+                case 0xf5:
+                    i_cmc.handler();
+                    break;
+                case 0xf6:
+                    i_f6pre.handler();
+                    break;
+                case 0xf7:
+                    i_f7pre.handler();
+                    break;
+                case 0xf8:
+                    i_clc.handler();
+                    break;
+                case 0xf9:
+                    i_stc.handler();
+                    break;
+                case 0xfa:
+                    i_di.handler();
+                    break;
+                case 0xfb:
+                    i_ei.handler();
+                    break;
+                case 0xfc:
+                    i_cld.handler();
+                    break;
+                case 0xfd:
+                    i_std.handler();
+                    break;
+                case 0xfe:
+                    i_fepre.handler();
+                    break;
+                case 0xff:
+                    i_ffpre.handler();
+                    break;
+                default:
+                    String _sOut = ("Unsupported opcode 0x" + Integer.toHexString(FETCHOP));
+                    if (neclog != null) {
+                        fclose(neclog);
+                    }
+                    if (true) {
+                        throw new UnsupportedOperationException(_sOut);
+                    }
+                    break;
+            };
+            /*TODO*///	#else
 /*TODO*///		nec_instruction[FETCHOP]();
 /*TODO*///	#endif
-	
+
             //if (cpu_get_pc()>0xc0000) logerror("CPU %05x\n",cpu_get_pc());
-	
-	    }
-            return cycles - nec_ICount[0];
-	}
-	
-	
-/*TODO*///	unsigned nec_dasm(char *buffer, unsigned pc)
+        }
+        return cycles - nec_ICount[0];
+    }
+
+    /*TODO*///	unsigned nec_dasm(char *buffer, unsigned pc)
 /*TODO*///	{
 /*TODO*///	#ifdef MAME_DEBUG
 /*TODO*///	    return Dasmnec(buffer,pc);
@@ -7307,24 +7299,32 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///	#endif
 /*TODO*///	}
 
-	/* Wrappers for the different CPU types */
-	static void v20_reset(Object param) { nec_reset(param); }
-/*TODO*///	void v20_exit(void) { nec_exit(); }
+    /* Wrappers for the different CPU types */
+    static void v20_reset(Object param) {
+        nec_reset(param);
+    }
+
+    /*TODO*///	void v20_exit(void) { nec_exit(); }
 /*TODO*///	int v20_execute(int cycles) { return nec_execute(cycles); }
 /*TODO*///	unsigned v20_get_context(void *dst) { return nec_get_context(dst); }
 /*TODO*///	void v20_set_context(void *src) { nec_set_context(src); }
-	static int v20_get_pc() { return nec_get_pc(); }
-/*TODO*///	void v20_set_pc(unsigned val) { nec_set_pc(val); }
+    static int v20_get_pc() {
+        return nec_get_pc();
+    }
+
+    /*TODO*///	void v20_set_pc(unsigned val) { nec_set_pc(val); }
 /*TODO*///	unsigned v20_get_sp(void) { return nec_get_sp(); }
 /*TODO*///	void v20_set_sp(unsigned val) { nec_set_sp(val); }
 /*TODO*///	unsigned v20_get_reg(int regnum) { return nec_get_reg(regnum); }
 /*TODO*///	void v20_set_reg(int regnum, unsigned val)	{ nec_set_reg(regnum,val); }
 /*TODO*///	void v20_set_nmi_line(int state) { nec_set_nmi_line(state); }
 /*TODO*///	void v20_set_irq_line(int irqline, int state) { nec_set_irq_line(irqline,state); }
-        static void v20_set_irq_callback(irqcallbacksPtr callback) { nec_set_irq_callback(callback); }
-        public String cpu_info_v20(Object context, int regnum)
-        {
-/*TODO*///	    static char buffer[32][63+1];
+    static void v20_set_irq_callback(irqcallbacksPtr callback) {
+        nec_set_irq_callback(callback);
+    }
+
+    public String cpu_info_v20(Object context, int regnum) {
+        /*TODO*///	    static char buffer[32][63+1];
 /*TODO*///	    static int which = 0;
 /*TODO*///	    nec_Regs *r = context;
 /*TODO*///	
@@ -7333,9 +7333,8 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///	    if( !context )
 /*TODO*///	        r = &I;
 /*TODO*///	
-	    switch( regnum )
-	    {
-/*TODO*///	        case CPU_INFO_REG+NEC_IP: sprintf(buffer[which], "IP:%04X", r.ip); break;
+        switch (regnum) {
+            /*TODO*///	        case CPU_INFO_REG+NEC_IP: sprintf(buffer[which], "IP:%04X", r.ip); break;
 /*TODO*///	        case CPU_INFO_REG+NEC_SP: sprintf(buffer[which], "SP:%04X", r.regs.w[SP]); break;
 /*TODO*///	        case CPU_INFO_REG+NEC_FLAGS: sprintf(buffer[which], "F:%04X", r.flags); break;
 /*TODO*///	        case CPU_INFO_REG+NEC_AW: sprintf(buffer[which], "AW:%04X", r.regs.w[AW]); break;
@@ -7373,34 +7372,48 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///	                r.flags & 0x0002 ? 'N':'.',
 /*TODO*///	                r.flags & 0x0001 ? 'C':'.');
 /*TODO*///	            break;
-	        case CPU_INFO_NAME: return "V20";
-	        case CPU_INFO_FAMILY: return "NEC V-Series";
-	        case CPU_INFO_VERSION: return "1.6";
-	        case CPU_INFO_FILE: return "v20.java";
-	        case CPU_INFO_CREDITS: return "Real mode NEC emulator v1.3 by Oliver Bergmann\n(initial work based on Fabrice Fabian's i86 core)";
-/*TODO*///	        case CPU_INFO_REG_LAYOUT: return (const char*)nec_reg_layout;
+            case CPU_INFO_NAME:
+                return "V20";
+            case CPU_INFO_FAMILY:
+                return "NEC V-Series";
+            case CPU_INFO_VERSION:
+                return "1.6";
+            case CPU_INFO_FILE:
+                return "v20.java";
+            case CPU_INFO_CREDITS:
+                return "Real mode NEC emulator v1.3 by Oliver Bergmann\n(initial work based on Fabrice Fabian's i86 core)";
+            /*TODO*///	        case CPU_INFO_REG_LAYOUT: return (const char*)nec_reg_layout;
 /*TODO*///	        case CPU_INFO_WIN_LAYOUT: return (const char*)nec_win_layout;
-	    }
+        }
         throw new UnsupportedOperationException("unsupported v20 cpu_info");
         /*TODO*///    return buffer[which];
     }
-/*TODO*///	unsigned v20_dasm(char *buffer, unsigned pc) { return nec_dasm(buffer,pc); }
-	
-    static void v30_reset(Object param) { nec_reset(param); }
-/*TODO*///	void v30_exit(void) { nec_exit(); }
+
+    /*TODO*///	unsigned v20_dasm(char *buffer, unsigned pc) { return nec_dasm(buffer,pc); }
+
+    static void v30_reset(Object param) {
+        nec_reset(param);
+    }
+
+    /*TODO*///	void v30_exit(void) { nec_exit(); }
 /*TODO*///	int v30_execute(int cycles) { return nec_execute(cycles); }
 /*TODO*///	unsigned v30_get_context(void *dst) { return nec_get_context(dst); }
 /*TODO*///	void v30_set_context(void *src) { nec_set_context(src); }
-    static int v30_get_pc() { return nec_get_pc(); }
-/*TODO*///	void v30_set_pc(unsigned val) { nec_set_pc(val); }
+    static int v30_get_pc() {
+        return nec_get_pc();
+    }
+
+    /*TODO*///	void v30_set_pc(unsigned val) { nec_set_pc(val); }
 /*TODO*///	unsigned v30_get_sp(void) { return nec_get_sp(); }
 /*TODO*///	void v30_set_sp(unsigned val) { nec_set_sp(val); }
 /*TODO*///	unsigned v30_get_reg(int regnum) { return nec_get_reg(regnum); }
 /*TODO*///	void v30_set_reg(int regnum, unsigned val)	{ nec_set_reg(regnum,val); }
 /*TODO*///	void v30_set_nmi_line(int state) { nec_set_nmi_line(state); }
 /*TODO*///	void v30_set_irq_line(int irqline, int state) { nec_set_irq_line(irqline,state); }
-    static void v30_set_irq_callback(irqcallbacksPtr callback) { nec_set_irq_callback(callback); }
-        
+    static void v30_set_irq_callback(irqcallbacksPtr callback) {
+        nec_set_irq_callback(callback);
+    }
+
     public String cpu_info_v30(Object context, int regnum) {
         /*TODO*///    static char buffer[32][63+1];
         /*TODO*///    static int which = 0;
@@ -7467,25 +7480,32 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
         /*TODO*///    return buffer[which];
     }
 
-/*TODO*///	unsigned v30_dasm(char *buffer, unsigned pc) { return nec_dasm(buffer,pc); }
+    /*TODO*///	unsigned v30_dasm(char *buffer, unsigned pc) { return nec_dasm(buffer,pc); }
+    static void v33_reset(Object param) {
+        nec_reset(param);
+    }
 
-	static void v33_reset(Object param) { nec_reset(param); }
-/*TODO*///	void v33_exit(void) { nec_exit(); }
+    /*TODO*///	void v33_exit(void) { nec_exit(); }
 /*TODO*///	int v33_execute(int cycles) { return nec_execute(cycles); }
 /*TODO*///	unsigned v33_get_context(void *dst) { return nec_get_context(dst); }
 /*TODO*///	void v33_set_context(void *src) { nec_set_context(src); }
-	static int v33_get_pc() { return nec_get_pc(); }
-/*TODO*///	void v33_set_pc(unsigned val) { nec_set_pc(val); }
+    static int v33_get_pc() {
+        return nec_get_pc();
+    }
+
+    /*TODO*///	void v33_set_pc(unsigned val) { nec_set_pc(val); }
 /*TODO*///	unsigned v33_get_sp(void) { return nec_get_sp(); }
 /*TODO*///	void v33_set_sp(unsigned val) { nec_set_sp(val); }
 /*TODO*///	unsigned v33_get_reg(int regnum) { return nec_get_reg(regnum); }
 /*TODO*///	void v33_set_reg(int regnum, unsigned val)	{ nec_set_reg(regnum,val); }
 /*TODO*///	void v33_set_nmi_line(int state) { nec_set_nmi_line(state); }
 /*TODO*///	void v33_set_irq_line(int irqline, int state) { nec_set_irq_line(irqline,state); }
-        static void v33_set_irq_callback(irqcallbacksPtr callback) { nec_set_irq_callback(callback); }
-        public String cpu_info_v33(Object context, int regnum)
-	{
-/*TODO*///	    static char buffer[32][63+1];
+    static void v33_set_irq_callback(irqcallbacksPtr callback) {
+        nec_set_irq_callback(callback);
+    }
+
+    public String cpu_info_v33(Object context, int regnum) {
+        /*TODO*///	    static char buffer[32][63+1];
 /*TODO*///	    static int which = 0;
 /*TODO*///	    nec_Regs *r = context;
 /*TODO*///	
@@ -7494,9 +7514,8 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///	    if( !context )
 /*TODO*///	        r = &I;
 /*TODO*///	
-	    switch( regnum )
-	    {
-/*TODO*///	        case CPU_INFO_REG+NEC_IP: sprintf(buffer[which], "IP:%04X", r.ip); break;
+        switch (regnum) {
+            /*TODO*///	        case CPU_INFO_REG+NEC_IP: sprintf(buffer[which], "IP:%04X", r.ip); break;
 /*TODO*///	        case CPU_INFO_REG+NEC_SP: sprintf(buffer[which], "SP:%04X", r.regs.w[SP]); break;
 /*TODO*///	        case CPU_INFO_REG+NEC_FLAGS: sprintf(buffer[which], "F:%04X", r.flags); break;
 /*TODO*///	        case CPU_INFO_REG+NEC_AW: sprintf(buffer[which], "AW:%04X", r.regs.w[AW]); break;
@@ -7534,16 +7553,21 @@ static InstructionPtr i_add_br8 = new InstructionPtr() {
 /*TODO*///	                r.flags & 0x0002 ? 'N':'.',
 /*TODO*///	                r.flags & 0x0001 ? 'C':'.');
 /*TODO*///	            break;
-	        case CPU_INFO_NAME: return "V33";
-	        case CPU_INFO_FAMILY: return "NEC V-Series";
-	        case CPU_INFO_VERSION: return "1.6";
-	        case CPU_INFO_FILE: return "v33.java";
-	        case CPU_INFO_CREDITS: return "Real mode NEC emulator v1.3 by Oliver Bergmann\n(initial work based on Fabrice Fabian's i86 core)";
-/*TODO*///	        case CPU_INFO_REG_LAYOUT: return (const char*)nec_reg_layout;
+            case CPU_INFO_NAME:
+                return "V33";
+            case CPU_INFO_FAMILY:
+                return "NEC V-Series";
+            case CPU_INFO_VERSION:
+                return "1.6";
+            case CPU_INFO_FILE:
+                return "v33.java";
+            case CPU_INFO_CREDITS:
+                return "Real mode NEC emulator v1.3 by Oliver Bergmann\n(initial work based on Fabrice Fabian's i86 core)";
+            /*TODO*///	        case CPU_INFO_REG_LAYOUT: return (const char*)nec_reg_layout;
 /*TODO*///	        case CPU_INFO_WIN_LAYOUT: return (const char*)nec_win_layout;
-	    }
-            throw new UnsupportedOperationException("unsupported v30 cpu_info");
-            /*TODO*///    return buffer[which];
-	}
-/*TODO*///	unsigned v33_dasm(char *buffer, unsigned pc) { return nec_dasm(buffer,pc); }    
+        }
+        throw new UnsupportedOperationException("unsupported v30 cpu_info");
+        /*TODO*///    return buffer[which];
+    }
+    /*TODO*///	unsigned v33_dasm(char *buffer, unsigned pc) { return nec_dasm(buffer,pc); }    
 }
