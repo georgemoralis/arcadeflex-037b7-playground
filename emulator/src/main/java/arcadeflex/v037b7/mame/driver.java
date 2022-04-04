@@ -246,6 +246,7 @@ import static arcadeflex.WIP.v037b7.drivers.atarisy2.*;
 import static arcadeflex.WIP.v037b7.drivers.dynduke.*;
 import static arcadeflex.WIP.v037b7.drivers.shanghai.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
+import static arcadeflex.WIP.v037b7.drivers.namcos2.*;
 
 public class driver {
 
@@ -580,50 +581,50 @@ public class driver {
         /*TODO*///	driver_puzlclub,	/* (c) 1990 (Japan) */
         /*TODO*///	driver_tankfrce,	/* (c) 1991 (US) */
         /*TODO*///	driver_tankfrcj,	/* (c) 1991 (Japan) */
-        /*TODO*///
-        /*TODO*///	/* Namco System 2 games */
+        
+        	/* Namco System 2 games */
         /*TODO*///TESTdriver_finallap,	/* 87.12 Final Lap */
         /*TODO*///TESTdriver_finalapd,	/* 87.12 Final Lap */
         /*TODO*///TESTdriver_finalapc,	/* 87.12 Final Lap */
         /*TODO*///TESTdriver_finlapjc,	/* 87.12 Final Lap */
         /*TODO*///TESTdriver_finlapjb,	/* 87.12 Final Lap */
-        /*TODO*///	driver_assault,	/* (c) 1988 */
-        /*TODO*///	driver_assaultj,	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_assaultp,	/* (c) 1988 (Japan) */
+        	driver_assault,	/* (c) 1988 */
+        	driver_assaultj,	/* (c) 1988 (Japan) */
+        	driver_assaultp,	/* (c) 1988 (Japan) */
         /*TODO*///TESTdriver_metlhawk,	/* (c) 1988 */
-        /*TODO*///	driver_mirninja,	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_ordyne,	/* (c) 1988 */
-        /*TODO*///	driver_phelios,	/* (c) 1988 (Japan) */
-        /*TODO*///	driver_burnforc,	/* (c) 1989 (Japan) */
+        	driver_mirninja,	/* (c) 1988 (Japan) */
+        	driver_ordyne,	/* (c) 1988 */
+        	driver_phelios,	/* (c) 1988 (Japan) */
+        	driver_burnforc,	/* (c) 1989 (Japan) */
         /*TODO*///TESTdriver_dirtfoxj,	/* (c) 1989 (Japan) */
-        /*TODO*///	driver_finehour,	/* (c) 1989 (Japan) */
+        	driver_finehour,	/* (c) 1989 (Japan) */
         /*TODO*///TESTdriver_fourtrax,	/* 89.11 */
-        /*TODO*///	driver_marvland,	/* (c) 1989 (US) */
-        /*TODO*///	driver_marvlanj,	/* (c) 1989 (Japan) */
-        /*TODO*///	driver_valkyrie,	/* (c) 1989 (Japan) */
+        	driver_marvland,	/* (c) 1989 (US) */
+        	driver_marvlanj,	/* (c) 1989 (Japan) */
+        	driver_valkyrie,	/* (c) 1989 (Japan) */
         /*TODO*///	DRIVER ( kyukaidk,	/* (c) 1990 (Japan) */
         /*TODO*///	DRIVER ( kyukaido,	/* (c) 1990 (Japan) */
-        /*TODO*///	driver_dsaber,	/* (c) 1990 */
-        /*TODO*///	driver_dsaberj,	/* (c) 1990 (Japan) */
-        /*TODO*///	driver_rthun2,	/* (c) 1990 */
-        /*TODO*///	driver_rthun2j,	/* (c) 1990 (Japan) */
+        	driver_dsaber,	/* (c) 1990 */
+        	driver_dsaberj,	/* (c) 1990 (Japan) */
+        	driver_rthun2,	/* (c) 1990 */
+        	driver_rthun2j,	/* (c) 1990 (Japan) */
         /*TODO*///TESTdriver_finalap2,	/* 90.8  Final Lap 2 */
         /*TODO*///TESTdriver_finalp2j,	/* 90.8  Final Lap 2 (Japan) */
         /*TODO*///	/* 91.3  Steel Gunner */
         /*TODO*///	/* 91.7  Golly Ghost */
         /*TODO*///	/* 91.9  Super World Stadium */
         /*TODO*///TESTdriver_sgunner2,	/* (c) 1991 (Japan) */
-        /*TODO*///	driver_cosmogng,	/* (c) 1991 (US) */
-        /*TODO*///	driver_cosmognj,	/* (c) 1991 (Japan) */
+        	driver_cosmogng,	/* (c) 1991 (US) */
+        	driver_cosmognj,	/* (c) 1991 (Japan) */
         /*TODO*///TESTdriver_finalap3,	/* 92.9  Final Lap 3 */
         /*TODO*///TESTdriver_suzuka8h,
         /*TODO*///	/* 92.8  Bubble Trouble */
-        /*TODO*///	driver_sws92,		/* (c) 1992 (Japan) */
+        	driver_sws92,		/* (c) 1992 (Japan) */
         /*TODO*///	/* 93.4  Lucky & Wild */
         /*TODO*///TESTdriver_suzuk8h2,
-        /*TODO*///	driver_sws93,		/* (c) 1993 (Japan) */
+        	driver_sws93,		/* (c) 1993 (Japan) */
         /*TODO*///	/* 93.6  Super World Stadium '93 */
-        /*TODO*///
+        
         /*TODO*///	/* Universal games */
         /*TODO*///	driver_cosmicg,	/* 7907 (c) 1979 */
         /*TODO*///	driver_cosmica,	/* 7910 (c) [1979] */
