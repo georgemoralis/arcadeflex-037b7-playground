@@ -39,6 +39,7 @@ import arcadeflex.v037b7.sound.cem3394;
 import arcadeflex.v037b7.sound.namco;
 import arcadeflex.v037b7.sound.rf5c68;
 import arcadeflex.v037b7.sound._2612intf;
+import arcadeflex.v037b7.sound.c140;
 import arcadeflex.v037b7.sound.k005289;
 import arcadeflex.v037b7.sound.qsound;
 import arcadeflex.v037b7.sound.segapcm;
@@ -371,19 +372,7 @@ public class sndintrf {
         new segapcm(),        
         new rf5c68(),        
         new cem3394(),
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_C140)
-        /*TODO*///	{
-        /*TODO*///		SOUND_C140,
-        /*TODO*///		"C140",
-        /*TODO*///		0,
-        /*TODO*///		0,
-        /*TODO*///		C140_sh_start,
-        /*TODO*///		C140_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		0
-        /*TODO*///	},
-        /*TODO*///#endif
+        new c140(),
         new qsound(),
         new Dummy_snd(), /*TODO*///#if (HAS_SAA1099)
     /*TODO*///	{
