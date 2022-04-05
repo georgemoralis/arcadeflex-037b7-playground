@@ -89,7 +89,7 @@ public class tms32010H {
  *	 used to greatly speed up emulation
      */
     public static int TMS320C10_RDOP(int A) {
-        return ((cpu_readop(((A << 1) + TMS320C10_PGM_OFFSET) << 8)&0xffff) | (cpu_readop(((A << 1) + TMS320C10_PGM_OFFSET + 1))&0xffff)) & 0xFFFF;
+        return ((cpu_readop((A << 1) + TMS320C10_DATA_OFFSET) << 8) | cpu_readop(((A << 1) + TMS320C10_DATA_OFFSET + 1))) & 0xFFFF;
     }
 
     /*
@@ -98,7 +98,7 @@ public class tms32010H {
  * that use different encoding mechanisms for opcodes and opcode arguments
      */
     public static int TMS320C10_RDOP_ARG(int A) {
-        return ((cpu_readop_arg((A << 1) + TMS320C10_PGM_OFFSET) << 8) | cpu_readop_arg(((A << 1) + TMS320C10_PGM_OFFSET + 1))) & 0xFFFF;
+        return ((cpu_readop_arg((A << 1) + TMS320C10_DATA_OFFSET) << 8) | cpu_readop_arg(((A << 1) + TMS320C10_DATA_OFFSET + 1))) & 0xFFFF;
     }
 
 }

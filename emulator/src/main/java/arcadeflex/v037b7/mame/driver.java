@@ -247,6 +247,7 @@ import static arcadeflex.WIP.v037b7.drivers.dynduke.*;
 import static arcadeflex.WIP.v037b7.drivers.shanghai.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
 import static arcadeflex.WIP.v037b7.drivers.namcos2.*;
+import static arcadeflex.WIP.v037b7.drivers.toki.*;
 
 public class driver {
 
@@ -2867,11 +2868,11 @@ public class driver {
         /*RELEASE*///driver_cabal, /* (c) 1988 Tad + Fabtek license */
         /*RELEASE*///driver_cabal2, /* (c) 1988 Tad + Fabtek license */
         /*RELEASE*///driver_cabalbl, /* bootleg */
-        /*RELEASE*///driver_toki, /* (c) 1989 Tad */
-        /*RELEASE*///driver_toki2, /* (c) 1989 Tad */
-        /*RELEASE*///driver_toki3, /* (c) 1989 Tad */
-        /*RELEASE*///driver_tokiu, /* (c) 1989 Tad + Fabtek license */
-        /*RELEASE*///driver_tokib, /* bootleg */
+        driver_toki, /* (c) 1989 Tad */
+        driver_toki2, /* (c) 1989 Tad */
+        driver_toki3, /* (c) 1989 Tad */
+        driver_tokiu, /* (c) 1989 Tad + Fabtek license */
+        driver_tokib, /* bootleg */
         /*TODO*///	driver_bloodbro,	/* (c) 1990 Tad */
         /*TODO*///	driver_weststry,	/* bootleg */
         /*TODO*///

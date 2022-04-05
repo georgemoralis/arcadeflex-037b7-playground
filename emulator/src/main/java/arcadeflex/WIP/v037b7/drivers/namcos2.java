@@ -775,28 +775,28 @@ public class namcos2
 	
 	static MemoryReadAddress readmem_sound[] ={
 /*TODO*///		new MemoryReadAddress( 0x0000, 0x3fff, BANKED_SOUND_ROM_R ), /* banked */
-/*TODO*///		new MemoryReadAddress( 0x4000, 0x4001, YM2151_status_port_0_r ),
-/*TODO*///		new MemoryReadAddress( 0x5000, 0x6fff, C140_r ),
-/*TODO*///		new MemoryReadAddress( 0x7000, 0x7fff, namcos2_dpram_byte_r ),		/* 991112.CAB  ($5800-5fff=image of $5000-$57ff) */
-/*TODO*///		new MemoryReadAddress( 0x8000, 0x9fff, MRA_RAM ),
-/*TODO*///		new MemoryReadAddress( 0xd000, 0xffff, MRA_ROM ),
-                new MemoryReadAddress( 0x0000, 0xffff, MRA_RAM ),
+		new MemoryReadAddress( 0x4000, 0x4001, YM2151_status_port_0_r ),
+		new MemoryReadAddress( 0x5000, 0x6fff, C140_r ),
+		new MemoryReadAddress( 0x7000, 0x7fff, namcos2_dpram_byte_r ),		/* 991112.CAB  ($5800-5fff=image of $5000-$57ff) */
+		new MemoryReadAddress( 0x8000, 0x9fff, MRA_RAM ),
+		new MemoryReadAddress( 0xd000, 0xffff, MRA_ROM ),
+                //new MemoryReadAddress( 0x0000, 0xffff, MRA_RAM ),
             
 		new MemoryReadAddress( -1 )
 	};
 	
 	static MemoryWriteAddress writemem_sound[] ={
-/*TODO*///		new MemoryWriteAddress( 0x0000, 0x3fff, MWA_ROM ),
-/*TODO*///		new MemoryWriteAddress( 0x4000, 0x4000, YM2151_register_port_0_w ),
-/*TODO*///		new MemoryWriteAddress( 0x4001, 0x4001, YM2151_data_port_0_w ),
-/*TODO*///		new MemoryWriteAddress( 0x5000, 0x6fff, C140_w ),
-/*TODO*///		new MemoryWriteAddress( 0x7000, 0x7fff, namcos2_dpram_byte_w ),		/* 991112.CAB ($5800-5fff=image of $5000-$57ff) */
-/*TODO*///		new MemoryWriteAddress( 0x8000, 0x9fff, MWA_RAM ),
-/*TODO*///		new MemoryWriteAddress( 0xa000, 0xbfff, MWA_NOP ),					/* Amplifier enable on 1st write */
-/*TODO*///		new MemoryWriteAddress( 0xc000, 0xc001, namcos2_sound_bankselect_w ),
-/*TODO*///		new MemoryWriteAddress( 0xd001, 0xd001, MWA_NOP ),					/* Watchdog */
-/*TODO*///		new MemoryWriteAddress( 0xc000, 0xffff, MWA_ROM ),
-                new MemoryWriteAddress( 0x0000, 0xffff, MWA_ROM ),
+		new MemoryWriteAddress( 0x0000, 0x3fff, MWA_ROM ),
+		new MemoryWriteAddress( 0x4000, 0x4000, YM2151_register_port_0_w ),
+		new MemoryWriteAddress( 0x4001, 0x4001, YM2151_data_port_0_w ),
+		new MemoryWriteAddress( 0x5000, 0x6fff, C140_w ),
+		new MemoryWriteAddress( 0x7000, 0x7fff, namcos2_dpram_byte_w ),		/* 991112.CAB ($5800-5fff=image of $5000-$57ff) */
+		new MemoryWriteAddress( 0x8000, 0x9fff, MWA_RAM ),
+		new MemoryWriteAddress( 0xa000, 0xbfff, MWA_NOP ),					/* Amplifier enable on 1st write */
+		new MemoryWriteAddress( 0xc000, 0xc001, namcos2_sound_bankselect_w ),
+		new MemoryWriteAddress( 0xd001, 0xd001, MWA_NOP ),					/* Watchdog */
+		new MemoryWriteAddress( 0xc000, 0xffff, MWA_ROM ),
+                //new MemoryWriteAddress( 0x0000, 0xffff, MWA_ROM ),
 		new MemoryWriteAddress( -1 )	/* end of table */
 	};
 	
