@@ -248,6 +248,7 @@ import static arcadeflex.WIP.v037b7.drivers.shanghai.*;
 import static arcadeflex.v037b7.drivers.mcr3.*;
 import static arcadeflex.WIP.v037b7.drivers.namcos2.*;
 import static arcadeflex.WIP.v037b7.drivers.toki.*;
+import static arcadeflex.WIP.v037b7.drivers.aerofgt.*;
 
 public class driver {
 
@@ -2929,19 +2930,19 @@ public class driver {
         driver_sformula, /* [1989] V-System Co. (Japan) */
         driver_pipedrm,/* (c) 1990 Video System Co. (Japan) */
         driver_hatris,/* (c) 1990 Video System Co. (Japan) */
-        /*TODO*///	driver_pspikes,	/* (c) 1991 Video System Co. (Korea) */
-        /*TODO*///	driver_svolly91,	/* (c) 1991 Video System Co. */
-        /*TODO*///	driver_karatblz,	/* (c) 1991 Video System Co. */
-        /*TODO*///	driver_karatblu,	/* (c) 1991 Video System Co. (US) */
-        /*TODO*///	driver_spinlbrk,	/* (c) 1990 V-System Co. (World) */
-        /*TODO*///	driver_spinlbru,	/* (c) 1990 V-System Co. (US) */
-        /*TODO*///	driver_spinlbrj,	/* (c) 1990 V-System Co. (Japan) */
-        /*TODO*///	driver_turbofrc,	/* (c) 1991 Video System Co. */
-        /*TODO*///	driver_aerofgt,	/* (c) 1992 Video System Co. */
-        /*TODO*///	driver_aerofgtb,	/* (c) 1992 Video System Co. */
-        /*TODO*///	driver_aerofgtc,	/* (c) 1992 Video System Co. */
-        /*TODO*///	driver_sonicwi,	/* (c) 1992 Video System Co. (Japan) */
-        /*TODO*///
+        	driver_pspikes,	/* (c) 1991 Video System Co. (Korea) */
+        	driver_svolly91,	/* (c) 1991 Video System Co. */
+        	driver_karatblz,	/* (c) 1991 Video System Co. */
+        	driver_karatblu,	/* (c) 1991 Video System Co. (US) */
+        	driver_spinlbrk,	/* (c) 1990 V-System Co. (World) */
+        	driver_spinlbru,	/* (c) 1990 V-System Co. (US) */
+        	driver_spinlbrj,	/* (c) 1990 V-System Co. (Japan) */
+        	driver_turbofrc,	/* (c) 1991 Video System Co. */
+        	driver_aerofgt,	/* (c) 1992 Video System Co. */
+        	driver_aerofgtb,	/* (c) 1992 Video System Co. */
+        	driver_aerofgtc,	/* (c) 1992 Video System Co. */
+        	driver_sonicwi,	/* (c) 1992 Video System Co. (Japan) */
+        
         /*TODO*///	/* Psikyo games */
         /*TODO*///	driver_sngkace,	/* (c) 1993 */
         /*TODO*///	driver_gunbird,	/* (c) 1994 */
