@@ -222,6 +222,7 @@ import static arcadeflex.WIP.v037b7.drivers.batman.*;
 import static arcadeflex.WIP.v037b7.drivers.bionicc.*;
 import static arcadeflex.WIP.v037b7.drivers.gaelco.*;
 import static arcadeflex.WIP.v037b7.drivers.twincobr.*;        
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.wardner.*;
 import static arcadeflex.WIP.v037b7.drivers.karnov.*;
 import static arcadeflex.WIP.v037b7.drivers.cps1.*;
 import static arcadeflex.WIP.v037b7.drivers.thunderj.*;
@@ -1227,9 +1228,9 @@ public class driver {
         driver_skyshark, 	/* TP-007 (c) 1987 Taito America Corporation + Romstar license (US) */
         driver_hishouza, 	/* TP-007 (c) 1987 Taito Corporation (Japan) */
         driver_fsharkbt, 	/* bootleg */
-        /*TODO*///	driver_wardner,	/* TP-009 (c) 1987 Taito Corporation Japan (World) */
-        /*TODO*///	driver_pyros,		/* TP-009 (c) 1987 Taito America Corporation (US) */
-        /*TODO*///	driver_wardnerj,	/* TP-009 (c) 1987 Taito Corporation (Japan) */
+        driver_wardner,	/* TP-009 (c) 1987 Taito Corporation Japan (World) */
+        driver_pyros,		/* TP-009 (c) 1987 Taito America Corporation (US) */
+        driver_wardnerj,	/* TP-009 (c) 1987 Taito Corporation (Japan) */
         driver_twincobr, 	/* TP-011 (c) 1987 Taito Corporation (World) */
         driver_twincobu, 	/* TP-011 (c) 1987 Taito America Corporation + Romstar license (US) */
         driver_ktiger, 	/* TP-011 (c) 1987 Taito Corporation (Japan) */

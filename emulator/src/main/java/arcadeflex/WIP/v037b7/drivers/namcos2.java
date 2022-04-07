@@ -774,7 +774,7 @@ public class namcos2
 	/*************************************************************/
 	
 	static MemoryReadAddress readmem_sound[] ={
-/*TODO*///		new MemoryReadAddress( 0x0000, 0x3fff, BANKED_SOUND_ROM_R ), /* banked */
+		new MemoryReadAddress( 0x0000, 0x3fff, BANKED_SOUND_ROM_R ), /* banked */
 		new MemoryReadAddress( 0x4000, 0x4001, YM2151_status_port_0_r ),
 		new MemoryReadAddress( 0x5000, 0x6fff, C140_r ),
 		new MemoryReadAddress( 0x7000, 0x7fff, namcos2_dpram_byte_r ),		/* 991112.CAB  ($5800-5fff=image of $5000-$57ff) */

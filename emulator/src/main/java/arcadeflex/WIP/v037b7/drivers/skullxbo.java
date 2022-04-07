@@ -132,7 +132,7 @@ public class skullxbo
 		/* check for interrupts in the alpha ram */
 		/* the interrupt occurs on the HBLANK of the 6th scanline following */
 //		if ((UINT8 *)check < &atarigen_alpharam[atarigen_alpharam_size] && (*check & 0x8000))
-                if (check.offset < atarigen_alpharam.offset && (check.read(0) & 0x8000)!=0
+                if (check.offset < atarigen_alpharam_size[0] && (check.read(0) & 0x8000)!=0
                         )
 			timer_set(cpu_getscanlineperiod() * 6.9, 0, irq_gen);
 	

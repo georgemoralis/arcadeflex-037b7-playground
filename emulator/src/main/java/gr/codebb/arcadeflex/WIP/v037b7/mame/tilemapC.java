@@ -1220,8 +1220,8 @@ public class tilemapC {
                     tilemap.cached_tile_info[cache_ptr].u32_flags = (flags & 0xfc) | logical_flip_to_cached_flip[flags & 0x3];
                 }
                 tilemap.cached_tile_info[cache_ptr].u32_pen_usage = tile_info.u32_pen_usage;
-                /*TOCHECK*/ tilemap.cached_tile_info[cache_ptr].pen_data = tile_info.pen_data;
-                /*TOCHECK*/ tilemap.cached_tile_info[cache_ptr].pal_data = tile_info.pal_data;
+                /*TOCHECK*/ tilemap.cached_tile_info[cache_ptr].pen_data = new UBytePtr(tile_info.pen_data);
+                /*TOCHECK*/ tilemap.cached_tile_info[cache_ptr].pal_data = new UShortArray(tile_info.pal_data);
                 tilemap.u8_priority[cached_index] = (char) tile_info.u32_priority;
                 register_pens(tilemap, cache_ptr, num_pens);
                 u8_dirty_pixels[cached_index] = 1;

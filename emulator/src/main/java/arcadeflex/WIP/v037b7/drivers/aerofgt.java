@@ -158,7 +158,7 @@ public class aerofgt
 	{
 		new MemoryReadAddress( 0x000000, 0x07ffff, MRA_ROM ),
 		new MemoryReadAddress( 0x080000, 0x081fff, aerofgt_bg1videoram_r ),
-		new MemoryReadAddress( 0x082000, 0x083fff, aerofgt_bg2videoram_r ),
+		new MemoryReadAddress( 0x082000, 0x084000, aerofgt_bg2videoram_r ),
 		new MemoryReadAddress( 0x0a0000, 0x0affff, MRA_BANK4 ),
 		new MemoryReadAddress( 0x0b0000, 0x0bffff, MRA_BANK5 ),
 		new MemoryReadAddress( 0x0c0000, 0x0cffff, MRA_BANK6 ),	/* work RAM */

@@ -359,6 +359,7 @@ public class hydra
 	
 		/* sort the motion objects into their proper priorities */
 		//memset(list_head, 0, sizeof(list_head));
+                list_head = new mo_sort_entry[256];
 		for (x = 0; x < 256; x++)
 		{
                         if (list_head[x]==null)
@@ -496,7 +497,7 @@ public class hydra
 		int bankbase = state.param[0] * 0x1000;
 		int x, y;
 	
-		for (y = tiles.min_y; y != tiles.max_y; y = (y + 1) & 63)
+		for (y = tiles.min_y; y != tiles.max_y; y = (y + 1) & 63){
 			for (x = tiles.min_x; x != tiles.max_x; x = (x + 1) & 63)
 			{
 				int offs = y * 64 + x;
@@ -508,6 +509,9 @@ public class hydra
 				/* also mark unvisited tiles dirty */
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
 			}
+                }
+                
+                param = colormap;
             }
         };
         
@@ -604,6 +608,8 @@ public class hydra
 					colormap[colorentry + 4] |= usage >> (32 - colorshift);
 			}
 		}
+                
+                param = colormap;
             }
         };
 	

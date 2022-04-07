@@ -63,14 +63,22 @@ public class aerofgt
 	/* also spinlbrk */
 	public static GetTileInfoPtr karatblz_bg2_tile_info = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
+            try {
 		int code = aerofgt_bg2videoram.READ_WORD(2*tile_index);
 		SET_TILE_INFO(1,(code & 0x1fff) + (gfxbank[1] << 13),(code & 0xe000) >> 13);
+            } catch (Exception e) {
+                //System.out.println(aerofgt_bg2videoram.offset);
+            }
 	} };
 	
 	public static GetTileInfoPtr spinlbrk_bg1_tile_info = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
+            try {
 		int code = aerofgt_bg1videoram.READ_WORD(2*tile_index);
 		SET_TILE_INFO(0,(code & 0x0fff) + (gfxbank[0] << 12),(code & 0xf000) >> 12);
+            } catch (Exception e) {
+                //System.out.println(aerofgt_bg2videoram.offset);
+            }
 	} };
 	
 	public static GetTileInfoPtr get_bg1_tile_info = new GetTileInfoPtr() { public void handler(int tile_index) 

@@ -667,11 +667,13 @@ public class atarisy1
             @Override
             public void handler(rectangle clip, rectangle tiles, atarigen_pf_state state, Object param) {
                 //UShortArray lookup_table = new UShortArray(pf_lookup, state.param[0]);
-                IntSubArray lookup_table = new IntSubArray(pf_lookup, 0/*state.param[0]*/);
+                IntSubArray lookup_table = new IntSubArray(pf_lookup, state.param[0]);
                 //lookup_table.offset=state.param[0];
                 //int[] lookup_table = pf_lookup;
                         
 		IntSubArray colormap = (IntSubArray) param;
+                colormap.offset = 0;
+                
 		int x, y;
 	
 		/* standard loop over tiles */
@@ -687,14 +689,18 @@ public class atarisy1
 				int code = LOOKUP_CODE(lookup) | (data & 0xff);
 				int color = LOOKUP_COLOR(lookup);
                                 
+                                
 				int bits;
                                 
                                 //System.out.println("bpp="+bpp);
 	
 				/* based on the depth, we need to tweak our pen mapping */
-				if (bpp == 0)
-					colormap.write(color, colormap.read(color) | usage[code]);
-				else if (bpp == 1)
+                                //System.out.println(bpp);
+                                
+				if (bpp == 0) {
+					//colormap.write(color, colormap.read(color) | usage[code]);
+                                        colormap.write(color, colormap.read(color) | usage[code]);
+                                } else if (bpp == 1)
 				{
 					bits = usage[code];
 					colormap.write(color * 2, colormap.read(color * 2) | bits);
@@ -714,7 +720,7 @@ public class atarisy1
 				if (atarigen_pf_visit.read(offs)==0) atarigen_pf_dirty.write(offs, 0xff);
 			}
                 
-                //param = colormap;
+                param = colormap;
             }
         };
         
@@ -820,6 +826,8 @@ public class atarisy1
 					drawgfx(bitmap, gfx, code, color, hflip, 0, sx, sy, clip, TRANSPARENCY_PEN, 0);
 			}
 		}
+                
+                param = overrender_data;
             }
         };
         
@@ -859,7 +867,7 @@ public class atarisy1
 		}
 	
 		/* in theory we should support all 3 possible depths, but motion objects are all 4bpp */
-                //param = colormap;
+                param = colormap;
             }
         };
         
@@ -917,7 +925,7 @@ public class atarisy1
 				overrender_data.type = OVERRENDER_PRIORITY;
 	
 				/* overrender the playfield */
-				atarigen_pf_process(pf_overrender_callback, overrender_data, pf_clip);
+				//atarigen_pf_process(pf_overrender_callback, overrender_data, pf_clip);
 			}
 		}
 	
@@ -998,7 +1006,10 @@ public class atarisy1
 					table.write(_pTable++, PACK_LOOKUP_DATA(bank, color, offset, bpp)); //((((bpp) - 4) & 7) << 24) |offset | (bank << 8) | (color << 12);
 			}
                         
-                       
+                       if (obj == 0)
+                           pf_lookup = new IntSubArray(table);
+                       else
+                           mo_lookup = new IntSubArray(table);
 		}
 		return 1;
 	}

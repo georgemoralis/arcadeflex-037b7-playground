@@ -193,7 +193,11 @@ public class memory {
     };
     public static ReadHandlerPtr mrh_bank6 = new ReadHandlerPtr() {
         public int handler(int offset) {
-            return cpu_bankbase[6].read(offset);
+            try {
+                return cpu_bankbase[6].read(offset);
+            } catch (Exception e) {
+                return 0;
+            }
         }
     };
     public static ReadHandlerPtr mrh_bank7 = new ReadHandlerPtr() {

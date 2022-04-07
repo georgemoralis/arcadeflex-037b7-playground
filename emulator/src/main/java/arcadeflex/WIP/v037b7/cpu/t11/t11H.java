@@ -61,7 +61,10 @@ public class t11H
 /*TODO*///	/****************************************************************************/
 /*TODO*///	/* Read a byte from given memory location                                   */
 /*TODO*///	/****************************************************************************/
-/*TODO*///	#define T11_RDMEM(A) ((unsigned)cpu_readmem16lew(A))
+	public static int T11_RDMEM(int A) { 
+            throw new UnsupportedOperationException("Not Supported!");            
+/*TODO*///            return (cpu_readmem16lew(A)); 
+        }
 /*TODO*///	#define T11_RDMEM_WORD(A) ((unsigned)cpu_readmem16lew_word(A))
 /*TODO*///	
 /*TODO*///	/****************************************************************************/

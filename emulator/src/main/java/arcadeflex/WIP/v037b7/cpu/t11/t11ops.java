@@ -1,6 +1,7 @@
 package arcadeflex.WIP.v037b7.cpu.t11;
 
 import static arcadeflex.WIP.v037b7.cpu.t11.t11H.*;
+import static arcadeflex.WIP.v037b7.cpu.t11.t11.*;
 
 public class t11ops {
     
@@ -107,12 +108,12 @@ public class t11ops {
     /*TODO*///#define PUT_DW_DED(v) GET_DREG; MAKE_EAW_DED(dreg); WWORD(ea, (v))
     /*TODO*///#define PUT_DW_IX(v)  GET_DREG; MAKE_EAW_IX(dreg); WWORD(ea, (v))
     /*TODO*///#define PUT_DW_IXD(v) GET_DREG; MAKE_EAW_IXD(dreg); WWORD(ea, (v))
-    /*TODO*///
-    /*TODO*////* flag clearing; must be done before setting */
-    /*TODO*///#define CLR_ZV   (PSW &= ~(ZFLAG | VFLAG))
-    /*TODO*///#define CLR_NZV  (PSW &= ~(NFLAG | ZFLAG | VFLAG))
-    /*TODO*///#define CLR_NZVC (PSW &= ~(NFLAG | ZFLAG | VFLAG | CFLAG))
-    /*TODO*///
+    
+    /* flag clearing; must be done before setting */
+    public static void CLR_ZV()     { PSW( PSW() & ~(ZFLAG | VFLAG)); }
+    public static void CLR_NZV()    { PSW( PSW() & ~(NFLAG | ZFLAG | VFLAG)); }
+    public static void NZVC()       { PSW( PSW() & ~(NFLAG | ZFLAG | VFLAG | CFLAG)); }
+    
     /*TODO*////* set individual flags byte-sized */
     /*TODO*///#define SETB_N (PSW |= (result >> 4) & 0x08)
     /*TODO*///#define SETB_Z (PSW |= ((result & 0xff) == 0) << 2)
@@ -3431,7 +3432,26 @@ public class t11ops {
     static InstructionPtr movb_in_ixd = new InstructionPtr() /* Opcode 0x?? */ { public void handler() { throw new UnsupportedOperationException("Not Supported!");/*    { MOVB_M(IN,IXD); */ 
         }
     };
-    static InstructionPtr movb_ind_rg = new InstructionPtr() /* Opcode 0x?? */ { public void handler() { throw new UnsupportedOperationException("Not Supported!");/*    { MOVB_X(IND,RG); */ 
+    static InstructionPtr movb_ind_rg = new InstructionPtr() /* Opcode 0x?? */ { 
+        public void handler() { 
+            //MOVB_X(IND,RG);
+            int sreg, dreg, source, result, ea; 
+            //GET_SB_IND(); 
+            //GET_SREG; 
+            sreg = (t11.op >> 6) & 7;
+            //end GET_SREG;
+            throw new UnsupportedOperationException("Not Supported!");
+/*TODO*///            if (sreg == 7) { 
+/*TODO*///                ea = ROPCODE(); 
+/*TODO*///            } else { 
+/*TODO*///                MAKE_EAB_IND(sreg); 
+/*TODO*///            } 
+/*TODO*///            source = RBYTE(ea);
+            //end GET_SB_IND(); 
+/*TODO*///            CLR_NZV(); 
+/*TODO*///            result = source; 
+/*TODO*///            SETB_NZ; 
+/*TODO*///            PUT_DW_RG(result);
         }
     };
     static InstructionPtr movb_ind_rgd = new InstructionPtr() /* Opcode 0x?? */ { public void handler() { throw new UnsupportedOperationException("Not Supported!");/*   { MOVB_M(IND,RGD); */ 

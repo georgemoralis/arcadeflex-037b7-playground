@@ -27,10 +27,13 @@ public class twincobr {
 
     public static int wardner_sprite_hack = 0;
     /* Required for weird sprite priority in wardner  */
- /* when hero is in shop. Hero should cover shop owner */
- /*TODO*///	#define READ_WORD_Z80(x) (*(UBytePtr )(x) + (*(UBytePtr )(x+1) << 8))
-/*TODO*///	#define WRITE_WORD_Z80(a, d) (*(UBytePtr )(a) = d & 0xff, (*(UBytePtr )(a+1) = (d>>8) & 0xff))
-/*TODO*///	
+    /* when hero is in shop. Hero should cover shop owner */
+    public static int READ_WORD_Z80(UBytePtr x) { return ((x.read() + x.read(1) << 8)) & 0xffff; }
+    public static void WRITE_WORD_Z80(UBytePtr a, int d){ 
+        a.write(0, d & 0xff);
+        a.write(1, (d>>8) & 0xff);
+    }
+	
     public static int[] twincobr_bgvideoram_size = new int[1];
     public static int[] twincobr_fgvideoram_size = new int[1];
     static int txscrollx = 0;
@@ -694,30 +697,30 @@ public class twincobr {
                             Machine.visible_area, TRANSPARENCY_PEN, 0);
                 }
 
-                /*TODO*///	/*********  Begin ugly sprite hack for Wardner when hero is in shop *********/
-/*TODO*///		if ((wardner_sprite_hack) && (fgscrollx != bgscrollx)) {	/* Wardner ? */
-/*TODO*///			if ((fgscrollx==0x1c9) || (twincobr_flip_screen && (fgscrollx==0x17a))) {	/* in the shop ? */
-/*TODO*///				int wardner_hack = READ_WORD_Z80(&buffered_spriteram[0x0b04]);
-/*TODO*///			/* sprite position 0x6300 to 0x8700 -- hero on shop keeper (normal) */
-/*TODO*///			/* sprite position 0x3900 to 0x5e00 -- hero on shop keeper (flip) */
-/*TODO*///				if ((wardner_hack > 0x3900) && (wardner_hack < 0x8700)) {	/* hero at shop keeper ? */
-/*TODO*///						wardner_hack = READ_WORD_Z80(&buffered_spriteram[0x0b02]);
-/*TODO*///						wardner_hack |= 0x0400;			/* make hero top priority */
-/*TODO*///						WRITE_WORD_Z80(&buffered_spriteram[0x0b02],wardner_hack);
-/*TODO*///						wardner_hack = READ_WORD_Z80(&buffered_spriteram[0x0b0a]);
-/*TODO*///						wardner_hack |= 0x0400;
-/*TODO*///						WRITE_WORD_Z80(&buffered_spriteram[0x0b0a],wardner_hack);
-/*TODO*///						wardner_hack = READ_WORD_Z80(&buffered_spriteram[0x0b12]);
-/*TODO*///						wardner_hack |= 0x0400;
-/*TODO*///						WRITE_WORD_Z80(&buffered_spriteram[0x0b12],wardner_hack);
-/*TODO*///						wardner_hack = READ_WORD_Z80(&buffered_spriteram[0x0b1a]);
-/*TODO*///						wardner_hack |= 0x0400;
-/*TODO*///						WRITE_WORD_Z80(&buffered_spriteram[0x0b1a],wardner_hack);
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	/**********  End ugly sprite hack for Wardner when hero is in shop **********/
-/*TODO*///	
+                /*********  Begin ugly sprite hack for Wardner when hero is in shop *********/
+		if ((wardner_sprite_hack!=0) && (fgscrollx != bgscrollx)) {	/* Wardner ? */
+			if ((fgscrollx==0x1c9) || (twincobr_flip_screen!=0 && (fgscrollx==0x17a))) {	/* in the shop ? */
+				int wardner_hack = READ_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b04));
+			/* sprite position 0x6300 to 0x8700 -- hero on shop keeper (normal) */
+			/* sprite position 0x3900 to 0x5e00 -- hero on shop keeper (flip) */
+				if ((wardner_hack > 0x3900) && (wardner_hack < 0x8700)) {	/* hero at shop keeper ? */
+						wardner_hack = READ_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b02));
+						wardner_hack |= 0x0400;			/* make hero top priority */
+						WRITE_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b02),wardner_hack);
+						wardner_hack = READ_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b0a));
+						wardner_hack |= 0x0400;
+						WRITE_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b0a),wardner_hack);
+						wardner_hack = READ_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b12));
+						wardner_hack |= 0x0400;
+						WRITE_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b12),wardner_hack);
+						wardner_hack = READ_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b1a));
+						wardner_hack |= 0x0400;
+						WRITE_WORD_Z80(new UBytePtr(buffered_spriteram, 0x0b1a),wardner_hack);
+				}
+			}
+		}
+	/**********  End ugly sprite hack for Wardner when hero is in shop **********/
+	
                 /* draw the sprites in normal priority */
                 twincobr_draw_sprites(bitmap, 0x0800);
 

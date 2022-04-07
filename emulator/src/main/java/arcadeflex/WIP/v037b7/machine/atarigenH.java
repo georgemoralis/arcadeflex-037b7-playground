@@ -353,8 +353,8 @@ public class atarigenH
 		public int bpp;
 		public int pen_usage;
 		public int pen_usage_hi;
-		public UShortArray table;
-		public UShortArray data;
+		public UShortPtr table;
+		public UShortPtr data;
 	};
 	
 /*TODO*///	extern int atarigen_rle_count;

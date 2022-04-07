@@ -79,7 +79,7 @@ public class c140 extends snd_interface
 	
 	public static class voice_registers
 	{
-                int _data; // added by Chuso
+                //int _data; // added by Chuso
 		int volume_right;
 		int volume_left;
 		int frequency_msb;
@@ -104,13 +104,13 @@ public class c140 extends snd_interface
 	
 	static int baserate;
 	static UBytePtr pRom = new UBytePtr();
-	static voice_registers[] REG = new voice_registers[0x200];
+	static int[] REG = new int[0x200];
 	
 	static int[] pcmtbl = new int[8];		//2000.06.26 CAB
 	
 	public static class VOICE
 	{
-		long	ptoffset;
+		public long	ptoffset;
 		long	pos;
 		long	key;
 		//--work
@@ -149,8 +149,9 @@ public class c140 extends snd_interface
 	
 	public static ReadHandlerPtr C140_r  = new ReadHandlerPtr() { public int handler(int offset)
 	{
+            //System.out.println("C140_r");
 		offset&=0x1ff;
-		return REG[offset]._data;
+		return REG[offset];
 	} };
 	
 	static long find_sample( long adrs, long bank)
@@ -158,17 +159,35 @@ public class c140 extends snd_interface
 		adrs=(bank<<16)+adrs;
 		return ((adrs&0x200000)>>2)|(adrs&0x7ffff);		//SYSTEM2 mapping
 	}
+        
+        //static voice_registers[] _REG = new voice_registers[MAX_VOICE];
+        
+        static voice_registers set_voice_register(int _pos) {
+            voice_registers vreg = new voice_registers();
+            
+            vreg.volume_right    = REG[_pos];
+            vreg.volume_left     = REG[_pos + 1];
+            vreg.frequency_msb   = REG[_pos + 2];
+            vreg.frequency_lsb   = REG[_pos + 3];
+            vreg.bank            = REG[_pos + 4];
+            vreg.mode            = REG[_pos + 5];
+            vreg.start_msb       = REG[_pos + 6];
+            vreg.start_lsb       = REG[_pos + 7];
+            vreg.end_msb         = REG[_pos + 8];
+            vreg.end_lsb         = REG[_pos + 9];
+            
+            return vreg;
+        }
 	
 	public static WriteHandlerPtr C140_w = new WriteHandlerPtr() {public void handler(int offset, int data)
 	{
+            //System.out.println("C140_w "+data);
 		stream_update(stream, 0);
 	
 		offset&=0x1ff;
                 
-                if (REG[offset] == null)
-                    REG[offset] = new voice_registers();
-	
-		REG[offset]._data=data;
+                
+		REG[offset]=data;
 		if( offset<0x180 )
 		{
 //			VOICE *v = &voi[offset>>4];
@@ -176,7 +195,11 @@ public class c140 extends snd_interface
 			{
 				if ((data & 0x80) != 0)
 				{
-                                        voice_registers vreg = REG[offset&0x1f0];
+                                    //if (_REG[REG[offset&0x1f0]] == null)
+                                    //    _REG[REG[offset&0x1f0]] = new voice_registers();
+                                                
+                                        voice_registers vreg = set_voice_register(offset&0x1f0);
+                                        
 					voi[offset>>4].key=1;
 					voi[offset>>4].ptoffset=0;
 					voi[offset>>4].pos=0;
@@ -188,6 +211,8 @@ public class c140 extends snd_interface
 					voi[offset>>4].sample_loop = vreg.loop_msb*256 + vreg.loop_lsb;
 					voi[offset>>4].sample_start = vreg.start_msb*256 + vreg.start_lsb;
 					voi[offset>>4].sample_end = vreg.end_msb*256 + vreg.end_lsb;
+                                        
+                                        
 				}
 				else
 				{
@@ -207,6 +232,7 @@ public class c140 extends snd_interface
 	static StreamInitMultiPtr update_stereo = new StreamInitMultiPtr() {
             @Override
             public void handler(int ch, ShortPtr[] buffer, int length) {
+                //System.out.println("update_stereo");
                 int		i,j;
 	
 		int	rvol,lvol;
@@ -236,7 +262,9 @@ public class c140 extends snd_interface
 	
 			if( voi[i].key != 0 )
 			{
-				frequency= REG[i*16].frequency_msb*256 + REG[i*16].frequency_lsb;
+				frequency= REG[((i*16))+2]/*.frequency_msb*/*256 + REG[((i*16))+3]/*.frequency_lsb*/;
+                                
+                                //System.out.println("frequency="+frequency);
 	
 				/* Abort voice if no frequency value set */
 				if(frequency==0) continue;
@@ -245,8 +273,8 @@ public class c140 extends snd_interface
 				delta=(int) (frequency * pbase);
 	
 				/* Calculate left/right channel volumes */
-				lvol=(REG[i*16].volume_left*32)/MAX_VOICE; //32ch . 24ch
-				rvol=(REG[i*16].volume_right*32)/MAX_VOICE;
+				lvol=(REG[i*16+1]/*.volume_left*/*32)/MAX_VOICE; //32ch . 24ch
+				rvol=(REG[i*16+0]/*.volume_right*/*32)/MAX_VOICE;
 	
 				/* Set mixer buffer base pointers */
 				lmix = new ShortPtr(mixer_buffer_left);
@@ -378,8 +406,8 @@ public class c140 extends snd_interface
 			ShortPtr dest2 = new ShortPtr(buffer[1]);
 			for (i = 0; i < length; i++)
 			{
-				dest1.writeinc((short) limit(8*(lmix.readinc())));
-				dest2.writeinc((short) limit(8*(rmix.readinc())));
+				buffer[0].writeinc((short) limit(8*(lmix.readinc())));
+				buffer[1].writeinc((short) limit(8*(rmix.readinc())));
 			}
 		}
             }
@@ -415,7 +443,7 @@ public class c140 extends snd_interface
 		}
 	
 		//memset(REG,0,0x200 );
-                REG = new voice_registers[0x200];
+                REG = new int[0x200];
 		{
 			int i;
 			for(i=0;i<MAX_VOICE;i++) 

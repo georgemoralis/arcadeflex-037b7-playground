@@ -1636,7 +1636,7 @@ public class atarigen
 	/* statics */
 	static int rle_region;
 	static int[] rle_bpp=new int[8];
-	static UShortArray[] rle_table = new UShortArray[8];
+	static UShortPtr[] rle_table = new UShortPtr[8];
 	static UShortArray rle_colortable;
 
 /*TODO*///	/* prototypes */
@@ -1777,20 +1777,20 @@ public class atarigen
 	
 	static int build_rle_tables()
 	{
-		UShortArray base;
+		UShortPtr base;
 		int i;
 	
 		/* allocate all 5 tables */
-		base = new UShortArray(0x500);
+		base = new UShortPtr(0x500 * 2);
 		if (base==null)
 			return 1;
 	
 		/* assign the tables */
-		rle_table[0] = new UShortArray(base, 0x000);
-		rle_table[1] = new UShortArray(base, 0x100);
-		rle_table[2] = rle_table[3] = new UShortArray(base, 0x200);
-		rle_table[4] = rle_table[6] = new UShortArray(base, 0x300);
-		rle_table[5] = rle_table[7] = new UShortArray(base, 0x400);
+		rle_table[0] = new UShortPtr(base, 0x000);
+		rle_table[1] = new UShortPtr(base, 0x100);
+		rle_table[2] = rle_table[3] = new UShortPtr(base, 0x200);
+		rle_table[4] = rle_table[6] = new UShortPtr(base, 0x300);
+		rle_table[5] = rle_table[7] = new UShortPtr(base, 0x400);
 	
 		/* set the bpps */
 		rle_bpp[0] = 4;
@@ -1799,32 +1799,32 @@ public class atarigen
 	
 		/* build the 4bpp table */
 		for (i = 0; i < 256; i++)
-			rle_table[0].write(i, (((i & 0xf0) + 0x10) << 4) | (i & 0x0f));
+			rle_table[0].write(i, (char) ((((i & 0xf0) + 0x10) << 4) | (i & 0x0f)));
 	
 		/* build the 5bpp table */
 		for (i = 0; i < 256; i++)
-			rle_table[2].write(i, (((i & 0xe0) + 0x20) << 3) | (i & 0x1f));
+			rle_table[2].write(i, (char) ((((i & 0xe0) + 0x20) << 3) | (i & 0x1f)));
 	
 		/* build the special 5bpp table */
 		for (i = 0; i < 256; i++)
 		{
 			if ((i & 0x0f) == 0)
-				rle_table[1].write(i, (((i & 0xf0) + 0x10) << 4) | (i & 0x0f));
+				rle_table[1].write(i, (char) ((((i & 0xf0) + 0x10) << 4) | (i & 0x0f)));
 			else
-				rle_table[1].write(i, (((i & 0xe0) + 0x20) << 3) | (i & 0x1f));
+				rle_table[1].write(i, (char) ((((i & 0xe0) + 0x20) << 3) | (i & 0x1f)));
 		}
 	
 		/* build the 6bpp table */
 		for (i = 0; i < 256; i++)
-			rle_table[5].write(i, (((i & 0xc0) + 0x40) << 2) | (i & 0x3f));
+			rle_table[5].write(i, (char) ((((i & 0xc0) + 0x40) << 2) | (i & 0x3f)));
 	
 		/* build the special 6bpp table */
 		for (i = 0; i < 256; i++)
 		{
 			if ((i & 0x0f) == 0)
-				rle_table[4].write(i, (((i & 0xf0) + 0x10) << 4) | (i & 0x0f));
+				rle_table[4].write(i, (char) ((((i & 0xf0) + 0x10) << 4) | (i & 0x0f)));
 			else
-				rle_table[4].write(i, (((i & 0xc0) + 0x40) << 2) | (i & 0x3f));
+				rle_table[4].write(i, (char) ((((i & 0xc0) + 0x40) << 2) | (i & 0x3f)));
 		}
 	
 		return 0;
@@ -1840,11 +1840,12 @@ public class atarigen
 	
 	static void prescan_rle(int which)
 	{
-		UShortArray base = new UShortArray(memory_region(rle_region), which * 8);
+		UShortPtr base = new UShortPtr(memory_region(rle_region), which * 8);
+                
 		atarigen_rle_descriptor rle_data = atarigen_rle_info[which];
 		int usage = 0, usage_hi = 0;
 		int width = 0, height, flags, offset;
-		UShortArray table;
+		UShortPtr table;
 	
 		/* look up the offset */
 		rle_data.xoffs = base.read(0);
@@ -1857,7 +1858,8 @@ public class atarigen
 	
 		/* determine the starting offset */
 		offset = ((base.read(2) & 0xff) << 16) | base.read(3);
-		rle_data.data = base = new UShortArray(memory_region(rle_region), offset * 2);
+		rle_data.data = new UShortPtr(memory_region(rle_region), offset * 2);
+                base = new UShortPtr(memory_region(rle_region), offset * 2);
 	
 		/* make sure it's valid */
 		if (offset < which * 4 || offset > memory_region_length(rle_region))
@@ -1871,7 +1873,12 @@ public class atarigen
 		for (height = 0; height < 1024; height++)
 		{
 			int tempwidth = 0;
-			int entry_count = base.read();base.inc(1);
+			int entry_count = 0;
+                        if (base.offset < (base.memory.length -1))
+                                     entry_count = base.read(0);   
+                                
+                                if (base.offset < (base.memory.length -1))
+                                    base.inc(1);
 	
 			/* if the high bit is set, assume we're inverted */
 			if ((entry_count & 0x8000) != 0)
@@ -1879,7 +1886,7 @@ public class atarigen
 				entry_count ^= 0xffff;
 	
 				/* also change the ROM data so we don't have to do this again at runtime */
-				base.write(-1,  base.read(-1)^ 0xffff);
+				base.write(-1, (char) (base.read(-1)^ 0xffff));
 			}
 	
 			/* we're done when we hit 0 */
@@ -1889,7 +1896,14 @@ public class atarigen
 			/* track the width */
 			while (entry_count-- != 0)
 			{
-				int word = base.read();base.inc(1);
+				int word = 0;
+                                
+                                if (base.offset < (base.memory.length -1))
+                                     word = base.read(0);   
+                                
+                                if (base.offset < (base.memory.length -1))
+                                    base.inc(1);
+                                
 				int count, value;
 	
 				/* decode the low byte first */
@@ -1935,8 +1949,8 @@ public class atarigen
 			rectangle clip)
 	{
 		UShortArray palette = new UShortArray(rle_colortable, color);
-		UShortArray row_start = new UShortArray(gfx.data);
-		UShortArray table = new UShortArray(gfx.table);
+		UShortPtr row_start = new UShortPtr(gfx.data);
+		UShortPtr table = new UShortPtr(gfx.table);
 		int current_row = 0;
 	
 		int scaled_width = (scalex * gfx.width + 0x7fff) >> 16;
@@ -1996,16 +2010,16 @@ public class atarigen
 		{
 			UBytePtr dest = new UBytePtr(bitmap.line[y], sx);
 			int j, sourcex = dx / 2, rle_end = 0;
-			UShortArray base;
+			UShortPtr base;
 			int entry_count;
 	
 			/* loop until we hit the row we're on */
 			for ( ; current_row != (sourcey >> 16); current_row++)
-				row_start.inc( 1 + row_start.read());
+				row_start.inc( 1 + row_start.read(0));
 	
 			/* grab our starting parameters from this row */
-			base = new UShortArray(row_start);
-			entry_count = base.read(); base.inc(1);
+			base = new UShortPtr(row_start);
+			entry_count = base.read(0); base.inc(1);
 	
 			/* non-clipped case */
 			if (xclipped==0)
@@ -2013,7 +2027,7 @@ public class atarigen
 				/* decode the pixels */
 				for (j = 0; j < entry_count; j++)
 				{
-					int word = base.read(); base.inc(1);
+					int word = base.read(0); base.inc(1);
 					int count, value;
 	
 					/* decode the low byte first */
@@ -2071,7 +2085,7 @@ public class atarigen
 				/* decode the pixels */
 				for (j = 0; j < entry_count && dest.offset <= end.offset; j++)
 				{
-					int word = base.read(); base.inc(1);
+					int word = base.read(0); base.inc(1);
 					int count, value;
 	
 					/* decode the low byte first */
@@ -2157,8 +2171,8 @@ public class atarigen
 			rectangle clip)
 	{
 		UShortArray palette = new UShortArray(rle_colortable, color);
-		UShortArray row_start = new UShortArray(gfx.data);
-		UShortArray table = new UShortArray(gfx.table);
+		UShortPtr row_start = new UShortPtr(gfx.data);
+		UShortPtr table = new UShortPtr(gfx.table);
 		int current_row = 0;
                 
                 boolean _next3=false, _next4=false;
@@ -2217,7 +2231,7 @@ public class atarigen
 		{
 			UShortArray dest = new UShortArray(bitmap.line[y], sx * 2);
 			int j, sourcex = dx / 2, rle_end = 0;
-			UShortArray base;
+			UShortPtr base;
 			int entry_count;
 	
 			/* loop until we hit the row we're on */
@@ -2225,8 +2239,8 @@ public class atarigen
 				row_start.inc( 1 + row_start.read(1) );
 	
 			/* grab our starting parameters from this row */
-			base = new UShortArray(row_start);
-			entry_count = base.read(); base.inc(1);
+			base = new UShortPtr(row_start);
+			entry_count = base.read(0); base.inc(1);
 	
 			/* non-clipped case */
 			if (xclipped==0)
@@ -2234,7 +2248,7 @@ public class atarigen
 				/* decode the pixels */
 				for (j = 0; j < entry_count; j++)
 				{
-					int word = base.read(); base.inc(1);
+					int word = base.read(0); base.inc(1);
 					int count, value;
 	
 					/* decode the low byte first */
@@ -2288,13 +2302,13 @@ public class atarigen
 			/* clipped case */
 			else
 			{
-				UShortArray end = new UShortArray(bitmap.line[y], ex * 2);
+				UShortPtr end = new UShortPtr(bitmap.line[y], ex * 2);
 				int to_be_skipped = pixels_to_skip;
 	
 				/* decode the pixels */
 				for (j = 0; j < entry_count && dest.offset <= end.offset; j++)
 				{
-					int word = base.read(); base.inc(1);
+					int word = base.read(0); base.inc(1);
 					int count, value;
 	
 					/* decode the low byte first */

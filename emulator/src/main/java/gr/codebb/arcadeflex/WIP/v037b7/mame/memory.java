@@ -966,7 +966,7 @@ public class memory {
             }
 
             /* do not support on callback memory region */
-            printf("CPU #%d PC %04x: warning - op-code execute on mapped i/on", cpu_getactivecpu(), cpu_get_pc());
+            printf("CPU #%d PC %04x: warning - op-code execute on mapped i/o\n", cpu_getactivecpu(), cpu_get_pc());
         }
     };
 

@@ -253,7 +253,7 @@ public class t11 extends cpu_interface
             public irqcallbacksPtr irq_callback;
 	};
 
-	static t11_Regs t11 = new t11_Regs();
+	public static t11_Regs t11 = new t11_Regs();
 
 	/* public globals */
 	static int[] t11_ICount = {50000};
@@ -262,44 +262,44 @@ public class t11 extends cpu_interface
 /*TODO*///	#define REGD(x) t11.reg[x].d
 /*TODO*///	#define REGW(x) t11.reg[x].w.l
 /*TODO*///	#define REGB(x) t11.reg[x].b.l
-	public void SP(int _val) { 
+	public static void SP(int _val) { 
             //REGW(6); 
             t11.reg[6].SetD(_val);
         }
-        public int SP() { 
+        public static int SP() { 
             //REGW(6);
             return t11.reg[6].D; 
         }
 
-        public void PC(int _val) { 
+        public static void PC(int _val) { 
             //REGW(7); 
             t11.reg[7].SetD(_val);
         }
-        public int PC() { 
+        public static int PC() { 
             //REGW(7);
             return t11.reg[7].D; 
         }
 /*TODO*///	#define SPD REGD(6)
-        public void PCD(int _val) { 
+        public static void PCD(int _val) { 
             //REGD(7); 
             t11.reg[7].SetD(_val);
         }
-        public int PCD() { 
+        public static int PCD() { 
             //REGD(7);
             return t11.reg[7].D; 
         }
         
-        public void PSW(int _val) { 
+        public static void PSW(int _val) { 
             //t11.psw.b.l; 
             t11.reg[7].SetL(_val & 0xff);
         }
-        public int PSW() { 
+        public static int PSW() { 
             //t11.psw.b.l;
             return t11.reg[7].L; 
         }
 	
 	/* shortcuts for reading opcodes */
-	public int ROPCODE()
+	public static int ROPCODE()
 	{
 		int pc = PCD();
 		PC( PC() + 2 );
@@ -334,13 +334,13 @@ public class t11 extends cpu_interface
 /*TODO*///		SP += 2;
 /*TODO*///		return result;
 /*TODO*///	}
-/*TODO*///	
-/*TODO*///	/* flag definitions */
-/*TODO*///	#define CFLAG 1
-/*TODO*///	#define VFLAG 2
-/*TODO*///	#define ZFLAG 4
-/*TODO*///	#define NFLAG 8
-/*TODO*///	
+	
+	/* flag definitions */
+	public static final int CFLAG = 1;
+	public static final int VFLAG = 2;
+	public static final int ZFLAG = 4;
+	public static final int NFLAG = 8;
+	
 /*TODO*///	/* extracts flags */
 /*TODO*///	#define GET_C (PSW & CFLAG)
 /*TODO*///	#define GET_V (PSW & VFLAG)
