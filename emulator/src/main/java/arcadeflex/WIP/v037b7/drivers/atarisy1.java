@@ -142,6 +142,7 @@ import static arcadeflex.WIP.v037b7.vidhrdw.atarisy1.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import arcadeflex.common.ptrLib.UShortPtr;
 import arcadeflex.common.subArrays.IntSubArray;
+import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.mame.memory.*;
 import static arcadeflex.v037b7.mame.memoryH.*;
 import static arcadeflex.v037b7.mame.palette.*;

@@ -54,7 +54,7 @@ public class c140 extends snd_interface
 
     @Override
     public int chips_clock(MachineSound msound) {
-        return ((C140interface) msound.sound_interface).frequency;
+        return 0;
     }
 
     @Override
@@ -267,7 +267,10 @@ public class c140 extends snd_interface
                                 //System.out.println("frequency="+frequency);
 	
 				/* Abort voice if no frequency value set */
-				if(frequency==0) continue;
+                                boolean _abort=false;
+				if(frequency==0) _abort=true;
+                                
+                                if (!_abort) {
 	
 				/* Delta =  frequency * ((8MHz/374)*2 / sample rate) */
 				delta=(int) (frequency * pbase);
@@ -395,6 +398,7 @@ public class c140 extends snd_interface
 				voi[i].lastdt=lastdt;
 				voi[i].prevdt=prevdt;
 				voi[i].dltdt=dltdt;
+                                }
 			}
 		}
 	
@@ -406,8 +410,8 @@ public class c140 extends snd_interface
 			ShortPtr dest2 = new ShortPtr(buffer[1]);
 			for (i = 0; i < length; i++)
 			{
-				buffer[0].writeinc((short) limit(8*(lmix.readinc())));
-				buffer[1].writeinc((short) limit(8*(rmix.readinc())));
+				dest1.writeinc((short) limit(8*(lmix.readinc())));
+				dest2.writeinc((short) limit(8*(rmix.readinc())));
 			}
 		}
             }

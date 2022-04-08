@@ -45,7 +45,7 @@ public class badlands
 	public static int XDIM = (XCHARS*8);
 	public static int YDIM = (YCHARS*8);
         
-        static atarigen_pf_state pf_state;
+        public static atarigen_pf_state pf_state;
 	
 	
 	/*************************************

@@ -2879,8 +2879,9 @@ public class atarigen
 		/* allocate the list of parameters */
                 int _lo = source_desc.ytiles * source_desc.tileheight;
 		pf.state = new atarigen_pf_state[_lo];
-                for (int _i=0 ; _i<_lo ; _i++)
+                /*for (int _i=0 ; _i<_lo ; _i++)
                     pf.state[_i] = new atarigen_pf_state();
+                */
                 
 		if (pf.state==null)
 		{
@@ -2898,7 +2899,12 @@ public class atarigen
 	
 		/* initialize the last state to all zero */
 		pf.last_state = pf.state;
+                pf.last_state = new atarigen_pf_state[_lo];
+                        
+                for (int _i=0 ; _i<_lo ; _i++)
+                    pf.last_state[_i] = new atarigen_pf_state();
 /*TODO*///		memset(pf.last_state, 0, sizeof(*pf.last_state));
+
 	
 		/* reset */
 		internal_pf_reset(pf);
@@ -2920,8 +2926,8 @@ public class atarigen
 			}
 	
 			atarigen_pf_bitmap = playfield.bitmap;
-			atarigen_pf_dirty = new UBytePtr(playfield.dirty);
-			atarigen_pf_visit = new UBytePtr(playfield.visit);
+			atarigen_pf_dirty = playfield.dirty;
+			atarigen_pf_visit = playfield.visit;
 		}
 		return result;
 	}
@@ -2932,8 +2938,8 @@ public class atarigen
 		if (result==0)
 		{
 			atarigen_pf2_bitmap = playfield2.bitmap;
-			atarigen_pf2_dirty = new UBytePtr(playfield2.dirty);
-			atarigen_pf2_visit = new UBytePtr(playfield2.visit);
+			atarigen_pf2_dirty = playfield2.dirty;
+			atarigen_pf2_visit = playfield2.visit;
 		}
 		return result;
 	}
@@ -2994,7 +3000,10 @@ public class atarigen
 		if (pf.scanline!=null && pf.state!=null)
 		{
 			pf.entries = 0;
-			internal_pf_update(pf, pf.last_state[0], 0);
+                        atarigen_pf_state _temp = pf.last_state[0];
+			internal_pf_update(pf, _temp, 0);
+                        pf.last_state[0] = _temp;
+                        //System.out.println(pf.scanline[pf.entries]);
 		}
 	}
 	

@@ -570,7 +570,7 @@ public class atarigenH
 		UShortArray temp = new UShortArray(gfx.colortable);
 		gfx.colortable = new UShortArray(atarigen_overrender_colortable);
 		atarigen_mo_draw(bitmap, gfx, code, 0, hflip, vflip, x, y, hsize, vsize, clip, trans, trans_pen, tile_width, tile_height);
-		gfx.colortable = temp;																				
+		gfx.colortable = new UShortArray(temp);
 	}
 	
 	public static void atarigen_mo_draw_strip(osd_bitmap bitmap, GfxElement gfx, int code, int color, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen, int tile_width, int tile_height) 
@@ -611,7 +611,7 @@ public class atarigenH
 		UShortArray temp = new UShortArray(gfx.colortable);
 		gfx.colortable = new UShortArray(atarigen_overrender_colortable);
 		atarigen_mo_draw_strip(bitmap, gfx, code, 0, hflip, vflip, x, y, vsize, clip, trans, trans_pen, tile_width, tile_height);
-		gfx.colortable = temp;																				
+		gfx.colortable = new UShortArray(temp);
 	}
 
 
