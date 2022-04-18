@@ -250,6 +250,7 @@ import static arcadeflex.v037b7.drivers.mcr3.*;
 import static arcadeflex.WIP.v037b7.drivers.namcos2.*;
 import static arcadeflex.WIP.v037b7.drivers.toki.*;
 import static arcadeflex.WIP.v037b7.drivers.aerofgt.*;
+import static arcadeflex.WIP.v037b7.drivers.toaplan1.*;
 
 public class driver {
 
@@ -1235,18 +1236,18 @@ public class driver {
         driver_twincobu, 	/* TP-011 (c) 1987 Taito America Corporation + Romstar license (US) */
         driver_ktiger, 	/* TP-011 (c) 1987 Taito Corporation (Japan) */
         
-        /*TODO*///	driver_rallybik,	/* TP-012 (c) 1988 Taito */
-        /*TODO*///	driver_truxton,	/* TP-013B (c) 1988 Taito */
-        /*TODO*///	driver_hellfire,	/* TP-??? (c) 1989 Toaplan + Taito license */
-        /*TODO*///	driver_zerowing,	/* TP-015 (c) 1989 Toaplan */
-        /*TODO*///	driver_demonwld,	/* TP-016 (c) 1989 Toaplan + Taito license */
-        /*TODO*///	driver_fireshrk,	/* TP-017 (c) 1990 Toaplan */
-        /*TODO*///	driver_samesame,	/* TP-017 (c) 1989 Toaplan */
-        /*TODO*///	driver_outzone,	/* TP-018 (c) 1990 Toaplan */
-        /*TODO*///	driver_outzonep,	/* bootleg */
-        /*TODO*///	driver_vimana,	/* TP-019 (c) 1991 Toaplan (+ Tecmo license when set to Japan) */
-        /*TODO*///	driver_vimana2,	/* TP-019 (c) 1991 Toaplan (+ Tecmo license when set to Japan)  */
-        /*TODO*///	driver_vimanan,	/* TP-019 (c) 1991 Toaplan (+ Nova Apparate GMBH & Co license) */
+        	driver_rallybik,	/* TP-012 (c) 1988 Taito */
+        	driver_truxton,	/* TP-013B (c) 1988 Taito */
+        	driver_hellfire,	/* TP-??? (c) 1989 Toaplan + Taito license */
+        	driver_zerowing,	/* TP-015 (c) 1989 Toaplan */
+        	driver_demonwld,	/* TP-016 (c) 1989 Toaplan + Taito license */
+        	driver_fireshrk,	/* TP-017 (c) 1990 Toaplan */
+        	driver_samesame,	/* TP-017 (c) 1989 Toaplan */
+        	driver_outzone,	/* TP-018 (c) 1990 Toaplan */
+        	driver_outzonep,	/* bootleg */
+        	driver_vimana,	/* TP-019 (c) 1991 Toaplan (+ Tecmo license when set to Japan) */
+        	driver_vimana2,	/* TP-019 (c) 1991 Toaplan (+ Tecmo license when set to Japan)  */
+        	driver_vimanan,	/* TP-019 (c) 1991 Toaplan (+ Nova Apparate GMBH & Co license) */
         driver_snowbros, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
         driver_snowbroa, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
         driver_snowbrob, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
