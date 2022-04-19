@@ -252,6 +252,7 @@ import static arcadeflex.WIP.v037b7.drivers.toki.*;
 import static arcadeflex.WIP.v037b7.drivers.aerofgt.*;
 import static arcadeflex.WIP.v037b7.drivers.toaplan1.*;
 import static arcadeflex.WIP.v037b7.drivers.toaplan2.*;
+import static arcadeflex.WIP.v037b7.drivers.eprom.*;
 
 public class driver {
 
@@ -2532,8 +2533,8 @@ public class driver {
         /*TODO*///	driver_blstroi2,	/* (c) 1987 */
         /*TODO*///	driver_blsthead,	/* (c) 1987 */
         driver_xybots, 	/* (c) 1987 */
-        /*TODO*///	driver_eprom,		/* (c) 1989 */
-        /*TODO*///	driver_eprom2,	/* (c) 1989 */
+        driver_eprom,		/* (c) 1989 */
+        driver_eprom2,	/* (c) 1989 */
         driver_skullxbo,	/* (c) 1989 */
         driver_skullxb2,	/* (c) 1989 */
         driver_badlands, 	/* (c) 1989 */
