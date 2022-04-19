@@ -251,6 +251,7 @@ import static arcadeflex.WIP.v037b7.drivers.namcos2.*;
 import static arcadeflex.WIP.v037b7.drivers.toki.*;
 import static arcadeflex.WIP.v037b7.drivers.aerofgt.*;
 import static arcadeflex.WIP.v037b7.drivers.toaplan1.*;
+import static arcadeflex.WIP.v037b7.drivers.toaplan2.*;
 
 public class driver {
 
@@ -1253,24 +1254,24 @@ public class driver {
         driver_snowbrob, /* MIN16-02 (c) 1990 Toaplan + Romstar license */
         driver_snowbroj, /* MIN16-02 (c) 1990 Toaplan */
         driver_wintbob, /* bootleg */
-        /*TODO*///
-        /*TODO*///	driver_tekipaki,	/* TP-020 (c) 1991 Toaplan */
-        /*TODO*///	driver_ghox,		/* TP-021 (c) 1991 Toaplan */
-        /*TODO*///	driver_dogyuun,	/* TP-022 (c) 1992 Toaplan */
-        /*TODO*///	driver_kbash,		/* TP-023 (c) 1993 Toaplan */
-        /*TODO*///	driver_tatsujn2,	/* TP-024 (c) 1992 Toaplan */
-        /*TODO*///	driver_pipibibs,	/* TP-025 */
-        /*TODO*///	driver_pipibibi,	/* (c) 1991 Ryouta Kikaku (bootleg?) */
-        /*TODO*///	driver_whoopee,	/* TP-025 */
+        
+        	driver_tekipaki,	/* TP-020 (c) 1991 Toaplan */
+        	driver_ghox,		/* TP-021 (c) 1991 Toaplan */
+        	driver_dogyuun,	/* TP-022 (c) 1992 Toaplan */
+        	driver_kbash,		/* TP-023 (c) 1993 Toaplan */
+        	driver_tatsujn2,	/* TP-024 (c) 1992 Toaplan */
+        	driver_pipibibs,	/* TP-025 */
+        	driver_pipibibi,	/* (c) 1991 Ryouta Kikaku (bootleg?) */
+        	driver_whoopee,	/* TP-025 */
         /*TODO*///TESTdriver_fixeight,	/* TP-026 (c) 1992 + Taito license */
-        /*TODO*///	driver_vfive,		/* TP-027 (c) 1993 Toaplan (Japan) */
-        /*TODO*///	driver_grindstm,	/* TP-027 (c) 1993 Toaplan + Unite Trading license (Korea) */
-        /*TODO*///	driver_batsugun,	/* TP-030 (c) 1993 Toaplan */
-        /*TODO*///	driver_batugnsp,	/* TP-??? (c) 1993 Toaplan */
-        /*TODO*///	driver_snowbro2,	/* TP-??? (c) 1994 Hanafram */
-        /*TODO*///	driver_mahoudai,	/* (c) 1993 Raizing + Able license */
-        /*TODO*///	driver_shippumd,	/* (c) 1994 Raizing */
-        /*TODO*///
+        	driver_vfive,		/* TP-027 (c) 1993 Toaplan (Japan) */
+        	driver_grindstm,	/* TP-027 (c) 1993 Toaplan + Unite Trading license (Korea) */
+        	driver_batsugun,	/* TP-030 (c) 1993 Toaplan */
+        	driver_batugnsp,	/* TP-??? (c) 1993 Toaplan */
+        	driver_snowbro2,	/* TP-??? (c) 1994 Hanafram */
+        	driver_mahoudai,	/* (c) 1993 Raizing + Able license */
+        	driver_shippumd,	/* (c) 1994 Raizing */
+        
         /*TODO*////*
         /*TODO*///Toa Plan's board list
         /*TODO*///(translated from http://www.aianet.ne.jp/~eisetu/rom/rom_toha.html)

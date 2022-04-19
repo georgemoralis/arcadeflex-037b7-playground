@@ -8,6 +8,7 @@ import static arcadeflex.WIP.v037b7.vidhrdw.taitoic.*;
 import static arcadeflex.common.libc.cstring.*;
 import static arcadeflex.common.libc.expressions.NOT;
 import static arcadeflex.common.ptrLib.*;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 import static arcadeflex.v037b7.generic.funcPtr.*;
 import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
@@ -24,6 +25,7 @@ import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.palette.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
+import gr.codebb.arcadeflex.old.arcadeflex.libc_old.IntPtr;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;     
 import static gr.codebb.arcadeflex.old.mame.drawgfx.fillbitmap;        
 
@@ -268,8 +270,8 @@ public class taito_f2
 	
 	public static VhStartPtr taitof2_core_vh_start = new VhStartPtr() { public int handler() 
 	{
-		spriteram_delayed = new UBytePtr (spriteram/*spriteram_size[0] * 2*/);
-		spriteram_buffered = new UBytePtr (spriteram/*spriteram_size[0] * 2*/);
+		spriteram_delayed = new UBytePtr (spriteram_size[0]);
+		spriteram_buffered = new UBytePtr (spriteram_size[0]);
 		spritelist = new tempsprite[0x400];
                 
                 for (int _i=0 ; _i<0x400 ; _i++)
@@ -796,6 +798,7 @@ public class taito_f2
 		non zoom parts.
 	
 		*/
+                //System.out.println("Draw Sprites! "+sprites_disabled);
 		int x,y,off,extoffs;
 		int code,color,spritedata,spritecont,flipx,flipy;
 		int xcurrent,ycurrent,big_sprite=0;
@@ -809,7 +812,7 @@ public class taito_f2
 	
 		/* pdrawgfx() needs us to draw sprites front to back, so we have to build a list
 		   while processing sprite ram and then draw them all at the end */
-		tempsprite[] sprite_ptr = spritelist;
+		//tempsprite[] sprite_ptr = spritelist;
                 int _sprite_ptr=0;
 	
 		/* must remember enable status from last frame because driftout fails to
@@ -856,6 +859,7 @@ public class taito_f2
 			}
 	
 	//usrintf_showmessage("%04x",area);
+                        //System.out.println("Area: "+area);
 	
 			/* check for extra scroll offset */
 			if ((spriteram_buffered.read((offs+4)/2) & 0xf000) == 0xa000)
@@ -879,8 +883,12 @@ public class taito_f2
 				continue;
 	
 			spritedata = spriteram_buffered.read((offs+8)/2);
+                        
+                        //System.out.println("spritedata: "+spritedata);
 	
 			spritecont = (spritedata & 0xff00) >> 8;
+                        
+                        //System.out.println("spritecont: "+spritecont);
 	
 			if ((spritecont & 0x08) != 0)   /* sprite continuation flag set */
 			{
@@ -963,6 +971,7 @@ public class taito_f2
 	
 			if (big_sprite != 0)
 			{
+                            //System.out.println("big_sprite != 0");
 				zoomx = zoomxlatch;
 				zoomy = zoomylatch;
 				zx = 0x10;	/* default, no zoom: 16 pixels across */
@@ -982,6 +991,7 @@ public class taito_f2
 			}
 			else
 			{
+                            //System.out.println("ELSE big_sprite != 0");
 				zoomword = spriteram_buffered.read((offs+2)/2);
 				zoomy = (zoomword>>8) & 0xff;
 				zoomx = (zoomword) & 0xff;
@@ -1035,6 +1045,8 @@ public class taito_f2
 				i = (f2_sprite_extension.READ_WORD((extoffs >> 3)) & 0xff ) << 8;
 				code = (i | code);
 			}
+                        
+                        //System.out.println("code="+code);
 	
 			if (code == 0) continue;
 	
@@ -1060,33 +1072,33 @@ public class taito_f2
 			}
 	
 			{
-				sprite_ptr[_sprite_ptr].code = code;
-				sprite_ptr[_sprite_ptr].color = color;
+				spritelist[_sprite_ptr].code = code;
+				spritelist[_sprite_ptr].color = color;
 				if (Machine.gfx[0].color_granularity == 64)	/* Final Blow is 6-bit deep */
-					sprite_ptr[_sprite_ptr].color /= 4;
-				sprite_ptr[_sprite_ptr].flipx = flipx;
-				sprite_ptr[_sprite_ptr].flipy = flipy;
-				sprite_ptr[_sprite_ptr].x = curx;
-				sprite_ptr[_sprite_ptr].y = cury;
-				sprite_ptr[_sprite_ptr].zoomx = zx << 12;
-				sprite_ptr[_sprite_ptr].zoomy = zy << 12;
+					spritelist[_sprite_ptr].color /= 4;
+				spritelist[_sprite_ptr].flipx = flipx;
+				spritelist[_sprite_ptr].flipy = flipy;
+				spritelist[_sprite_ptr].x = curx;
+				spritelist[_sprite_ptr].y = cury;
+				spritelist[_sprite_ptr].zoomx = zx << 12;
+				spritelist[_sprite_ptr].zoomy = zy << 12;
 	
 				if (primasks != null)
 				{
-					sprite_ptr[_sprite_ptr].primask = primasks[(color & 0xc0) >> 6];
+					spritelist[_sprite_ptr].primask = primasks[(color & 0xc0) >> 6];
 	
 					_sprite_ptr++;
 				}
 				else
 				{
-                                    System.out.println("drawgfxzoom");
+                                    //System.out.println("drawgfxzoom");
 					drawgfxzoom(bitmap,Machine.gfx[0],
-							sprite_ptr[_sprite_ptr].code,
-							sprite_ptr[_sprite_ptr].color,
-							sprite_ptr[_sprite_ptr].flipx,sprite_ptr[_sprite_ptr].flipy,
-							sprite_ptr[_sprite_ptr].x,sprite_ptr[_sprite_ptr].y,
+							spritelist[_sprite_ptr].code,
+							spritelist[_sprite_ptr].color,
+							spritelist[_sprite_ptr].flipx,spritelist[_sprite_ptr].flipy,
+							spritelist[_sprite_ptr].x,spritelist[_sprite_ptr].y,
 							Machine.visible_area,TRANSPARENCY_PEN,0,
-							sprite_ptr[_sprite_ptr].zoomx,sprite_ptr[_sprite_ptr].zoomy);
+							spritelist[_sprite_ptr].zoomx,spritelist[_sprite_ptr].zoomy);
 				}
 			}
 		}
@@ -1094,22 +1106,22 @@ public class taito_f2
                 int _spritelist=0;
 	
 		/* this happens only if primsks != null */
-		while (_sprite_ptr != 0/*_spritelist*/)
+		while (_sprite_ptr != _spritelist)
 		{
 			_sprite_ptr--;
 	
                         //System.out.println("pdrawgfxzoom");
 			pdrawgfxzoom(bitmap,Machine.gfx[0],
-					sprite_ptr[_sprite_ptr].code,
-					sprite_ptr[_sprite_ptr].color,
-					sprite_ptr[_sprite_ptr].flipx,sprite_ptr[_sprite_ptr].flipy,
-					sprite_ptr[_sprite_ptr].x,sprite_ptr[_sprite_ptr].y,
+					spritelist[_sprite_ptr].code,
+					spritelist[_sprite_ptr].color,
+					spritelist[_sprite_ptr].flipx,spritelist[_sprite_ptr].flipy,
+					spritelist[_sprite_ptr].x,spritelist[_sprite_ptr].y,
 					Machine.visible_area,TRANSPARENCY_PEN,0,
-					sprite_ptr[_sprite_ptr].zoomx,sprite_ptr[_sprite_ptr].zoomy,
-					sprite_ptr[_sprite_ptr].primask);
+					spritelist[_sprite_ptr].zoomx,spritelist[_sprite_ptr].zoomy,
+					spritelist[_sprite_ptr].primask);
 		}
                 
-                spritelist=sprite_ptr;
+                //spritelist=sprite_ptr;
 	}
 	
 	
@@ -1120,7 +1132,7 @@ public class taito_f2
 	
 	static void taitof2_handle_sprite_buffering()
 	{
-            //System.out.println("taitof2_handle_sprite_buffering");
+            //System.out.println("taitof2_handle_sprite_buffering "+prepare_sprites);
 		if (prepare_sprites != 0)	/* no buffering */
 		{
 			memcpy(spriteram_buffered,spriteram,spriteram_size[0]);
@@ -1173,6 +1185,7 @@ public class taito_f2
 	} };
 	public static VhEofCallbackPtr taitof2_partial_buffer_delayed_eof_callback = new VhEofCallbackPtr() { public void handler() 
 	{
+            System.out.println("taitof2_partial_buffer_delayed_eof_callback");
 		int i;
 	
 		taitof2_update_sprites_active_area();

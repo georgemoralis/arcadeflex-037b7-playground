@@ -1,6 +1,7 @@
 package arcadeflex.common.libc;
 
 import static arcadeflex.common.ptrLib.*;
+import arcadeflex.common.subArrays.IntSubArray;
 import arcadeflex.common.subArrays.UShortArray;
 
 /**
@@ -42,6 +43,18 @@ public class cstring {
     
     public static void memcpy(UShortPtr dst, UBytePtr src, int size) {
         for (int i = 0; i < Math.min(size, src.memory.length); i++) {
+            dst.write(i, src.read(i));
+        }
+    }
+    
+    public static void memcpy(IntSubArray dst, UBytePtr src, int size) {
+        for (int i = 0; i < Math.min(size, src.memory.length); i++) {
+            dst.write(i, src.read(i));
+        }
+    }
+    
+    public static void memcpy(IntSubArray dst, IntSubArray src, int size) {
+        for (int i = 0; i < Math.min(size, src.buffer.length); i++) {
             dst.write(i, src.read(i));
         }
     }

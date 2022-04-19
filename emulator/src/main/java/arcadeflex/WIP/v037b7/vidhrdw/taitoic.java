@@ -226,10 +226,10 @@ public class taitoic
 	static int[] TC0100SCN_chars_dirty = new int[TC0100SCN_MAX_CHIPS];
 	static int[] TC0100SCN_bg_gfx = new int[TC0100SCN_MAX_CHIPS], TC0100SCN_tx_gfx = new int[TC0100SCN_MAX_CHIPS];
 	
-	/*static {
+	static {
             for (int _i=0 ; _i<TC0100SCN_MAX_CHIPS ; _i++)
                 TC0100SCN_ctrl[_i] = new UBytePtr(16);
-        }*/
+        }
 	
 	
 	static void common_get_bg_tile_info(UBytePtr ram,int gfxnum,int tile_index)
