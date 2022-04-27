@@ -63,21 +63,25 @@ public class aerofgt
 	/* also spinlbrk */
 	public static GetTileInfoPtr karatblz_bg2_tile_info = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
+            aerofgt_bg2videoram.offset=0;
             try {
 		int code = aerofgt_bg2videoram.READ_WORD(2*tile_index);
 		SET_TILE_INFO(1,(code & 0x1fff) + (gfxbank[1] << 13),(code & 0xe000) >> 13);
             } catch (Exception e) {
                 //System.out.println(aerofgt_bg2videoram.offset);
+                e.printStackTrace(System.out);
             }
 	} };
 	
 	public static GetTileInfoPtr spinlbrk_bg1_tile_info = new GetTileInfoPtr() { public void handler(int tile_index) 
 	{
+            aerofgt_bg1videoram.offset=0;
             try {
-		int code = aerofgt_bg1videoram.READ_WORD(2*tile_index);
+		int code = aerofgt_bg1videoram.READ_WORD(2*(tile_index&0xfff));
 		SET_TILE_INFO(0,(code & 0x0fff) + (gfxbank[0] << 12),(code & 0xf000) >> 12);
             } catch (Exception e) {
                 //System.out.println(aerofgt_bg2videoram.offset);
+                e.printStackTrace(System.out);
             }
 	} };
 	
@@ -529,9 +533,10 @@ public class aerofgt
 			offs += 2;
 		}
 	}
-	
+	        
 	static void turbofrc_drawsprites(osd_bitmap bitmap,int chip)
 	{
+            //System.out.println("turbofrc_drawsprites");
 		int attr_start,base,first;
 	
 	
@@ -558,7 +563,7 @@ public class aerofgt
 			flipy = spriteram_2.READ_WORD(attr_start + 4) & 0x8000;
 			color = (spriteram_2.READ_WORD(attr_start + 4) & 0x000f) + 16 * spritepalettebank;
 			pri = spriteram_2.READ_WORD(attr_start + 4) & 0x0010;
-			map_start = 2 * spriteram_2.READ_WORD(spriteram_2.read(attr_start + 6));
+			map_start = 2 * spriteram_2.READ_WORD(attr_start + 6);
 	
 			zoomx = 16 - zoomtable[zoomx]/8;
 			zoomy = 16 - zoomtable[zoomy]/8;
