@@ -259,6 +259,7 @@ import static arcadeflex.WIP.v037b7.drivers.seta.*;
 import static arcadeflex.WIP.v037b7.drivers.battlera.*;
 import static arcadeflex.WIP.v037b7.drivers.actfancr.*;
 import static arcadeflex.WIP.v037b7.drivers.cbuster.*;
+import static arcadeflex.WIP.v037b7.drivers.cninja.*;
 
 public class driver {
 
@@ -2107,12 +2108,12 @@ public class driver {
         /*TODO*///TESTdriver_edrandyj,	/* MAD (c) 1990 Data East Corporation (Japan) */
         /*TODO*///	driver_supbtime,	/* MAE (c) 1990 Data East Corporation (World) */
         /*TODO*///	driver_supbtimj,	/* MAE (c) 1990 Data East Corporation (Japan) */
-        /*TODO*///	/* Mutant Fighter/Death Brade MAF (c) 1991 */
-        /*TODO*///	driver_cninja,	/* MAG (c) 1991 Data East Corporation (World) */
-        /*TODO*///	driver_cninja0,	/* MAG (c) 1991 Data East Corporation (World) */
-        /*TODO*///	driver_cninjau,	/* MAG (c) 1991 Data East Corporation (US) */
-        /*TODO*///	driver_joemac,	/* MAG (c) 1991 Data East Corporation (Japan) */
-        /*TODO*///	driver_stoneage,	/* bootleg */
+        /* Mutant Fighter/Death Brade MAF (c) 1991 */
+        driver_cninja,	/* MAG (c) 1991 Data East Corporation (World) */
+        driver_cninja0,	/* MAG (c) 1991 Data East Corporation (World) */
+        driver_cninjau,	/* MAG (c) 1991 Data East Corporation (US) */
+        driver_joemac,	/* MAG (c) 1991 Data East Corporation (Japan) */
+        driver_stoneage,	/* bootleg */
         /*TODO*///	/* Robocop 2           MAH (c) 1991 */
         /*TODO*///	/* Desert Assault/Thunderzone MAJ (c) 1991 */
         /*TODO*///	/* Rohga Armour Attack/Wolf Fang MAM (c) 1991 */
