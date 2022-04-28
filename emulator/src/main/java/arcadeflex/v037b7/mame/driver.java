@@ -256,6 +256,9 @@ import static arcadeflex.WIP.v037b7.drivers.eprom.*;
 import static arcadeflex.WIP.v037b7.drivers.splash.*;
 import static arcadeflex.WIP.v037b7.drivers.cave.*;
 import static arcadeflex.WIP.v037b7.drivers.seta.*;
+import static arcadeflex.WIP.v037b7.drivers.battlera.*;
+import static arcadeflex.WIP.v037b7.drivers.actfancr.*;
+import static arcadeflex.WIP.v037b7.drivers.cbuster.*;
 
 public class driver {
 
@@ -2031,13 +2034,13 @@ public class driver {
         /*TODO*///	driver_pcktgal2,	/* (c) 1989 Data East Corporation (World?) */
         /*TODO*///	driver_spool3,	/* (c) 1989 Data East Corporation (World?) */
         /*TODO*///	driver_spool3i,	/* (c) 1990 Data East Corporation + I-Vics license */
-        /*TODO*///	driver_battlera,	/* (c) 1988 Data East Corporation (World) */
-        /*TODO*///	driver_bldwolf,	/* (c) 1988 Data East USA (US) */
-        /*TODO*///	driver_actfancr,	/* (c) 1989 Data East Corporation (World) */
-        /*TODO*///	driver_actfanc1,	/* (c) 1989 Data East Corporation (World) */
-        /*TODO*///	driver_actfancj,	/* (c) 1989 Data East Corporation (Japan) */
-        /*TODO*///	driver_triothep,	/* (c) 1989 Data East Corporation (Japan) */
-        /*TODO*///
+        driver_battlera,	/* (c) 1988 Data East Corporation (World) */
+        driver_bldwolf,	/* (c) 1988 Data East USA (US) */
+        driver_actfancr,	/* (c) 1989 Data East Corporation (World) */
+        driver_actfanc1,	/* (c) 1989 Data East Corporation (World) */
+        driver_actfancj,	/* (c) 1989 Data East Corporation (Japan) */
+        driver_triothep,	/* (c) 1989 Data East Corporation (Japan) */
+        
         /*TODO*///	/* Data East 8-bit games */
         /*TODO*///	driver_lastmiss,	/* (c) 1986 Data East USA (US) */
         /*TODO*///	driver_lastmss2,	/* (c) 1986 Data East USA (US) */
@@ -2091,10 +2094,10 @@ public class driver {
         /*TODO*///	driver_vaportra,	/* MAA (c) 1989 Data East Corporation (World) */
         /*TODO*///	driver_vaportru,	/* MAA (c) 1989 Data East Corporation (US) */
         /*TODO*///	driver_kuhga,		/* MAA (c) 1989 Data East Corporation (Japan) */
-        /*TODO*///	driver_cbuster,	/* MAB (c) 1990 Data East Corporation (World) */
-        /*TODO*///	driver_cbusterw,	/* MAB (c) 1990 Data East Corporation (World) */
-        /*TODO*///	driver_cbusterj,	/* MAB (c) 1990 Data East Corporation (Japan) */
-        /*TODO*///	driver_twocrude,	/* MAB (c) 1990 Data East USA (US) */
+        driver_cbuster,	/* MAB (c) 1990 Data East Corporation (World) */
+        driver_cbusterw,	/* MAB (c) 1990 Data East Corporation (World) */
+        driver_cbusterj,	/* MAB (c) 1990 Data East Corporation (Japan) */
+        driver_twocrude,	/* MAB (c) 1990 Data East USA (US) */
         driver_darkseal, 	/* MAC (c) 1990 Data East Corporation (World) */
         driver_darksea1, 	/* MAC (c) 1990 Data East Corporation (World) */
         driver_darkseaj, 	/* MAC (c) 1990 Data East Corporation (Japan) */

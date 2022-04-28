@@ -246,7 +246,7 @@ public class h6280 extends cpu_interface {
     @Override
     public Object get_context() {
         h6280_Regs regs = new h6280_Regs();
-        regs.ppc.SetD(h6280.ppc.D);
+        /*regs.ppc.SetD(h6280.ppc.D);
         regs.pc.SetD(h6280.pc.D);
         regs.sp.SetD(h6280.sp.D);
         regs.zp.SetD(h6280.zp.D);
@@ -273,14 +273,15 @@ public class h6280 extends cpu_interface {
         regs.irq_state[0] = h6280.irq_state[0];
         regs.irq_state[1] = h6280.irq_state[1];
         regs.irq_state[2] = h6280.irq_state[2];
-        regs.irq_callback = h6280.irq_callback;
+        regs.irq_callback = h6280.irq_callback;*/
+        regs=h6280;
         return regs;
     }
 
     @Override
     public void set_context(Object reg) {
         h6280_Regs regs = (h6280_Regs) reg;
-        h6280.ppc.SetD(regs.ppc.D);
+        /*h6280.ppc.SetD(regs.ppc.D);
         h6280.pc.SetD(regs.pc.D);
         h6280.sp.SetD(regs.sp.D);
         h6280.zp.SetD(regs.zp.D);
@@ -307,7 +308,8 @@ public class h6280 extends cpu_interface {
         h6280.irq_state[0] = regs.irq_state[0];
         h6280.irq_state[1] = regs.irq_state[1];
         h6280.irq_state[2] = regs.irq_state[2];
-        h6280.irq_callback = regs.irq_callback;
+        h6280.irq_callback = regs.irq_callback;*/
+        h6280= (h6280_Regs) reg;
     }
 
     @Override
