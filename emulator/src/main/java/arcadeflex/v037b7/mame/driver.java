@@ -253,6 +253,9 @@ import static arcadeflex.WIP.v037b7.drivers.aerofgt.*;
 import static arcadeflex.WIP.v037b7.drivers.toaplan1.*;
 import static arcadeflex.WIP.v037b7.drivers.toaplan2.*;
 import static arcadeflex.WIP.v037b7.drivers.eprom.*;
+import static arcadeflex.WIP.v037b7.drivers.splash.*;
+import static arcadeflex.WIP.v037b7.drivers.cave.*;
+import static arcadeflex.WIP.v037b7.drivers.seta.*;
 
 public class driver {
 
@@ -1316,16 +1319,16 @@ public class driver {
         /*TODO*/// 2/94 Batsugun                                        Kit 2P 8W+2B     VC            TP-
         /*TODO*/// 4/94 Snow Bros. 2                                    Kit 2P 8W+2B     HC    Action  TP-
         /*TODO*///*/
-        /*TODO*///
-        /*TODO*///	/* Cave games */
-        /*TODO*///	/* Cave was formed in 1994 from the ruins of Toaplan, like Raizing was. */
-        /*TODO*////* Donpachi (c) 1995 */
-        /*TODO*///	driver_ddonpach,	/* (c) 1997 Atlus/Cave */
-        /*TODO*///	driver_dfeveron,	/* (c) 1998 Cave + Nihon System license */
-        /*TODO*///	driver_esprade,	/* (c) 1998 Atlus/Cave */
-        /*TODO*///	driver_uopoko,	/* (c) 1998 Cave + Jaleco license */
+        
+        	/* Cave games */
+        	/* Cave was formed in 1994 from the ruins of Toaplan, like Raizing was. */
+        /* Donpachi (c) 1995 */
+        	driver_ddonpach,	/* (c) 1997 Atlus/Cave */
+        	driver_dfeveron,	/* (c) 1998 Cave + Nihon System license */
+        	driver_esprade,	/* (c) 1998 Atlus/Cave */
+        	driver_uopoko,	/* (c) 1998 Cave + Jaleco license */
         /*TODO*///TESTdriver_guwange,	/* (c) 1999 Atlus/Cave */
-        /*TODO*///
+        
         /*TODO*///	/* Kyugo games */
         /*TODO*///	/* Kyugo only made four games: Repulse, Flash Gal, SRD Mission and Air Wolf. */
         /*TODO*///	/* Gyrodine was made by Crux. Crux was antecedent of Toa Plan, and spin-off from Orca. */
@@ -1869,7 +1872,7 @@ public class driver {
         /*TODO*///	driver_aliensyj,	/* (c) 1987 (protected. Japan) */
         /*TODO*///	driver_astorm,	/* (c) 1990 (protected) */
         /*TODO*///	driver_astorm2p,	/* (c) 1990 (protected 2 Players) */
-        /*TODO*///	driver_auraila,	/* (c) 1990 Sega / Westone (protected) */
+        driver_auraila,	/* (c) 1990 Sega / Westone (protected) */
         /*TODO*///	driver_bayrouta,	/* (c) 1989 (protected) */
         /*TODO*///	driver_bayrtbl1,	/* (c) 1989 (protected) (bootleg) */
         /*TODO*///	driver_bayrtbl2,	/* (c) 1989 (protected) (bootleg) */
@@ -2984,31 +2987,31 @@ public class driver {
         /*TODO*///   83 Net Wars                                 2P
         /*TODO*///   83 Super Crush                          Kit 2P           Action
         /*TODO*///*/
-        /*TODO*///
+        
         /* Gaelco games */
         driver_bigkarnk, 	/* (c) 1991 Gaelco */
-        /*TODO*///	driver_splash,	/* (c) 1992 Gaelco */
+        driver_splash,	/* (c) 1992 Gaelco */
         driver_biomtoy, 	/* (c) 1995 Gaelco */
         /*TODO*///TESTdriver_maniacsq,	/* (c) 1996 Gaelco */
-        /*TODO*///
-        /*TODO*////*
-        /*TODO*///Gaelco Game list:
-        /*TODO*///=================
-        /*TODO*///
-        /*TODO*///1987:	Master Boy
-        /*TODO*///1991:	Big Karnak, Master Boy 2
-        /*TODO*///1992:	Splash, Thunder Hoop, Squash
-        /*TODO*///1993:	World Rally, Glass
-        /*TODO*///1994:	Strike Back, Target Hits, Thunder Hoop 2
-        /*TODO*///1995:	Alligator Hunt, Toy, World Rally 2, Salter, Touch & Go
-        /*TODO*///1996:	Maniac Square, Snow Board, Speed Up
-        /*TODO*///1997:	Surf Planet
-        /*TODO*///1998:	Radikal Bikers
-        /*TODO*///1999:	Rolling Extreme
-        /*TODO*///
-        /*TODO*///All games newer than Splash are heavily protected.
-        /*TODO*///*/
-        /*TODO*///
+        
+        /*
+        Gaelco Game list:
+        =================
+        
+        1987:	Master Boy
+        1991:	Big Karnak, Master Boy 2
+        1992:	Splash, Thunder Hoop, Squash
+        1993:	World Rally, Glass
+        1994:	Strike Back, Target Hits, Thunder Hoop 2
+        1995:	Alligator Hunt, Toy, World Rally 2, Salter, Touch & Go
+        1996:	Maniac Square, Snow Board, Speed Up
+        1997:	Surf Planet
+        1998:	Radikal Bikers
+        1999:	Rolling Extreme
+        
+        All games newer than Splash are heavily protected.
+        */
+        
         /*TODO*///	/* Kaneko "AX System" games */
         /*TODO*///	driver_berlwall,	/* (c) 1991 Kaneko */
         /*TODO*///	driver_berlwalt,	/* (c) 1991 Kaneko */
@@ -3022,21 +3025,21 @@ public class driver {
         /*RELEASE*///driver_airbustr,/* (c) 1990 Kaneko */
         /* Seta games */
         /*RELEASE*///driver_hanaawas,/* (c) SetaKikaku */
-        /*TODO*///	driver_tndrcade,	/* UA-0 (c) 1987 Taito */
-        /*TODO*///	driver_tndrcadj,	/* UA-0 (c) 1987 Taito */
-        /*TODO*///	driver_twineagl,	/* UA-2 (c) 1988 + Taito license */
-        /*TODO*///	driver_downtown,	/* UD-2 (c) 1989 + Romstar or Taito license (DSW) */
-        /*TODO*///	driver_usclssic,	/* UE   (c) 1989 + Romstar or Taito license (DSW) */
-        /*TODO*///	driver_calibr50,	/* UH   (c) 1989 + Romstar or Taito license (DSW) */
-        /*TODO*///	driver_drgnunit,	/* (c) 1989 Athena / Seta + Romstar or Taito license (DSW) */
-        /*TODO*///	driver_arbalest,	/* UK   (c) 1989 + Jordan, Romstar or Taito license (DSW) */
-        /*TODO*///	driver_metafox,	/* UP   (c) 1989 + Jordan, Romstar or Taito license (DSW) */
-        /*TODO*///	driver_blandia,	/* (c) 1992 Allumer */
-        /*TODO*///	driver_zingzip,	/* UY   (c) 1992 Allumer + Tecmo */
+        	driver_tndrcade,	/* UA-0 (c) 1987 Taito */
+        	driver_tndrcadj,	/* UA-0 (c) 1987 Taito */
+        	driver_twineagl,	/* UA-2 (c) 1988 + Taito license */
+        	driver_downtown,	/* UD-2 (c) 1989 + Romstar or Taito license (DSW) */
+        	driver_usclssic,	/* UE   (c) 1989 + Romstar or Taito license (DSW) */
+        	driver_calibr50,	/* UH   (c) 1989 + Romstar or Taito license (DSW) */
+        	driver_drgnunit,	/* (c) 1989 Athena / Seta + Romstar or Taito license (DSW) */
+        	driver_arbalest,	/* UK   (c) 1989 + Jordan, Romstar or Taito license (DSW) */
+        	driver_metafox,	/* UP   (c) 1989 + Jordan, Romstar or Taito license (DSW) */
+        	driver_blandia,	/* (c) 1992 Allumer */
+        	driver_zingzip,	/* UY   (c) 1992 Allumer + Tecmo */
         /*TODO*///TESTdriver_msgundam,
-        /*TODO*///	driver_wrofaero,	/* (c) 1993 Yang Cheng */
-        /*TODO*///
-        /*TODO*///	/* Atlus games */
+        	driver_wrofaero,	/* (c) 1993 Yang Cheng */
+        
+        	/* Atlus games */
         /*TODO*///	driver_ohmygod,	/* (c) 1993 Atlus (Japan) */
         driver_powerins, /* (c) 1993 Atlus (Japan) */
         

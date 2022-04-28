@@ -969,69 +969,69 @@ public class tilemapC {
         return TILE_MASKED;
     }
 
-    /*TODO*///
-/*TODO*///static int draw_pen_mask(
-/*TODO*///	struct osd_bitmap *mask,
-/*TODO*///	UINT32 col, UINT32 row,
-/*TODO*///	UINT32 tile_width, UINT32 tile_height,
-/*TODO*///	const UINT8 *pendata,
-/*TODO*///	int transparent_pen,
-/*TODO*///	UINT32 flags )
-/*TODO*///{
-/*TODO*///	int is_opaque = 1, is_transparent = 1;
-/*TODO*///
-/*TODO*///	int x,bit,sx = tile_width*col;
-/*TODO*///	int sy,y1,y2,dy;
-/*TODO*///
-/*TODO*///	if( flags&TILE_FLIPY ){
-/*TODO*///		y1 = tile_height*row+tile_height-1;
-/*TODO*///		y2 = y1-tile_height;
-/*TODO*/// 		dy = -1;
-/*TODO*/// 	}
-/*TODO*/// 	else {
-/*TODO*///		y1 = tile_height*row;
-/*TODO*///		y2 = y1+tile_height;
-/*TODO*/// 		dy = 1;
-/*TODO*/// 	}
-/*TODO*///
-/*TODO*///	if( flags&TILE_FLIPX ){
-/*TODO*///		tile_width--;
-/*TODO*///		for( sy=y1; sy!=y2; sy+=dy ){
-/*TODO*///			UINT8 *mask_dest  = mask->line[sy]+sx/8;
-/*TODO*///			for( x=tile_width/8; x>=0; x-- ){
-/*TODO*///				UINT32 data = 0;
-/*TODO*///				for( bit=0; bit<8; bit++ ){
-/*TODO*///					UINT32 pen = *pendata++;
-/*TODO*///					data = data>>1;
-/*TODO*///					if( pen!=transparent_pen ) data |=0x80;
-/*TODO*///				}
-/*TODO*///				if( data!=0x00 ) is_transparent = 0;
-/*TODO*///				if( data!=0xff ) is_opaque = 0;
-/*TODO*///				mask_dest[x] = data;
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	else {
-/*TODO*///		for( sy=y1; sy!=y2; sy+=dy ){
-/*TODO*///			UINT8 *mask_dest  = mask->line[sy]+sx/8;
-/*TODO*///			for( x=0; x<tile_width/8; x++ ){
-/*TODO*///				UINT32 data = 0;
-/*TODO*///				for( bit=0; bit<8; bit++ ){
-/*TODO*///					UINT32 pen = *pendata++;
-/*TODO*///					data = data<<1;
-/*TODO*///					if( pen!=transparent_pen ) data |=0x01;
-/*TODO*///				}
-/*TODO*///				if( data!=0x00 ) is_transparent = 0;
-/*TODO*///				if( data!=0xff ) is_opaque = 0;
-/*TODO*///				mask_dest[x] = data;
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	if( is_transparent ) return TILE_TRANSPARENT;
-/*TODO*///	if( is_opaque ) return TILE_OPAQUE;
-/*TODO*///	return TILE_MASKED;
-/*TODO*///}
-/*TODO*///
+    
+    static int draw_pen_mask(
+            osd_bitmap mask,
+            int col, int row,
+            int tile_width, int tile_height,
+            UBytePtr pendata,
+            int transparent_pen,
+            int flags )
+    {
+            int is_opaque = 1, is_transparent = 1;
+
+            int x,bit,sx = tile_width*col;
+            int sy,y1,y2,dy;
+
+            if(( flags&TILE_FLIPY ) != 0){
+                    y1 = tile_height*row+tile_height-1;
+                    y2 = y1-tile_height;
+                    dy = -1;
+            }
+            else {
+                    y1 = tile_height*row;
+                    y2 = y1+tile_height;
+                    dy = 1;
+            }
+
+            if(( flags&TILE_FLIPX ) != 0){
+                    tile_width--;
+                    for( sy=y1; sy!=y2; sy+=dy ){
+                            UBytePtr mask_dest  = new UBytePtr(mask.line[sy], sx/8);
+                            for( x=tile_width/8; x>=0; x-- ){
+                                    int data = 0;
+                                    for( bit=0; bit<8; bit++ ){
+                                            int pen = pendata.readinc();
+                                            data = data>>1;
+                                            if( pen!=transparent_pen ) data |=0x80;
+                                    }
+                                    if( data!=0x00 ) is_transparent = 0;
+                                    if( data!=0xff ) is_opaque = 0;
+                                    mask_dest.write(x, data);
+                            }
+                    }
+            }
+            else {
+                    for( sy=y1; sy!=y2; sy+=dy ){
+                            UBytePtr mask_dest  = new UBytePtr(mask.line[sy], sx/8);
+                            for( x=0; x<tile_width/8; x++ ){
+                                    int data = 0;
+                                    for( bit=0; bit<8; bit++ ){
+                                            int pen = pendata.readinc();
+                                            data = data<<1;
+                                            if( pen!=transparent_pen ) data |=0x01;
+                                    }
+                                    if( data!=0x00 ) is_transparent = 0;
+                                    if( data!=0xff ) is_opaque = 0;
+                                    mask_dest.write(x, data);
+                            }
+                    }
+            }
+            if( is_transparent!=0 ) return TILE_TRANSPARENT;
+            if( is_opaque!=0 ) return TILE_OPAQUE;
+            return TILE_MASKED;
+    }
+
     public static void draw_mask(
             osd_bitmap mask,
             int/*UINT32*/ col, int/*UINT32*/ row,
@@ -1173,15 +1173,15 @@ public class tilemapC {
                     tilemap.foreground.data_row[row].write(col, TILE_OPAQUE);
                 }
             } else {
-                throw new UnsupportedOperationException();
-                /*TODO*///			tilemap->foreground->data_row[row][col] =
-/*TODO*///				draw_pen_mask(
-/*TODO*///					tilemap->foreground->bitmask,
-/*TODO*///					col, row, tile_width, tile_height,
-/*TODO*///					pen_data,
-/*TODO*///					transparent_pen,
-/*TODO*///					flags
-/*TODO*///				);
+                
+                tilemap.foreground.data_row[row].write(col,
+				draw_pen_mask(
+					tilemap.foreground.bitmask,
+					col, row, tile_width, tile_height,
+					pen_data,
+					transparent_pen,
+					flags
+				));
             }
         } else if (type == TILEMAP_TRANSPARENT_COLOR) {
             tilemap.foreground.data_row[row].write(col,

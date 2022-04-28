@@ -1,6 +1,7 @@
 package gr.codebb.arcadeflex.v036.cpu.m68000;
 
 import static arcadeflex.v037b7.mame.memoryH.cpu_readop16;
+import static arcadeflex.v037b7.mame.memoryH.cpu_readop_arg16;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_readmem24;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_readmem24_dword;
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.memory.cpu_readmem24_word;
@@ -43,7 +44,11 @@ public class m68kmameH {
     }
 
     public static int m68k_read_immediate_32(int address) {
-        return ((cpu_readop16(address) << 16) | cpu_readop16((address) + 2));
+        try {
+            return ((cpu_readop_arg16(address)<<16) | cpu_readop_arg16((address)+2));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public static int m68k_read_instruction(int address) {

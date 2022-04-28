@@ -222,6 +222,16 @@ public class ptrLib {
             offset = cp.offset + b;
         }
         
+        public ShortPtr(UBytePtr cp, int b) {
+            char[] m = cp.memory;
+            
+            for (int i = 0; i < m.length; i++) {
+                memory[i * 2] = (byte) (m[i] & 0xff);
+            }
+            
+            offset = cp.offset + b;
+        }
+        
         public ShortPtr(UShortArray cp, int b) {
             char[] m = cp.memory;
             memory = new byte[m.length * 2];

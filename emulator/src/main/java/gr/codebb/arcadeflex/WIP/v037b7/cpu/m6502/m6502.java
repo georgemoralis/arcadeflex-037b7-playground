@@ -326,6 +326,7 @@ public class m6502 extends cpu_interface {
 
     @Override
     public void set_nmi_line(int state) {
+        
         if (m6502.u8_nmi_state == state) {
             return;
         }

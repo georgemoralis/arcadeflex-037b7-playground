@@ -43,6 +43,7 @@ import arcadeflex.v037b7.sound.c140;
 import arcadeflex.v037b7.sound.k005289;
 import arcadeflex.v037b7.sound.qsound;
 import arcadeflex.v037b7.sound.segapcm;
+import arcadeflex.v037b7.sound.ymz280b;
 //to be orgnanized
 import static gr.codebb.arcadeflex.WIP.v037b7.mame.mame.Machine;
 import gr.codebb.arcadeflex.WIP.v037b7.sound.adpcm;
@@ -324,19 +325,7 @@ public class sndintrf {
         new ym2413(),
         new _3812intf(),
         new _3526intf(),
-        new Dummy_snd(),
-        /*TODO*///#if (HAS_YMZ280B)
-        /*TODO*///    {
-        /*TODO*///		SOUND_YMZ280B,
-        /*TODO*///		"YMZ280B",
-        /*TODO*///		YMZ280B_num,
-        /*TODO*///		YMZ280B_clock,
-        /*TODO*///		YMZ280B_sh_start,
-        /*TODO*///		YMZ280B_sh_stop,
-        /*TODO*///		0,
-        /*TODO*///		0
-        /*TODO*///	},
-        /*TODO*///#endif
+        new ymz280b(),
         new y8950intf(),
         new sn76477(),
         new sn76496(),

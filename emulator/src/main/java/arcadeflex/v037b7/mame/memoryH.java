@@ -366,7 +366,9 @@ public class memoryH {
         return OP_RAM.read(A);
     }
 
-    /*TODO*///#define cpu_readop_arg16(A) READ_WORD(&OP_RAM[A])
+    public static int cpu_readop_arg16(int A) { 
+        return OP_RAM.READ_WORD(A);
+    }
 
     /* ----- bank switching for CPU cores ----- */
     public static void change_pc_generic(int pc, int abits2, int abitsmin, int shift, setopbase setop) {
