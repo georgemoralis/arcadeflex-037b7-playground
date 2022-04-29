@@ -262,6 +262,7 @@ import static arcadeflex.WIP.v037b7.drivers.cbuster.*;
 import static arcadeflex.WIP.v037b7.drivers.cninja.*;
 import static arcadeflex.WIP.v037b7.drivers.madmotor.*;
 import static arcadeflex.WIP.v037b7.drivers.gradius3.*;
+import static arcadeflex.WIP.v037b7.drivers.vaportra.*;
 
 public class driver {
 
@@ -2093,10 +2094,10 @@ public class driver {
         /* end of similar hardware */
         /*TODO*///	driver_stadhero,	/* (c) 1988 Data East Corporation (Japan) */
         driver_madmotor,	/* (c) [1989] Mitchell */
-        /*TODO*///	/* All these games have a unique code stamped on the mask roms */
-        /*TODO*///	driver_vaportra,	/* MAA (c) 1989 Data East Corporation (World) */
-        /*TODO*///	driver_vaportru,	/* MAA (c) 1989 Data East Corporation (US) */
-        /*TODO*///	driver_kuhga,		/* MAA (c) 1989 Data East Corporation (Japan) */
+        /* All these games have a unique code stamped on the mask roms */
+        driver_vaportra,	/* MAA (c) 1989 Data East Corporation (World) */
+        driver_vaportru,	/* MAA (c) 1989 Data East Corporation (US) */
+        driver_kuhga,		/* MAA (c) 1989 Data East Corporation (Japan) */
         driver_cbuster,	/* MAB (c) 1990 Data East Corporation (World) */
         driver_cbusterw,	/* MAB (c) 1990 Data East Corporation (World) */
         driver_cbusterj,	/* MAB (c) 1990 Data East Corporation (Japan) */
