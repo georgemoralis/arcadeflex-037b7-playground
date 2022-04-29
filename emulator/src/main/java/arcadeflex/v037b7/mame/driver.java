@@ -260,6 +260,8 @@ import static arcadeflex.WIP.v037b7.drivers.battlera.*;
 import static arcadeflex.WIP.v037b7.drivers.actfancr.*;
 import static arcadeflex.WIP.v037b7.drivers.cbuster.*;
 import static arcadeflex.WIP.v037b7.drivers.cninja.*;
+import static arcadeflex.WIP.v037b7.drivers.madmotor.*;
+import static arcadeflex.WIP.v037b7.drivers.gradius3.*;
 
 public class driver {
 
@@ -2090,7 +2092,7 @@ public class driver {
         	driver_bouldash, 	/* (c) 1990 Data East Corporation */
         /* end of similar hardware */
         /*TODO*///	driver_stadhero,	/* (c) 1988 Data East Corporation (Japan) */
-        /*TODO*///	driver_madmotor,	/* (c) [1989] Mitchell */
+        driver_madmotor,	/* (c) [1989] Mitchell */
         /*TODO*///	/* All these games have a unique code stamped on the mask roms */
         /*TODO*///	driver_vaportra,	/* MAA (c) 1989 Data East Corporation (World) */
         /*TODO*///	driver_vaportru,	/* MAA (c) 1989 Data East Corporation (US) */
@@ -2320,9 +2322,9 @@ public class driver {
         driver_hpuncher, 	/* GX870 (c) 1988 (Japan) */
         driver_miaj, 		/* GX808 (c) 1989 (Japan) */
         
-        /*TODO*///	/* Konami Gradius III board */
-        /*TODO*///	driver_gradius3,	/* GX945 (c) 1989 (Japan) */
-        /*TODO*///	driver_grdius3a,	/* GX945 (c) 1989 (Asia) */
+        /* Konami Gradius III board */
+        driver_gradius3,	/* GX945 (c) 1989 (Japan) */
+        driver_grdius3a,	/* GX945 (c) 1989 (Asia) */
         
         	/* (some) Konami 68000 games */
         	driver_mia,		/* GX808 (c) 1989 */
