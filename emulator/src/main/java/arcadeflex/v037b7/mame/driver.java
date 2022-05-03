@@ -263,6 +263,7 @@ import static arcadeflex.WIP.v037b7.drivers.cninja.*;
 import static arcadeflex.WIP.v037b7.drivers.madmotor.*;
 import static arcadeflex.WIP.v037b7.drivers.gradius3.*;
 import static arcadeflex.WIP.v037b7.drivers.vaportra.*;
+import static arcadeflex.WIP.v037b7.drivers.playmark.*;
 
 public class driver {
 
@@ -3083,11 +3084,11 @@ public class driver {
         driver_fantasia, /* (c) 1994 Comad & New Japan System */
         driver_newfant, /* (c) 1995 Comad & New Japan System */
         driver_missw96, /* (c) 1996 Comad */
-        /*TODO*///
-        /*TODO*///	/* Playmark games */
-        /*TODO*///	driver_bigtwin,	/* (c) 1995 */
-        /*TODO*///	driver_wbeachvl,	/* (c) 1995 */
-        /*TODO*///
+        
+        /* Playmark games */
+        driver_bigtwin,	/* (c) 1995 */
+        driver_wbeachvl,	/* (c) 1995 */
+        
         /* Pacific Novelty games */
         driver_sharkatt,/* (c) [1980] */
         driver_thief,/* (c) 1981 */
