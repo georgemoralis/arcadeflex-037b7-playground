@@ -1198,12 +1198,11 @@ public class artworkC {
             load_png_fit(filename, start_pen, max_pens, a);
     }
 
-/*TODO*///void artwork_load_size(struct artwork_info **a, const char *filename, unsigned int start_pen, unsigned int max_pens,
-/*TODO*///					   int width, int height)
-/*TODO*///{
-/*TODO*///	load_png(filename, start_pen, max_pens, width, height, a);
-/*TODO*///}
-/*TODO*///
+    public static void artwork_load_size(artwork_info a, String filename, int start_pen, int max_pens, int width, int height)
+    {
+	load_png(filename, start_pen, max_pens, width, height, a);
+    }
+
 /*TODO*////*********************************************************************
 /*TODO*///  artwork_elements scale
 /*TODO*///

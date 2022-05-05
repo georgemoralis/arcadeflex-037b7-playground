@@ -84,6 +84,7 @@ import arcadeflex.WIP.v037b7.cpu.nec.v33;
 import arcadeflex.WIP.v037b7.cpu.t11.t11;
 import static arcadeflex.WIP.v037b7.cpu.t11.t11H.*;
 import gr.codebb.arcadeflex.WIP.v037b7.cpu.m6502.m65c02;
+import arcadeflex.WIP.v037b7.cpu.ccpu.ccpu;
 
 public class cpuintrf {
 
@@ -376,7 +377,7 @@ public class cpuintrf {
                 //new Dummy_cpu(),//CPU0(TMS99110A,tms99110a,1,  0,1.00,TMS99110A_NONE,    -1,			   -1,			   16bew, 0,16,BE,2, 6,16BEW),
                 new z8000(),//CPU0(Z8000,    z8000,	 2,  0,1.00,Z8000_INT_NONE,    Z8000_NVI,	   Z8000_NMI,	   16bew, 0,16,BE,2, 6,16BEW),
                 new tms32010(),//CPU3(TMS320C10,tms320c10,2,  0,1.00,TMS320C10_INT_NONE,-1,			   -1,			   16,	 -1,16,BE,2, 4,16	),
-                new Dummy_cpu(),//CPU3(CCPU,	   ccpu,	 2,  0,1.00,0,				   -1,			   -1,			   16,	  0,15,LE,1, 3,16	),
+                new ccpu(),//CPU3(CCPU,	   ccpu,	 2,  0,1.00,0,				   -1,			   -1,			   16,	  0,15,LE,1, 3,16	),
                 new Dummy_cpu(),//CPU0(PDP1,	   pdp1,	 0,  0,1.00,0,				   -1,			   -1,			   16,	  0,18,LE,1, 3,16	),
                 new Dummy_cpu(),//CPU3(ADSP2100, adsp2100, 4,  0,1.00,ADSP2100_INT_NONE, -1,			   -1,			   16lew,-1,14,LE,2, 4,16LEW),
                 new Dummy_cpu(),//CPU3(ADSP2105, adsp2105, 4,  0,1.00,ADSP2105_INT_NONE, -1,			   -1,			   16lew,-1,14,LE,2, 4,16LEW),

@@ -264,6 +264,8 @@ import static arcadeflex.WIP.v037b7.drivers.madmotor.*;
 import static arcadeflex.WIP.v037b7.drivers.gradius3.*;
 import static arcadeflex.WIP.v037b7.drivers.vaportra.*;
 import static arcadeflex.WIP.v037b7.drivers.playmark.*;
+import static arcadeflex.WIP.v037b7.drivers.xexex.*;
+import static arcadeflex.WIP.v037b7.drivers.cinemat.*;
 
 public class driver {
 
@@ -2284,8 +2286,8 @@ public class driver {
         /*TODO*///	driver_parodius,	/* GX955 (c) 1990 (Japan) */
         driver_rollerg,/* GX999 (c) 1991 (US) */
         driver_rollergj,/* GX999 (c) 1991 (Japan) */
-        /*TODO*///	driver_xexex,		/* GX067 (c) 1991 (World) */
-        /*TODO*///	driver_xexexj,	/* GX067 (c) 1991 (Japan) */
+        driver_xexex,		/* GX067 (c) 1991 (World) */
+        driver_xexexj,	/* GX067 (c) 1991 (Japan) */
         driver_simpsons,/* GX072 (c) 1991 */
         driver_simpsn2p,/* GX072 (c) 1991 */
         driver_simps2pj,/* GX072 (c) 1991 (Japan) */
@@ -2813,22 +2815,22 @@ public class driver {
         driver_brix,/* (c) 1982 Cinematronics + Advanced Microcomputer Systems */
         driver_freeze,/* Cinematronics */
         driver_sucasino,/* (c) 1982 Data Amusement */
-        /*TODO*///	/* Cinematronics vector games */
-        /*TODO*///	driver_spacewar,
-        /*TODO*///	driver_barrier,
-        /*TODO*///	driver_starcas,	/* (c) 1980 */
-        /*TODO*///	driver_starcas1,	/* (c) 1980 */
-        /*TODO*///	driver_tailg,
-        /*TODO*///	driver_ripoff,
-        /*TODO*///	driver_armora,
-        /*TODO*///	driver_wotw,
-        /*TODO*///	driver_warrior,
-        /*TODO*///	driver_starhawk,
-        /*TODO*///	driver_solarq,	/* (c) 1981 */
-        /*TODO*///	driver_boxingb,	/* (c) 1981 */
-        /*TODO*///	driver_speedfrk,
-        /*TODO*///	driver_sundance,
-        /*TODO*///	driver_demon,		/* (c) 1982 Rock-ola */
+        	/* Cinematronics vector games */
+        	driver_spacewar,
+        	driver_barrier,
+        	driver_starcas,	/* (c) 1980 */
+        	driver_starcas1,	/* (c) 1980 */
+        	driver_tailg,
+        	driver_ripoff,
+        	driver_armora,
+        	driver_wotw,
+        	driver_warrior,
+        	driver_starhawk,
+        	driver_solarq,	/* (c) 1981 */
+        	driver_boxingb,	/* (c) 1981 */
+        	driver_speedfrk,
+        	driver_sundance,
+        	driver_demon,		/* (c) 1982 Rock-ola */
         /*TODO*///	/* this one uses 68000+Z80 instead of the Cinematronics CPU */
         /*TODO*///	driver_cchasm,
         /*TODO*///	driver_cchasm1,	/* (c) 1983 Cinematronics / GCE */

@@ -169,6 +169,11 @@ public class cstring {
       dst[i] = src[i];
     }
   }
+  public static void memcpy(char[] dst, int orig, char[] src, int size) {
+    for (int i = 0; i < Math.min(size, src.length); i++) {
+      dst[i+orig] = src[i];
+    }
+  }
   public static void memcpy(char[] dst, UBytePtr src, int size) {
     for (int i = 0; i < Math.min(size, src.memory.length); i++) {
       dst[i] = src.read(i);

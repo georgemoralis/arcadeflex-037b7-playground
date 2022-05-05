@@ -35,6 +35,8 @@ import static gr.codebb.arcadeflex.old.arcadeflex.libc_old.sizeof;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
 import static gr.codebb.arcadeflex.old.mame.drawgfx.decodegfx;
 import static arcadeflex.v037b7.mame.drawgfx.pdrawgfxzoom;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapC.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.mame.tilemapH.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.vidhrdw.konamiic.K052109_RMRD_line;
 
 public class konamiic {
@@ -3256,250 +3258,260 @@ public class konamiic {
 /*TODO*///}
 /*TODO*///
 /*TODO*///
-/*TODO*///static struct tilemap *K054157_tilemap[4], *K054157_cur_tilemap;
-/*TODO*///static int K054157_rambank, K054157_cur_rambank, K054157_rombank, K054157_cur_rombank, K054157_romnbbanks;
-/*TODO*///static int K054157_cur_layer, K054157_gfxnum, K054157_memory_region, K054157_cur_offset, K054157_control0;
-/*TODO*///static unsigned char *K054157_rambase, *K054157_cur_lbase, *K054157_cur_rambase, *K054157_rombase;
-/*TODO*///static int K054157_scrollx[4], K054157_scrolly[4];
-/*TODO*///static void (*K054157_callback)(int, int *, int *);
-/*TODO*///static int (*K054157_scrolld)[4][2];
-/*TODO*///
-/*TODO*///static void K054157_get_tile_info(int tile_index)
-/*TODO*///{
-/*TODO*///	unsigned char *addr;
-/*TODO*///	int attr, code;
-/*TODO*///	if(tile_index < 64*32)
-/*TODO*///		addr = K054157_cur_lbase + (tile_index<<2);
-/*TODO*///	else
-/*TODO*///		addr = K054157_cur_lbase + (tile_index<<2) + 0x4000 - 64*32*4;
-/*TODO*///
-/*TODO*///	attr = READ_WORD(addr);
-/*TODO*///	code = READ_WORD(addr+2);
-/*TODO*///	tile_info.flags = 0;
-/*TODO*///
-/*TODO*///	(*K054157_callback)(K054157_cur_layer, &code, &attr);
-/*TODO*///	SET_TILE_INFO (K054157_gfxnum, code, attr);
-/*TODO*///}
-/*TODO*///
-/*TODO*///void K054157_vh_stop(void)
-/*TODO*///{
-/*TODO*///	if(K054157_rambase) {
-/*TODO*///		free(K054157_rambase);
-/*TODO*///		K054157_rambase = 0;
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///int K054157_vh_start(int rambank, int rombank, int gfx_memory_region, int (*scrolld)[4][2], int plane0,int plane1,int plane2,int plane3, void (*callback)(int, int *, int *))
-/*TODO*///{
-/*TODO*///	int gfx_index;
-/*TODO*///	static struct GfxLayout charlayout =
-/*TODO*///	{
-/*TODO*///		8, 8,
-/*TODO*///		0,				/* filled in later */
-/*TODO*///		4,
-/*TODO*///		{ 0, 0, 0, 0 },	/* filled in later */
-/*TODO*///		{ 2*4, 3*4, 0*4, 1*4, 6*4, 7*4, 4*4, 5*4 },
-/*TODO*///		{ 0*8*4, 1*8*4, 2*8*4, 3*8*4, 4*8*4, 5*8*4, 6*8*4, 7*8*4 },
-/*TODO*///		8*8*4
-/*TODO*///	};
-/*TODO*///
-/*TODO*///	/* find first empty slot to decode gfx */
-/*TODO*///	for (gfx_index = 0; gfx_index < MAX_GFX_ELEMENTS; gfx_index++)
-/*TODO*///		if (Machine->gfx[gfx_index] == 0)
-/*TODO*///			break;
-/*TODO*///	if (gfx_index == MAX_GFX_ELEMENTS)
-/*TODO*///		return 1;
-/*TODO*///
-/*TODO*///	/* tweak the structure for the number of tiles we have */
-/*TODO*///	charlayout.total = memory_region_length(gfx_memory_region) / (8*4);
-/*TODO*///	charlayout.planeoffset[0] = plane0;
-/*TODO*///	charlayout.planeoffset[1] = plane1;
-/*TODO*///	charlayout.planeoffset[2] = plane2;
-/*TODO*///	charlayout.planeoffset[3] = plane3;
-/*TODO*///
-/*TODO*///	/* decode the graphics */
-/*TODO*///	Machine->gfx[gfx_index] = decodegfx(memory_region(gfx_memory_region), &charlayout);
-/*TODO*///	if (!Machine->gfx[gfx_index])
-/*TODO*///		return 1;
-/*TODO*///
-/*TODO*///	/* set the color information */
-/*TODO*///	Machine->gfx[gfx_index]->colortable = Machine->remapped_colortable;
-/*TODO*///	Machine->gfx[gfx_index]->total_colors = Machine->drv->color_table_len / 16;
-/*TODO*///
-/*TODO*///	K054157_scrolld = scrolld;
-/*TODO*///	K054157_memory_region = gfx_memory_region;
-/*TODO*///	K054157_gfxnum = gfx_index;
-/*TODO*///	K054157_callback = callback;
-/*TODO*///
-/*TODO*///	K054157_tilemap[0] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
-/*TODO*///										TILEMAP_TRANSPARENT, 8, 8, 64, 64);
-/*TODO*///	K054157_tilemap[1] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
-/*TODO*///										TILEMAP_TRANSPARENT, 8, 8, 64, 64);
-/*TODO*///	K054157_tilemap[2] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
-/*TODO*///										TILEMAP_TRANSPARENT, 8, 8, 64, 64);
-/*TODO*///	K054157_tilemap[3] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
-/*TODO*///										TILEMAP_TRANSPARENT, 8, 8, 64, 64);
-/*TODO*///
-/*TODO*///	K054157_rambase = malloc(0x10000);
-/*TODO*///
-/*TODO*///	if(!K054157_rambase || !K054157_tilemap[0] || !K054157_tilemap[1] || !K054157_tilemap[2] || !K054157_tilemap[3]) {
-/*TODO*///		K054157_vh_stop();
-/*TODO*///		return 1;
-/*TODO*///	}
-/*TODO*///
-/*TODO*///	memset(K054157_rambase, 0, 0x10000);
-/*TODO*///
-/*TODO*///	K054157_tilemap[0]->transparent_pen = 0;
-/*TODO*///	K054157_tilemap[1]->transparent_pen = 0;
-/*TODO*///	K054157_tilemap[2]->transparent_pen = 0;
-/*TODO*///	K054157_tilemap[3]->transparent_pen = 0;
-/*TODO*///
-/*TODO*///	K054157_rambank = rambank;
-/*TODO*///	K054157_cur_rambank = 0;
-/*TODO*///	K054157_cur_rambase = K054157_rambase;
-/*TODO*///	K054157_cur_tilemap = K054157_tilemap[0];
-/*TODO*///	K054157_cur_offset = 0;
-/*TODO*///	cpu_setbank(K054157_rambank, K054157_cur_rambase);
-/*TODO*///
-/*TODO*///	K054157_rombank = rombank;
-/*TODO*///	K054157_cur_rombank = 0;
-/*TODO*///	K054157_rombase = memory_region(gfx_memory_region);
-/*TODO*///	K054157_romnbbanks = memory_region_length(gfx_memory_region)/0x2000;
-/*TODO*///	cpu_setbank(K054157_rombank, K054157_rombase);
-/*TODO*///
-/*TODO*///	K054157_control0 = 0;
-/*TODO*///
-/*TODO*///	return 0;
-/*TODO*///}
-/*TODO*///
-/*TODO*///
-/*TODO*///READ_HANDLER( K054157_ram_word_r )
-/*TODO*///{
-/*TODO*///	unsigned char *adr = K054157_cur_rambase + offset;
-/*TODO*///	return READ_WORD(adr);
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( K054157_ram_word_w )
-/*TODO*///{
-/*TODO*///	unsigned char *adr = K054157_cur_rambase + offset;
-/*TODO*///	int old = READ_WORD(adr);
-/*TODO*///	COMBINE_WORD_MEM(adr, data);
-/*TODO*///
-/*TODO*///	if(READ_WORD(adr) != old)
-/*TODO*///		tilemap_mark_tile_dirty(K054157_cur_tilemap, offset/4 + K054157_cur_offset);
-/*TODO*///}
-/*TODO*///
-/*TODO*///READ_HANDLER( K054157_r )
-/*TODO*///{
-/*TODO*///	logerror("K054157: unhandled read(%02x), pc=%08x\n", offset, cpu_get_pc());
-/*TODO*///	return 0;
-/*TODO*///}
-/*TODO*///
-/*TODO*///static void K054157_reset_scroll(void)
-/*TODO*///{
-/*TODO*///	int i;
-/*TODO*///	for(i=0; i<4; i++) {
-/*TODO*///		tilemap_set_scrollx(K054157_tilemap[i], 0, K054157_scrollx[i] + (K054157_control0 & 0x20 ? K054157_scrolld[1][i][0] : K054157_scrolld[0][i][0]));
-/*TODO*///		tilemap_set_scrolly(K054157_tilemap[i], 0, K054157_control0 & 0x20 ? K054157_scrolly[i] + K054157_scrolld[1][i][1] : K054157_scrolly[i] + K054157_scrolld[0][i][1]);
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///static void K054157_set_scrolly(int plane, int pos)
-/*TODO*///{
-/*TODO*///	if(K054157_scrolly[plane] != pos) {
-/*TODO*///		K054157_scrolly[plane] = pos;
-/*TODO*///		tilemap_set_scrolly(K054157_tilemap[plane], 0, K054157_control0 & 0x20 ? pos + K054157_scrolld[1][plane][1] : pos + K054157_scrolld[0][plane][1]);
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///static void K054157_set_scrollx(int plane, int pos)
-/*TODO*///{
-/*TODO*///	if(K054157_scrollx[plane] != pos) {
-/*TODO*///		K054157_scrollx[plane] = pos;
-/*TODO*///		tilemap_set_scrollx(K054157_tilemap[plane], 0, pos + (K054157_control0 & 0x20 ? K054157_scrolld[1][plane][0] : K054157_scrolld[0][plane][0]));
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///WRITE_HANDLER( K054157_w )
-/*TODO*///{
-/*TODO*///	switch(offset) {
-/*TODO*///	case 0x00:
-/*TODO*///		data &= 0xff;
-/*TODO*///		if(K054157_control0 != data) {
-/*TODO*///			int flip;
-/*TODO*///			K054157_control0 = data;
-/*TODO*///			flip = 0;
-/*TODO*///			if(K054157_control0 & 0x20)
-/*TODO*///				flip |= TILEMAP_FLIPY;
-/*TODO*///			if(K054157_control0 & 0x10)
-/*TODO*///				flip |= TILEMAP_FLIPX;
-/*TODO*///			tilemap_set_flip(K054157_tilemap[0], flip);
-/*TODO*///			tilemap_set_flip(K054157_tilemap[1], flip);
-/*TODO*///			tilemap_set_flip(K054157_tilemap[2], flip);
-/*TODO*///			tilemap_set_flip(K054157_tilemap[3], flip);
-/*TODO*///			K054157_reset_scroll();
-/*TODO*///		}
-/*TODO*///		break;
-/*TODO*///	case 0x20:
-/*TODO*///		K054157_set_scrolly(3, data);
-/*TODO*///		break;
-/*TODO*///	case 0x22:
-/*TODO*///		K054157_set_scrolly(0, data);
-/*TODO*///		break;
-/*TODO*///	case 0x24:
-/*TODO*///		K054157_set_scrolly(2, data);
-/*TODO*///		break;
-/*TODO*///	case 0x26:
-/*TODO*///		K054157_set_scrolly(1, data);
-/*TODO*///		break;
-/*TODO*///	case 0x28:
-/*TODO*///		K054157_set_scrollx(3, data);
-/*TODO*///		break;
-/*TODO*///	case 0x2a:
-/*TODO*///		K054157_set_scrollx(0, data);
-/*TODO*///		break;
-/*TODO*///	case 0x2c:
-/*TODO*///		K054157_set_scrollx(2, data);
-/*TODO*///		break;
-/*TODO*///	case 0x2e:
-/*TODO*///		K054157_set_scrollx(1, data);
-/*TODO*///		break;
-/*TODO*///	case 0x32: {
-/*TODO*///		data &= 0xff;
-/*TODO*///		if(data & 0xe6)
-/*TODO*///			logerror("Graphic bankswitching to unknown bank %02x (pc=%08x)\n", data, cpu_get_pc());
-/*TODO*///
-/*TODO*///		K054157_cur_rambank = data;
-/*TODO*///		K054157_cur_rambase = K054157_rambase + (((data>>2) & 6) | (data & 1))*0x2000;
-/*TODO*///		K054157_cur_tilemap = K054157_tilemap[((data>>3) & 2) | (data & 1)];
-/*TODO*///		K054157_cur_offset = data & 8 ? 64*32 : 0;
-/*TODO*///
-/*TODO*///		cpu_setbank(K054157_rambank, K054157_cur_rambase);
-/*TODO*///		break;
-/*TODO*///	}
-/*TODO*///	case 0x34: {
-/*TODO*///		K054157_cur_rombank = data % K054157_romnbbanks;
-/*TODO*///		cpu_setbank(K054157_rombank, K054157_rombase + 0x2000*K054157_cur_rombank);
-/*TODO*///		break;
-/*TODO*///	}
-/*TODO*///	default:
-/*TODO*///		logerror("K054157: unhandled write(%02x, %04x), pc=%08x\n", offset, data & 0xffff, cpu_get_pc());
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///void K054157_tilemap_update(void)
-/*TODO*///{
-/*TODO*///	for(K054157_cur_layer=0; K054157_cur_layer<4; K054157_cur_layer++) {
-/*TODO*///		K054157_cur_lbase = K054157_rambase +
-/*TODO*///			(K054157_cur_layer & 1 ? 0x2000 : 0) +
-/*TODO*///			(K054157_cur_layer & 2 ? 0x8000 : 0);
-/*TODO*///		tilemap_update(K054157_tilemap[K054157_cur_layer]);
-/*TODO*///	}
-/*TODO*///}
-/*TODO*///
-/*TODO*///void K054157_tilemap_draw(struct osd_bitmap *bitmap, int num, int flags)
-/*TODO*///{
-/*TODO*///	tilemap_draw(bitmap, K054157_tilemap[num], flags);
-/*TODO*///}
-/*TODO*///    
+    public static abstract interface K054157_callbackProcPtr {
+        public abstract void handler(int layer, int[] code, int[] attr);
+    }
+    
+    static struct_tilemap[] K054157_tilemap=new struct_tilemap[4];
+    static struct_tilemap K054157_cur_tilemap;
+    static int K054157_rambank, K054157_cur_rambank, K054157_rombank, K054157_cur_rombank, K054157_romnbbanks;
+    static int K054157_cur_layer, K054157_gfxnum, K054157_memory_region, K054157_cur_offset, K054157_control0;
+    static UBytePtr K054157_rambase = new UBytePtr(), K054157_cur_lbase = new UBytePtr(), K054157_cur_rambase = new UBytePtr(), K054157_rombase = new UBytePtr();
+    static int[] K054157_scrollx=new int[4], K054157_scrolly=new int[4];
+    static K054157_callbackProcPtr K054157_callback;
+    static int[][][] K054157_scrolld;
+
+    static GetTileInfoPtr K054157_get_tile_info = new GetTileInfoPtr() {
+        @Override
+        public void handler(int tile_index) {
+            UBytePtr addr;
+            int[] attr=new int[1], code=new int[1];
+            if(tile_index < 64*32)
+                    addr = new UBytePtr(K054157_cur_lbase, (tile_index<<2));
+            else
+                    addr = new UBytePtr(K054157_cur_lbase, (tile_index<<2) + 0x4000 - 64*32*4);
+
+            attr[0] = addr.READ_WORD();
+            code[0] = addr.READ_WORD(2);
+            tile_info.u32_flags = 0;
+
+            (K054157_callback).handler(K054157_cur_layer, code, attr);
+            SET_TILE_INFO (K054157_gfxnum, code[0], attr[0]);
+        }
+    };
+        
+    public static void K054157_vh_stop()
+    {
+            if(K054157_rambase != null) {
+                    K054157_rambase = null;
+            }
+    }
+
+    public static int K054157_vh_start(int rambank, int rombank, int gfx_memory_region, int[][][] scrolld, int plane0,int plane1,int plane2,int plane3, K054157_callbackProcPtr callback)
+    {
+            int gfx_index;
+            GfxLayout charlayout = new GfxLayout
+            (
+                    8, 8,
+                    0,				/* filled in later */
+                    4,
+                    new int[]{ 0, 0, 0, 0 },	/* filled in later */
+                    new int[]{ 2*4, 3*4, 0*4, 1*4, 6*4, 7*4, 4*4, 5*4 },
+                    new int[]{ 0*8*4, 1*8*4, 2*8*4, 3*8*4, 4*8*4, 5*8*4, 6*8*4, 7*8*4 },
+                    8*8*4
+            );
+
+            /* find first empty slot to decode gfx */
+            for (gfx_index = 0; gfx_index < MAX_GFX_ELEMENTS; gfx_index++)
+                    if (Machine.gfx[gfx_index] == null)
+                            break;
+            if (gfx_index == MAX_GFX_ELEMENTS)
+                    return 1;
+
+            /* tweak the structure for the number of tiles we have */
+            charlayout.total = memory_region_length(gfx_memory_region) / (8*4);
+            charlayout.planeoffset[0] = plane0;
+            charlayout.planeoffset[1] = plane1;
+            charlayout.planeoffset[2] = plane2;
+            charlayout.planeoffset[3] = plane3;
+
+            /* decode the graphics */
+            Machine.gfx[gfx_index] = decodegfx(memory_region(gfx_memory_region), charlayout);
+            if (Machine.gfx[gfx_index]==null)
+                    return 1;
+
+            /* set the color information */
+            Machine.gfx[gfx_index].colortable = Machine.remapped_colortable;
+            Machine.gfx[gfx_index].total_colors = Machine.drv.color_table_len / 16;
+
+            K054157_scrolld = scrolld;
+            K054157_memory_region = gfx_memory_region;
+            K054157_gfxnum = gfx_index;
+            K054157_callback = callback;
+
+            K054157_tilemap[0] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
+                                                                                    TILEMAP_TRANSPARENT, 8, 8, 64, 64);
+            K054157_tilemap[1] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
+                                                                                    TILEMAP_TRANSPARENT, 8, 8, 64, 64);
+            K054157_tilemap[2] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
+                                                                                    TILEMAP_TRANSPARENT, 8, 8, 64, 64);
+            K054157_tilemap[3] = tilemap_create(K054157_get_tile_info, tilemap_scan_rows,
+                                                                                    TILEMAP_TRANSPARENT, 8, 8, 64, 64);
+
+            K054157_rambase = new UBytePtr(0x10000);
+
+            if(K054157_rambase==null || K054157_tilemap[0]==null || K054157_tilemap[1]==null || K054157_tilemap[2]==null || K054157_tilemap[3]==null) {
+                    K054157_vh_stop();
+                    return 1;
+            }
+
+            memset(K054157_rambase, 0, 0x10000);
+
+            K054157_tilemap[0].transparent_pen = 0;
+            K054157_tilemap[1].transparent_pen = 0;
+            K054157_tilemap[2].transparent_pen = 0;
+            K054157_tilemap[3].transparent_pen = 0;
+
+            K054157_rambank = rambank;
+            K054157_cur_rambank = 0;
+            K054157_cur_rambase = K054157_rambase;
+            K054157_cur_tilemap = K054157_tilemap[0];
+            K054157_cur_offset = 0;
+            cpu_setbank(K054157_rambank, K054157_cur_rambase);
+
+            K054157_rombank = rombank;
+            K054157_cur_rombank = 0;
+            K054157_rombase = memory_region(gfx_memory_region);
+            K054157_romnbbanks = memory_region_length(gfx_memory_region)/0x2000;
+            cpu_setbank(K054157_rombank, K054157_rombase);
+
+            K054157_control0 = 0;
+
+            return 0;
+    }
+
+
+    public static ReadHandlerPtr K054157_ram_word_r = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            UBytePtr adr = new UBytePtr(K054157_cur_rambase, offset);
+            return adr.READ_WORD();
+        }
+    };
+
+    public static WriteHandlerPtr K054157_ram_word_w= new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            UBytePtr adr = new UBytePtr(K054157_cur_rambase, offset);
+            int old = adr.READ_WORD();
+            COMBINE_WORD_MEM(adr, 0, data);
+
+            if(adr.READ_WORD() != old)
+                    tilemap_mark_tile_dirty(K054157_cur_tilemap, offset/4 + K054157_cur_offset);
+        }
+    };
+
+    public static ReadHandlerPtr K054157_r  = new ReadHandlerPtr() {
+        public int handler(int offset) {
+            logerror("K054157: unhandled read(%02x), pc=%08x\n", offset, cpu_get_pc());
+            return 0;
+        }
+    };
+
+    static void K054157_reset_scroll()
+    {
+            int i;
+            for(i=0; i<4; i++) {
+                    tilemap_set_scrollx(K054157_tilemap[i], 0, K054157_scrollx[i] + ((K054157_control0 & 0x20)!=0 ? K054157_scrolld[1][i][0] : K054157_scrolld[0][i][0]));
+                    tilemap_set_scrolly(K054157_tilemap[i], 0, (K054157_control0 & 0x20)!=0 ? K054157_scrolly[i] + K054157_scrolld[1][i][1] : K054157_scrolly[i] + K054157_scrolld[0][i][1]);
+            }
+    }
+
+    static void K054157_set_scrolly(int plane, int pos)
+    {
+            if(K054157_scrolly[plane] != pos) {
+                    K054157_scrolly[plane] = pos;
+                    tilemap_set_scrolly(K054157_tilemap[plane], 0, (K054157_control0 & 0x20)!=0 ? pos + K054157_scrolld[1][plane][1] : pos + K054157_scrolld[0][plane][1]);
+            }
+    }
+
+    static void K054157_set_scrollx(int plane, int pos)
+    {
+            if(K054157_scrollx[plane] != pos) {
+                    K054157_scrollx[plane] = pos;
+                    tilemap_set_scrollx(K054157_tilemap[plane], 0, pos + ((K054157_control0 & 0x20)!=0 ? K054157_scrolld[1][plane][0] : K054157_scrolld[0][plane][0]));
+            }
+    }
+
+    public static WriteHandlerPtr K054157_w = new WriteHandlerPtr() {
+        public void handler(int offset, int data) {
+            switch(offset) {
+            case 0x00:
+                    data &= 0xff;
+                    if(K054157_control0 != data) {
+                            int flip;
+                            K054157_control0 = data;
+                            flip = 0;
+                            if((K054157_control0 & 0x20) != 0)
+                                    flip |= TILEMAP_FLIPY;
+                            if((K054157_control0 & 0x10) != 0)
+                                    flip |= TILEMAP_FLIPX;
+                            tilemap_set_flip(K054157_tilemap[0], flip);
+                            tilemap_set_flip(K054157_tilemap[1], flip);
+                            tilemap_set_flip(K054157_tilemap[2], flip);
+                            tilemap_set_flip(K054157_tilemap[3], flip);
+                            K054157_reset_scroll();
+                    }
+                    break;
+            case 0x20:
+                    K054157_set_scrolly(3, data);
+                    break;
+            case 0x22:
+                    K054157_set_scrolly(0, data);
+                    break;
+            case 0x24:
+                    K054157_set_scrolly(2, data);
+                    break;
+            case 0x26:
+                    K054157_set_scrolly(1, data);
+                    break;
+            case 0x28:
+                    K054157_set_scrollx(3, data);
+                    break;
+            case 0x2a:
+                    K054157_set_scrollx(0, data);
+                    break;
+            case 0x2c:
+                    K054157_set_scrollx(2, data);
+                    break;
+            case 0x2e:
+                    K054157_set_scrollx(1, data);
+                    break;
+            case 0x32: {
+                    data &= 0xff;
+                    if((data & 0xe6) != 0)
+                            logerror("Graphic bankswitching to unknown bank %02x (pc=%08x)\n", data, cpu_get_pc());
+
+                    K054157_cur_rambank = data;
+                    K054157_cur_rambase = new UBytePtr(K054157_rambase, (((data>>2) & 6) | (data & 1))*0x2000);
+                    K054157_cur_tilemap = K054157_tilemap[((data>>3) & 2) | (data & 1)];
+                    K054157_cur_offset = (data & 8) != 0 ? 64*32 : 0;
+
+                    cpu_setbank(K054157_rambank, K054157_cur_rambase);
+                    break;
+            }
+            case 0x34: {
+                    K054157_cur_rombank = data % K054157_romnbbanks;
+                    cpu_setbank(K054157_rombank, new UBytePtr(K054157_rombase, 0x2000*K054157_cur_rombank));
+                    break;
+            }
+            default:
+                    logerror("K054157: unhandled write(%02x, %04x), pc=%08x\n", offset, data & 0xffff, cpu_get_pc());
+            }
+        }
+    };
+
+    public static void K054157_tilemap_update()
+    {
+            for(K054157_cur_layer=0; K054157_cur_layer<4; K054157_cur_layer++) {
+                    K054157_cur_lbase = new UBytePtr(K054157_rambase,
+                            ((K054157_cur_layer & 1) != 0 ? 0x2000 : 0) +
+                            ((K054157_cur_layer & 2) != 0 ? 0x8000 : 0));
+                    tilemap_update(K054157_tilemap[K054157_cur_layer]);
+            }
+    }
+
+    public static void K054157_tilemap_draw(osd_bitmap bitmap, int num, int flags)
+    {
+            tilemap_draw(bitmap, K054157_tilemap[num], flags);
+    }
+    
 }
