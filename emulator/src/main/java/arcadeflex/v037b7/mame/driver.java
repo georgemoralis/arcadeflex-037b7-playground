@@ -266,6 +266,7 @@ import static arcadeflex.WIP.v037b7.drivers.vaportra.*;
 import static arcadeflex.WIP.v037b7.drivers.playmark.*;
 import static arcadeflex.WIP.v037b7.drivers.xexex.*;
 import static arcadeflex.WIP.v037b7.drivers.cinemat.*;
+import static arcadeflex.WIP.v037b7.drivers.cchasm.*;
 
 public class driver {
 
@@ -2831,10 +2832,10 @@ public class driver {
         	driver_speedfrk,
         	driver_sundance,
         	driver_demon,		/* (c) 1982 Rock-ola */
-        /*TODO*///	/* this one uses 68000+Z80 instead of the Cinematronics CPU */
-        /*TODO*///	driver_cchasm,
-        /*TODO*///	driver_cchasm1,	/* (c) 1983 Cinematronics / GCE */
-        /*TODO*///
+        /* this one uses 68000+Z80 instead of the Cinematronics CPU */
+        driver_cchasm,
+        driver_cchasm1,	/* (c) 1983 Cinematronics / GCE */
+        
         /* "The Pit hardware" games */
         driver_roundup,/* (c) 1981 Amenip/Centuri */
         driver_fitter,/* (c) 1981 Taito */
