@@ -106,13 +106,13 @@ public class ccpuH
         public static class CINEWORD {
             int _v = 0;
             public CINEWORD(int _v) {
-                set(_v);
+                set(_v & 0x0fff);
             }
             public int get() {
-                return _v & 0xffff;
+                return _v & 0x0fff;
             }
             public void set(int _v) {
-                this._v = _v & 0xffff;
+                this._v = _v & 0x0fff;
             }
         }
         //typedef unsigned char      CINEBYTE;      /* 8 (or less) bits on the C-CPU */
