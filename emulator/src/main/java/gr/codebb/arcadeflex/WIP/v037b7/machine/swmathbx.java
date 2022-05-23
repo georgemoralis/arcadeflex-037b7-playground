@@ -15,11 +15,11 @@ See drivers\starwars.c for notes
  */ 
 package gr.codebb.arcadeflex.WIP.v037b7.machine;
 
-import static arcadeflex.v037b7.mame.commonH.*;
 import arcadeflex.common.ptrLib.UBytePtr;
 import static arcadeflex.v037b7.generic.funcPtr.*;
+import static arcadeflex.v037b7.mame.common.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 import static gr.codebb.arcadeflex.old.arcadeflex.osdepend.logerror;
-import static arcadeflex.v037b7.mame.common.memory_region;
 
 public class swmathbx
 {
@@ -38,34 +38,34 @@ public class swmathbx
 	
 	static int MPA; /* PROM address counter */
 	static int BIC; /* Block index counter  */
-
+	
 	static int PRN; /* Pseudo-random number */
 	
 	
 	/* Store decoded PROM elements */
-	static int[] PROM_STR=new int[1024]; /* Storage for instruction strobe only */
-	static int[] PROM_MAS=new int[1024]; /* Storage for direct address only */
-	static int[] PROM_AM=new int[1024]; /* Storage for address mode select only */
+	static int[] PROM_STR = new int[1024]; /* Storage for instruction strobe only */
+	static int[] PROM_MAS = new int[1024]; /* Storage for direct address only */
+	static int[] PROM_AM = new int[1024]; /* Storage for address mode select only */
 	
 	public static InitDriverPtr init_starwars = new InitDriverPtr() { public void handler() 
 	{
-		int cnt,val;
-		UBytePtr RAM = new UBytePtr(memory_region(REGION_CPU1));
+		UBytePtr src = new UBytePtr(memory_region(REGION_CPU1));
+		int cnt, val;
 	
-		for (cnt=0;cnt<1024;cnt++)
+		for (cnt = 0; cnt < 1024; cnt++)
 		{
-			/* Translate PROMS into 16 bit code */
-			val = 0;
-			val = ( val | (( RAM.read(0x0c00+cnt)     ) & 0x000f ) ); /* Set LS nibble */
-			val = ( val | (( RAM.read(0x0800+cnt)<< 4 ) & 0x00f0 ) );
-			val = ( val | (( RAM.read(0x0400+cnt)<< 8 ) & 0x0f00 ) );
-			val = ( val | (( RAM.read(0x0000+cnt)<<12 ) & 0xf000 ) ); /* Set MS nibble */
+			/* translate PROMS into 16 bit code */
+			val  = (src.read(0x0c00 + cnt)      ) & 0x000f; /* Set LS nibble */
+			val |= (src.read(0x0800 + cnt) <<  4) & 0x00f0;
+			val |= (src.read(0x0400 + cnt) <<  8) & 0x0f00;
+			val |= (src.read(0x0000 + cnt) << 12) & 0xf000; /* Set MS nibble */
 	
-			/* Perform pre-decoding */
-			PROM_STR[cnt] = (val>>8) & 0x00ff;
-			PROM_MAS[cnt] =  val     & 0x007f;
-			PROM_AM[cnt]  = (val>>7) & 0x0001;
-	   }
+			/* perform pre-decoding */
+			PROM_STR[cnt] = (val >> 8) & 0x00ff;
+			PROM_MAS[cnt] =  val       & 0x007f;
+			PROM_AM[cnt]  = (val >> 7) & 0x0001;
+		}
+	   
 	} };
 	
 	public static InitMachinePtr init_swmathbox = new InitMachinePtr() { public void handler() 
@@ -76,9 +76,9 @@ public class swmathbx
         
         static short ACC, A, B, C;
 	
-	static void run_mbox()
+	public static void run_mbox()
 	{
-		
+	
 		int RAMWORD=0;
 		int MA_byte;
 		int tmp;
@@ -160,6 +160,7 @@ public class swmathbx
 				/* ACC=ACC+(  ( (long)((A-B)*C) )>>14  ); */
 				/* round the result - this fixes bad trench vectors in Star Wars */
 				ACC = (short) (ACC+(  ( (((long)((A-B)*C) )>>13)+1)>>1  ));
+                                //ACC=(short) (ACC+(  ( ((A-B)*C) )>>14  ));
 			}
 	
 			/* 0x40 - LDB */
@@ -192,8 +193,8 @@ public class swmathbx
 /*TODO*///	#if(MATHDEBUG==1)
 /*TODO*///	printf("prng\n");
 /*TODO*///	#endif
-		PRN = (int)((PRN+0x2364)^2); /* This is a total bodge for now, but it works!*/
-		return (PRN & 0xff);	/* ASG 971002 -- limit to a byte; the 6809 code cares */
+		PRN = (int)((PRN + 0x2364) ^ 2); /* This is a total bodge for now, but it works!*/
+		return PRN;
 	} };
 	
 	/********************************************************/

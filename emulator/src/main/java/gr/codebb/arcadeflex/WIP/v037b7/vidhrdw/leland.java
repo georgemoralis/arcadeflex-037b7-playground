@@ -125,54 +125,54 @@ public class leland {
             return 0;
         }
     };
-    /*TODO*///	
-/*TODO*///	
-/*TODO*///	public static VhStartPtr ataxx_vh_start = new VhStartPtr() { public int handler() 
-/*TODO*///	{
-/*TODO*///		
-/*TODO*///		const struct GfxElement *gfx = Machine.gfx[0];
-/*TODO*///		UINT32 usage[2];
-/*TODO*///		int i, x, y;
-/*TODO*///	
-/*TODO*///		/* first do the standard stuff */
-/*TODO*///		if (leland_vh_start())
-/*TODO*///			return 1;
-/*TODO*///	
-/*TODO*///		/* allocate memory */
-/*TODO*///		ataxx_qram = malloc(QRAM_SIZE);
-/*TODO*///		ataxx_pen_usage = malloc(gfx.total_elements * 2 * sizeof(UINT32));
-/*TODO*///	
-/*TODO*///		/* error cases */
-/*TODO*///	    if (!ataxx_qram || !ataxx_pen_usage)
-/*TODO*///	    {
-/*TODO*///	    	ataxx_vh_stop();
-/*TODO*///			return 1;
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* build up color usage */
-/*TODO*///		for (i = 0; i < gfx.total_elements; i++)
-/*TODO*///		{
-/*TODO*///			UINT8 *src = gfx.gfxdata + i * gfx.char_modulo;
-/*TODO*///	
-/*TODO*///			usage[0] = usage[1] = 0;
-/*TODO*///			for (y = 0; y < gfx.height; y++)
-/*TODO*///			{
-/*TODO*///				for (x = 0; x < gfx.width; x++)
-/*TODO*///				{
-/*TODO*///					int color = src[x];
-/*TODO*///					usage[color >> 5] |= 1 << (color & 31);
-/*TODO*///				}
-/*TODO*///				src += gfx.line_modulo;
-/*TODO*///			}
-/*TODO*///			ataxx_pen_usage[i * 2 + 0] = usage[0];
-/*TODO*///			ataxx_pen_usage[i * 2 + 1] = usage[1];
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* reset QRAM */
-/*TODO*///		memset(ataxx_qram, 0, QRAM_SIZE);
-/*TODO*///		return 0;
-/*TODO*///	} };
-/*TODO*///	
+    	
+	
+	public static VhStartPtr ataxx_vh_start = new VhStartPtr() { public int handler() 
+	{
+		
+		GfxElement gfx = Machine.gfx[0];
+		int[] usage=new int[2];
+		int i, x, y;
+	
+		/* first do the standard stuff */
+		if (leland_vh_start.handler() != 0)
+			return 1;
+	
+		/* allocate memory */
+		ataxx_qram = new UBytePtr(QRAM_SIZE);
+		ataxx_pen_usage = new int[gfx.total_elements * 2];
+	
+		/* error cases */
+	    if (ataxx_qram==null || ataxx_pen_usage==null)
+	    {
+	    	ataxx_vh_stop.handler();
+			return 1;
+		}
+	
+		/* build up color usage */
+		for (i = 0; i < gfx.total_elements; i++)
+		{
+			UBytePtr src = new UBytePtr(gfx.gfxdata, i * gfx.char_modulo);
+	
+			usage[0] = usage[1] = 0;
+			for (y = 0; y < gfx.height; y++)
+			{
+				for (x = 0; x < gfx.width; x++)
+				{
+					int color = src.read(x);
+					usage[color >> 5] |= 1 << (color & 31);
+				}
+				src.inc( gfx.line_modulo );
+			}
+			ataxx_pen_usage[i * 2 + 0] = usage[0];
+			ataxx_pen_usage[i * 2 + 1] = usage[1];
+		}
+	
+		/* reset QRAM */
+		memset(ataxx_qram, 0, QRAM_SIZE);
+		return 0;
+	} };
+	
 
     /**
      * ***********************************
@@ -193,22 +193,20 @@ public class leland {
         }
     };
 
-    /*TODO*///	
-/*TODO*///	public static VhStopPtr ataxx_vh_stop = new VhStopPtr() { public void handler() 
-/*TODO*///	{
-/*TODO*///		leland_vh_stop();
-/*TODO*///	
-/*TODO*///		if (ataxx_qram != 0)
-/*TODO*///			free(ataxx_qram);
-/*TODO*///		ataxx_qram = NULL;
-/*TODO*///	
-/*TODO*///		if (ataxx_pen_usage != 0)
-/*TODO*///			free(ataxx_pen_usage);
-/*TODO*///		ataxx_pen_usage = NULL;
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+    	
+	public static VhStopPtr ataxx_vh_stop = new VhStopPtr() { public void handler() 
+	{
+		leland_vh_stop.handler();
+	
+		if (ataxx_qram != null)
+			ataxx_qram = null;
+	
+		if (ataxx_pen_usage != null)
+                        ataxx_pen_usage = null;
+	} };
+	
+	
+	
     /**
      * ***********************************
      *
@@ -520,51 +518,51 @@ public class leland {
         }
     };
 
-    /*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Ataxx master video RAM read/write
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr ataxx_mvram_port_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
-/*TODO*///		if (sync_next_write != 0)
-/*TODO*///		{
-/*TODO*///			timer_set(TIME_NOW, 0x00000 | (offset << 8) | data, leland_delayed_mvram_w);
-/*TODO*///			sync_next_write = 0;
-/*TODO*///		}
-/*TODO*///		else
-/*TODO*///			leland_vram_port_w(offset, data, 0);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	public static WriteHandlerPtr ataxx_svram_port_w = new WriteHandlerPtr() {public void handler(int offset, int data)
-/*TODO*///	{
-/*TODO*///		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
-/*TODO*///		leland_vram_port_w(offset, data, 1);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Ataxx slave video RAM read/write
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr ataxx_mvram_port_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
-/*TODO*///	    return leland_vram_port_r(offset, 0);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	public static ReadHandlerPtr ataxx_svram_port_r  = new ReadHandlerPtr() { public int handler(int offset)
-/*TODO*///	{
-/*TODO*///		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
-/*TODO*///	    return leland_vram_port_r(offset, 1);
-/*TODO*///	} };
+    	/*************************************
+	 *
+	 *	Ataxx master video RAM read/write
+	 *
+	 *************************************/
+	
+	public static WriteHandlerPtr ataxx_mvram_port_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
+		if (sync_next_write != 0)
+		{
+			timer_set(TIME_NOW, 0x00000 | (offset << 8) | data, leland_delayed_mvram_w);
+			sync_next_write = 0;
+		}
+		else
+			leland_vram_port_w(offset, data, 0);
+	} };
+	
+	
+	public static WriteHandlerPtr ataxx_svram_port_w = new WriteHandlerPtr() {public void handler(int offset, int data)
+	{
+		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
+		leland_vram_port_w(offset, data, 1);
+	} };
+	
+	
+	
+	/*************************************
+	 *
+	 *	Ataxx slave video RAM read/write
+	 *
+	 *************************************/
+	
+	public static ReadHandlerPtr ataxx_mvram_port_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
+	    return leland_vram_port_r(offset, 0);
+	} };
+	
+	
+	public static ReadHandlerPtr ataxx_svram_port_r  = new ReadHandlerPtr() { public int handler(int offset)
+	{
+		offset = ((offset >> 1) & 0x07) | ((offset << 3) & 0x08) | (offset & 0x10);
+	    return leland_vram_port_r(offset, 1);
+	} };
     /**
      * ***********************************
      *
@@ -703,91 +701,92 @@ public class leland {
         }
     };
 
-    /*TODO*///	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	RAM-based refresh routine
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	public static VhUpdatePtr ataxx_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) 
-/*TODO*///	{
-/*TODO*///		const struct GfxElement *gfx = Machine.gfx[0];
-/*TODO*///		int total_elements = gfx.total_elements;
-/*TODO*///		UINT32 background_usage[2];
-/*TODO*///		int x, y, chunk;
-/*TODO*///	
-/*TODO*///		/* update anything remaining */
-/*TODO*///		update_for_scanline(VIDEO_HEIGHT * 8);
-/*TODO*///	
-/*TODO*///		/* loop over scrolling chunks */
-/*TODO*///		/* it's okay to do this before the palette calc because */
-/*TODO*///		/* these values are raw indexes, not pens */
-/*TODO*///		memset(background_usage, 0, sizeof(background_usage));
-/*TODO*///		for (chunk = 0; chunk <= scroll_index; chunk++)
-/*TODO*///		{
-/*TODO*///			/* determine scrolling parameters */
-/*TODO*///			int xfine = scroll_pos[chunk].x % 8;
-/*TODO*///			int yfine = scroll_pos[chunk].y % 8;
-/*TODO*///			int xcoarse = scroll_pos[chunk].x / 8;
-/*TODO*///			int ycoarse = scroll_pos[chunk].y / 8;
-/*TODO*///			struct rectangle clip;
-/*TODO*///	
-/*TODO*///			/* make a clipper */
-/*TODO*///			clip = Machine.visible_area;
-/*TODO*///			if (chunk != 0)
-/*TODO*///				clip.min_y = scroll_pos[chunk].scanline;
-/*TODO*///			if (chunk != scroll_index)
-/*TODO*///				clip.max_y = scroll_pos[chunk + 1].scanline - 1;
-/*TODO*///	
-/*TODO*///			/* draw what's visible to the main bitmap */
-/*TODO*///			for (y = clip.min_y / 8; y < clip.max_y / 8 + 2; y++)
-/*TODO*///			{
-/*TODO*///				int ysum = ycoarse + y;
-/*TODO*///				for (x = 0; x < VIDEO_WIDTH + 1; x++)
-/*TODO*///				{
-/*TODO*///					int xsum = xcoarse + x;
-/*TODO*///					int offs = ((ysum & 0x40) << 9) + ((ysum & 0x3f) << 8) + (xsum & 0xff);
-/*TODO*///					int code = ataxx_qram[offs] | ((ataxx_qram[offs + 0x4000] & 0x7f) << 8);
-/*TODO*///	
-/*TODO*///					/* draw to the bitmap */
-/*TODO*///					drawgfx(bitmap, gfx,
-/*TODO*///							code, 0, 0, 0,
-/*TODO*///							8 * x - xfine, 8 * y - yfine,
-/*TODO*///							&clip, TRANSPARENCY_NONE_RAW, 0);
-/*TODO*///	
-/*TODO*///					/* update color usage */
-/*TODO*///					background_usage[0] |= ataxx_pen_usage[(code & (total_elements - 1)) * 2 + 0];
-/*TODO*///					background_usage[1] |= ataxx_pen_usage[(code & (total_elements - 1)) * 2 + 1];
-/*TODO*///				}
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* build the palette */
-/*TODO*///		palette_init_used_colors();
-/*TODO*///		for (y = 0; y < 2; y++)
-/*TODO*///		{
-/*TODO*///			UINT32 usage = background_usage[y];
-/*TODO*///			for (x = 0; x < 32; x++)
-/*TODO*///				if (usage & (1 << x))
-/*TODO*///				{
-/*TODO*///					int p;
-/*TODO*///					for (p = 0; p < 16; p++)
-/*TODO*///						palette_used_colors[p * 64 + y * 32 + x] = PALETTE_COLOR_USED;
-/*TODO*///				}
-/*TODO*///		}
-/*TODO*///		palette_recalc();
-/*TODO*///	
-/*TODO*///		/* Merge the two bitmaps together */
-/*TODO*///		if (bitmap.depth == 8)
-/*TODO*///			draw_bitmap_8(bitmap);
-/*TODO*///		else
-/*TODO*///			draw_bitmap_16(bitmap);
-/*TODO*///	} };
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	
+    	
+	
+	/*************************************
+	 *
+	 *	RAM-based refresh routine
+	 *
+	 *************************************/
+	
+	public static VhUpdatePtr ataxx_vh_screenrefresh = new VhUpdatePtr() { public void handler(osd_bitmap bitmap,int full_refresh) 
+	{
+		GfxElement gfx = Machine.gfx[0];
+		int total_elements = gfx.total_elements;
+		int[] background_usage=new int[2];
+		int x, y, chunk;
+	
+		/* update anything remaining */
+		update_for_scanline(VIDEO_HEIGHT * 8);
+	
+		/* loop over scrolling chunks */
+		/* it's okay to do this before the palette calc because */
+		/* these values are raw indexes, not pens */
+		memset(background_usage, 0, sizeof(background_usage));
+		for (chunk = 0; chunk <= scroll_index; chunk++)
+		{
+			/* determine scrolling parameters */
+			int xfine = scroll_pos[chunk].x % 8;
+			int yfine = scroll_pos[chunk].y % 8;
+			int xcoarse = scroll_pos[chunk].x / 8;
+			int ycoarse = scroll_pos[chunk].y / 8;
+			rectangle clip = new rectangle();
+	
+			/* make a clipper */
+			clip = Machine.visible_area;
+			if (chunk != 0)
+				clip.min_y = scroll_pos[chunk].scanline;
+			if (chunk != scroll_index)
+				clip.max_y = scroll_pos[chunk + 1].scanline - 1;
+	
+			/* draw what's visible to the main bitmap */
+			for (y = clip.min_y / 8; y < clip.max_y / 8 + 2; y++)
+			{
+				int ysum = ycoarse + y;
+				for (x = 0; x < VIDEO_WIDTH + 1; x++)
+				{
+					int xsum = xcoarse + x;
+					int offs = ((ysum & 0x40) << 9) + ((ysum & 0x3f) << 8) + (xsum & 0xff);
+					int code = ataxx_qram.read(offs) | ((ataxx_qram.read(offs + 0x4000) & 0x7f) << 8);
+	
+					/* draw to the bitmap */
+					drawgfx(bitmap, gfx,
+							code, 0, 0, 0,
+							8 * x - xfine, 8 * y - yfine,
+							clip, TRANSPARENCY_NONE_RAW, 0);
+	
+					/* update color usage */
+					background_usage[0] |= ataxx_pen_usage[(code & (total_elements - 1)) * 2 + 0];
+					background_usage[1] |= ataxx_pen_usage[(code & (total_elements - 1)) * 2 + 1];
+				}
+			}
+		}
+	
+		/* build the palette */
+		palette_init_used_colors();
+		for (y = 0; y < 2; y++)
+		{
+			int usage = background_usage[y];
+			for (x = 0; x < 32; x++)
+				if ((usage & (1 << x)) != 0)
+				{
+					int p;
+					for (p = 0; p < 16; p++)
+						palette_used_colors.write(p * 64 + y * 32 + x, PALETTE_COLOR_USED);
+				}
+		}
+		palette_recalc();
+	
+		/* Merge the two bitmaps together */
+		if (bitmap.depth == 8)
+			draw_bitmap_8(bitmap);
+		else
+			throw new UnsupportedOperationException("Unsupported");
+                /*TODO*///			draw_bitmap_16(bitmap);
+	} };
+	
+	
+	
 /*TODO*///	/*************************************
 /*TODO*///	 *
 /*TODO*///	 *	Depth-specific refresh

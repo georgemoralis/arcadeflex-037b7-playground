@@ -45,6 +45,7 @@ import arcadeflex.v037b7.generic.funcPtr.ShStartPtr;
 import arcadeflex.v037b7.generic.funcPtr.ShStopPtr;
 import arcadeflex.v037b7.generic.funcPtr.WriteHandlerPtr;
 import static arcadeflex.v037b7.cpu.z80.z80H.*;
+import static arcadeflex.v037b7.mame.commonH.*;
 import static arcadeflex.v037b7.mame.driverH.MAX_SOUND;
 import arcadeflex.v037b7.mame.sndintrfH.MachineSound;
 import static arcadeflex.v037b7.mame.sndintrfH.SOUND_YM2151;
@@ -456,48 +457,50 @@ public class leland {
             }
         }
     };
-    /*TODO*///	
-/*TODO*///	
-/*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	Externally-driven DAC sound generation
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
-/*TODO*///	static void leland_i186_extern_update(int param, INT16 *buffer, int length)
-/*TODO*///	{
-/*TODO*///		struct dac_state *d = &dac[7];
-/*TODO*///		int count = ext_stop - ext_start;
-/*TODO*///		int j;
-/*TODO*///	
-/*TODO*///		/* reset the buffer */
-/*TODO*///		memset(buffer, 0, length * sizeof(INT16));
-/*TODO*///	
-/*TODO*///		/* if we have data, process it */
-/*TODO*///		if (count > 0 && ext_active)
-/*TODO*///		{
-/*TODO*///			int source = ext_start;
-/*TODO*///			int frac = d.fraction;
-/*TODO*///			int step = d.step;
-/*TODO*///	
-/*TODO*///			/* sample-rate convert to the output frequency */
-/*TODO*///			for (j = 0; j < length && count > 0; j++)
-/*TODO*///			{
-/*TODO*///				buffer[j] += ((INT16)ext_base[source] - 0x80) * d.volume;
-/*TODO*///				frac += step;
-/*TODO*///				source += frac >> 24;
-/*TODO*///				count -= frac >> 24;
-/*TODO*///				frac &= 0xffffff;
-/*TODO*///			}
-/*TODO*///	
-/*TODO*///			/* update the DAC state */
-/*TODO*///			d.fraction = frac;
-/*TODO*///			ext_start = source;
-/*TODO*///		}
-/*TODO*///	}
-/*TODO*///	
-/*TODO*///	
+    	
+	
+	
+	/*************************************
+	 *
+	 *	Externally-driven DAC sound generation
+	 *
+	 *************************************/
+	
+	static StreamInitPtr leland_i186_extern_update = new StreamInitPtr() {
+            @Override
+            public void handler(int param, ShortPtr buffer, int length) {
+                //dac_state d = &dac[7];
+		int count = ext_stop - ext_start;
+		int j;
+	
+		/* reset the buffer */
+		memset(buffer, 0, length);
+	
+		/* if we have data, process it */
+		if (count > 0 && ext_active!=0)
+		{
+			int source = ext_start;
+			int frac = dac[7].fraction;
+			int step = dac[7].step;
+	
+			/* sample-rate convert to the output frequency */
+			for (j = 0; j < length && count > 0; j++)
+			{
+				buffer.write(j, (short) (buffer.read(j) + (ext_base.read(source) - 0x80) * dac[7].volume));
+				frac += step;
+				source += frac >> 24;
+				count -= frac >> 24;
+				frac &= 0xffffff;
+			}
+	
+			/* update the DAC state */
+			dac[7].fraction = frac;
+			ext_start = source;
+		}
+            }
+        };
+        
+	
     /**
      * ***********************************
      *
@@ -528,9 +531,8 @@ public class leland {
 
             /* if we have a 2151, install an externally driven DAC stream */
             if (has_ym2151 != 0) {
-                System.out.println("External");
-                /*TODO*///			ext_base = memory_region(REGION_SOUND1);
-/*TODO*///			extern_stream = stream_init("80186 externally-driven DACs", 100, Machine.sample_rate, 0, leland_i186_extern_update);
+                ext_base = memory_region(REGION_SOUND1);
+                extern_stream = stream_init("80186 externally-driven DACs", 100, Machine.sample_rate, 0, leland_i186_extern_update);
             }
 
             /* by default, we're not redline racer */
@@ -835,13 +837,13 @@ public class leland {
         }
     }
 
-    /*TODO*///	
-/*TODO*///	/*************************************
-/*TODO*///	 *
-/*TODO*///	 *	80186 internal timers
-/*TODO*///	 *
-/*TODO*///	 *************************************/
-/*TODO*///	
+    	
+	/*************************************
+	 *
+	 *	80186 internal timers
+	 *
+	 *************************************/
+	
     public static timer_callback internal_timer_int = new timer_callback() {
         public void handler(int which) {
             timer_state t = i186_state.timer[which];
@@ -2079,68 +2081,68 @@ public class leland {
 
     public static WriteHandlerPtr ataxx_dac_control = new WriteHandlerPtr() {
         public void handler(int offset, int data) {
-            throw new UnsupportedOperationException("Unsupported");
-            /*TODO*///		/* handle common offsets */
-/*TODO*///		switch (offset)
-/*TODO*///		{
-/*TODO*///			case 0x00:
-/*TODO*///			case 0x02:
-/*TODO*///			case 0x04:
-/*TODO*///				dac_w(offset, data);
-/*TODO*///				return;
-/*TODO*///	
-/*TODO*///			case 0x06:
-/*TODO*///				dac_w(1, ((data << 5) & 0xe0) | ((data << 2) & 0x1c) | (data & 0x03));
-/*TODO*///				dac_w(3, ((data << 2) & 0xe0) | ((data >> 1) & 0x1c) | ((data >> 4) & 0x03));
-/*TODO*///				dac_w(5, (data & 0xc0) | ((data >> 2) & 0x30) | ((data >> 4) & 0x0c) | ((data >> 6) & 0x03));
-/*TODO*///				return;
-/*TODO*///		}
-/*TODO*///	
-/*TODO*///		/* if we have a YM2151 (and an external DAC), handle those offsets */
-/*TODO*///		if (has_ym2151 != 0)
-/*TODO*///		{
-/*TODO*///			stream_update(extern_stream, 0);
-/*TODO*///			switch (offset)
-/*TODO*///			{
-/*TODO*///				case 0x08:
-/*TODO*///				case 0x09:
-/*TODO*///					ext_active = 1;
-/*TODO*///					if (LOG_EXTERN != 0) logerror("External DAC active\n");
-/*TODO*///					return;
-/*TODO*///	
-/*TODO*///				case 0x0a:
-/*TODO*///				case 0x0b:
-/*TODO*///					ext_active = 0;
-/*TODO*///					if (LOG_EXTERN != 0) logerror("External DAC inactive\n");
-/*TODO*///					return;
-/*TODO*///	
-/*TODO*///				case 0x0c:
-/*TODO*///					ext_start = (ext_start & 0xff00f) | ((data << 4) & 0x00ff0);
-/*TODO*///					if (LOG_EXTERN != 0) logerror("External DAC start = %05X\n", ext_start);
-/*TODO*///					return;
-/*TODO*///	
-/*TODO*///				case 0x0d:
-/*TODO*///					ext_start = (ext_start & 0x00fff) | ((data << 12) & 0xff000);
-/*TODO*///					if (LOG_EXTERN != 0) logerror("External DAC start = %05X\n", ext_start);
-/*TODO*///					return;
-/*TODO*///	
-/*TODO*///				case 0x0e:
-/*TODO*///					ext_stop = (ext_stop & 0xff00f) | ((data << 4) & 0x00ff0);
-/*TODO*///					if (LOG_EXTERN != 0) logerror("External DAC stop = %05X\n", ext_stop);
-/*TODO*///					return;
-/*TODO*///	
-/*TODO*///				case 0x0f:
-/*TODO*///					ext_stop = (ext_stop & 0x00fff) | ((data << 12) & 0xff000);
-/*TODO*///					if (LOG_EXTERN != 0) logerror("External DAC stop = %05X\n", ext_stop);
-/*TODO*///					return;
-/*TODO*///	
-/*TODO*///				case 0x42:
-/*TODO*///				case 0x43:
-/*TODO*///					dac_w(offset - 0x42 + 14, data);
-/*TODO*///					return;
-/*TODO*///			}
-/*TODO*///		}
-/*TODO*///		logerror("%05X:Unexpected peripheral write %d/%02X = %02X\n", cpu_get_pc(), 5, offset, data);
+            
+            		/* handle common offsets */
+		switch (offset)
+		{
+			case 0x00:
+			case 0x02:
+			case 0x04:
+				dac_w.handler(offset, data);
+				return;
+	
+			case 0x06:
+				dac_w.handler(1, ((data << 5) & 0xe0) | ((data << 2) & 0x1c) | (data & 0x03));
+				dac_w.handler(3, ((data << 2) & 0xe0) | ((data >> 1) & 0x1c) | ((data >> 4) & 0x03));
+				dac_w.handler(5, (data & 0xc0) | ((data >> 2) & 0x30) | ((data >> 4) & 0x0c) | ((data >> 6) & 0x03));
+				return;
+		}
+	
+		/* if we have a YM2151 (and an external DAC), handle those offsets */
+		if (has_ym2151 != 0)
+		{
+			stream_update(extern_stream, 0);
+			switch (offset)
+			{
+				case 0x08:
+				case 0x09:
+					ext_active = 1;
+					if (LOG_EXTERN != 0) logerror("External DAC active\n");
+					return;
+	
+				case 0x0a:
+				case 0x0b:
+					ext_active = 0;
+					if (LOG_EXTERN != 0) logerror("External DAC inactive\n");
+					return;
+	
+				case 0x0c:
+					ext_start = (ext_start & 0xff00f) | ((data << 4) & 0x00ff0);
+					if (LOG_EXTERN != 0) logerror("External DAC start = %05X\n", ext_start);
+					return;
+	
+				case 0x0d:
+					ext_start = (ext_start & 0x00fff) | ((data << 12) & 0xff000);
+					if (LOG_EXTERN != 0) logerror("External DAC start = %05X\n", ext_start);
+					return;
+	
+				case 0x0e:
+					ext_stop = (ext_stop & 0xff00f) | ((data << 4) & 0x00ff0);
+					if (LOG_EXTERN != 0) logerror("External DAC stop = %05X\n", ext_stop);
+					return;
+	
+				case 0x0f:
+					ext_stop = (ext_stop & 0x00fff) | ((data << 12) & 0xff000);
+					if (LOG_EXTERN != 0) logerror("External DAC stop = %05X\n", ext_stop);
+					return;
+	
+				case 0x42:
+				case 0x43:
+					dac_w.handler(offset - 0x42 + 14, data);
+					return;
+			}
+		}
+		logerror("%05X:Unexpected peripheral write %d/%02X = %02X\n", cpu_get_pc(), 5, offset, data);
         }
     };
 

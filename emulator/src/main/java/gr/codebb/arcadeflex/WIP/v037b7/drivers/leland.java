@@ -5,6 +5,8 @@
 package gr.codebb.arcadeflex.WIP.v037b7.drivers;
 
 //machine imports
+import static arcadeflex.WIP.v037b7.drivers.ataxx.IPT_EEPROM_DATA;
+import static arcadeflex.WIP.v037b7.drivers.ataxx.IPT_SLAVEHALT;
 import static arcadeflex.v037b7.machine.eeprom.*;
 import static arcadeflex.v037b7.machine.eepromH.*;
 //to be organized
@@ -322,7 +324,7 @@ public class leland {
     public static InitMachinePtr init_machine = new InitMachinePtr() {
         public void handler() {
             /* set the odd data bank */
-            battery_ram = memory_region(REGION_USER2);
+            battery_ram = new UBytePtr(memory_region(REGION_USER2));
 
             /* start scanline interrupts going */
             master_int_timer = timer_set(cpu_getscanlinetime(8), 8, interrupt_callback);
@@ -349,12 +351,12 @@ public class leland {
 
             /* initialize the master banks */
             master_length = memory_region_length(REGION_CPU1);
-            master_base = memory_region(REGION_CPU1);
+            master_base = new UBytePtr(memory_region(REGION_CPU1));
             update_master_bank.handler();
 
             /* initialize the slave banks */
             slave_length = memory_region_length(REGION_CPU2);
-            slave_base = memory_region(REGION_CPU2);
+            slave_base = new UBytePtr(memory_region(REGION_CPU2));
             if (slave_length > 0x10000) {
                 cpu_setbank(3, new UBytePtr(slave_base, 0x10000));
             }
@@ -1631,62 +1633,52 @@ public class leland {
             INPUT_PORTS_END();
         }
     };
+    
+    static void PORT_SERVICE_NO_TOGGLE(int mask, int _default) {
+		PORT_BITX(    mask, mask & _default, IPT_SERVICE1, DEF_STR( "Service_Mode"), KEYCODE_F2, IP_JOY_NONE );
+    }
 
-    static InputPortPtr input_ports_offroad = new InputPortPtr() {
-        public void handler() {
-            /* complete, verified from code */
-            PORT_START();
-            /* 0xC0 */
-            PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_UNKNOWN);/* read */
-            PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_UNKNOWN);/* read */
-            PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_UNKNOWN);/* read */
-            PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_UNUSED);
-            PORT_BIT(0x10, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER1);
-            PORT_BIT(0x20, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER2);
-            PORT_BIT(0x40, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER3);
-            PORT_BIT(0x80, IP_ACTIVE_LOW, IPT_UNUSED);
-
-            PORT_START();
-            /* 0xC1 */
-            PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_SPECIAL);
-            PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_COIN3);
-            PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_COIN2);
-            PORT_BIT(0x08, IP_ACTIVE_LOW, IPT_COIN1);
-            PORT_BIT(0xf0, IP_ACTIVE_LOW, IPT_UNUSED);
-
-            PORT_START();
-            /* 0xD0 */
-            PORT_BIT(0xff, IP_ACTIVE_LOW, IPT_UNUSED);
-
-            PORT_START();
-            /* 0xD1 */
-            PORT_BIT(0x01, IP_ACTIVE_LOW, IPT_SPECIAL);
-            PORT_BIT(0x02, IP_ACTIVE_LOW, IPT_VBLANK);
-            PORT_BIT(0x04, IP_ACTIVE_LOW, IPT_UNUSED);
-            PORT_BITX(0x02, 0x02 & IP_ACTIVE_LOW, IPT_SERVICE1, DEF_STR("Service_Mode"), KEYCODE_F2, IP_JOY_NONE);
-            PORT_BIT(0xf0, IP_ACTIVE_LOW, IPT_UNUSED);
-
-            PORT_START();
-            /* Analog pedal 1 */
-            PORT_ANALOG(0xff, 0x00, IPT_PEDAL | IPF_PLAYER1, 100, 10, 0, 255);
-            PORT_START();
-            /* Analog pedal 2 */
-            PORT_ANALOG(0xff, 0x00, IPT_PEDAL | IPF_PLAYER2, 100, 10, 0, 255);
-            PORT_START();
-            /* Analog pedal 3 */
-            PORT_ANALOG(0xff, 0x00, IPT_PEDAL | IPF_PLAYER3, 100, 10, 0, 255);
-            PORT_START();
-            /* Analog wheel 1 */
-            PORT_ANALOG(0xff, 0x80, IPT_DIAL | IPF_PLAYER1, 100, 10, 0, 255);
-            PORT_START();
-            /* Analog wheel 2 */
-            PORT_ANALOG(0xff, 0x80, IPT_DIAL | IPF_PLAYER2, 100, 10, 0, 255);
-            PORT_START();
-            /* Analog wheel 3 */
-            PORT_ANALOG(0xff, 0x80, IPT_DIAL | IPF_PLAYER3, 100, 10, 0, 255);
-            INPUT_PORTS_END();
-        }
-    };
+    static InputPortPtr input_ports_offroad = new InputPortPtr(){ public void handler() { 		/* complete, verified from code */
+		PORT_START();       /* 0xC0 */
+		PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_UNKNOWN );/* read */
+		PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_UNKNOWN );/* read */
+		PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNKNOWN );/* read */
+		PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_UNUSED );
+		PORT_BIT( 0x10, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER1 );
+		PORT_BIT( 0x20, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER2 );
+		PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_BUTTON1 | IPF_PLAYER3 );
+		PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_UNUSED );
+	
+		PORT_START();       /* 0xC1 */
+		PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_SLAVEHALT );
+		PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_COIN3 );
+		PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_COIN2 );
+		PORT_BIT( 0x08, IP_ACTIVE_LOW, IPT_COIN1 );
+		PORT_BIT( 0xf0, IP_ACTIVE_LOW, IPT_UNUSED );
+	
+		PORT_START();       /* 0xD0 */
+		PORT_BIT( 0xff, IP_ACTIVE_LOW, IPT_UNUSED );
+	
+		PORT_START();       /* 0xD1 */
+		PORT_BIT( 0x01, IP_ACTIVE_LOW, IPT_EEPROM_DATA );
+		PORT_BIT( 0x02, IP_ACTIVE_LOW, IPT_VBLANK );
+		PORT_BIT( 0x04, IP_ACTIVE_LOW, IPT_UNUSED );
+		PORT_SERVICE_NO_TOGGLE( 0x08, IP_ACTIVE_LOW );
+		PORT_BIT( 0xf0, IP_ACTIVE_LOW, IPT_UNUSED );
+	
+		PORT_START();       /* Analog pedal 1 */
+		PORT_ANALOG( 0xff, 0x00, IPT_PEDAL | IPF_PLAYER1, 100, 10, 0, 255 );
+		PORT_START();       /* Analog pedal 2 */
+		PORT_ANALOG( 0xff, 0x00, IPT_PEDAL | IPF_PLAYER2, 100, 10, 0, 255 );
+		PORT_START();       /* Analog pedal 3 */
+		PORT_ANALOG( 0xff, 0x00, IPT_PEDAL | IPF_PLAYER3, 100, 10, 0, 255 );
+		PORT_START();       /* Analog wheel 1 */
+		PORT_ANALOG( 0xff, 0x80, IPT_DIAL | IPF_PLAYER1, 100, 10, 0, 255 );
+		PORT_START();       /* Analog wheel 2 */
+		PORT_ANALOG( 0xff, 0x80, IPT_DIAL | IPF_PLAYER2, 100, 10, 0, 255 );
+		PORT_START();       /* Analog wheel 3 */
+		PORT_ANALOG( 0xff, 0x80, IPT_DIAL | IPF_PLAYER3, 100, 10, 0, 255 );
+	INPUT_PORTS_END(); }}; 
 
     static InputPortPtr input_ports_pigout = new InputPortPtr() {
         public void handler() {
@@ -2830,50 +2822,46 @@ public class leland {
         }
     };
 
-    static RomLoadPtr rom_offroad = new RomLoadPtr() {
-        public void handler() {
-            ROM_REGION(0x40000, REGION_CPU1);
-            ROM_LOAD("22121-04.u58", 0x00000, 0x10000, 0xc5790988);
-            ROM_LOAD("22122-03.u59", 0x10000, 0x10000, 0xae862fdc);
-            ROM_LOAD("22120-01.u57", 0x20000, 0x10000, 0xe9f0f175);
-            ROM_LOAD("22119-02.u56", 0x30000, 0x10000, 0x38642f22);
-
-            ROM_REGION(0x80000, REGION_CPU2);
-            ROM_LOAD("22100-01.u2", 0x00000, 0x02000, 0x08c96a4b);
-            ROM_LOAD("22108-02.u4", 0x30000, 0x10000, 0x0d72780a);
-            ROM_LOAD("22109-02.u5", 0x40000, 0x10000, 0x5429ce2c);
-            ROM_LOAD("22110-02.u6", 0x50000, 0x10000, 0xf97bad5c);
-            ROM_LOAD("22111-01.u7", 0x60000, 0x10000, 0xf79157a1);
-            ROM_LOAD("22112-01.u8", 0x70000, 0x10000, 0x3eef38d3);
-
-            ROM_REGION(0x100000, REGION_CPU3);
-            ROM_LOAD_V20_EVEN("22116-03.u25", 0x040000, 0x10000, 0x95bb31d3);
-            ROM_LOAD_V20_ODD("22113-03.u13", 0x040000, 0x10000, 0x71b28df6);
-            ROM_LOAD_V20_EVEN("22117-03.u26", 0x060000, 0x10000, 0x703d81ce);
-            ROM_LOAD_V20_ODD("22114-03.u14", 0x060000, 0x10000, 0xf8b31bf8);
-            ROM_LOAD_V20_EVEN("22118-03.u27", 0x0e0000, 0x10000, 0x806ccf8b);
-            ROM_LOAD_V20_ODD("22115-03.u15", 0x0e0000, 0x10000, 0xc8439a7a);
-
-            ROM_REGION(0x18000, REGION_GFX1 | REGIONFLAG_DISPOSE);
-            ROM_LOAD("22105-01.u93", 0x00000, 0x08000, 0x4426e367);
-            ROM_LOAD("22106-02.u94", 0x08000, 0x08000, 0x687dc1fc);
-            ROM_LOAD("22107-02.u95", 0x10000, 0x08000, 0xcee6ee5f);
-
-            ROM_REGION(0x20000, REGION_USER1);
-            /* Ordering: 70/92/69/91/68/90/67/89 */
- /* 70 = empty */
-            ROM_LOAD("22104-01.u92", 0x04000, 0x4000, 0x03e0497d);
-            ROM_LOAD("22102-01.u69", 0x08000, 0x4000, 0xc3f2e443);
-            /* 91 = empty */
- /* 68 = empty */
-            ROM_LOAD("22103-02.u90", 0x14000, 0x4000, 0x2266757a);
-            ROM_LOAD("22101-01.u67", 0x18000, 0x4000, 0xecab0527);
-            /* 89 = empty */
-
-            ROM_REGION(battery_ram_size, REGION_USER2);/* extra RAM regions */
-            ROM_END();
-        }
-    };
+    static RomLoadPtr rom_offroad = new RomLoadPtr(){ public void handler(){ 
+		ROM_REGION( 0x40000, REGION_CPU1 );
+		ROM_LOAD( "22121-04.u58",   0x00000, 0x10000, 0xc5790988 );
+		ROM_LOAD( "22122-03.u59",   0x10000, 0x10000, 0xae862fdc );
+		ROM_LOAD( "22120-01.u57",   0x20000, 0x10000, 0xe9f0f175 );
+		ROM_LOAD( "22119-02.u56",   0x30000, 0x10000, 0x38642f22 );
+	
+		ROM_REGION( 0x80000, REGION_CPU2 );
+		ROM_LOAD( "22100-01.u2",  0x00000, 0x02000, 0x08c96a4b );
+		ROM_LOAD( "22108-02.u4",  0x30000, 0x10000, 0x0d72780a );
+		ROM_LOAD( "22109-02.u5",  0x40000, 0x10000, 0x5429ce2c );
+		ROM_LOAD( "22110-02.u6",  0x50000, 0x10000, 0xf97bad5c );
+		ROM_LOAD( "22111-01.u7",  0x60000, 0x10000, 0xf79157a1 );
+		ROM_LOAD( "22112-01.u8",  0x70000, 0x10000, 0x3eef38d3 );
+	
+		ROM_REGION( 0x100000, REGION_CPU3 );
+	    ROM_LOAD_V20_EVEN( "22116-03.u25", 0x040000, 0x10000, 0x95bb31d3 );
+	    ROM_LOAD_V20_ODD ( "22113-03.u13", 0x040000, 0x10000, 0x71b28df6 );
+	    ROM_LOAD_V20_EVEN( "22117-03.u26", 0x060000, 0x10000, 0x703d81ce );
+	    ROM_LOAD_V20_ODD ( "22114-03.u14", 0x060000, 0x10000, 0xf8b31bf8 );
+	    ROM_LOAD_V20_EVEN( "22118-03.u27", 0x0e0000, 0x10000, 0x806ccf8b );
+	    ROM_LOAD_V20_ODD ( "22115-03.u15", 0x0e0000, 0x10000, 0xc8439a7a );
+	
+		ROM_REGION( 0x18000, REGION_GFX1 | REGIONFLAG_DISPOSE );
+		ROM_LOAD( "22105-01.u93", 0x00000, 0x08000, 0x4426e367 );
+		ROM_LOAD( "22106-02.u94", 0x08000, 0x08000, 0x687dc1fc );
+		ROM_LOAD( "22107-02.u95", 0x10000, 0x08000, 0xcee6ee5f );
+	
+		ROM_REGION( 0x20000, REGION_USER1 );  /* Ordering: 70/92/69/91/68/90/67/89 */
+		/* 70 = empty */
+		ROM_LOAD( "22104-01.u92",  0x04000, 0x4000, 0x03e0497d );
+		ROM_LOAD( "22102-01.u69",  0x08000, 0x4000, 0xc3f2e443 );
+		/* 91 = empty */
+		/* 68 = empty */
+		ROM_LOAD( "22103-02.u90",  0x14000, 0x4000, 0x2266757a );
+		ROM_LOAD( "22101-01.u67",  0x18000, 0x4000, 0xecab0527 );
+		/* 89 = empty */
+	
+	    ROM_REGION( battery_ram_size, REGION_USER2 );/* extra RAM regions */
+	ROM_END(); }};
 
     static RomLoadPtr rom_offroadt = new RomLoadPtr() {
         public void handler() {
@@ -3461,41 +3449,40 @@ public class leland {
     public static InitDriverPtr init_offroad = new InitDriverPtr() {
         public void handler() {
             /* initialize the default EEPROM state */
-            char offroad_eeprom_data[]
-                    = {
-                        0x09, 0xfefe,
-                        0x0a, 0xfffb,
-                        0x0d, 0x00ff,
-                        0x0e, 0xfffb,
-                        0x36, 0xfeff,
-                        0x37, 0xfefe,
-                        0x38, 0xfffe,
-                        0x39, 0x50ff,
-                        0x3a, 0x976c,
-                        0x3b, 0xffad,
-                        0xffff
-                    };
-            init_eeprom(0xff, offroad_eeprom_data, 0x00, SERIAL_TYPE_ENCRYPT_XOR);
-
-            /* master CPU bankswitching */
-            update_master_bank = offroad_bankswitch;
-
-            leland_rotate_memory(0);
-            leland_rotate_memory(1);
-            leland_rotate_memory(1);
-
-            /* set up the master CPU I/O ports */
-            init_master_ports(0x00, 0xc0);
-            init_master_ports(0x40, 0x80);
-            /* yes, this is intentional */
-
- /* set up additional input ports */
-            install_port_read_handler(0, 0xf8, 0xf8, offroad_wheel_3_r);
-            install_port_read_handler(0, 0xf9, 0xf9, offroad_wheel_1_r);
-            install_port_read_handler(0, 0xfb, 0xfb, offroad_wheel_2_r);
-
-            /* optimize the sound */
-            leland_i86_optimize_address(0x788);
+		char offroad_eeprom_data[] =
+		{
+			0x09,0xfefe,
+			0x0a,0xfffb,
+			0x0d,0x00ff,
+			0x0e,0xfffb,
+			0x36,0xfeff,
+			0x37,0xfefe,
+			0x38,0xfffe,
+			0x39,0x50ff,
+			0x3a,0x976c,
+			0x3b,0xffad,
+			0xffff
+		};
+		init_eeprom(0xff, offroad_eeprom_data, 0x00, SERIAL_TYPE_ENCRYPT_XOR);
+	
+		/* master CPU bankswitching */
+		update_master_bank = offroad_bankswitch;
+	
+		leland_rotate_memory(0);
+		leland_rotate_memory(1);
+		leland_rotate_memory(1);
+	
+		/* set up the master CPU I/O ports */
+		init_master_ports(0x00, 0xc0);
+		init_master_ports(0x40, 0x80);	/* yes, this is intentional */
+	
+		/* set up additional input ports */
+		install_port_read_handler(0, 0xf8, 0xf8, offroad_wheel_3_r);
+		install_port_read_handler(0, 0xf9, 0xf9, offroad_wheel_1_r);
+		install_port_read_handler(0, 0xfb, 0xfb, offroad_wheel_2_r);
+	
+		/* optimize the sound */
+		leland_i86_optimize_address(0x788);
         }
     };
 

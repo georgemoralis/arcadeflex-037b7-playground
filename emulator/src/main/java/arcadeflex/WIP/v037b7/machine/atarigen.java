@@ -3027,6 +3027,9 @@ public class atarigen
 	
 	public static void internal_pf_update(playfield_data pf, atarigen_pf_state state, int scanline)
 	{
+                if (pf.last_state[0]==null)
+                    pf.last_state[0] = new atarigen_pf_state();
+            
 		if (pf.entries > 0)
 		{
 			/* if the current scanline matches the previous one, just overwrite */

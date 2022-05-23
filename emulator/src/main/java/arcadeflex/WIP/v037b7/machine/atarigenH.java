@@ -518,7 +518,8 @@ public class atarigenH
         }
 	
 	public static void atarigen_mo_draw(osd_bitmap bitmap, GfxElement gfx, int code, int color, int hflip, int vflip, int x, int y, int hsize, int vsize, rectangle clip, int trans, int trans_pen, int tile_width, int tile_height) 
-	{																										
+	{			
+            System.out.println("atarigen_mo_draw");
 		int tilex, tiley, screenx, screendx, screendy;														
 		int startx = x;																						
 		int screeny = y;																					
@@ -566,7 +567,8 @@ public class atarigenH
 	}
 	
 	public static void atarigen_mo_draw_transparent(osd_bitmap bitmap, GfxElement gfx, int code, int hflip, int vflip, int x, int y, int hsize, int vsize, rectangle clip, int trans, int trans_pen, int tile_width, int tile_height) 
-	{																										
+	{		
+            System.out.println("atarigen_mo_draw_transparent");
 		UShortArray temp = new UShortArray(gfx.colortable);
 		gfx.colortable = new UShortArray(atarigen_overrender_colortable);
 		atarigen_mo_draw(bitmap, gfx, code, 0, hflip, vflip, x, y, hsize, vsize, clip, trans, trans_pen, tile_width, tile_height);
@@ -574,7 +576,9 @@ public class atarigenH
 	}
 	
 	public static void atarigen_mo_draw_strip(osd_bitmap bitmap, GfxElement gfx, int code, int color, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen, int tile_width, int tile_height) 
-	{																										
+	{		
+            //System.out.println("atarigen_mo_draw_strip "+trans+"-"+trans_pen);
+            //if (true) throw new UnsupportedOperationException("Not supported yet.");
 		int tiley, screendy;																				
 		int screenx = x;																					
 		int screeny = y;																					
@@ -607,7 +611,8 @@ public class atarigenH
 	}
 	
 	public static void atarigen_mo_draw_transparent_strip(osd_bitmap bitmap, GfxElement gfx, int code, int hflip, int vflip, int x, int y, int vsize, rectangle clip, int trans, int trans_pen, int tile_width, int tile_height) 
-	{																										
+	{				
+            //System.out.println("atarigen_mo_draw_transparent_strip");
 		UShortArray temp = new UShortArray(gfx.colortable);
 		gfx.colortable = new UShortArray(atarigen_overrender_colortable);
 		atarigen_mo_draw_strip(bitmap, gfx, code, 0, hflip, vflip, x, y, vsize, clip, trans, trans_pen, tile_width, tile_height);

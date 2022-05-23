@@ -267,6 +267,9 @@ import static arcadeflex.WIP.v037b7.drivers.playmark.*;
 import static arcadeflex.WIP.v037b7.drivers.xexex.*;
 import static arcadeflex.WIP.v037b7.drivers.cinemat.*;
 import static arcadeflex.WIP.v037b7.drivers.cchasm.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
+import static arcadeflex.WIP.v037b7.drivers.ataxx.*;
+import static gr.codebb.arcadeflex.WIP.v037b7.drivers.starwars.*;
 
 public class driver {
 
@@ -1700,36 +1703,36 @@ public class driver {
         /*TODO*///Golden Tee Golf I - (Strata)
         /*TODO*///Capcom Bowling - (Strata)
         /*TODO*///*/
-        /*TODO*///
-        /*TODO*///	/* Leland games */
-        /*TODO*///	driver_cerberus,	/* (c) 1985 Cinematronics */
-        /*TODO*///	driver_mayhem,	/* (c) 1985 Cinematronics */
-        /*TODO*///	driver_wseries,	/* (c) 1985 Cinematronics */
-        /*TODO*///	driver_alleymas,	/* (c) 1986 Cinematronics */
-        /*TODO*///	driver_dangerz,	/* (c) 1986 Cinematronics USA */
-        /*TODO*///	driver_basebal2,	/* (c) 1987 Cinematronics */
-        /*TODO*///	driver_dblplay,	/* (c) 1987 Tradewest / Leland */
-        /*TODO*///	driver_strkzone,	/* (c) 1988 Leland */
-        /*TODO*///	driver_redlin2p,	/* (c) 1987 Cinematronics + Tradewest license */
-        /*TODO*///	driver_quarterb,	/* (c) 1987 Leland */
-        /*TODO*///	driver_quartrba,	/* (c) 1987 Leland */
-        /*TODO*///	driver_viper,		/* (c) 1988 Leland */
-        /*TODO*///	driver_teamqb,	/* (c) 1988 Leland */
-        /*TODO*///	driver_teamqb2,	/* (c) 1988 Leland */
-        /*TODO*///	driver_aafb,		/* (c) 1989 Leland */
-        /*TODO*///	driver_aafbd2p,	/* (c) 1989 Leland */
-        /*TODO*///	driver_aafbb,		/* (c) 1989 Leland */
-        /*TODO*///	driver_offroad,	/* (c) 1989 Leland */
-        /*TODO*///	driver_offroadt,	/* (c) 1989 Leland */
-        /*TODO*///	driver_pigout,	/* (c) 1990 Leland */
-        /*TODO*///	driver_pigouta,	/* (c) 1990 Leland */
-        /*TODO*///	driver_ataxx,		/* (c) 1990 Leland */
-        /*TODO*///	driver_ataxxa,	/* (c) 1990 Leland */
-        /*TODO*///	driver_ataxxj,	/* (c) 1990 Leland */
-        /*TODO*///	driver_wsf,		/* (c) 1990 Leland */
-        /*TODO*///	driver_indyheat,	/* (c) 1991 Leland */
-        /*TODO*///	driver_brutforc,	/* (c) 1991 Leland */
-        /*TODO*///
+        
+        	/* Leland games */
+        	driver_cerberus,	/* (c) 1985 Cinematronics */
+        	driver_mayhem,	/* (c) 1985 Cinematronics */
+        	driver_wseries,	/* (c) 1985 Cinematronics */
+        	driver_alleymas,	/* (c) 1986 Cinematronics */
+        	driver_dangerz,	/* (c) 1986 Cinematronics USA */
+        	driver_basebal2,	/* (c) 1987 Cinematronics */
+        	driver_dblplay,	/* (c) 1987 Tradewest / Leland */
+        	driver_strkzone,	/* (c) 1988 Leland */
+        	driver_redlin2p,	/* (c) 1987 Cinematronics + Tradewest license */
+        	driver_quarterb,	/* (c) 1987 Leland */
+        	driver_quartrba,	/* (c) 1987 Leland */
+        	driver_viper,		/* (c) 1988 Leland */
+        	driver_teamqb,	/* (c) 1988 Leland */
+        	driver_teamqb2,	/* (c) 1988 Leland */
+        	driver_aafb,		/* (c) 1989 Leland */
+        	driver_aafbd2p,	/* (c) 1989 Leland */
+        	driver_aafbb,		/* (c) 1989 Leland */
+        	driver_offroad,	/* (c) 1989 Leland */
+        	driver_offroadt,	/* (c) 1989 Leland */
+        	driver_pigout,	/* (c) 1990 Leland */
+        	driver_pigouta,	/* (c) 1990 Leland */
+        	driver_ataxx,		/* (c) 1990 Leland */
+        	driver_ataxxa,	/* (c) 1990 Leland */
+        	driver_ataxxj,	/* (c) 1990 Leland */
+        	driver_wsf,		/* (c) 1990 Leland */
+                driver_indyheat,	/* (c) 1991 Leland */
+        	driver_brutforc,	/* (c) 1991 Leland */
+        
         /*TODO*///	/* Gremlin 8080 games */
         /*TODO*///	/* the numbers listed are the range of ROM part numbers */
         /*TODO*///	driver_blockade,	/* 1-4 [1977 Gremlin] */
@@ -2439,9 +2442,9 @@ public class driver {
         /*TODO*///	driver_tempest1,	/* (c) 1980 */
         /*TODO*///	driver_tempest2,	/* (c) 1980 */
         /*TODO*///	driver_temptube,	/* hack */
-        /*TODO*///	driver_starwars,	/* (c) 1983 */
-        /*TODO*///	driver_starwar1,	/* (c) 1983 */
-        /*TODO*///	driver_esb,		/* (c) 1985 */
+        driver_starwars,	/* (c) 1983 */
+        driver_starwar1,	/* (c) 1983 */
+        driver_esb,		/* (c) 1985 */
         /*TODO*///	driver_mhavoc,	/* (c) 1983 */
         /*TODO*///	driver_mhavoc2,	/* (c) 1983 */
         /*TODO*///	driver_mhavocp,	/* (c) 1983 */

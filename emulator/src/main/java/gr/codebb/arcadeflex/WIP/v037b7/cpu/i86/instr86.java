@@ -3419,7 +3419,8 @@ public class instr86 {
 
     static InstructionPtr i86_inaldx = new InstructionPtr() {
         public void handler() {
-            throw new UnsupportedOperationException("Unsupported");
+            i86_ICount[0] -= cycles.in_dx8;
+            I.regs.b[AL] = read_port(I.regs.w[DX]);
         }
     };
     /*TODO*///
@@ -3431,7 +3432,12 @@ public class instr86 {
 /*TODO*///
     static InstructionPtr i86_inaxdx = new InstructionPtr() {
         public void handler() {
-            throw new UnsupportedOperationException("Unsupported");
+            int port = I.regs.w[DX];
+            
+            i86_ICount[0] -= cycles.in_dx16;
+            I.regs.b[AL] = read_port(port);
+            I.regs.b[AH] = read_port(port+1);
+            
         }
     };
     /*TODO*///static void PREFIX86(_inaxdx)(void)    /* Opcode 0xed */
