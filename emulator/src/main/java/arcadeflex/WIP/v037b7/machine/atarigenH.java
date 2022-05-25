@@ -519,7 +519,7 @@ public class atarigenH
 	
 	public static void atarigen_mo_draw(osd_bitmap bitmap, GfxElement gfx, int code, int color, int hflip, int vflip, int x, int y, int hsize, int vsize, rectangle clip, int trans, int trans_pen, int tile_width, int tile_height) 
 	{			
-            System.out.println("atarigen_mo_draw");
+            //System.out.println("atarigen_mo_draw");
 		int tilex, tiley, screenx, screendx, screendy;														
 		int startx = x;																						
 		int screeny = y;																					

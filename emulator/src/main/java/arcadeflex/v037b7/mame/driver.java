@@ -269,6 +269,13 @@ import static arcadeflex.WIP.v037b7.drivers.cinemat.*;
 import static arcadeflex.WIP.v037b7.drivers.cchasm.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.leland.*;
 import static arcadeflex.WIP.v037b7.drivers.ataxx.*;
+import static arcadeflex.WIP.v037b7.drivers.stadhero.*;
+import static arcadeflex.WIP.v037b7.drivers.supbtime.*;
+import static arcadeflex.WIP.v037b7.drivers.tumblep.*;
+import static arcadeflex.WIP.v037b7.drivers.wc90.*;
+import static arcadeflex.WIP.v037b7.drivers.blstroid.*;
+import static arcadeflex.WIP.v037b7.drivers.cyberbal.*;
+import static arcadeflex.WIP.v037b7.drivers.offtwall.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.starwars.*;
 
 public class driver {
@@ -2099,7 +2106,7 @@ public class driver {
         	driver_midresj, 	/* (c) 1989 Data East Corporation (Japan) */
         	driver_bouldash, 	/* (c) 1990 Data East Corporation */
         /* end of similar hardware */
-        /*TODO*///	driver_stadhero,	/* (c) 1988 Data East Corporation (Japan) */
+        driver_stadhero,	/* (c) 1988 Data East Corporation (Japan) */
         driver_madmotor,	/* (c) [1989] Mitchell */
         /* All these games have a unique code stamped on the mask roms */
         driver_vaportra,	/* MAA (c) 1989 Data East Corporation (World) */
@@ -2116,24 +2123,24 @@ public class driver {
         driver_gatedom1, 	/* MAC (c) 1990 Data East Corporation (US) */
         /*TODO*///TESTdriver_edrandy,	/* MAD (c) 1990 Data East Corporation (World) */
         /*TODO*///TESTdriver_edrandyj,	/* MAD (c) 1990 Data East Corporation (Japan) */
-        /*TODO*///	driver_supbtime,	/* MAE (c) 1990 Data East Corporation (World) */
-        /*TODO*///	driver_supbtimj,	/* MAE (c) 1990 Data East Corporation (Japan) */
+        driver_supbtime,	/* MAE (c) 1990 Data East Corporation (World) */
+        driver_supbtimj,	/* MAE (c) 1990 Data East Corporation (Japan) */
         /* Mutant Fighter/Death Brade MAF (c) 1991 */
         driver_cninja,	/* MAG (c) 1991 Data East Corporation (World) */
         driver_cninja0,	/* MAG (c) 1991 Data East Corporation (World) */
         driver_cninjau,	/* MAG (c) 1991 Data East Corporation (US) */
         driver_joemac,	/* MAG (c) 1991 Data East Corporation (Japan) */
         driver_stoneage,	/* bootleg */
-        /*TODO*///	/* Robocop 2           MAH (c) 1991 */
-        /*TODO*///	/* Desert Assault/Thunderzone MAJ (c) 1991 */
-        /*TODO*///	/* Rohga Armour Attack/Wolf Fang MAM (c) 1991 */
-        /*TODO*///	/* Captain America     MAN (c) 1991 */
-        /*TODO*///	driver_tumblep,	/* MAP (c) 1991 Data East Corporation (World) */
-        /*TODO*///	driver_tumblepj,	/* MAP (c) 1991 Data East Corporation (Japan) */
-        /*TODO*///	driver_tumblepb,	/* bootleg */
-        /*TODO*///	driver_tumblep2,	/* bootleg */
-        /*TODO*///	/* Dragon Gun/Dragoon  MAR (c) 1992 */
-        /*TODO*///	/* Wizard's Fire       MAS (c) 1992 */
+        	/* Robocop 2           MAH (c) 1991 */
+        	/* Desert Assault/Thunderzone MAJ (c) 1991 */
+        	/* Rohga Armour Attack/Wolf Fang MAM (c) 1991 */
+        	/* Captain America     MAN (c) 1991 */
+        driver_tumblep,	/* MAP (c) 1991 Data East Corporation (World) */
+        driver_tumblepj,	/* MAP (c) 1991 Data East Corporation (Japan) */
+        driver_tumblepb,	/* bootleg */
+        driver_tumblep2,	/* bootleg */
+        	/* Dragon Gun/Dragoon  MAR (c) 1992 */
+        	/* Wizard's Fire       MAS (c) 1992 */
         /*TODO*///TESTdriver_funkyjet,	/* MAT (c) 1992 Mitchell */
         /*TODO*///	/* Diet GoGo      	   MAY (c) 1993 */
         /*TODO*/// 	/* Fighter's History   MBF (c) 1993 */
@@ -2167,7 +2174,7 @@ public class driver {
         driver_ryukendn, /* 6215 - (c) 1989 Tecmo (Japan) */
         driver_tknight, /* (c) 1989 Tecmo */
         driver_wildfang, /* (c) 1989 Tecmo */
-        /*RELEASE*///driver_wc90,/* (c) 1989 Tecmo */
+        driver_wc90,/* (c) 1989 Tecmo */
         /*RELEASE*///driver_wc90b,/* bootleg */
         driver_fstarfrc, /* (c) 1992 Tecmo */
         driver_ginkun, /* (c) 1995 Tecmo */
@@ -2546,19 +2553,19 @@ public class driver {
         driver_klax2, /* (c) 1989 */
         driver_klax3, /* (c) 1989 */
         driver_klaxj, /* (c) 1989 (Japan) */
-        /*TODO*///	driver_blstroid,	/* (c) 1987 */
-        /*TODO*///	driver_blstroi2,	/* (c) 1987 */
-        /*TODO*///	driver_blsthead,	/* (c) 1987 */
+        driver_blstroid,	/* (c) 1987 */
+        driver_blstroi2,	/* (c) 1987 */
+        driver_blsthead,	/* (c) 1987 */
         driver_xybots, 	/* (c) 1987 */
         driver_eprom,		/* (c) 1989 */
         driver_eprom2,	/* (c) 1989 */
         driver_skullxbo,	/* (c) 1989 */
         driver_skullxb2,	/* (c) 1989 */
         driver_badlands, 	/* (c) 1989 */
-        /*TODO*///	driver_cyberbal,	/* (c) 1989 */
-        /*TODO*///	driver_cyberba2,	/* (c) 1989 */
-        /*TODO*///	driver_cyberbt,	/* (c) 1989 */
-        /*TODO*///	driver_cyberb2p,	/* (c) 1989 */
+        driver_cyberbal,	/* (c) 1989 */
+        driver_cyberba2,	/* (c) 1989 */
+        driver_cyberbt,	/* (c) 1989 */
+        driver_cyberb2p,	/* (c) 1989 */
         driver_rampart, 	/* (c) 1990 */
         driver_ramprt2p, 	/* (c) 1990 */
         driver_rampartj, 	/* (c) 1990 (Japan) */
@@ -2573,8 +2580,8 @@ public class driver {
         driver_batman, 	/* (c) 1991 */
         driver_relief,          /* (c) 1992 */
         driver_relief2, 	/* (c) 1992 */
-        /*TODO*///	driver_offtwall,	/* (c) 1991 */
-        /*TODO*///	driver_offtwalc,	/* (c) 1991 */
+        driver_offtwall,	/* (c) 1991 */
+        driver_offtwalc,	/* (c) 1991 */
         driver_arcadecl, 	/* (c) 1992 */
         driver_sparkz, 	/* (c) 1992 */
         /*TODO*///
