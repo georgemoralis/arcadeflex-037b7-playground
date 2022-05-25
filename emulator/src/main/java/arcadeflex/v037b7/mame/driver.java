@@ -276,6 +276,7 @@ import static arcadeflex.WIP.v037b7.drivers.wc90.*;
 import static arcadeflex.WIP.v037b7.drivers.blstroid.*;
 import static arcadeflex.WIP.v037b7.drivers.cyberbal.*;
 import static arcadeflex.WIP.v037b7.drivers.offtwall.*;
+import static arcadeflex.WIP.v037b7.drivers.ohmygod.*;
 import static gr.codebb.arcadeflex.WIP.v037b7.drivers.starwars.*;
 
 public class driver {
@@ -3060,8 +3061,8 @@ public class driver {
         /*TODO*///TESTdriver_msgundam,
         	driver_wrofaero,	/* (c) 1993 Yang Cheng */
         
-        	/* Atlus games */
-        /*TODO*///	driver_ohmygod,	/* (c) 1993 Atlus (Japan) */
+        /* Atlus games */
+        driver_ohmygod,	/* (c) 1993 Atlus (Japan) */
         driver_powerins, /* (c) 1993 Atlus (Japan) */
         
         /* SunSoft games */
